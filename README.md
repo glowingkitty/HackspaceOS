@@ -1,2 +1,2 @@
-# HackerspaceWebsiteTemplate
-This website template makes it easy to setup a great looking &amp; understandable website for your local hackerspace!
+# HackerspaceTemplatePackage
+This package includes all kinds of useful resources hackerspaces can adapt for their communities, from a website template, flyers and more.
