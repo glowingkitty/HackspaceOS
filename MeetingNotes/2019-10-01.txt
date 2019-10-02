@@ -1,0 +1,203 @@
+These are the notes from the [https://www.noisebridge.net/wiki/Category:Meeting_Notes The XXXth Meeting of Noisebridge]. 
+
+help take notes at - https://pad.riseup.net/p/nbmeeting
+
+Date: 10/01/2019
+
+Note-taker: Marco
+
+Moderators: Ryan
+
+* '''One or two bullet points of high-level meeting summary.'''
+
+== Meeting Summary ==
+FIXME FILL OUT AT END OF MEETING AND SEND TO MAILING LIST
+TLDR what happened at the meeting:
+* Fundraising Update
+* Announcements:
+* Finances:
+* New members:
+* New philanthropists:
+* Consensus Items: 
+* Discussion Items:
+
+= Introductions =
+
+*Ryan: Welcome!
+*Ryan: he/him, in space for about 5 years, multi day bases, takes care or VR, likes helping people, working on projects
+Frank: he him- currently looking at technology for wifi, how does it work,  read and atend blockchain events, stock options on margins research
+Ben: architural & urban historian, art project, hanging out
+Anthony: he/him, art, electronics, conciousness expension
+Nivita: growth marketing, print & development, tries to master javascript, maybe continue to Python
+Aditya: hobby electronics projects, web development
+Alex: long time Noisebridger, electronics, bio things
+Iat: he/him, syrian refugee, studies language, C++, animation, music 
+Marco: he him, software developer, helping improve noisebridge website, going back to europe at end of october
+Eric: backend software development, hardware hacking
+James: he/him, software for a living, C++, Python, enjoy electronics & mechanical, built chairs, musican
+David: web developer, freecodecamp meetup, first time here
+
+
+
+
+= Short announcements and events =
+'''60-second description per item in bulletpoint.'''
+
+Marco:Las week we started the noisebridge weakly improvement group, to help improve noisebrridge every saturday
+Ryan: hacker dojo anniversary this weekend, hackerspace in San Jose, please support them, need support after rebuilding the space/community. Saturday/Sunday from 11AM-6PM each day, donations sliding scale
+https://www.eventbrite.com/e/hacker-dojo-10-year-anniversary-return-of-the-happy-dev-tickets-63933786677
+Ryan: SF Stupid hackathon at Noisebridge, a hack lot of fun, Oct 19-Oct 20 <3, most recommended, COME!!!!!!! *.* Help people with projects or watch people make stupid things SilliValley investors still sometimes invest in... (surprise)
+https://www.meetup.com/noisebridge/events/264945809/
+Ryan: Curcuit hacking monday!
+Ryan: lasecutter will be working again in next 2 weeks, 130 watts instead of 100 - more powerfull! be aware to reconsider power settings, start low
+Ryan: we can use old laser as art installation
+Marco: lease extension update?
+Ryan: not sure... checking... don't see something new - looks like doing good
+Ryan: elevator still broken, DONT USE IT, DONT EVEN LOOOOOOOK AT IT!!!!! (Noisebridge gets trouble)
+Ryan: balkony is fire escape, DON"T USE FOR ANYTHING ELSE!
+
+= Excellence =
+'''Our One Rule is to Be Excellent to Each Other.'''
+
+(What does that mean?  How does the Anti-Harassment Policy fit into this?  Are we SURE we know what being Excellent is?  This is an important and fundamental conversation at Noisebridge, so let's give it like 120 seconds.)
+Ryan: would some explain what excellence is
+Ryan: you don't need to be nice, but excellent to everyone, respect people, respect the space, be decent what ever you are, no harassment, if someone looks like need help, try helping, keep Noisebridge a place 
+
+= Participation =
+'''Everyone at Noisebridge is a participant at Noisebridge.'''
+
+(What does that mean?  How do you get a door key? Access to Slack, Discuss, etc?)
+
+Marco- many ways, help clean the space, help others, run events, help other event, mantain mahines, donate, always have a balance of give and take, alway rember to help yourself, don't yourself out, don't let Noisebridge become the one and only thing for you
+Ryan: be excellent, participate, most things are done by DO-ocrazy & small C consensus (talk with other people arround you and check if change is ok for them). When you come a few times and are trusted, you can ask for 30 day access token (can be renued), you can also participate via Slack http://noisebridge.slack.com and discuss http://discuss.noisebridge.info, help with the wiki https://www.noisebridge.net/wiki/Noisebridge
+
+= [[Philanthropist|Philanthropists]]=
+'''A Philanthropist at Noisebridge has earned enough trust from the community to open and close the space.'''
+Ryan: philanthropist is commited to space in a way to use the space as much as possible, is a trust level with 24/7 hours access to space, but also know how to close/open the space, how to give a tour, donate monthly (default: 80$, starving hacker: 40$, other possible as well, talk with treasurer), have a sponsor. Become a philanthropist by filling out the pledge
+Marry: Donate now
+Ryan: Aditya applied, I sponsor him, will ask you some questions
+Ryan: We will come back to it in a second, next membership
+(continue)
+Ryan: questions for Aditya: what do you enjoy at Noisebridge:
+Aditya: everyone beeing excellent to me & vice versa
+Ryan: how do you think Noisebridge can improve?
+Aditya: space getting cleaner
+Ryan: what projects do you work on?
+Aditya: electronics, reading
+Ryan: more questions? (no) anyone against him becoming a member
+
+
+(What does that mean? What do we expect from Philanthropists? How do you become one? etc)
+
+
+= [[ Membership Binder ]] =
+'''Membership in Noisebridge entails community Trust in Consensus.'''
+
+Ryan: Membership is highest trust level at Noisebridge, requires you to be even more present, you are part of the immune system to prevent the space gets burned down. Takes 2 other member sponsoring you, takes big c consensus + cooling down period, you are allowed to block big c consensus items as member.
+Marco: minimum num of members for big c consensus?
+Ryan: not clear.
+
+
+(What does that mean? What do we expect from Members? How do you become a Member? etc)
+
+
+= Financial Report =
+'''Anarchist societies under a capitalist state need money to survive and thrive, yo.'''
+Ryan: treasurer not here but recently about 3 weeks ago we had 170.000$ in the bank, good but not great if we need to move in a few years - would need a lot more money.
+Ryan: fundraising on hold, maybe a fundraising event later this month
+
+* Funds in bank:
+* Noisetor (See the bulletpoints at the bottom of http://noisetor.net/finances/#summary):
+* Any other details by those participating in handling our financials
+* The latest financial reports from the treasurer are available at https://noisebridge.net/wiki/Finances
+
+== Fundraising Update ==
+'''How's it all going'''
+
+= Consensus =
+'''Consensus is how the Noisebridge Membership may change how Noisebridge works.'''
+Ryan: big c consensus substentially change noisebridge. example: buy new lasertube. Announcement for 2 weeks, then decision meeting. Blocking a big c is a BIG thing, it means Noisebridge is dead for you if this passes.
+Ryan: Last week 3 consensus items, unheard of before!
+Ryan: Again... very rare
+
+(How does Consensus work? What types of things are good for formal Consensus? What is small-c consensus? What is a "block"?)
+
+
+== [[ Consensus Items History | Proposals from last week ]] ==
+''(Add any items which are consensed upon or someone has raised a principle objection for to the [[Consensus Items History]] page.)''
+
+== [[ Current Consensus Items | Proposals for next week ]] ==
+''(Add any new items for consensus to the [[Current Consensus Items]] page.)''
+Ryan: no items
+
+
+
+= Discussion =
+
+
+== Discussion Item 1 ==
+TJ: october 16, Wednesday, 5:30-7:30 autonomous robotics meetup group at noisebridge, work on your robot projects.  Start with  
+
+== Discussion Item 2 ==
+
+
+Marco: how to prevent Noisebridge property gets stolen? RFID tags / long range scanner?
+Check in out locker for items
+Frank- some wires are just all that hold some items
+Ryan: many items have been stolen over last 4 years: Mac Mini, power banks, Headphones, expensive leather, etc.
+
+Alex- most people here know how to get arround those systems
+Marco- put the rfid inside devices if possible
+Frank- people took a few things that detered my friend from visiting 
+
+Ryan: attaching things can help & did help in the past
+Marco- How do we deal with claims about certain people having stolen stuff in the space
+Alex- do we have a good sense of who is getting in? Door and how we let new people in
+Ryan: yeah that's why I want to give reminder of how to give a tour 
+Marco: Start doing tours before the meeting? Both to explain the space & how to give a tour.
+Alex: also talk about soft skills how to deal with conflicts
+Ryan: that's why we have the safespace & bravespace policy in meeting
+Ryan: more comments on this?
+Alex: roleplaying about situatiions before meetings 
+
+
+== Discussion Item 3 ==
+
+
+Alex: make sure there are multiple people interested in hosting such events: game nights, movie nights, etc.
+
+
+Marco- how to improve community culture  & Improve the community culture- immune system
+
+doing more talking about stuff, more community nights
+movie nights, game nights, 
+
+Nivita: bring food ok?
+Ryan: yes, if you clean up afterwards. Also no milk in the fridge, don't let food stay in fridge for days.
+..: do we write down a history of food in the space?
+Ryan: no except for how much mate, etc. we get for the space
+Ryan: if you want to head things, use a heat gun
+Marco: prepare food with laser cutter?:D
+Ryan: people tested cutting food on laser cutter, not a good idea, if not food Laser certified
+
+
+== == Discussion Item 4 ==
+Infinity mirror, in the space would be a fun projects
+
+make our door into an infinity door
+
+
+add an infiniti ladder to the roof latter
+Ryan: cool idea!
+
+== Discussion Item 5 ==
+
+Nivita: opening hours? and do people let others know early in morning if they are here?
+Ryan: 10AM to 10PM but flexible, closes when last member or philantrophist, some people are here early in morning but don't know details
+Ait: I am early here and let people hin
+
+
+Ryan :meeting adougernded
+= End of Meeting =
+
+[[Category:Meeting Notes]]
