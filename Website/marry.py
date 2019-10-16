@@ -2,6 +2,7 @@ import requests
 import random
 
 facts = [
+    'Every Tuesday before the General Meeting we have an extended tour at Noisebridge. Learn all kinds of exciting secrets about Noisebridge and how to give a great tour. Ask Ryan for more details',
     'The door bell makes different sounds, depending on if someone rings downstairs or upstairs',
     'You can controll what I say. Just visit pegasus.noise:5000 and enter a text',
     'You can display text, images and videos on Flaschentaschen. Just visit pegasus.noise:9000 and enter a text or upload an image or video',
@@ -12,10 +13,10 @@ facts = [
 ]
 
 
-def speak(text):
+def speak(text, intro='Did you know?'):
     # make marry speak
     parts = text.split('. ')
-    requests.get('http://pegasus.noise:5000?text=Did you know?')
+    requests.get('http://pegasus.noise:5000?text='+intro)
     for part in parts:
         requests.get('http://pegasus.noise:5000?text=' +
                      part.replace('.', ' dot ').replace(':', ' colon '))
@@ -24,3 +25,7 @@ def speak(text):
 def interestingFacts():
     entry_num = random.randint(0, len(facts)-1)
     speak(facts[entry_num])
+
+
+def weeklyMeetingReminder():
+    speak('Attention attention everyone. The Weekly General Meeting happens in 10 minutes in the Hackatorium. Please join us')

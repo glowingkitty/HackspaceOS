@@ -1,0 +1,189 @@
+These are the notes from the [https://www.noisebridge.net/wiki/Category:Meeting_Notes The XXXth Meeting of Noisebridge]. 
+
+help take notes at - https://pad.riseup.net/p/nbmeeting
+
+Date: 2019-10-15
+Note-taker: '''Suyash Joshi'', Marco'
+Moderators: '''Ryan ''' 
+
+== Meeting Summary ==
+'''FILL OUT AT END OF MEETING - One or two bullet points of high-level meeting summary.'''
+What happened at the meeting:
+* Announcements:
+* Finances:
+* New members:
+* New philanthropists:
+* Consensus Items:
+* Discussion Items:
+ = Introductions =
+'''PREFERRED PRONONON & NAME, 1-2 SENTENCES OF WHAT YOU DO/ARE INTERESTED IN'''
+
+Ryan he/him: coming to Noisebridge since 5 years, enjoy working on projects with people, taking care of space & vr setup. If any questions about space please ask me.
+Dav Yaginuma he/him: LED light kind of stuff and a tech shop refugee. Likes the laser cutter and wants to get into VR with daughter. 
+Marco (he/him): Spend most of the time learning to code, Hack on LED, Improve things at Noisebridge, started weekly Noisebridge improvement every Sat (join us). On and Off since 2016
+Miguel (he/him): since february, learning programming, busy because of job since april, likes to spend time at Noisebridge
+ dalia (she her):  software enginieer likes to hang out. interested in politics
+ Reily (he/him): playing with digitizer, programming in python, open source advocat
+ Suyash: working on building a magic trick technology. love to show and get feedback on my projects.
+Zen (they): playing with computers since young, Chris told him about NB
+ Eugene: he/him: first time in a hackerspace software engineer. 
+ David: since little over year, making prototypes, currently working on RFID locker, also working on CNC machine
+ Morgan (he/him): on and off at Noisebridge, part of NeuroTechX and BrainHack, working on open source projects, trying to raise visibility for NeuroTechX and BrainHack. BrainHack Global coming up in Nov(?)
+Iat: syrian refugee, 3d modeling, ancient language enbeded in other languages freedom4a.com
+Paul: sports, medicine, AI,Boston University, retired, writing a musical
+
+
+= Short announcements and events =
+'''60-second description per item in bulletpoint.'''
+- Science Hack Day San Francisco, learn about science and math, like a hackathon, at Github HQ, free entry
+https://www.eventbrite.com/e/science-hack-day-san-francisco-2019-the-10th-annual-registration-68074914903
+- Processing Foundation Day, hack day, in the mission, 
+
+- Ryan: 6th Stupid (things I'm not allowed to say) Hackathon!!!! (everyone screaming excited - yeahhhh), Oct 19-20
+be aware, its not easy to make something stupid (stupid enough that even Silly Valley VCs woudn't fund it)
+https://www.meetup.com/noisebridge/events/264945809/
+
+Alchemist:- everyone who wants to use the lasercutter has to be recertified, Nov 11 losing access otherwise (?) no known dates yet.
+
+Ryan: 
+    NoiseBridge Costume Hack-A-Thon : This Thursday is Noisebrige's Costume HAckathon - bring your costume ideas for Halloween!
+    https://www.meetup.com/noisebridge/events/265463239/
+
+Suyash: 10th anniversary of Hacker Dojo was great - Suyash did a STEM Magic Show, Visit Hacker Dojo if you are in South Bay!  
+
+Ryan: this year halloween hacker dojo wants us to do a halloween party together, in Downtown San Jose Coronthian ball room https://www.yelp.com/biz_photos/corinthian-grand-ballroom-san-jose?adjust_creative=duckduckgo&utm_campaign=yelp_feed&utm_medium=feed_v2&utm_source=duckduckgo
+
+Ryan: tomorrow autonomous robot meetup at Noisebridge (first time)
+https://www.meetup.com/noisebridge/events/kkjrjryznbvb/
+
+Freddy: someone named Eeyore (correct spelling: Ihor)? is looking for a job as gaming tester and place to stay (urgent - ask Freddy for more details)
+
+= Excellence =
+'''Our One Rule is to Be Excellent to Each Other.'''
+
+(What does that mean? How does the Anti-Harassment Policy fit into this?  Are we SURE we know what being Excellent is?  This is an important and fundamental conversation at Noisebridge, so let's give it like 120 seconds.)
+
+ Do on to others as others what you want them to do on to you unless you are a massochist 
+
+Excellence can be teaching others, 
+
+Ryan: can also mean donating, money, time, materials, take care of the space (taking out the trash for example), just 30 seconds of your time cleaning up and marry can be muted!:D
+
+Frank: we haven't seen our trash cans recently / where they went (?)
+
+Marco: give  tours, help  people with projects, also be excellent to yourself, dont get burned out.
+
+Ryan: anti harassment poster
+Ryan: brave space, speak up if someone makes you feel uncomfortable. Maybe topics related to politics or nudity might make you feel uncomfortable, but be mindfull of each other 
+Ryan: umm.. yeah..
+
+David: excellence means being excellent to the equipment too. It extends to the tools. 
+
+= Participation =
+'''Everyone at Noisebridge is a participant at Noisebridge.'''
+ (What does that mean? How do you get a door key? Access to Slack, Discuss, etc?)
+
+ Ryan: what means Participation
+ Tyler: everyone can participate, take classes, working with equipment, get 30 days access token to come into the space whenever you want during opening hours. Join us on Discuss, Slack - to talk about projects you work on, discuss with people. Also we have a wiki - with a lot of information about how to use laser cutter, etc. - and you can help improving the wiki (super excellent!).
+ Ryan: you can also help out remotely, with the wiki, discuss, etc. - you don't have to do specific things, butb highly appreciated
+ Ryan (running away...): next: Philanthropy
+
+= [[Philanthropist|Philanthropists]]=
+'''A Philanthropist at Noisebridge has earned enough trust from the community to open and close the space.'''
+
+(What does that mean? What do we expect from Philanthropists? How do you become one? etc)
+
+ Reily:  be sponsored by a member, donate montly, know how to close and open the space - and you get 24 hour access!!! 80$ donation default, less is always possible (talk with our wonderful treasurer Tyler - Tylerrrr, Tyler, Tyler, Goooo Tyler! -  about details)
+ Ryan: money is great, but active participation even more important. We might be anarchists, but we live under a Capitalist regime. (buuuhhh)
+  Ryan: opening a space: just turn on the things you want to use - just make sure the space hasn't burned down overnight
+ Tyler: Please turn off projector when you leave - turn it off manually in the workshop room in the back. Can use a ladder or pole.
+  Ryan: yeah, yeah, if we ever get an industrial projecter, if you ever turn those things off hard you kill the machine.
+  Ryan: stable income for Noisebridge very useful 
+
+= [[ Membership Binder ]] =
+'''Membership in Noisebridge entails community Trust in Consensus.'''
+
+(What does that mean? What do we expect from Members? How do you become a Member? etc)
+
+ Ryan: membership is different from Philanthropy - who knows what it is
+ Iat: next level of Philanthropist, blocking right in big decisions like moving to a new place, negotiate lease
+ Ryan & Tyler: (making membership sound unattractive^^)
+Ryan: you might get asked more questions about the space, more responsibility. When people think you are a member - you should apply. Multi week process, have to go to multiple meetings so members learn about application and could block. Currently might happen once a year. 
+Marco: why would someone want to become a member?
+Ryan: you want to make sure Noisebridge continues to exists and spend time and effort to prevent Noisebridge from disappearing. You are part of a group that defines Noisebridge's interaction with outside identities (?), kind of like a board member at a non profit, but we are Noisebridge - more chaotic.
+
+
+= Financial Report =
+'''Anarchist societies under a capitalist state need money to survive and thrive, yo.'''
+
+* Funds in bank:$172,000 ish, net positive about 1000 a month
+* Noisetor (See the bulletpoints at the bottom of http://noisetor.net/finances/#summary):
+* Any other details by those participating in handling our financials
+* The latest financial reports from the treasurer are available at https://noisebridge.net/wiki/Finances
+Everyone: welcome back Tyler!
+Tyler: net positive, finance good, as of October: new rent: 7000$ from 6500$. Monthly income roughly stable with expenses ~8-10k
+Tyler: Updates might cost 20000 dollars (sprinkler system or reopening a stairwell as fire escape). There is a question around if this capital improvement expense should be borne by the landlord.
+
+Tyler: NoiseTor server was shutted down it seems, since December
+Ryan: is complated but yeah something went wrong, people donated to Noisetor project, it's weird - wish there would be someone who works on it
+Tyler: Noisetor is an exit node for Tor
+
+
+== Fundraising Update ==
+'''How's it all going'''
+
+
+Tyler: we had a hack comedy fundraiser (about 500$ donations!), Isacs bar is a money making robot, made a 170$
+
+
+= Consensus =
+'''Consensus is how the Noisebridge Membership may change how Noisebridge works.'''
+
+(How does Consensus work? What types of things are good for formal Consensus? What is small-c consensus? What is a "block"?)
+
+
+Ryan: would someone like to explain what consensus is? 
+
+Ryan - Small 'c' consensus is a major part of being excellent to each other. If you are doing something that is annoying to others, get consensus from others. e.g let people know that there is nude drawing happening in here ;), installing a dust collector someplace etc follow common courtesy practices.  We don't need to go through lot of deliberation to decide these items.
+??: does small-c require at a minimum 2 people? Can ryan consense everything?
+??: does big-c require at least 2 people? Can ryan consense everything?
+
+== [[ Consensus Items History | Proposals from last week ]] ==
+''(Add any items which are consensed upon or someone has raised a principle objection for to the [[Consensus Items History]] page.)''
+ == [[ Current Consensus Items | Proposals for next week ]] ==
+''(Add any new items for consensus to the [[Current Consensus Items]] page.)''
+ = Discussion =
+  == Discussion Item 1 ==
+  Ryan: Big C consensus, week long process about bigger decisions, like buying world supply of LEDs :D Usually: we are going to move, building new stairs, minimum 2 members have to be present at big C decision. Blocking a decision means something serious - "Noisebride is dead for me if this passes"
+... We need dust collection system 
+
+*Ryan casts a picture of his ideal dust collector for Wood Shop* . This is not a Concensus Item so we are not discussing it under Concensus.
+
+~ Several avilable from $1,000 - $2,000 on Amazon + Installation Costs for 240 Volt plug.
+- Grizzly Shop Fox W1687 - $654 + $99 (Shipping)
+
+Tyler - Why don't we move the Wood Shop to Church Room and bring the Church Room to WoodShop area ?  This would be a good concensus Item. We should ask Jared, he is our resident architect, has built most of the walls around here, ordi booth, flaschen taschen.
+Ryan: I agree with that.
+Suyash : I agree two
+Jaguar: I agree three.
+
+ == Discussion Item 2 ==
+
+Tyler : Trent purchased Table Saw but never got 50% of the cost from wood shop donation box. He was promoised the same and should get paid back, woodshop donation box doesn't get much money so we should rather pay him from Noisebrige general budget. This doesn't need to go through Big C Concensus process.
+ Ryan: Does everyone here agree that we should pay Trent back 50%, everyone agreed!
+
+== Discussion Item 3 ==
+
+Ryan : Noisebridge typically has a Halloween FundRaiser, this year it would be a good idea to do a Joint Halloween Fundraiser Party with Hacker Dojo.We can live stream the event in other place. We should also invite guests to Noisebridge to celebrate Halloween here! 
+
+Ryan : Hacker Dojo is having the party in Coranthian BallRoom in Downtown San Jose. What can we take from Noisebridge down there? Maybe we can take a donmation box, projects folks want to showcase.
+
+Suyash : Carl can probably bring a mini Flashantashan at Hacker Dojo's party to represent Noisebride.  We should annonce the event on Noisebridge's Meetup page.
+
+== Discussion Item 4 ==
+
+Frank : Remote Control for Projector in Church Room has a fault. If you point a smartphone at the remote control, you can see an indication on your smart phone camera, the remote control is bound to one place in Turing and even with fresh batteries it doesn't work. The remote control seems to have a bug/fault and needs to be checked.
+
+Ryan :MEETING OVER
+
+= End of Meeting =

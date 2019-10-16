@@ -6,6 +6,7 @@ from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+import random
 
 
 def startChrome(headless, url):
@@ -50,6 +51,7 @@ def endMeeting():
 def startMeeting():
     print('Starting...')
     browser = openMeetingNotes()
+    random_number = random.randint(550, 10000000)
 
     input_field = browser.find_element_by_id('innerdocbody')
     input_field.clear()
@@ -58,9 +60,12 @@ def startMeeting():
     meeting_template = open('MeetingNotes/Template.txt', 'r').read()
     for line in reversed(meeting_template.split('\n')):
         input_field.send_keys(Keys.RETURN)
-        input_field.send_keys(line.replace(
-            '{{ Date }}', str(datetime.now().date())))
+        input_field.send_keys(
+            line.replace('{{ Date }}', str(datetime.now().date())).replace(
+                '{{ RandomNumber }}', str(random_number))
+        )
     print('Done: https://pad.riseup.net/p/nbmeeting')
 
 
-# endMeeting()
+endMeeting()
+# startMeeting()
