@@ -14,12 +14,16 @@ facts = [
 
 
 def speak(text, intro='Did you know?'):
-    # make marry speak
-    parts = text.split('. ')
-    requests.get('http://pegasus.noise:5000?text='+intro)
-    for part in parts:
-        requests.get('http://pegasus.noise:5000?text=' +
-                     part.replace('.', ' dot ').replace(':', ' colon '))
+    try:
+        # make marry speak
+        parts = text.split('. ')
+        requests.get('http://pegasus.noise:5000?text='+intro)
+        for part in parts:
+            requests.get('http://pegasus.noise:5000?text=' +
+                         part.replace('.', ' dot ').replace(':', ' colon '))
+
+    except:
+        print('Couldnt talk to marry. Make sure to deactivate your VPN connection and be in the local Noisebridge network.')
 
 
 def interestingFacts():
