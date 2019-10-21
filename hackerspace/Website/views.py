@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME
-from hackerspace.errors import Error
+# from hackerspace.errors import Error
 from hackerspace.tools.tools import make_description_sentence
 
 
@@ -26,17 +26,17 @@ def error_view(request, error_log, exc_type, exc_value, tb):
 
 
 def landingpage_view(request):
-    try:
-        response = render(request, 'index.html', {
-            'page_name': HACKERSPACE_NAME,
-            'page_description': make_description_sentence(),
-            'cookie_consent': request.COOKIES.get('consent'),
-        }
-        )
+    # try:
+    response = render(request, 'index.html', {
+        'page_name': HACKERSPACE_NAME,
+        'page_description': make_description_sentence(),
+        'cookie_consent': request.COOKIES.get('consent'),
+    }
+    )
 
-        return response
-    except:
-        import sys
-        import traceback
-        exc_type, exc_value, tb = sys.exc_info()
-        error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
+    return response
+    # except:
+    #     import sys
+    #     import traceback
+    #     exc_type, exc_value, tb = sys.exc_info()
+    #     error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
