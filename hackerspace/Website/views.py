@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME
 from hackerspace.errors import Error
+from hackerspace.tools.tools import make_description_sentence
 
 
 def error_view(request, error_log, exc_type, exc_value, tb):
@@ -26,10 +27,9 @@ def error_view(request, error_log, exc_type, exc_value, tb):
 
 def landingpage_view(request):
     try:
-        response = render(request, '500.html', {
-            'page_name': 'SkillMe - Server Error (Code '+(error.str_error_code if error else '????')+')',
-            'page_description': 'Sorry, something went wrong! We got notified and work on fixing it!',
-            'page_keywords': 'learn to code,software development',
+        response = render(request, 'index.html', {
+            'page_name': HACKERSPACE_NAME,
+            'page_description': make_description_sentence(),
             'cookie_consent': request.COOKIES.get('consent'),
         }
         )
