@@ -1,7 +1,11 @@
 from django.shortcuts import render
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME
-# from hackerspace.errors import Error
+
 from hackerspace.tools.tools import make_description_sentence
+from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
+                                          HACKERSPACE_IS_SENTENCES,
+                                          HACKERSPACE_NAME)
+
+# from hackerspace.errors import Error
 
 
 def error_view(request, error_log, exc_type, exc_value, tb):
@@ -28,9 +32,13 @@ def error_view(request, error_log, exc_type, exc_value, tb):
 def landingpage_view(request):
     # try:
     response = render(request, 'index.html', {
+        'css_files': ['body', 'header', 'event_slider', 'result_preview'],
         'page_name': HACKERSPACE_NAME,
         'page_description': make_description_sentence(),
         'cookie_consent': request.COOKIES.get('consent'),
+        'HACKERSPACE_NAME': HACKERSPACE_NAME,
+        'HACKERSPACE_IS_SENTENCES': HACKERSPACE_IS_SENTENCES,
+        'HACKERSPACE_ADDRESS': HACKERSPACE_ADDRESS,
     }
     )
 

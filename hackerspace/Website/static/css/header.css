@@ -92,6 +92,7 @@
 
 .highlight_text_red {
     color: #ed1d23;
+    text-decoration: none;
 }
 
 .cta_button {
@@ -154,12 +155,23 @@
     text-align: left;
 }
 
-.status-_code_icon {
+.status_code_icon {
     width: 13px;
     height: 13px;
     margin-right: 3px;
     border-radius: 20px;
+}
+
+.status_code_icon.green {
     background-color: #00c52b;
+}
+
+.status_code_icon.grey {
+    background-color: rgb(160, 160, 160);
+}
+
+.status_code_icon.orange {
+    background-color: rgb(226, 133, 57);
 }
 
 @media (max-width: 479px) {

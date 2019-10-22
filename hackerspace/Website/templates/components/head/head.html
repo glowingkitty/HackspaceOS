@@ -1,0 +1,13 @@
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<head>
+  {% include "components/head/meta.html" %}
+  {% include "components/head/css.html" with css_files=css_files %}
+  {% include "components/head/js.html" %}
+  {% include "components/head/favicons.html" %}
+</head>
+
+{% endblock %}
