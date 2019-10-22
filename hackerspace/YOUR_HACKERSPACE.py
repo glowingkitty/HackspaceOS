@@ -10,7 +10,7 @@ HACKERSPACE_NAME = 'Noisebridge'
 # The following sentences are used on the landingpage header, to describe your hackerspace.
 HACKERSPACE_IS_SENTENCES = [
     'is a <a class="highlight_text_red" target="_blank" href="https://en.wikipedia.org/wiki/Hackerspace">hackerspace</a> in San Francisco',
-    'ia a community',
+    'is a community',
     'is a maker & learning space',
     'is a <a class="highlight_text_red" target="_blank" href="https://www.noisebridge.net/wiki/Do-ocracy">do-ocracy</a>',
     'is what you make out of it'

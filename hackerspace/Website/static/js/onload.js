@@ -1,1 +1,3 @@
-function onLoadFunctions() {}
+function onLoadFunctions() {
+    changeText()
+}
