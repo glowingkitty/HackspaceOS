@@ -8,18 +8,16 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 import random
 
+from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE
+
 
 def startChrome(headless, url):
     options = Options()
     if headless == True:
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
-    if 'Website' in sys.path[0]:
         browser_path = os.path.join(
-            sys.path[0], 'Selenium/chromedriver_'+sys.platform)
-    else:
-        browser_path = os.path.join(
-            sys.path[0], 'Website/Selenium/chromedriver_'+sys.platform)
+            sys.path[0], 'hackerspace/website/selenium/chromedriver_'+sys.platform)
     browser = webdriver.Chrome(
         chrome_options=options, executable_path=browser_path)
     browser.get(url)
@@ -43,7 +41,8 @@ def getMeetingNotes():
 def endMeeting():
     # save meeting notes
     notes = getMeetingNotes()
-    notes_file = open('MeetingNotes/'+str(datetime.now().date())+'.txt', 'w')
+    notes_file = open(os.path.join(
+        sys.path[0], 'hackerspace/meeting_notes/'+str(datetime.now().date())+'.txt'), 'w')
     notes_file.write(notes)
     notes_file.close()
 
@@ -57,15 +56,13 @@ def startMeeting():
     input_field.clear()
 
     # copy template for new meeting into riseup pad
-    meeting_template = open('MeetingNotes/Template.txt', 'r').read()
+    meeting_template = open(os.path.join(
+        sys.path[0], 'hackerspace/meeting_notes/Template.txt'), 'r').read()
     for line in reversed(meeting_template.split('\n')):
         input_field.send_keys(Keys.RETURN)
-        input_field.send_keys(
-            line.replace('{{ Date }}', str(datetime.now().date())).replace(
-                '{{ RandomNumber }}', str(random_number))
-        )
+        line = line.replace('{{ Date }}', str(
+            datetime.now(HACKERSPACE_TIMEZONE).date()))
+        line = line.replace('{{ RandomNumber }}', str(random_number))
+        time.sleep(0.3)
+        input_field.send_keys(line)
     print('Done: https://pad.riseup.net/p/nbmeeting')
-
-
-endMeeting()
-# startMeeting()
