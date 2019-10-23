@@ -1,0 +1,228 @@
+These are the notes from [https://www.noisebridge.net/wiki/Category:Meeting_Notes The 7852750th Meeting of Noisebridge].
+
+help take notes at - https://pad.riseup.net/p/nbmeeting
+
+Date: 2019-10-22
+Note-taker: '''Marco, Ryan, Jade'''
+Moderators: '''Steve'''
+ == Meeting Summary ==
+'''FILL OUT AT END OF MEETING - One or two bullet points of high-level meeting summary.'''
+What happened at the meeting:
+* Announcements:
+* Finances:
+* New members:
+* New philanthropists:
+* Consensus Items:
+* Discussion Items:
+ = Introductions =
+'''PREFERRED PRONONON & NAME, 1-2 SENTENCES OF WHAT YOU DO/ARE INTERESTED IN'''
+  Steve- music, board mbmer, He him, 
+ JJ - first time here, had the tour, worked at restaurants, started JavaScript course
+ David - hack on video game related stuff,  been here a few times
+ Victoria- software, interest in learning woodworking and hardware stuff.
+ Ait - Syrian refugee, animation, recording, draw, paint, learning language
+ Alchimist- electricl, computer, engineer, been coming for about five years, helps out the space
+ Marco, he/him - Software, website stuff, UI/UX, building new noisebridge website, he/him
+ Kevin, he/him - machine learning, neurotech, tamper proofing elections, hehim
+ Jade-  Neurohacker, interested in human and machine learning she/her or they/them
+ Fasil - Art student at SFAI, use linux and mac, likes computer tech, code based art,  
+ the Q - extradimensional beeing, hack universes
+ Freddie- data stuff, data, graph databases, 
+ Ryan - he/him, coming to noisebridge since years, taking care of VR. Any questions? ask me, always happy to reply
+ Rodrik (?) - base guitar, random stuff
+ 
+    = Short announcements and events =
+'''60-second description per item in bulletpoint.'''
+ Steve - will stack up people who want to say something if it gets too much
+ Alchimist - wood workshop vacuums gets improved, put big hepa filter
+Ryan - Oct. 31st Halloween Party - hack on and wear custumes - there may be drinks and food
+Ryan - Internet Archive Party tomorrow night, come support!
+https://www.eventbrite.com/e/world-night-market-the-internet-archives-annual-bash-tickets-73912162267
+
+= Excellence =
+'''Our One Rule is to Be Excellent to Each Other.'''
+ (What does that mean? How does the Anti-Harassment Policy fit into this?  Are we SURE we know what being Excellent is?  This is an important and fundamental conversation at Noisebridge, so let's give it like 120 seconds.)
+
+Q - don't let people in if you don't want to be responsible for them
+Alchimist - Taking that extra few seconds to check someone on the monitor before leting 
+Rodrik - Being welcoming, but also being responibiilty
+Fasil - someone should respond
+Ryan - beeing excellent at times means letting people in when you are comfortable with it - but inside: clean up tools you used, donate materials, join or teach classes, cleaning the space, be excellent to yourself, don't forget the reason why you came here, also work on your projects and not just stuff for the space
+Alchemist - incident - saw suspicious person ringing doorbell, they were let in without second thought - they shouldn't have been let in.
+Freddie - excellence is being here to open the door
+ Ryan - if you open the door, give that person a tour or ask someone else to help you with giving a tour. Help them understand the space, feel comfortable
+
+ Fasil - Q: must I always wait to be let in?
+ Steve - no, we'll explain
+ Ryan- We are a brave space, not the same as a safe space, some events might make some people uncomfortable
+ Ryan - It is excellent to make sure people are informed about sensitive/controvesial content, before and during the event.
+Alchemist - noticed people just taking photos without consent. would have given consent if I would have been asked. But since this didn't happen I don't feel comfortable with it. We used to pay a lot of attention to enforce that people ask for consent if they make photos of people in the space. You can always make as many photos of the space as you like. But always ask for consent if a person is in the photo.
+ Steve - final comment/personal opinion - this is not a makerspace, this is a hackerspace - security is a priority
+ Steve- people here care about security and privacy, so respect that and don't just make photos and videos of them without consent.
+ Steve - be couragous and kind - try to work out issues, don't act impulsively on emotion 
+ Ryan - if you are a white hacker and work on improving the world - that is excellent. But if you hack to harm others, this is highlighy unexcellent and you will be kicked out
+ the Q - gray area of illegal stuff (tor project, vpn) is fine, but we're not responsible for what you do here... FBI at door
+   
+= Participation =
+'''Everyone at Noisebridge is a participant at Noisebridge.'''
+ (What does that mean? How do you get a door key? Access to Slack, Discuss, etc?)
+ Ait - giving classes, cleaning, giving tours
+ Ryan - also, bringing new people into the space if you want to be responsible for them. Join us online on slack/discuss, help improving our wiki. Once you gain trust you can get a 30 days access token to open the door during opening hours
+ Freddie - Help CLean PLEASE
+ Steve - anybody can come, ring the door bell and hack on what they want, during the opening hours. If you come more often, ask a member or philanthropist ++ to get a temporary access token (to open the door by yourself). Suggested dontaion for RFID token $5, clipper card access $2. Philanthropist or member can renew the token. Join us on Slack (ask a person for invite) or discuss http://discuss.noisebridge.info (signup yourself).
+  = [[Philanthropist|Philanthropists]]=
+'''A Philanthropist at Noisebridge has earned enough trust from the community to open and close the space.'''
+ (What does that mean? What do we expect from Philanthropists? How do you become one? etc)
+  Ait- next level of trush, after coming for a while you can applyforphilanthropy. Expected to donate about 80 dollars a month or work with the treasurer you need a member to sponsor you, need to know how to open and close the space, give tours.
+  Marco- to become a philanthropist, Before a meeting fill out the form and follow its directions.
+  Steve - years ago we didn't had Philanthropy. But an issue: becoming a member is very difficult. So we created Philanthropy. Way easier to get and gives you 24 hour access to the space. Extra responsibility: close the space and make sure no one is sleeping in the space (if you are the last Philanthropists in the space (and no member is here).
+  Ryan - be here for the weekly meeting if you apply for Philanthropy
+ Q - I suggest to remove applications who are in the folder since a long time and haven't been at any meeting for months
+ Steve - don't feel comfortable with that, so I won't do it
+ Q - but what do we do with outdated applications?
+ *Ryan blocks absent philanthropists (4 annouced - absent since April)*
+ Freddy - we throw away applications older then a year old
+
+ = [[ Membership Binder ]] =
+'''Membership in Noisebridge entails community Trust in Consensus.'''
+ (What does that mean? What do we expect from Members? How do you become a Member? etc)
+  Bing M Membership- Execelence, and doocracy are the man two pllarsofnoisebridge, the third piller is concencus, game changerges would be any large finacil or accesabilty
+  Concensus happens
+ after 2 weeks announcing consensus items without a member objecting, it passes
+ it is called a block, only Members can block, but they can also block on behalf of others, 
+  if something gets blocked, the community will discuss the issue more, and it can be brought back up the next week, 
+ also take a look at the wiki to read more about membership. if you want to become a member, get an application from the folder and 2 member sponsors. Then it passes the process during the meetings, after present for 4 community meetings, get asked questions about how Noisebridge operates, excellence, etc. And Members accept or decline the prospective member. 
+  As a member 
+  Members should always be aware of concecus items, if you miss it, that is your fault.
+  If there are very few active members, how do we fix that.
+  Ryan - if a consensus item is proposed, it will only be considered if its on the wiki in the consensus items page (suggested: also post it on slack/discuss). If a meeting doesn't happen every week, that's a problem.
+  Jade- for a concesus we need a quarum- *searches wiki and bylaws for "quorum"* 
+  Tyler - also want to know about minimum num of members. Since I don't like that 2 members can decide all consensus decisions. Do mebership expire,
+  No
+  Can members be kicked out
+  You can put your membership on hiatis
+ there is also membership dis
+  Noisebridge also needs more members.
+  Ryan - vetting (?) process means if members aren't around for a long while, there is a low chance they come back to block something (for example if they moved away) and they also trust us to make decisions at Noisebridge. Low numbers of members is not great but also not the most important thing. And you shouldn't rush to become quickly a member (might make impression someone want's to get power).
+  Marco- Would it make sensec to have an easier way to propose concensuse items on the you 
+ = Financial Report =
+'''Anarchist societies under a capitalist state need money to survive and thrive, yo.'''
+* Funds in bank: 170000k in the bank 7000 is not ours, and needs to go to rougelike games confrence
+We can be a fiscal sponsor for big events, we can be a fund proxie, for 
+
+we have maybe 12000 dollars in crypto coins
+
+average weekly cash is 350is
+
+patreon is about 1600 dollars a month
+* Noisetor (See the bulletpoints at the bottom of http://noisetor.net/finances/#summary):
+* Any other details by those participating in handling our financials
+* The latest financial reports from the treasurer are available at https://noisebridge.net/wiki/Finances
+    == Fundraising Update ==
+'''How's it all going'''
+  Tyler - we look into getting a grant for artist spaces
+  there have not been any fundrasing meeting recently
+ Ryan - want to do a beer, wine, spirits, cheese, meat chocolate,
+  Tyler - look for grants/corporate matching via Github
+  Ryan - as a educational nonprofit - we can be classified as a school and get educational/teacher/student discounts - and could create student ID cards for Noisebridge
+
+  = Consensus =
+'''Consensus is how the Noisebridge Membership may change how Noisebridge works.'''
+ (How does Consensus work? What types of things are good for formal Consensus? What is small-c consensus? What is a "block"?)
+  Was alred
+ Ryan - small c consensus: just talk with people in the space around you before you do someting (playing loud music, use a smelling spray paint in a room - things that impact people around you)
+ Tyler - most recent small c consensus - we moved Flaschentaschen
+
+    == [[ Consensus Items History | Proposals from last week ]] ==
+''(Add any items which are consensed upon or someone has raised a principle objection for to the [[Consensus Items History]] page.)''
+   == [[ Current Consensus Items | Proposals for next week ]] ==
+''(Add any new items for consensus to the [[Current Consensus Items]] page.)''
+ = Discussion =
+ == Discussion Item 1 ==
+the Q - are we under new lease? fix elevator?
+ Tyler -we are under the terms and are paying it but we need reconformation, and need to change our elevator, fire safety, subsections. ELEVATOR WORKS BUT IS ILLEGAL TO OPERATE
+  == Discussion Item 2 ==
+Ryan - security in the space. seems to be a big issue at the moment. In past week 2 laptops got stolen during event that happened here (Stupid Hackathon), also in the last year another Noisebridge Computer and material, 4000$ of cash and possibly other items we don't care enough about. Proposed within the last week: cameras in the space (which I will block). If someone would put them up they would be quickly removed and the person be asked to leave and take a break since it would drastically change how Noisebridge deals with security.
+Another proposel: better door camera to identify people / objects better and make a better decision if we should let someone in or not.
+Another idea: quick lockers with RFID to store something quickly and temporary.
+Another idea: mounting / fixing computers of Noisebridg to items.
+
+Another suggestion: Event door monitoring, not allowing the door to be held open. 
+
+Marco- If there are constantly people coming in, it is hard to constantly open the door.  Event host should make sure to have a door person.  
+  Alchemist- should we hire a door person for events. Including bag checks.
+ Should we allow bagsearch, bag checkin
+ Alchemist- both would be good, though first might be more useful
+
+Steve - two things that are against Noisebridge culture up to now: cameras and hiring people. But would be more open to hiring someone.
+
+Tyler - bag checking might be worse then camera, but also would affect people not connected to the event.
+  Tyler -Create local storage image loop for front door camera
+  Tyler-its hard to prove theft in the space without cameras
+  Ryan - I think having a recoding of the door camera can be very useful if it's locally accessible only and needs members to collectit.
+  Q - why again reason for making access limited?
+  Ryan - certain individuals exist who don't like Noisebridge could missuse recording. But also well known activists and other people protected by government agencies have been here and can't be on such recordings, if accesable by outside individuals.
+  Kevin - Uncomfortable with bag check and bag search, if dor is to be kept open, you must have a door person as those people coming in should be greeted.
+  Ait- we need to notify people about the door being left open or closed, especially 
+ Freddie - bags searches aren't effective, cameras effectiveness doubted
+ Ryan - there are number of ways of find weird devices (cameras, recorders) on the network.
+ Dave(Q) - agaisnt recording for POI, exception, not the rule, lets make a blackout button 
+ Alchemist - I dislike being recorded - considering video recording system? There must really be a problem. This is why we can't have nice things! Pros for quality recording and security/ but bottom line, the current level of theft in the space is unacceptable. Ran large canadian night clubs, knows solutions, searching bags was most efficient.
+   Alchamist- Everyone come up with ideas PLEASE, they all will help us.
+ Marco - NB is not a nightclub, we need different security measures
+ (noisebridge can be a nightclub if it wants to)
+ Wissie- How are we securing money (we still live in a capitialistic world)
+ down pointing cameras? 
+ Logan -  if you don't want to be seen by camera, we could use camera with echo location
+? - we should get insureance for items of this place.   
+Alchamist - worked at insurance - they don't care for things less then 50$
+
+ Jade- large events, at meetings should ask for volunteers.
+  Wessie- know how it feels, have been in a situation where i lost a TB of not backed up important data. But we need to create a culture of security
+ create a Culture of security
+  Alchamist - We only work if as a tribe we have our guard up for eachother.
+ If you see anything speak up immediatly
+ Be a protector
+ Freddy - what do we try to solve?
+ Marco- secure your devices: "Find My" (https://www.apple.com/icloud/find-my/), "Tile"s (https://www.thetileapp.com/) on your devices (Bluetooth tracker) 
+  Ryan- there are long diistaance pasive RFID (usually used for skiing and sports event tracking)
+  Dummy cameras
+  They are still not active deterents, people will figure it out.
+  Ryan - properly mount hardware (example: our PS4) and keep an eye on items (I watch the VR system for example)
+  Q - even its easy to break - it gets obvious
+  Alchamist - use active RFID tracker  (nice "UMMH" impulse)
+  Marco - use Bluetooth tracker with batttery (Tile?)
+  Create a two way door lock for when the alarm gets triggered
+  Ryan - at some point I gonna ask tool brands to get new tools - they have such a tracking sytem included in their tools (inside)
+  Alchamist - anyway, I said everything I had to say about this
+  Ryan - please take care of your stuff, ask people around you you trust to look out for your stuff
+  Freddy - lock your computers
+ Ryan -  have seen many computers and stuff unwatched for hours. Consider putting stuff in a locker if thats the case , and send a callout for finding out whos it is.
+
+Jade- This is a public space-  you are responsible for your own stuff
+
+Tinnei-- How do we make it more known about putting lost and found item in the locker
+
+Ryan - we need to make it more clear that lost items should be put in a locker and inform online on slack. Put Noisebridge stickers on device that can't be removed.
+
+Alchamist - people got tired of clocks beeing out of sync
+
+?? - what if people aren't skilled in using software to track devices. Awareness is most important thing.
+
+condision everyone to properly respond to these problems, to be aware. create a well known protocol.
+
+Ryan - we should talk about security at beginning of Meeting when introducing Noisebridge. Also don't leave your stuff in the space unintended without asking people you trust to take a look at it.
+
+DONT leave yous stuff unattended
+
+ if you are leaving  stuff with others, let them know forr how long.
+
+
+announcement - next week discussion: board election is upcoming.
+
+
+
+thanks for coming 
+= End of Meeting =
+
+ 
