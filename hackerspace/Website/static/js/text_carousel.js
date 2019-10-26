@@ -43,7 +43,6 @@ TxtRotate.prototype.tick = function () {
 
 function changeText() {
     var elements = document.getElementsByClassName('txt-rotate');
-    console.log(elements)
     for (var i = 0; i < elements.length; i++) {
         var toRotate = elements[i].getAttribute('data-rotate');
         var period = elements[i].getAttribute('data-period');

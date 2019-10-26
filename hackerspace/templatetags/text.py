@@ -4,12 +4,6 @@ from hackerspace.tools.tools import remove_tags
 register = Library()
 
 
-def replaceLink(sentence):
-    if '<a 'in sentence:
-        sentence.replace('<a')
-    return
-
-
 @register.filter
 def prepareForTextCarusel(HACKERSPACE_IS_SENTENCES):
     output = ''
