@@ -1,14 +1,15 @@
 import os
+import random
 import sys
 import time
 from datetime import datetime
 
+import pytz
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
-import random
 
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE
+from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
 
 
 def startChrome(headless, url):
@@ -61,7 +62,7 @@ def startMeeting():
     for line in reversed(meeting_template.split('\n')):
         input_field.send_keys(Keys.RETURN)
         line = line.replace('{{ Date }}', str(
-            datetime.now(HACKERSPACE_TIMEZONE).date()))
+            datetime.now(pytz.timezone(HACKERSPACE_TIMEZONE_STRING)).date()))
         line = line.replace('{{ RandomNumber }}', str(random_number))
         time.sleep(0.3)
         input_field.send_keys(line)

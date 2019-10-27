@@ -1,5 +1,4 @@
 import calendar
-import pytz
 
 """
 Welcome to the new website of your local hackerspace. Powered by you! (and everyone who contributed to our git repo)
@@ -23,8 +22,9 @@ HACKERSPACE_ADDRESS = {
     'COUNTRYCODE': 'US'
 }
 
+HACKERSPACE_TIMEZONE_STRING = 'America/Los_Angeles'
+
 # if your hackerspace has official opening hours, define them here as a json
-HACKERSPACE_TIMEZONE = pytz.timezone('America/Los_Angeles')
 HACKERSPACE_OPENING_HOURS = {}
 days_num = 0
 while days_num < 7:

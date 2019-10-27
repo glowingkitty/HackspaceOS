@@ -4,14 +4,14 @@ import calendar
 from hackerspace.YOUR_HACKERSPACE import (
     HACKERSPACE_IS_OPEN_BASED_ON_OPENING_HOURS,
     HACKERSPACE_IS_OPEN_CUSTOM_CHECK, HACKERSPACE_OPENING_HOURS,
-    HACKERSPACE_TIMEZONE)
+    HACKERSPACE_TIMEZONE_STRING)
 
 
 def getOpenNowStatus():
-    today_weekday = calendar.day_name[datetime.now(
-        HACKERSPACE_TIMEZONE).weekday()]
-    now_hour = datetime.now(HACKERSPACE_TIMEZONE).hour
-    now_minute = datetime.now(HACKERSPACE_TIMEZONE).minute
+    timezone = pytz.timezone(HACKERSPACE_TIMEZONE_STRING)
+    today_weekday = calendar.day_name[datetime.now(timezone).weekday()]
+    now_hour = datetime.now(timezone).hour
+    now_minute = datetime.now(timezone).minute
     status = 'Unknown'
     if HACKERSPACE_IS_OPEN_BASED_ON_OPENING_HOURS == True:
         for status_change in HACKERSPACE_OPENING_HOURS[today_weekday]:
