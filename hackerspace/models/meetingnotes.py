@@ -1,13 +1,12 @@
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 from hackerspace.models.events import updateTime
 
 
 def getKeywords(description):
-    list_keywords = []
+    keywords = ''
     # to do
-    return list_keywords
+    return keywords
 
 
 class MeetingNote(models.Model):
@@ -16,9 +15,7 @@ class MeetingNote(models.Model):
     many_consensus_items = models.ManyToManyField(
         'ConsensusItem', related_name="m_consensus_items", blank=True)
 
-    list_keywords = ArrayField(
-        models.CharField(max_length=250, blank=True, null=True),
-        blank=True, null=True)
+    text_keywords = models.TextField(blank=True, null=True)
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
@@ -34,5 +31,5 @@ class MeetingNote(models.Model):
 
     def save(self, *args, **kwargs):
         self = updateTime(self)
-        self.list_keywords = getKeywords(self.text_notes)
+        self.text_keywords = getKeywords(self.text_notes)
         super(MeetingNote, self).save(*args, **kwargs)

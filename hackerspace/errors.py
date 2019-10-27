@@ -1,13 +1,14 @@
 
+import json
 import random
-import string
-
-from django.contrib.postgres.fields import ArrayField, JSONField
-from django.db import models
-import time
 import re
-from hackerspace.notify import notify
+import string
+import time
+
+from django.db import models
+
 from hackerspace.git import add_issue
+from hackerspace.notify import notify
 
 # define what to do when an error occures, on the website (backend) or in one of the cronjobs
 
@@ -84,12 +85,11 @@ class Error(models.Model):
     int_count = models.IntegerField(default=0)
     text_description = models.TextField(blank=True, null=True)
     text_description_no_numbers = models.TextField(blank=True, null=True)
-    json_context = JSONField(default=list, blank=True, null=True)
+    text_context = models.TextField(blank=True, null=True)
     boolean_fixed = models.BooleanField(default=False)
-    list_origins = ArrayField(models.CharField(
-        max_length=250, blank=True, null=True), blank=True, null=True)  # URLs and .py scripts
-    list_dateUNIXtimes = ArrayField(models.IntegerField(
-        blank=True, null=True), blank=True, null=True)
+    text_origins = models.TextField(
+        blank=True, null=True)  # URLs and .py scripts
+    text_dateUNIXtimes = models.TextField(blank=True, null=True)
     date_created = models.DateTimeField('published', auto_now_add=True)
     date_updated = models.DateTimeField('last_updated', auto_now=True)
 
@@ -102,14 +102,15 @@ class Error(models.Model):
             return 'New Error'
 
     def create_or_update(self):
+        json_context = json.loads(self.text_context)
         context = {}
 
         # get error information from system
         new_error_details = getErrorDetails(
-            error_log=self.json_context['error_log'],
-            exc_type=self.json_context['exc_type'],
-            exc_value=self.json_context['exc_value'],
-            tb=self.json_context['tb']
+            error_log=json_context['error_log'],
+            exc_type=json_context['exc_type'],
+            exc_value=json_context['exc_value'],
+            tb=json_context['tb']
         )
         try:
             context['json_variables'] = new_error_details['json_variables']
@@ -128,35 +129,36 @@ class Error(models.Model):
         if found_error:
             found_error.boolean_fixed = False
 
-            if self.json_context['origin'] not in found_error.list_origins:
-                found_error.list_origins.insert(
-                    0, self.json_context['origin'])
+            if json_context['origin'] not in found_error.text_origins:
+                found_error.text_origins = json_context['origin'] + \
+                    ','+found_error.text_origins
 
             # overwrite error message
             found_error.text_description = new_error_details['text_log']
 
             # add the 5 most recent contexts as examples
-            found_error.json_context.insert(0, context)
-            found_error.json_context = found_error.json_context[:5]
+            found_error.text_context.insert(0, context)
+            found_error.text_context = found_error.text_context[:5]
 
-            found_error.list_dateUNIXtimes.insert(0, time.time())
+            found_error.text_dateUNIXtimes = str(
+                time.time())+','+found_error.text_dateUNIXtimes
 
             found_error.save()
 
             # send notification
-            if len(found_error.list_dateUNIXtimes) == 10:
+            if len(found_error.text_dateUNIXtimes.split(',')) == 10:
                 notify(json_context={
                     'str_what': 'error_repeated_10',
                     'str_error_code': self.str_error_code,
                     'str_name': self.str_name
                 })
-            elif len(found_error.list_dateUNIXtimes) == 100:
+            elif len(found_error.text_dateUNIXtimes.split(',')) == 100:
                 notify(json_context={
                     'str_what': 'error_repeated_100',
                     'str_error_code': self.str_error_code,
                     'str_name': self.str_name
                 })
-            elif len(found_error.list_dateUNIXtimes) == 1000:
+            elif len(found_error.text_dateUNIXtimes.split(',')) == 1000:
                 notify(json_context={
                     'str_what': 'error_repeated_1000',
                     'str_error_code': self.str_error_code,
@@ -169,9 +171,9 @@ class Error(models.Model):
         else:
             self.str_name = new_error_details['str_name']
             self.text_description = new_error_details['text_log']
-            self.list_origins = [self.json_context['origin']]
-            self.list_dateUNIXtimes = [time.time()]
-            self.json_context = [context]
+            self.text_origins = json_context['origin']
+            self.text_dateUNIXtimes = str(time.time())
+            self.text_context = str(context)
 
             # generate random str_error_code
             random_string = ''.join(random.choice(
@@ -199,7 +201,7 @@ class Error(models.Model):
             return self
 
     def save(self, *args, **kwargs):
-        self.int_count = len(self.list_dateUNIXtimes)
+        self.int_count = len(self.text_dateUNIXtimes.split(','))
 
         if not self.str_name:
             self = self.create_or_update()
