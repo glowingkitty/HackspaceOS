@@ -1,5 +1,6 @@
 from datetime import datetime
 import calendar
+import pytz
 
 from hackerspace.YOUR_HACKERSPACE import (
     HACKERSPACE_IS_OPEN_BASED_ON_OPENING_HOURS,
