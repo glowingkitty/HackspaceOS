@@ -2,15 +2,6 @@
 
 <div class="events_slider_section">
     <div class="result_preview placeholder_left"></div>
-    <div class="result_preview">
-      <div class="result_preview_relative_time repeating_day">every Monday</div>
-      <div class="result_preview_relative_time">Now</div>
-      <div class="result_preview_left">
-        <div class="h2 in_result_preview_block">Circuit Hacking Mondays - ...</div>
-        <div class="text_semitransparent with_padding_left">Oct 5 | 2PM - 6:30 PM</div>
-      </div>
-      <div class="result_preview_right"></div>
-    </div>
     {% for result in upcoming_events %}
     {% include "components/body/result_preview_block.html" %}
     {% endfor %}

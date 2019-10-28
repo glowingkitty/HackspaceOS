@@ -2,7 +2,6 @@ from django.shortcuts import render
 
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
-from hackerspace.tools.events import getUpcomingEvents
 from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
                                           HACKERSPACE_IS_SENTENCES,
                                           HACKERSPACE_NAME)
@@ -42,7 +41,7 @@ def landingpage_view(request):
         'HACKERSPACE_IS_SENTENCES': HACKERSPACE_IS_SENTENCES,
         'HACKERSPACE_ADDRESS': HACKERSPACE_ADDRESS,
         'is_open_status': getOpenNowStatus(),
-        'upcoming_events': getUpcomingEvents()
+        'upcoming_events': Event.objects.upcoming()[:5]
     }
     )
 
