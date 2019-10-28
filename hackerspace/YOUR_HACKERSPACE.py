@@ -24,6 +24,10 @@ HACKERSPACE_ADDRESS = {
 
 HACKERSPACE_TIMEZONE_STRING = 'America/Los_Angeles'
 
+
+# https://www.meetup.com/{{HACKERSPACE_MEETUP_GROUP}}/
+HACKERSPACE_MEETUP_GROUP = 'noisebridge'
+
 # if your hackerspace has official opening hours, define them here as a json
 HACKERSPACE_OPENING_HOURS = {}
 days_num = 0

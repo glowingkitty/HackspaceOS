@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from hackerspace.models import Event
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,

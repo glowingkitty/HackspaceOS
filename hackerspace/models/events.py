@@ -3,10 +3,11 @@ from datetime import datetime, timedelta
 
 import pytz
 import requests
-from django.db import models
 from django.core import serializers
+from django.db import models
 
 from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
+                                          HACKERSPACE_MEETUP_GROUP,
                                           HACKERSPACE_NAME,
                                           HACKERSPACE_TIMEZONE_STRING)
 
@@ -48,6 +49,41 @@ def extractTimezone(json_meetup_result):
     return HACKERSPACE_TIMEZONE_STRING
 
 
+def createEvent(event):
+    Event().create(json_content={
+        'str_name': event['name'],
+        'int_UNIXtime_event_start': round(event['time']/1000),
+        'int_UNIXtime_event_end': round(event['time']/1000)+(event['duration']/1000),
+        'int_minutes_duration': ((event['duration']/1000)/60),
+        'url_featured_photo': event['featured_photo']['photo_link'] if 'featured_photo' in event else None,
+        'text_description': event['description'],
+        'str_location_name': event['venue']['name'] if event['venue']['name'] and event[
+            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_NAME,
+        'str_location_street': event['venue']['address_1'] if event['venue']['name'] and event[
+            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['STREET'],
+        'str_location_zip': event['venue']['zip'] if event['venue']['name'] and event[
+            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['ZIP'],
+        'str_location_city': event['venue']['city'] if event['venue']['name'] and event[
+            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['CITY'],
+        'str_location_countrycode': event['venue']['country'].upper() if event['venue']['name'] and event[
+            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['COUNTRYCODE'],
+        'one_space': extractSpace(event),
+        'str_series_id': event['series']['id'] if 'series' in event else None,
+        'int_series_startUNIX': round(
+            event['series']['start_date'] / 1000) if 'series' in event and 'start_date' in event['series'] else None,
+        'int_series_endUNIX': round(
+            event['series']['end_date'] / 1000) if 'series' in event and 'end_date' in event['series'] else None,
+        'text_series_timing': 'weekly: '+str(event['series']['weekly']) if 'series' in event and 'weekly' in event['series'] else 'monthly: ' +
+        str(event['series']['monthly']
+            ) if 'series' in event and 'monthly' in event['series'] else None,
+        'url_meetup_event': event['link'] if 'link' in event else None,
+        'int_UNIXtime_created': event['created'],
+        'int_UNIXtime_updated': event['updated'],
+        'str_timezone': extractTimezone(event)
+    }
+    )
+
+
 class EventSet(models.QuerySet):
     def in_space(self, one_space=None, str_space=None):
         if one_space:
@@ -78,58 +114,20 @@ class EventSet(models.QuerySet):
             print(event)
 
     def upcoming(self):
-        return self.filter(int_UNIXtime_event_end__gt=time.time())
+        return self.filter(int_UNIXtime_event_end__gt=time.time()).order_by('int_UNIXtime_event_start')
 
     def pull_from_meetup(self):
-        upcoming_start = datetime.today()\
-            .strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+        json_our_group = requests.get('https://api.meetup.com/'+HACKERSPACE_MEETUP_GROUP+'/events',
+                                      params={
+                                          'fields': ['series', 'simple_html_description', 'rsvp_sample'],
+                                          'photo-host': 'public'
+                                      }).json()
 
-        upcoming_end = (datetime.today() + timedelta(days=30))\
-            .replace(hour=0, minute=0, second=0, microsecond=0)\
-            .strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+        print('Saving '+str(len(json_our_group)) +
+              ' events from our hackerspace group')
 
-        meetup_api_fields = 'name,venue,description,local_date,local_time,duration'
-        json_response = requests.get('https://api.meetup.com/noisebridge/events',
-                                     params={
-                                         'fields': ['series', 'simple_html_description', 'rsvp_sample'],
-                                         'photo-host': 'public'
-                                     }).json()
-
-        print('Saving '+str(len(json_response))+' events')
-
-        for event in json_response:
-            Event().create(json_content={
-                'str_name': event['name'],
-                'int_UNIXtime_event_start': round(event['time']/1000),
-                'int_UNIXtime_event_end': round(event['time']/1000)+(event['duration']/1000),
-                'int_minutes_duration': ((event['duration']/1000)/60),
-                'url_featured_photo': event['featured_photo']['photo_link'] if 'featured_photo' in event else None,
-                'text_description': event['description'],
-                'str_location_name': event['venue']['name'] if event['venue']['name'] and event[
-                    'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_NAME,
-                'str_location_street': event['venue']['address_1'] if event['venue']['name'] and event[
-                    'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['STREET'],
-                'str_location_zip': event['venue']['zip'] if event['venue']['name'] and event[
-                    'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['ZIP'],
-                'str_location_city': event['venue']['city'] if event['venue']['name'] and event[
-                    'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['CITY'],
-                'str_location_countrycode': event['venue']['country'].upper() if event['venue']['name'] and event[
-                    'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['COUNTRYCODE'],
-                'one_space': extractSpace(event),
-                'str_series_id': event['series']['id'] if 'series' in event else None,
-                'int_series_startUNIX': round(
-                    event['series']['start_date'] / 1000) if 'series' in event and 'start_date' in event['series'] else None,
-                'int_series_endUNIX': round(
-                    event['series']['end_date'] / 1000) if 'series' in event and 'end_date' in event['series'] else None,
-                'text_series_timing': 'weekly: '+str(event['series']['weekly']) if 'series' in event and 'weekly' in event['series'] else 'monthly: ' +
-                str(event['series']['monthly']
-                    ) if 'series' in event and 'monthly' in event['series'] else None,
-                'url_meetup_event': event['link'] if 'link' in event else None,
-                'int_UNIXtime_created': event['created'],
-                'int_UNIXtime_updated': event['updated'],
-                'str_timezone': extractTimezone(event)
-            }
-            )
+        for event in json_our_group:
+            createEvent(event)
 
     print('Done! Saved ')
 
@@ -189,12 +187,14 @@ class Event(models.Model):
         max_length=100, default=HACKERSPACE_TIMEZONE_STRING, blank=True, null=True)
 
     def __str__(self):
-        return self.str_name+' | '+str(self.datetime_start)
+        if not self.datetime_range:
+            return self.str_name
+        return self.str_name+' | '+self.datetime_range
 
     @property
     def datetime_start(self):
         if not self.int_UNIXtime_event_start:
-            return 'No start time'
+            return None
         local_timezone = pytz.timezone(self.str_timezone)
         local_time = datetime.fromtimestamp(
             self.int_UNIXtime_event_start, local_timezone)
@@ -202,7 +202,35 @@ class Event(models.Model):
 
     @property
     def datetime_end(self):
+        if not self.datetime_start:
+            return None
         return self.datetime_start+timedelta(minutes=self.int_minutes_duration)
+
+    @property
+    def datetime_range(self):
+        if not (self.datetime_start and self.datetime_end):
+            return None
+
+        datetime_start = self.datetime_start
+        datetime_end = self.datetime_end
+
+        month = datetime_start.strftime('%b')
+        day_num = str(datetime_start.day)
+        start_time = datetime_start.strftime(
+            '%I:%M %p') if datetime_start.minute > 0 else datetime_start.strftime('%I %p')
+        if datetime_start.strftime('%p') == datetime_end.strftime('%p'):
+            start_time = start_time[:-3]
+        end_time = datetime_end.strftime(
+            '%I:%M %p') if datetime_end.minute > 0 else datetime_end.strftime('%I %p')
+
+        # remove zeros to shorten text
+        if start_time.startswith('0'):
+            start_time = start_time[1:]
+        if end_time.startswith('0'):
+            end_time = end_time[1:]
+
+        # if runtime > 24 hours, show num of days instead
+        return month+' '+day_num+' | '+start_time+(' - ' + end_time if self.int_minutes_duration < (24*60) else ' | '+str(round(self.int_minutes_duration/60/24))+' days')
 
     @property
     def str_location(self):
@@ -218,11 +246,9 @@ class Event(models.Model):
                 setattr(obj, key, value)
             obj = updateTime(obj)
             obj.save()
-            print('Updated "'+json_content['str_name']+' | ' +
-                  str(json_content['int_UNIXtime_event_start'])+'"')
+            print('Updated "'+obj.str_name+' | ' + obj.datetime_range+'"')
         except Event.DoesNotExist:
             obj = Event(**json_content)
             obj = updateTime(obj)
             obj.save()
-            print('Created "'+json_content['str_name']+' | ' +
-                  str(json_content['int_UNIXtime_event_start'])+'"')
+            print('Created "'+obj.str_name+' | ' + obj.datetime_range+'"')
