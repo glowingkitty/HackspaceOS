@@ -228,7 +228,7 @@ class Event(models.Model):
         timestamp = self.int_UNIXtime_event_start
 
         # if date within next 5 minutes
-        if timestamp > time.time() and self.int_UNIXtime_event_end < time.time():
+        if timestamp < time.time() and self.int_UNIXtime_event_end > time.time():
             return 'Now'
 
         # in next 60 minutes
