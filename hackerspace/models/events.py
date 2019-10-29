@@ -133,7 +133,13 @@ class EventSet(models.QuerySet):
     def pull_from_meetup(self):
         json_our_group = requests.get('https://api.meetup.com/'+HACKERSPACE_MEETUP_GROUP+'/events',
                                       params={
-                                          'fields': ['series', 'simple_html_description', 'rsvp_sample'],
+                                          'fields': [
+                                              'featured_photo',
+                                              'series',
+                                              'simple_html_description',
+                                              'rsvp_sample',
+                                              'description_images',
+                                          ],
                                           'photo-host': 'public'
                                       }).json()
 
@@ -155,17 +161,6 @@ class EventSet(models.QuerySet):
 
 
 class Event(models.Model):
-    NOT = 'Not repeating'
-    WEEKLY = 'Weekly'
-    BIWEEKLY = 'Bi-weekly'
-    MONTHLY = 'Monthly'
-    REPEATING_CHOICES = (
-        (NOT, 'Not repeating'),
-        (WEEKLY, 'Weekly'),
-        (BIWEEKLY, 'Bi-weekly'),
-        (MONTHLY, 'Monthly')
-    )
-
     objects = EventSet.as_manager()
     str_name = models.CharField(max_length=250, blank=True, null=True)
     int_UNIXtime_event_start = models.IntegerField(blank=True, null=True)
