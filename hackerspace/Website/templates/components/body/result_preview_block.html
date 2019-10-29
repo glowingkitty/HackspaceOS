@@ -1,13 +1,15 @@
+{% load text %}
+
 {% block content %}
 
 <div class="result_preview">
-    {% if result.str_repeating_weekday %}
-    <div class="result_preview_relative_time repeating_day">every {{ result.str_repeating_weekday }}</div>
+    {% if result.text_series_timing %}
+    <div class="result_preview_relative_time repeating_day">{{ result.str_series }}</div>
     {% endif %}
-    <div class="result_preview_relative_time">{{ result.int_eventUNIXtime_start|relativeTime }}</div>
+    <div class="result_preview_relative_time">{{ result.str_relative_time }}</div>
     <div class="result_preview_left">
-    <div class="h2 in_result_preview_block">{{ result.str_name|shorten }}</div>
-    <div class="text_semitransparent with_padding_left">{{ result|localDateAndTimeStart }} - {{ result|localTimeEnd }}</div>
+    <div class="h2 in_result_preview_block">{{ result.str_name|shorten:30 }}</div>
+    <div class="text_semitransparent with_padding_left">{{ result.datetime_range }}</div>
     </div>
     <div class="result_preview_right"></div>
 </div>

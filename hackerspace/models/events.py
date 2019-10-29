@@ -5,11 +5,25 @@ import pytz
 import requests
 from django.core import serializers
 from django.db import models
+import json
 
 from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
                                           HACKERSPACE_MEETUP_GROUP,
                                           HACKERSPACE_NAME,
                                           HACKERSPACE_TIMEZONE_STRING)
+
+
+def getWeekday(number):
+    days = {
+        0: 'Mon',
+        1: 'Tue',
+        2: 'Wed',
+        3: 'Thu',
+        4: 'Fri',
+        5: 'Sat',
+        6: 'Sun',
+    }
+    return days[number]
 
 
 def updateTime(result):
@@ -129,7 +143,15 @@ class EventSet(models.QuerySet):
         for event in json_our_group:
             createEvent(event)
 
-    print('Done! Saved ')
+        print('Done! Saved '+str(len(json_our_group)) + ' events from Meetup')
+
+    def pull_from_wiki(self):
+        # to do
+        return []
+
+    def pull_from_discuss(self):
+        # to do
+        return []
 
 
 class Event(models.Model):
@@ -190,6 +212,49 @@ class Event(models.Model):
         if not self.datetime_range:
             return self.str_name
         return self.str_name+' | '+self.datetime_range
+
+    @property
+    def str_series(self):
+        if not self.text_series_timing:
+            return None
+
+        text_series_timing = self.text_series_timing.replace(
+            'weekly: ', '"weekly": ').replace('monthly: ', '"monthly": ').replace("'", '"')
+        json_series_timing = json.loads('{'+text_series_timing+'}')
+        if 'weekly' in json_series_timing:
+            weekday_num = json_series_timing['weekly']['days_of_week'][0]
+            return 'every '+(json_series_timing['weekly']['interval']+'nd' if json_series_timing['weekly']['interval'] > 1 else '')+getWeekday(weekday_num)
+
+        if 'monthly' in json_series_timing:
+            return 'every month'
+
+    @property
+    def str_relative_time(self):
+        timestamp = self.int_UNIXtime_event_start
+
+        # if date within next 5 minutes
+        if timestamp > time.time() and self.int_UNIXtime_event_end < time.time():
+            return 'Now'
+
+        # in next 60 minutes
+        elif timestamp < time.time()+(60*60):
+            minutes_in_future = int((timestamp - time.time())/60)
+            return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
+
+        # in next 24 hours
+        elif timestamp < time.time()+(60*60*24):
+            hours_in_future = int(((timestamp - time.time())/60)/60)
+            return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
+
+        # in next 30 days
+        elif timestamp < time.time()+(60*60*24*30):
+            days_in_future = int((((timestamp - time.time())/60)/60)/24)
+            return 'in '+str(days_in_future)+' day'+('s' if days_in_future > 1 else '')
+
+        # else return months
+        else:
+            months_in_future = int(((((timestamp - time.time())/60)/60)/24)/30)
+            return 'in '+str(months_in_future)+' month'+('s' if months_in_future > 1 else '')
 
     @property
     def datetime_start(self):

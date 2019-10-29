@@ -12,3 +12,11 @@ def prepareForTextCarusel(HACKERSPACE_IS_SENTENCES):
     if output.endswith(', '):
         output = output[:-2]
     return output
+
+
+@register.filter
+def shorten(text, limit):
+    if len(text) > limit:
+        return text[:limit]+'...'
+    else:
+        return text
