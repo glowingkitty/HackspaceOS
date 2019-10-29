@@ -1,4 +1,6 @@
+from django.http import JsonResponse
 from django.shortcuts import render
+from django.template.loader import get_template
 
 from hackerspace.models import Event
 from hackerspace.tools.space_open import getOpenNowStatus
@@ -28,27 +30,52 @@ def error_view(request, error_log, exc_type, exc_value, tb):
     }
     )
 
+    response.status_code = 500
+
     return response
 
 
 def landingpage_view(request):
-    # try:
-    response = render(request, 'index.html', {
-        'css_files': ['body', 'header', 'event_slider', 'result_preview'],
-        'page_name': HACKERSPACE_NAME,
-        'page_description': make_description_sentence(),
-        'cookie_consent': request.COOKIES.get('consent'),
-        'HACKERSPACE_NAME': HACKERSPACE_NAME,
-        'HACKERSPACE_IS_SENTENCES': HACKERSPACE_IS_SENTENCES,
-        'HACKERSPACE_ADDRESS': HACKERSPACE_ADDRESS,
-        'is_open_status': getOpenNowStatus(),
-        'upcoming_events': Event.objects.upcoming()[:5]
-    }
-    )
+    try:
+        print('landingpage_view')
+        response = render(request, 'index.html', {
+            'view': 'landingpage_view',
+            'css_files': ['body', 'header', 'event_slider', 'result_preview'],
+            'page_name': HACKERSPACE_NAME,
+            'page_description': make_description_sentence(),
+            'cookie_consent': request.COOKIES.get('consent'),
+            'HACKERSPACE_NAME': HACKERSPACE_NAME,
+            'HACKERSPACE_IS_SENTENCES': HACKERSPACE_IS_SENTENCES,
+            'HACKERSPACE_ADDRESS': HACKERSPACE_ADDRESS,
+            'is_open_status': getOpenNowStatus(),
+            'upcoming_events': Event.objects.upcoming()[:5]
+        }
+        )
 
-    return response
-    # except:
-    #     import sys
-    #     import traceback
-    #     exc_type, exc_value, tb = sys.exc_info()
-    #     error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
+        return response
+    except:
+        import sys
+        import traceback
+        exc_type, exc_value, tb = sys.exc_info()
+        error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
+
+
+def get_view(request):
+    try:
+        print('get_view')
+        if request.GET.get('what', None) == 'events_slider':
+            response = JsonResponse(
+                {
+                    'html': get_template(
+                        'components/body/events_slider.html').render({
+                            'upcoming_events': Event.objects.upcoming()[:5]
+                        })
+                }
+            )
+
+        return response
+    except:
+        import sys
+        import traceback
+        exc_type, exc_value, tb = sys.exc_info()
+        error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
