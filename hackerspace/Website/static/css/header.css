@@ -24,6 +24,12 @@
     -webkit-animation-iteration-count: infinite;
 }
 
+.header_image.donation_footer {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, 0.65)), to(#fff)), url('../images/header_banner.jpg');
+    background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.65), #fff), url('../images/header_banner.jpg');
+    background-position: 0px 0px, 0% 50%;
+}
+
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes header_image {
     from {
@@ -69,6 +75,17 @@
     background-position: 50% 0%;
     background-size: 105%;
     background-repeat: no-repeat;
+}
+
+
+.header_separator.upside {
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: auto;
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .header_center {
@@ -145,6 +162,16 @@
     color: #fff;
     font-size: 18px;
     text-decoration: none;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+
+.cta_button:hover {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.4);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
 }
 
 .cta_button.secondary {
@@ -157,6 +184,10 @@
     flex: 0 0 auto;
     background-color: #fff;
     color: #ed1d23;
+}
+
+.inline {
+    display: inline-block;
 }
 
 .cta_button.secondary.with_icon {

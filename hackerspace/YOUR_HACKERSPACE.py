@@ -19,7 +19,9 @@ HACKERSPACE_ADDRESS = {
     'STREET': '2169 Mission St',
     'ZIP': '94110',
     'CITY': 'San Francisco',
-    'COUNTRYCODE': 'US'
+    'STATE': 'CA',
+    'COUNTRYCODE': 'US',
+    'EXTRA_INFO': '(entrence left next to the supermarket)'
 }
 
 HACKERSPACE_TIMEZONE_STRING = 'America/Los_Angeles'
@@ -29,6 +31,7 @@ HACKERSPACE_TIMEZONE_STRING = 'America/Los_Angeles'
 HACKERSPACE_MEETUP_GROUP = 'noisebridge'
 
 # if your hackerspace has official opening hours, define them here as a json
+HACKERSPACE_OPENING_HOURS_SUMMARY = 'Mon-Sun, 11AM -  10PM'
 HACKERSPACE_OPENING_HOURS = {}
 days_num = 0
 while days_num < 7:

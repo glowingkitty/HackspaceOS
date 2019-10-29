@@ -1,0 +1,141 @@
+.centered {
+    text-align: center;
+}
+
+.table {
+    display: table;
+    width: 100%;
+}
+
+.max_900_width {
+    max-width: 900px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.max_500 {
+    max-width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 16px;
+}
+
+
+@media (max-width: 479px) {
+    .max_500 {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+}
+
+.inline_link {
+    display: inline-block;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    color: #ed1d23;
+    text-decoration: none;
+}
+
+.paragraph {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.divider_20 {
+    height: 20px;
+}
+
+.align_center {
+    text-align: center;
+}
+
+.align_center.move_up {
+    margin-top: -25px;
+}
+
+.visit_us_text_left {
+    width: 30%;
+    float: left;
+    font-size: 16px;
+}
+
+.visit_us_text_right {
+    width: 70%;
+    float: left;
+    color: #818181;
+}
+
+.donation_hint_block {
+    position: relative;
+    overflow: hidden;
+    height: 50vh;
+}
+
+@media (max-width: 767px) {
+    .donation_hint_block {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 479px) {
+    .donation_hint_block {
+        min-height: 350px;
+    }
+}
+
+
+.landingpage_quick_access_icon {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    margin-right: 1%;
+    margin-left: 1%;
+    grid-auto-columns: 1fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    -ms-grid-rows: auto auto;
+    grid-template-rows: auto auto;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.landingpage_quick_access_icon:hover {
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+.landingpage_quick_access_icon.divider {
+    background-image: none;
+}
+
+@media (max-width: 991px) {
+    .landingpage_quick_access_icon {
+        margin-right: 1%;
+        margin-left: 1%;
+    }
+}
+
+@media (max-width: 767px) {
+    .landingpage_quick_access_icon {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .landingpage_quick_access_icon.divider {
+        display: none;
+    }
+}
+
+@media (max-width: 479px) {
+    .landingpage_quick_access_icon {
+        width: 35px;
+        margin-right: 7px;
+        margin-left: 7px;
+    }
+}

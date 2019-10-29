@@ -7,7 +7,8 @@ from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
                                           HACKERSPACE_IS_SENTENCES,
-                                          HACKERSPACE_NAME)
+                                          HACKERSPACE_NAME,
+                                          HACKERSPACE_OPENING_HOURS_SUMMARY)
 
 # from hackerspace.errors import Error
 
@@ -40,13 +41,14 @@ def landingpage_view(request):
         print('landingpage_view')
         response = render(request, 'index.html', {
             'view': 'landingpage_view',
-            'css_files': ['body', 'header', 'event_slider', 'result_preview'],
+            'css_files': ['body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map'],
             'page_name': HACKERSPACE_NAME,
             'page_description': make_description_sentence(),
             'cookie_consent': request.COOKIES.get('consent'),
             'HACKERSPACE_NAME': HACKERSPACE_NAME,
             'HACKERSPACE_IS_SENTENCES': HACKERSPACE_IS_SENTENCES,
             'HACKERSPACE_ADDRESS': HACKERSPACE_ADDRESS,
+            'HACKERSPACE_OPENING_HOURS_SUMMARY': HACKERSPACE_OPENING_HOURS_SUMMARY,
             'is_open_status': getOpenNowStatus(),
             'upcoming_events': Event.objects.upcoming()[:5]
         }

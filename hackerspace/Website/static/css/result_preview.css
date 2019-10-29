@@ -11,6 +11,15 @@
     border-radius: 10px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.18);
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.result_preview:hover {
+    box-shadow: 0 9px 8px 0 rgba(0, 0, 0, 0.18);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
 }
 
 .result_preview.placeholder_left {
@@ -68,6 +77,14 @@
     -webkit-column-count: auto;
     column-count: auto;
 }
+
+
+.h2.large {
+    max-height: 100%;
+    font-size: 25px;
+    line-height: 30px;
+}
+
 
 .h2.in_result_preview_block {
     margin-left: 10px;

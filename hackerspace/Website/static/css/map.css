@@ -1,0 +1,5 @@
+.map_preview {
+    overflow: hidden;
+    height: 250px;
+    border-radius: 20px;
+}
