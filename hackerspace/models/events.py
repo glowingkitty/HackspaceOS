@@ -130,6 +130,18 @@ class EventSet(models.QuerySet):
     def upcoming(self):
         return self.filter(int_UNIXtime_event_end__gt=time.time()).order_by('int_UNIXtime_event_start')
 
+    def announce(self):
+        self.announce_via_marry()
+        self.announce_via_flaschentaschen()
+
+    def announce_via_flaschentaschen(self):
+        for event in self.all()[:3]:
+            event.announce_via_flaschentaschen()
+
+    def announce_via_marry(self):
+        for event in self.all()[:3]:
+            event.announce_via_marry()
+
     def pull_from_meetup(self):
         json_our_group = requests.get('https://api.meetup.com/'+HACKERSPACE_MEETUP_GROUP+'/events',
                                       params={
@@ -312,3 +324,14 @@ class Event(models.Model):
             obj = updateTime(obj)
             obj.save()
             print('Created "'+obj.str_name+' | ' + obj.datetime_range+'"')
+
+    # Noisebridge specific
+    def announce_via_marry(self):
+        from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.marry import speak
+        start_time = self.datetime_start.strftime(
+            '%I %M %p') if self.datetime_start.minute > 0 else self.datetime_start.strftime('%I %p')
+        speak(self.str_name+' starts at '+start_time, None)
+
+    def announce_via_flaschentaschen(self):
+        from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.flaschentaschen import showText
+        showText(self)

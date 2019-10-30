@@ -17,7 +17,8 @@ def speak(text, intro='Did you know?'):
     try:
         # make marry speak
         parts = text.split('. ')
-        requests.get('http://pegasus.noise:5000?text='+intro)
+        if intro:
+            requests.get('http://pegasus.noise:5000?text='+intro)
         for part in parts:
             requests.get('http://pegasus.noise:5000?text=' +
                          part.replace('.', ' dot ').replace(':', ' colon '))
