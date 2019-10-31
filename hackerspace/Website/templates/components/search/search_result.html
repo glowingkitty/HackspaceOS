@@ -1,5 +1,5 @@
 {% block content %}
 
-<a href="{{ result.url }}" {% if 'http' in result.url %}target="_blank"{% endif %} class="search_result">{{ result.name }}</a>
+<a href="{{ result.url }}" {% if 'http' in result.url %}target="_blank"{% endif %} class="search_result {{ result.icon }}">{{ result.name }}</a>
 
 {% endblock %}

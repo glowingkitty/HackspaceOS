@@ -130,6 +130,20 @@ class EventSet(models.QuerySet):
     def upcoming(self):
         return self.filter(int_UNIXtime_event_end__gt=time.time()).order_by('int_UNIXtime_event_start')
 
+    def search_results(self):
+        results_list = []
+        added = []
+        results = self.all()
+        for result in results:
+            if not result.str_name in added:
+                results_list.append({
+                    'icon': 'event',
+                    'name': str(result),
+                    'url': result.url_meetup_event
+                })
+                added.append(result.str_name)
+        return results_list
+
     def announce(self):
         self.announce_via_marry()
         self.announce_via_flaschentaschen()

@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.landingpage_view, name='landingpage'),
     path('get/', views.get_view, name='get'),
+    path('search', views.search_view, name='search'),
 ]

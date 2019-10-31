@@ -27,12 +27,12 @@ HACKERSPACE_ADDRESS = {
 # list your social network channels (name in small letters please and check that the CSS classes exist in footer.css)
 # Recommended: max 5 (only show the most relevant networks)
 HACKERSPACE_SOCIAL_NETWORKS = [
-    {'NAME': 'github', 'URL': 'https://github.com/noisebridge'},
-    {'NAME': 'patreon', 'URL': 'https://patreon.com/Noisebridge'},
-    {'NAME': 'youtube', 'URL': 'https://www.youtube.com/user/noisebridge'},
-    {'NAME': 'instagram', 'URL': 'https://www.instagram.com/noisebridgehackerspace/'},
-    {'NAME': 'facebook', 'URL': 'https://www.facebook.com/noisebridge'},
-    {'NAME': 'twitter', 'URL': 'https://www.twitter.com/noisebridge'},
+    {'name': 'github', 'url': 'https://github.com/noisebridge'},
+    {'name': 'patreon', 'url': 'https://patreon.com/Noisebridge'},
+    {'name': 'youtube', 'url': 'https://www.youtube.com/user/noisebridge'},
+    {'name': 'instagram', 'url': 'https://www.instagram.com/noisebridgehackerspace/'},
+    {'name': 'facebook', 'url': 'https://www.facebook.com/noisebridge'},
+    {'name': 'twitter', 'url': 'https://www.twitter.com/noisebridge'},
 ]
 
 HACKERSPACE_TIMEZONE_STRING = 'America/Los_Angeles'

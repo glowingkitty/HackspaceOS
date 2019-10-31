@@ -15,11 +15,15 @@
     padding: 50px 10px 10px;
     background-color: #2e2e2e;
     box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
 }
 
 .page_content {
     position: relative;
     padding-left: 200px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
 }
 
 .search_bar {
@@ -39,7 +43,7 @@
 }
 
 .search_bar.active {
-    width: 300px;
+    width: 800px;
     padding-bottom: 10px;
 }
 
@@ -75,10 +79,22 @@
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
     color: #fff;
+    display: block;
+    text-decoration: none;
+    opacity: 0.5;
 }
 
 .search_result:hover {
     background-color: hsla(0, 0%, 100%, 0.1);
+    opacity: 1;
+}
+
+.search_result.wiki {
+    background-image: url('../images/search/wiki.svg');
+}
+
+.search_result.event {
+    background-image: url('../images/search/event.svg');
 }
 
 .search_input {
@@ -95,7 +111,7 @@
 .menu_icon {
     display: none;
     position: fixed;
-    left: 210px;
+    left: 10px;
     top: 10px;
     right: auto;
     bottom: auto;
@@ -106,6 +122,11 @@
     background-position: 50% 50%;
     background-size: auto;
     background-repeat: no-repeat;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
 }
 
 .menu_icon:hover {
@@ -147,7 +168,11 @@
 
 @media (max-width: 991px) {
     .side_menu {
-        left: -200px;
+        left: -230px;
+    }
+
+    .side_menu.open {
+        left: inherit
     }
 
     .page_content {

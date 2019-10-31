@@ -12,8 +12,9 @@ def wiki_search(query, limit=10):
     results = []
     for idx, val in enumerate(result_names):
         results.append({
-            'str_name': val,
-            'url_link': result_urls[idx]
+            'icon': 'wiki',
+            'name': val,
+            'url': result_urls[idx]
         })
 
     return results

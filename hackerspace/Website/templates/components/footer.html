@@ -9,8 +9,8 @@
     <div>And join us online!</div>
     <div class="divider_10"></div>
     {% for network in HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS %}
-        {% if network.NAME != 'twitter' %}
-        <a href="{{ network.URL }}" target="_blank" class="social_icon {{ network.NAME }}"></a>
+        {% if network.name != 'twitter' %}
+        <a href="{{ network.url }}" target="_blank" class="social_icon {{ network.name }}"></a>
         {% endif %}
     {% endfor %}
     <div class="divider_20"></div>

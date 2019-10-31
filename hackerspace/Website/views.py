@@ -6,13 +6,7 @@ from hackerspace.models import Error, Event
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
-# from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
-#                                           HACKERSPACE_IS_SENTENCES,
-#                                           HACKERSPACE_NAME,
-#                                           HACKERSPACE_OPENING_HOURS_SUMMARY,
-#                                           HACKERSPACE_SOCIAL_NETWORKS)
-
-# from hackerspace.errors import Error
+from hackerspace.website.search import search
 
 
 def error_view(request, error_log, exc_type, exc_value, tb):
@@ -27,7 +21,7 @@ def error_view(request, error_log, exc_type, exc_value, tb):
     )
 
     response = render(request, '500.html', {
-        'page_name': HACKERSPACE_NAME+' - Server Error (Code '+(error.str_error_code if error else '????')+')',
+        'page_name': HACKERSPACE.HACKERSPACE_NAME+' - Server Error (Code '+(error.str_error_code if error else '????')+')',
         'page_description': 'Sorry, something went wrong! We posted it in our Git repo and the infrastructure Slack channel!',
         'cookie_consent': request.COOKIES.get('consent'),
     }
@@ -86,3 +80,25 @@ def get_view(request):
         import traceback
         exc_type, exc_value, tb = sys.exc_info()
         error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
+
+
+def search_view(request):
+    # try:
+    print('search_view')
+    search_results = search(request.GET.get('q', None))
+    response = JsonResponse(
+        {
+            'num_results': len(search_results),
+            'html': get_template(
+                'components/search/search_results.html').render({
+                    'search_results': search_results
+                })
+        }
+    )
+
+    return response
+    # except:
+    #     import sys
+    #     import traceback
+    #     exc_type, exc_value, tb = sys.exc_info()
+    #     error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
