@@ -253,15 +253,8 @@ class Event(models.Model):
             hours_in_future = int(((timestamp - time.time())/60)/60)
             return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
 
-        # in next 30 days
-        elif timestamp < time.time()+(60*60*24*30):
-            days_in_future = int((((timestamp - time.time())/60)/60)/24)
-            return 'in '+str(days_in_future)+' day'+('s' if days_in_future > 1 else '')
-
-        # else return months
         else:
-            months_in_future = int(((((timestamp - time.time())/60)/60)/24)/30)
-            return 'in '+str(months_in_future)+' month'+('s' if months_in_future > 1 else '')
+            return None
 
     @property
     def datetime_start(self):
@@ -328,9 +321,12 @@ class Event(models.Model):
     # Noisebridge specific
     def announce_via_marry(self):
         from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.marry import speak
-        start_time = self.datetime_start.strftime(
-            '%I %M %p') if self.datetime_start.minute > 0 else self.datetime_start.strftime('%I %p')
-        speak(self.str_name+' starts at '+start_time, None)
+        start_time = self.str_relative_time if self.int_UNIXtime_event_start < time.time(
+        )+(60*60) else self.datetime_start.strftime('%I %p')
+        if start_time == 'Now':
+            speak(str(self.str_name)+' is happening now', None)
+        else:
+            speak(str(self.str_name)+' starts at '+start_time, None)
 
     def announce_via_flaschentaschen(self):
         from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.flaschentaschen import showText

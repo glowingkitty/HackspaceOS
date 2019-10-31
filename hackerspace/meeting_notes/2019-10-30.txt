@@ -1,0 +1,272 @@
+These are the notes from [https://www.noisebridge.net/wiki/Category:Meeting_Notes The 5008300th Meeting of Noisebridge].
+
+help take notes at - https://pad.riseup.net/p/nbmeeting
+
+Date: 2019-10-29
+Note-taker: '''Ryan,Marco,Fredi '''
+Moderators: '''Riley'''
+ == Meeting Summary ==
+'''FILL OUT AT END OF MEETING - One or two bullet points of high-level meeting summary.'''
+What happened at the meeting:
+* Announcements:
+* Finances:
+* New members:
+* New philanthropists:
+* Consensus Items:
+* Discussion Items:
+ = Introductions =
+'''PREFERRED PRONONON & NAME, 1-2 SENTENCES OF WHAT YOU DO/ARE INTERESTED IN'''
+  Riley- He him, Currently trying to make pine linux work on noisebrridge
+  Marco- he/him Learning websitte developer, helping build noisebridge a new website
+
+ Kevin- he/him - ML neuroscience, software, hw, 
+  Jade - she / her /they / them Gernally here wed and tue, go to neurohacking meetup
+  Ryan - he / him Coming to NB for ~5 yrs. Enjoys taking care of nb, in charge of VR system, always available to answer questions
+  Freddie he him, helps out wherever, helping work on our library, likes databases
+  Chris- Working on a DAO for Noisebridge, likes to donate
+  Ait- it/ them Syrian refugee, learning c++, blender, play guitar, documenting a code based on historcal leaders name, freedom4a.com
+  Robert he /him / cat / dog / pizza rat -cirtcuit hacking monday fellow, helping running it, coming at circuit hacking monday on mondays at 7pm.
+  Warf, son of Mogh,  - hack on peoples bodies, with consent
+  David - working on RFID locker, helping to apply for grants, will discuss more during disssion item.
+  Richard,he/him - first time at meeting since 3 years, lot of laser cutting, like to chat with people about problems they have (both technical & personal)
+  Brian, he/him - working in the woodshop
+ = Short announcements and events =
+'''60-second description per item in bulletpoint.'''
+Freddy - we should change the time for the SQL classes (class is stopped at the moment)
+Ryan - on thursday is halloween🧛‍♂️, we have a party🍾. Please bring food, please volunteer before & after that. For volunteering: from 6PM on, event should start around 
+
+Robert - Cuircut hacking monday happening also on Friday November 8th between 11:30am and 12:30pm (private class), though Noisebridge will still be open to general public, but general public will not be able to partisipate. 
+
+Ryan - on Saturday, Nov 9 is Aaron Swartz hackathon day, join if you care about freedom of press, at the Internet Archive. Secure drop, improving open libraries, improving their translation system.
+https://www.aaronswartzday.org/
+
+Chris - working on a dow for Noisebridge. A dow is a distributed atonomus organism, gives a smart contract, that allows people to see the cryto that gets donated, and allows people to propose a way to spend it.  Will try to 
+
+Freddy - Back bathroom was partially fixed (please put bathroom lever back up after flushing, oherwise water will continue flushing)
+
+Ryan - Lasercutter was improved, and cleaned fans added. After Nov 11 retraining is required.
+
+
+Worf - So, me and david have been working on a proptype solution to address secutiry issue. Idea is a locker with access control login (rfid), anyone who has access can give others access. We're still tuning the workflows and stuff. Riley : does it have a blockchain system? Worf: No I want it to work. LOL
+
+= Excellence =
+'''Our One Rule is to Be Excellent to Each Other.'''
+ (What does that mean? How does the Anti-Harassment Policy fit into this?  Are we SURE we know what being Excellent is? Also let's talk about Security in the space? This is an important and fundamental conversation at Noisebridge, so let's give it like 120 seconds.)
+  Riely- what does it Mean
+  Eccelence manifests in many ways
+  fixing a toilett, 
+ running a class, 
+ being available for others
+ respecting others
+ taking a class
+ reparing tools
+ please help with trash
+  Marco: being excellent also means being excellent to yourself. Make sure you dont burnout and develop and unhelathy relationship with nb
+ Ryan:  We're not a safespace, we're a bravespace. There may be things that make you uncomfortable. If a person is making you specifically uncofmratble, that is unescellent and you should ask them to leave. If you're not configent talk to other people in the space and ask them to leave.
+Events like nude figure drawing calsses, some talks, some events may make ppl uncomfrotable, but please respect that they are utilizing the space differntly than you.
+
+Worf: Sometimes you jsut need some moderation, doesnt always end up in asking someone to leave or being 86'd.
+  Excellence in the community - go out and help people in the community outside of NB and tell people about Noisebridge. Let people at NB know about events outside of NB.
+ Ryan - Anti harassment policy: harassment not tollerated. Examples: if you feel attacked by someone.  It is not excellent to 
+  Marco- if you notice someone else getting harrased, speak up about it.
+ = Participation =
+'''Everyone at Noisebridge is a participant at Noisebridge.'''
+ (What does that mean? How do you get a door key? Access to Slack, Discuss, etc?)
+ - We are all volunteers here, we believe in do-ocrazy.
+Ryley - sounds like this topis is repeating
+
+Ryan - you can participate in person or online (our Slack group or https://discuss.noisebridge.net
+Participation- can be fixing cleaning, learning, teaching
+    = [[Philanthropist|Philanthropists]]=
+'''A Philanthropist at Noisebridge has earned enough trust from the community to open and close the space.'''
+ (What does that mean? What do we expect from Philanthropists? How do you become one? etc)
+ Marco - being a philantropist means taht you have more accessibility to the space, but also more resposibiluity.
+You can get a 24h token, but it also means taht you have to understand how to open/close the space. Doors windows closed, major machines off. If you are a phil it also means that you donate (default is 80 dollars, starving hacker donation is 40). For any question on donating just ask our treassurer Tyler.
+Ryan - we have 2 members here tonight, yeah
+Ryan - don't feel comfortable at the moment with sponsoring even more Philanthropists (for tonight).
+
+
+ = [[ Membership Binder ]] =
+'''Membership in Noisebridge entails community Trust in Consensus.'''
+ (What does that mean? What do we expect from Members? How do you become a Member? etc)
+  Membership is typically unnessary, it means that you have a vested intrest in the longevity, only thing it allows is you to block BIG C concensus items, everyone can participate, only members can block.  
+  Marco: members can give you 30 days access token
+Ryan: also Philantropist++ can do that
+Ryan: any philanthropist can renew a token
+  = Financial Report =
+'''Anarchist societies under a capitalist state need money to survive and thrive, yo.'''
+ * Funds in bank:
+186.000$ (new cash this week 550$, way above average - probably connected to movie screening recently)
+* Noisetor (See the bulletpoints at the bottom of http://noisetor.net/finances/#summary):
+No one has any idea if Noisetor is still running. Anyone? seems to be offline.
+
+* Any other details by those participating in handling our financials
+* The latest financial reports from the treasurer are available at https://noisebridge.net/wiki/Finances
+ == Fundraising Update ==
+'''How's it all going'''
+
+David: grant from SF arts commission, 50K$, improve accessibility of art-related spaces in SF and to bring places up to code when they might not need code in the future.
+Been working with Ruth and figure out areas where we might need help
+eg: elevator, electricity wire, ventilation
+Marco- could we get that money for ventilation in wood workshop, Turing room and for laser cutter?
+Ryan - often it looked loke the common earmarked  typically money for lighting, sound isolation
+David: phone call will be in less than a month (Nov 2019)
+Robert: Can we get someone to translate curcuit hacking monday informations into spanish, mandarin/cantonese
+David: Meetup is too tech oriented
+Ryan: we should show a display or flyers downstairs with events at Noisebridge, including translations to other languages.eg: Grey Area, DNA lounge
+
+= Consensus =
+'''Consensus is how the Noisebridge Membership may change how Noisebridge works.'''
+ (How does Consensus work? What types of things are good for formal Consensus? What is small-c consensus? What is a "block"?)
+ Marco: Small c means ask people around you, befoore doing things in the space, that could affect others.
+Big c is stuff that impact how nb operates. Such as installing cameras at nb, people may have to say stuff about that.
+David: bringin up the email issue (sending emails from a noisebridge.net address).
+Ryan: that's not a big C consensus, the majority of the spaces has agreed we need an outgoing email server.
+We now need to be allowed to create our own email server, which requires our domain holder to set it up.
+Worf: short term fix: email or slack tyler, he has a treasurer@noisebridge.net that SHOULD be able to send (to confirm)
+Ryan: we need to use our .org domain for email, other domains would get into spam
+Ryan: we should setup something easy & quick
+Marco: alternative for Lavamail?
+Freddy: ProtonMail
+David: it sends a clear message if we don't even have a working email that we don't have our stuff together
+
+
+
+== [[ Consensus Items History | Proposals from last week ]] ==
+''(Add any items which are consensed upon or someone has raised a principle objection for to the [[Consensus Items History]] page.)''
+
+== [[ Current Consensus Items | Proposals for next week ]] ==
+''(Add any new items for consensus to the [[Current Consensus Items]] page.)''
+ = Discussion =
+ == Discussion Item 1 ==
+Fredi: Book situation / re-organization 
+Reily: We have a lot of books, what do we do? We have more books than we have for shelf.
+(Suggestion 1) should we give them to Internet Archive?
+Ryan: (Suggestion 2) We can also scan them. And give books that's less read/important to the archive.
+(Suggestion 3) build more bookshelf?
+We have a lot of text books, do we need so many per subject, 
+Ryan:How do we decide what books to keep and what to donate. We shouldn't build more shelf. Very few people actually use the books for knowledge, they just donate them. 
+Reily: Should we take all the Perl books out? 
+Fredi: there's like 15 Perl books up there
+Someone: this is erasing our history
+People: BURN the books
+Ryan: No. There are books that're important. Donate the books for other community. Especially old book, the Archive really need them! (1950-1980)<-- missing a lot of the history here. 
+Fredi: potential solution - categorize the books. Ask ppl if they want to keep any books from the categories, else we can donate. 
+Robert: Put the books on the floor, if any one want the books here, put them on the shelf. (Make it a collaborative effort).
+Fredi: I found the label machine thing. Just have to prelabel them.
+Robert: BIG ASS sign next to chrome computer, pull up the excel sheet, have people enter + print label. 
+Most people: that's a good idea.
+Reily: Should we do a tracking number thing?
+Fredi: ISBN
+Marco: We can also add book search function into the new website. 
+Marco + Fredi: We should start building new database. 
+Robert: there's bar code + QR code. We might be able to use them to keep track + print out a identification for the book.
+Marco: Can we do a quick scan using OCR?
+Tinnei: It'll be more efficient to manually entry. 
+Ryan: ISBN is prob most accurate. Library of congress?
+Robert: Beware of time + people dropping. 
+Books have a great athstetic and can be helpful
+Tinnei: Since we already wanna do this collaborative process of categorizing books back in the bookshelf (as Rob suggested). We can do labelling + data entry at the same time. 
+Riley- fix the boxshelves as they are starting to warp.
+
+Things to keep track - Barcode, isbn, cover, spine.
+Ryan: let's bring this discussion offline + post this up to NB discuss dot com
+
+-- Other -- 
+Ait: people follow in downstairs -- for the downstairs space. 
+Ryan: They should have their own keys + ask them to ring again. 
+
+
+== Discussion Item 2 ==
+Dust collection
+
+Ryan: here is a dust collecting machine on amazon
+ - that machine has it's positives & negatives. Negatives: it's loud and also has to be cleaned every once in a while
+
+Noah: Good thing about this is that you can also drop a line to the floor too so stuffs on the floor can be picked up as well. 
+
+Worf: Suggesting to raise the floor in order to have the table saw duct under the table (other woodshops run it along the side of the table saw.
+alchemist: what are the advantages of this system over other systems?
+Ryan: proposed to have the tubes go to the ceiling
+Noah + Alchemist discussing mechanics of installation. 
+Ryan: this machine should be fine if we take of it often. would prefer other machine. There is a chance if we get a better system people might use it wrong and damage it that way.
+alchemist: althoght the duct system and all the piping is probably gonna be as much money or if not more than the thing we're looking at. PVC tubing that is rigid etc
+Kevin: is nb paying for the whole project? is there a group of people dedicated?
+Noah: dedicated will be noah and people (?) it's gonna take a while. If you do it right you can move stuff pretty easily, use foil tape instead of pvc glue.
+Alchgemist: this is not gonna solve 100% the problem in the woodshop. The dust that s really bad for you is the tiny dust aht is below the range of the system (very thin). you're gonna neeed an air exchange system in the woodshop, reason why people think it should be moved closer to windows.
+Riley, contued discussion on discuss
+
+
+== Discussion Item 3 ==
+Member meeting to elect Board 
+we need an annual member meeting to vote new board members
+
+Kevin: so, missed 3-4 years of context. It used to work where nb would have an annual meeting and decide how to conduct "business". It's all detailed in the bylaws. 
+Said meeting is to be announced 1 month in advanced, propsed a month from today
+Kevin: will be electioneer
+Spend two weeks taking nominations, 
+The board is liable for litagation against noisebridge,
+Marco: is there a number needed? 
+Kevin: 5 should satisfy. (says also our wiki)
+Ryan: we recently did a selection of new board appointed officials (treasurer, secretary, president, might be adding a few others
+- 2nd Tuesday of December?
+Ryan: we probably won't be able to have the Noisebridge meeting at Noisebridge, because members who would join need access via the Elevator (ADA accessible)- which doesn't work.
+Remote voting also possible.
+
+- Tuesday Dec 10? Ada Lovelace, 
+- Are there any issues, and should we start looking for a place to host it. 
+- Lets create a deadline for finding a space by november 10th, 
+Ryan: currently Noisebridge is not the most accessible space (Elevator), if the Elevator is working and legal to operate, we should have it here
+
+Continue discussion on discuss
+
+== Discussion Item 4 ==
+Elevator 
+No new info, Elevator still is locked out due to code complience.   
+
+Wargh - Tyler is still working on it.
+Check the elevator while leaving, to make sure that no one is sleaping in it.
+
+  == Discussion Item 5 ==
+ cleaning
+ Wargh - dishes are in the sink every morning, electronic stations are a mess (sugar on the desk)
+ We need more mutual 
+ In tour (esp. for philantropist), always remind new 
+ be excelent to tommorow
+
+What to do with untidy things on the table? Put them on the hacker shelf. 
+ If it's valuable items? Put them in the lock box. 
+  Ryan: was recently cleaning dishes, we also don't have a lot of drying space and no drying towels, basically no paper towels
+ Ryan: we used to have some towels and noticed mold on them, why we got arid of them
+ Marco: don't like supporting amazon, but their subscription service for household items might be useful for that
+Ryan: we need to remind people to clean up after themself, especially at Events
+ Marco: Put a "Cleaned up your work space?" flyer at entrence door, for those who leave the space.
+Ryan: fridge is not for storing food over night but drinks, we should make that clear
+Clean up the nitchen
+New name for the not kitchen: the "Nitchen"
+
+Freddy: separate bin for food?
+Ryan: we had them, got stolen
+Freddy: Please put trash bags in the trashcans
+  If we want 
+Alchemist: don't bring the trash bags out too early, otherwise people destroy them
+trash trucks come around 2 to 4 am typiccally
+should we make a system to make sure that pillagers do not rip our bags 
+
+Marco: it's confusing - do we divide trash from recycling or not?
+Ryan: we do have separate bins - recyling for blue, green for organic, black for landfill.  Go online to find our waste code
+https://www.recology.com/recology-san-francisco/your-three-carts/
+
+Lets add a tracker to our bins
+
+Bring this onto the discuss
+
+    == Discussion Item 6 ==
+ laser update
+  Alchemist - I upgraded the fan system of the laser cutter, with inadiquit ventalation smoke and soot buildup will cause us to need to use higher cutting powers to not loose the power due to the smoke interference, which shortens the 
+  still have an issue of alignment going out of spec quite quickly, probably due to belt or cog wear.  
+  Were going to improve ducting to outside
+
+
+meeting over 
+ = End of Meeting =

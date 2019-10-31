@@ -1,0 +1,33 @@
+{% block content %}
+
+<div class="footer">
+    <div>Talk with your fellow {{ HACKERSPACE.HACKERSPACE_PEOPLE_NAME }}!</div>
+    {% for platform in HACKERSPACE.HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS %}
+    <a href="{{ platform.URL }}" target="_blank" class="link">on {{ platform.NAME }}</a>
+    {% endfor %}
+    <div class="divider_20"></div>
+    <div>And join us online!</div>
+    <div class="divider_10"></div>
+    {% for network in HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS %}
+        {% if network.NAME != 'twitter' %}
+        <a href="{{ network.URL }}" target="_blank" class="social_icon {{ network.NAME }}"></a>
+        {% endif %}
+    {% endfor %}
+    <div class="divider_20"></div>
+    <div class="divider_20"></div>
+    <div>
+        <div class="footer_half_block" style="float: left">
+            <a class="twitter-timeline" href="https://twitter.com/noisebridge?ref_src=twsrc%5Etfw" data-width="100%" data-height="100%">Tweets by noisebridge</a>
+            <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="footer_half_block">
+            <div class="divider_20"></div>
+            <div>Did you know?<br>Hackerspaces exists all over the world!</div>
+            <div class="divider_20"></div>
+            <a href="https://wiki.hackerspaces.org/List_of_Hackerspaces" target="_blank" class="hackerspace_map w-inline-block"></a>
+            <a href="https://wiki.hackerspaces.org/List_of_Hackerspaces" target="_blank" class="cta_button secondary move_up">Show all</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

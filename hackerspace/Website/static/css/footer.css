@@ -1,0 +1,80 @@
+.footer {
+    padding: 35px 20px;
+    background-color: #2e2e2e;
+    color: #fff;
+    text-align: center;
+}
+
+.link {
+    display: inline-block;
+    padding: 10px;
+    color: hsla(0, 0%, 100%, 0.5);
+    text-decoration: none;
+}
+
+.social_icon {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    min-width: 0px;
+    margin-right: 5px;
+    margin-left: 5px;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.social_icon:hover {
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+.social_icon.github {
+    background-image: url('../images/footer/social_media/github.svg');
+}
+
+.social_icon.patreon {
+    background-image: url('../images/footer/social_media/patreon.svg');
+}
+
+.social_icon.youtube {
+    background-image: url('../images/footer/social_media/youtube.svg');
+}
+
+.social_icon.instagram {
+    background-image: url('../images/footer/social_media/instagram.svg');
+}
+
+.social_icon.facebook {
+    background-image: url('../images/footer/social_media/facebook.svg');
+}
+
+
+
+.footer_half_block {
+    display: inline-block;
+    width: 45%;
+    height: 400px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+@media (max-width: 479px) {
+    .footer_half_block {
+        width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+
+.hackerspace_map {
+    height: 180px;
+    background-image: url('../images/footer/hackerspace_map.jpg');
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: block;
+}

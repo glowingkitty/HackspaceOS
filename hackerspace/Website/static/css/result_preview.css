@@ -76,6 +76,7 @@
     font-size: 18px;
     -webkit-column-count: auto;
     column-count: auto;
+    overflow: hidden;
 }
 
 

@@ -2,13 +2,15 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 
-from hackerspace.models import Event
+from hackerspace.models import Error, Event
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
-from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
-                                          HACKERSPACE_IS_SENTENCES,
-                                          HACKERSPACE_NAME,
-                                          HACKERSPACE_OPENING_HOURS_SUMMARY)
+from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
+# from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
+#                                           HACKERSPACE_IS_SENTENCES,
+#                                           HACKERSPACE_NAME,
+#                                           HACKERSPACE_OPENING_HOURS_SUMMARY,
+#                                           HACKERSPACE_SOCIAL_NETWORKS)
 
 # from hackerspace.errors import Error
 
@@ -41,14 +43,11 @@ def landingpage_view(request):
         print('landingpage_view')
         response = render(request, 'index.html', {
             'view': 'landingpage_view',
-            'css_files': ['body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map'],
-            'page_name': HACKERSPACE_NAME,
+            'css_files': ['body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map', 'footer'],
+            'page_name': HACKERSPACE.HACKERSPACE_NAME,
             'page_description': make_description_sentence(),
             'cookie_consent': request.COOKIES.get('consent'),
-            'HACKERSPACE_NAME': HACKERSPACE_NAME,
-            'HACKERSPACE_IS_SENTENCES': HACKERSPACE_IS_SENTENCES,
-            'HACKERSPACE_ADDRESS': HACKERSPACE_ADDRESS,
-            'HACKERSPACE_OPENING_HOURS_SUMMARY': HACKERSPACE_OPENING_HOURS_SUMMARY,
+            'HACKERSPACE': HACKERSPACE,
             'is_open_status': getOpenNowStatus(),
             'upcoming_events': Event.objects.upcoming()[:5]
         }
@@ -72,6 +71,12 @@ def get_view(request):
                         'components/body/events_slider.html').render({
                             'upcoming_events': Event.objects.upcoming()[:5]
                         })
+                }
+            )
+        elif request.GET.get('what', None) == 'open_status':
+            response = JsonResponse(
+                {
+                    'html': getOpenNowStatus()
                 }
             )
 

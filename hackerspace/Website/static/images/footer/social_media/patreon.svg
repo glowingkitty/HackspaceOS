@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="27px" viewBox="0 0 28 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>patreon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Footer" transform="translate(-96.000000, -162.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="patreon" transform="translate(96.000000, 162.000000)">
+                <polygon id="Path" points="0 0 5 0 5 27 0 27"></polygon>
+                <path d="M18.0162225,0 C12.4924681,0 8,4.49225773 8,10.0133387 C8,15.5228209 12.4924681,20 18.0162225,20 C23.5249131,20 28,15.5170214 28,10.0133387 C28,4.49341762 23.5237543,0 18.0162225,0 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

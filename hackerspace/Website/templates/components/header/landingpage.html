@@ -4,16 +4,16 @@
 
 <div class="header_block">
     <div class="header_center">
-        <div class="header_logo">{{ HACKERSPACE_NAME }}</div>
+        <div class="header_logo">{{ HACKERSPACE.HACKERSPACE_NAME }}</div>
         <div class="header_text">
         <span
             class="txt-rotate"
             data-period="2000"
-            data-rotate='[ {{ HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'></span>
+            data-rotate='[ {{ HACKERSPACE.HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'></span>
         </div>
         <a href="#" class="cta_button">
         <div>Visit us!</div>
-        <div class="cta_extra_info">
+        <div id="open_status" class="cta_extra_info">
             {{ is_open_status|safe }}
         </div>
         </a>

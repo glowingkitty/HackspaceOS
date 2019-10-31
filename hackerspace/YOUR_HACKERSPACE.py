@@ -24,11 +24,30 @@ HACKERSPACE_ADDRESS = {
     'EXTRA_INFO': '(entrence left next to the supermarket)'
 }
 
+# list your social network channels (name in small letters please and check that the CSS classes exist in footer.css)
+# Recommended: max 5 (only show the most relevant networks)
+HACKERSPACE_SOCIAL_NETWORKS = [
+    {'NAME': 'github', 'URL': 'https://github.com/noisebridge'},
+    {'NAME': 'patreon', 'URL': 'https://patreon.com/Noisebridge'},
+    {'NAME': 'youtube', 'URL': 'https://www.youtube.com/user/noisebridge'},
+    {'NAME': 'instagram', 'URL': 'https://www.instagram.com/noisebridgehackerspace/'},
+    {'NAME': 'facebook', 'URL': 'https://www.facebook.com/noisebridge'},
+    {'NAME': 'twitter', 'URL': 'https://www.twitter.com/noisebridge'},
+]
+
 HACKERSPACE_TIMEZONE_STRING = 'America/Los_Angeles'
 
 
 # https://www.meetup.com/{{HACKERSPACE_MEETUP_GROUP}}/
 HACKERSPACE_MEETUP_GROUP = 'noisebridge'
+
+# how do you want to call people coming to your hackerspace?
+HACKERSPACE_PEOPLE_NAME = 'Noisebuts'
+
+HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS = [
+    {'NAME': 'Discuss', 'URL': 'https://discuss.noisebridge.info/'},
+    {'NAME': 'Slack', 'URL': 'https://noisebridge.slack.com/'}
+]
 
 # if your hackerspace has official opening hours, define them here as a json
 HACKERSPACE_OPENING_HOURS_SUMMARY = 'Mon-Sun, 11AM -  10PM'
