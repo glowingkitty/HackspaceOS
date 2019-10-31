@@ -2,3 +2,160 @@
     font-family: 'Lexend Deca', sans-serif;
     margin: 0px;
 }
+
+
+.side_menu {
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    right: auto;
+    bottom: 0%;
+    z-index: 20;
+    width: 200px;
+    padding: 50px 10px 10px;
+    background-color: #2e2e2e;
+    box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
+}
+
+.page_content {
+    position: relative;
+    padding-left: 200px;
+}
+
+.search_bar {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: auto;
+    z-index: 10;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-color: #494949;
+    color: hsla(0, 0%, 100%, 0.23);
+    line-height: 35px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.search_bar.active {
+    width: 300px;
+    padding-bottom: 10px;
+}
+
+.menu_heading {
+    margin: 10px 13px;
+    opacity: 0.5;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    color: #fff;
+    font-size: 16px;
+    display: block;
+    text-decoration: none;
+}
+
+.menu_heading:hover {
+    opacity: 1;
+    -webkit-transform: translate(5px, 0px);
+    -ms-transform: translate(5px, 0px);
+    transform: translate(5px, 0px);
+}
+
+.menu_heading.sub_heading {
+    margin-left: 40px;
+}
+
+.search_result {
+    margin: 0px 10px;
+    padding-left: 34px;
+    border-radius: 5px;
+    background-position: 5px 50%;
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    color: #fff;
+}
+
+.search_result:hover {
+    background-color: hsla(0, 0%, 100%, 0.1);
+}
+
+.search_input {
+    padding-left: 15px;
+    background-color: transparent;
+    border: none;
+    width: 80%;
+    height: 30px;
+    color: white;
+    font-size: 16px;
+    font-family: 'Lexend Deca', sans-serif;
+}
+
+.menu_icon {
+    display: none;
+    position: fixed;
+    left: 210px;
+    top: 10px;
+    right: auto;
+    bottom: auto;
+    z-index: 12;
+    width: 40px;
+    height: 40px;
+    background-image: url('../images/menu_icon.svg');
+    background-position: 50% 50%;
+    background-size: auto;
+    background-repeat: no-repeat;
+}
+
+.menu_icon:hover {
+    box-shadow: 0 7px 6px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+.donate_button {
+    position: fixed;
+    left: auto;
+    top: 0%;
+    right: 0%;
+    bottom: auto;
+    z-index: 12;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    color: #ed1d23;
+    font-size: 16px;
+    line-height: 40px;
+    text-decoration: none;
+}
+
+.donate_button:hover {
+    box-shadow: 0 7px 8px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+
+@media (max-width: 991px) {
+    .side_menu {
+        left: -200px;
+    }
+
+    .page_content {
+        padding-left: 0px;
+    }
+
+    .menu_icon {
+        display: block;
+    }
+
+}
