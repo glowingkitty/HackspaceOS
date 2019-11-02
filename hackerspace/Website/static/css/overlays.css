@@ -1,0 +1,21 @@
+.dark_overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    z-index: 15;
+    opacity: 0.0;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.dark_overlay.block {
+    display: block;
+}
+
+.dark_overlay.block.visible {
+    opacity: 0.8;
+}

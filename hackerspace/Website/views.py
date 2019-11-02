@@ -37,7 +37,7 @@ def landingpage_view(request):
     print('landingpage_view')
     response = render(request, 'index.html', {
         'view': 'landingpage_view',
-        'css_files': ['body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map', 'footer'],
+        'css_files': ['body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map', 'footer', 'overlays'],
         'page_name': HACKERSPACE.HACKERSPACE_NAME,
         'page_description': make_description_sentence(),
         'cookie_consent': request.COOKIES.get('consent'),

@@ -18,6 +18,7 @@
 function onLoadFunctions() {
     {% if view == 'landingpage_view' %}
     changeText();
+    check_if_in_space();
     setInterval(function () {
         request_html('what=events_slider', 'events_slider', 'outer')
         request_html('what=open_status', 'open_status', 'inner')
@@ -29,6 +30,8 @@ function onLoadFunctions() {
 <script src="{% static 'js/axios.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/menu.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/search.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/overlays.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/inspace.js' %}" type="text/javascript"></script>
 
 
 {% endblock %}

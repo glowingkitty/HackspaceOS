@@ -5,6 +5,7 @@
 <body class="body" onload="onLoadFunctions()">
   {% include "components/menu.html" %}
   <div class="page_content">
+    <div id="dark_overlay" class="dark_overlay" onclick="closeOverlays()"></div>
     <a href="#" onclick="openMenu()" class="menu_icon"></a>
     <a href="#" class="donate_button">Donate</a>
     {% include "components/header/landingpage.html" %}
