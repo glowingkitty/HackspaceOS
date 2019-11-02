@@ -63,7 +63,7 @@
     float: left;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-image: url('https://d3e54v103j8qbb.cloudfront.net/img/example-bg.png');
+    background-image: url('../images/event_default_image.jpeg');
     background-position: 50% 50%;
     background-size: cover;
     background-repeat: no-repeat;

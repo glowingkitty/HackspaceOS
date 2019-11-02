@@ -33,53 +33,53 @@ def error_view(request, error_log, exc_type, exc_value, tb):
 
 
 def landingpage_view(request):
-    try:
-        print('landingpage_view')
-        response = render(request, 'index.html', {
-            'view': 'landingpage_view',
-            'css_files': ['body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map', 'footer'],
-            'page_name': HACKERSPACE.HACKERSPACE_NAME,
-            'page_description': make_description_sentence(),
-            'cookie_consent': request.COOKIES.get('consent'),
-            'HACKERSPACE': HACKERSPACE,
-            'is_open_status': getOpenNowStatus(),
-            'upcoming_events': Event.objects.upcoming()[:5]
-        }
-        )
+    # try:
+    print('landingpage_view')
+    response = render(request, 'index.html', {
+        'view': 'landingpage_view',
+        'css_files': ['body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map', 'footer'],
+        'page_name': HACKERSPACE.HACKERSPACE_NAME,
+        'page_description': make_description_sentence(),
+        'cookie_consent': request.COOKIES.get('consent'),
+        'HACKERSPACE': HACKERSPACE,
+        'is_open_status': getOpenNowStatus(),
+        'upcoming_events': Event.objects.upcoming()[:5]
+    }
+    )
 
-        return response
-    except:
-        import sys
-        import traceback
-        exc_type, exc_value, tb = sys.exc_info()
-        error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
+    return response
+    # except:
+    #     import sys
+    #     import traceback
+    #     exc_type, exc_value, tb = sys.exc_info()
+    #     error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
 
 
 def get_view(request):
-    try:
-        print('get_view')
-        if request.GET.get('what', None) == 'events_slider':
-            response = JsonResponse(
-                {
-                    'html': get_template(
-                        'components/body/events_slider.html').render({
-                            'upcoming_events': Event.objects.upcoming()[:5]
-                        })
-                }
-            )
-        elif request.GET.get('what', None) == 'open_status':
-            response = JsonResponse(
-                {
-                    'html': getOpenNowStatus()
-                }
-            )
+    # try:
+    print('get_view')
+    if request.GET.get('what', None) == 'events_slider':
+        response = JsonResponse(
+            {
+                'html': get_template(
+                    'components/body/events_slider.html').render({
+                        'upcoming_events': Event.objects.upcoming()[:5]
+                    })
+            }
+        )
+    elif request.GET.get('what', None) == 'open_status':
+        response = JsonResponse(
+            {
+                'html': getOpenNowStatus()
+            }
+        )
 
-        return response
-    except:
-        import sys
-        import traceback
-        exc_type, exc_value, tb = sys.exc_info()
-        error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
+    return response
+    # except:
+    #     import sys
+    #     import traceback
+    #     exc_type, exc_value, tb = sys.exc_info()
+    #     error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
 
 
 def search_view(request):

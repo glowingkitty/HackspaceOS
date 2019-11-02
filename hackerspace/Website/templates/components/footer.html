@@ -1,3 +1,6 @@
+{% load array %}
+{% load socialnetworks %}
+
 {% block content %}
 
 <div class="footer">
@@ -8,18 +11,20 @@
     <div class="divider_20"></div>
     <div>And join us online!</div>
     <div class="divider_10"></div>
-    {% for network in HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS %}
-        {% if network.name != 'twitter' %}
-        <a href="{{ network.url }}" target="_blank" class="social_icon {{ network.name }}"></a>
+    {% for network in HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS|upto:5 %}
+        {% if network.name|lower != 'twitter' %}
+        <a href="{{ network.url }}" target="_blank" class="social_icon {{ network.name|lower }}"></a>
         {% endif %}
     {% endfor %}
     <div class="divider_20"></div>
     <div class="divider_20"></div>
     <div>
+        {% if HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS|exists:'Twitter' %}
         <div class="footer_half_block" style="float: left">
-            <a class="twitter-timeline" href="https://twitter.com/noisebridge?ref_src=twsrc%5Etfw" data-width="100%" data-height="100%">Tweets by noisebridge</a>
+            <a class="twitter-timeline" href="https://twitter.com/{{ HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS|getTwitterUsername }}?ref_src=twsrc%5Etfw" data-width="100%" data-height="100%">Tweets by {{ HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS|getTwitterUsername }}</a>
             <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
+        {% endif %}
         <div class="footer_half_block">
             <div class="divider_20"></div>
             <div>Did you know?<br>Hackerspaces exists all over the world!</div>

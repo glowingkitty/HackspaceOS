@@ -13,9 +13,7 @@
     <div class="h2 in_result_preview_block">{{ result.str_name|shorten:30 }}</div>
     <div class="text_semitransparent with_padding_left">{{ result.datetime_range }}</div>
     </div>
-    {% if result.url_featured_photo %}
-    <div class="result_preview_right" style="background-image: url('{{ result.url_featured_photo }}')"></div>
-    {% endif %}
+    <div class="result_preview_right"{% if result.url_featured_photo %} style="background-image: url('{{ result.url_featured_photo }}')"{% endif %}></div>
 </div>
 
 {% endblock %}
