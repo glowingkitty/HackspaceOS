@@ -10,15 +10,16 @@
     border-width: 5px;
     border-color: #fff;
     background-color: #ffefa0;
+    color: black;
+    text-decoration: none;
 }
 
 .meeting_block.inline_block {
     display: inline-block;
-    width: 48%;
+    width: 38%;
     margin-right: 1%;
     margin-bottom: 2%;
     margin-left: 1%;
-    float: left;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
 }

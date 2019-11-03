@@ -41,7 +41,10 @@ class MeetingNoteSet(models.QuerySet):
     def current(self):
         return self.filter(text_notes__isnull=True).order_by('-int_UNIXtime_created').first()
 
-    def past(self):
+    def past(self, older_then=None):
+        if older_then:
+            self = self.filter(
+                int_UNIXtime_created__lt=older_then.int_UNIXtime_created)
         return self.all().order_by('-int_UNIXtime_created')
 
     def import_all_from_wiki(self):
@@ -131,9 +134,18 @@ class MeetingNote(models.Model):
     def __str__(self):
         return self.text_date
 
+    def updateCreatedBasedOnName(self):
+        try:
+            self.int_UNIXtime_created = int(time.mktime(
+                datetime.strptime(self.text_date, "%Y-%m-%d").timetuple()))
+            super(MeetingNote, self).save()
+        except:
+            print('Failed for '+self.text_date)
+
     def import_from_local(self):
         self.text_notes = open(os.path.join(
             sys.path[0], 'hackerspace/meeting_notes/'+self.text_date+'.txt'), 'r').read()
+        self.updateCreatedBasedOnName()
         self.save()
 
     def import_from_wiki(self, page):
@@ -150,6 +162,7 @@ class MeetingNote(models.Model):
             for a in soup.findAll('a'):
                 del a['href']
             self.text_notes = str(soup)
+            self.updateCreatedBasedOnName()
 
             self.save()
             print('Imported from wiki - '+self.text_date)

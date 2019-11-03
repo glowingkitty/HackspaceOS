@@ -2,11 +2,13 @@
 
 <div class="max_500">
     <h2 class="h2 large">Previous notes</h2>
-    {% for note in past_meeting_notes %}
-    <div class="meeting_block inline_block">
-        <h3 class="h3">{{ note.date }}</h3>
-        <p class="meeting_text_summary">{{ note.text }}</p>
-    </div>
+    {% for note in past_meetings %}
+    <a class="meeting_block inline_block" href="/meeting/{{ note.text_date }}">
+        <h3 class="h3">{{ note.text_date }}</h3>
+        {% if note.text_keywords %}
+        <p class="meeting_text_summary">{{ note.text_keywords }}</p>
+        {% endif %}
+    </a>
     {% endfor %}
     <div class="cta_center">
         <a href="#" class="cta_button secondary">Show more</a>

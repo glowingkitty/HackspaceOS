@@ -100,7 +100,7 @@ def meeting_entry_view(request, date):
         'HACKERSPACE': HACKERSPACE,
         'selected_meeting': selected_meeting,
         'next_meeting': Event.objects.next_meeting(),
-        'past_meetings': MeetingNote.objects.past()[:4]
+        'past_meetings': MeetingNote.objects.past(selected_meeting)[:4]
     }
     )
 
