@@ -2,7 +2,7 @@ from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.wiki import wiki_sear
 from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.discuss import discuss_search
 from hackerspace.models import Event, MeetingNote
 from django.db.models import Q
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS
+from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS, HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS
 
 
 def search(query):
@@ -10,8 +10,18 @@ def search(query):
         return []
 
     # search in social network accounts
-    networks = [x for x in HACKERSPACE_SOCIAL_NETWORKS if query.lower()
-                in x['name'].lower()]
+    networks = [{
+        'icon': x['name'].lower(),
+        'name': x['name'],
+        'url': x['url'],
+    } for x in HACKERSPACE_SOCIAL_NETWORKS if query.lower()
+        in x['name'].lower()]
+    internchannels = [{
+        'icon': x['name'].lower(),
+        'name': x['name'],
+        'url': x['url'],
+    } for x in HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS if query.lower()
+        in x['name'].lower()]
 
     # search in database
     events = Event.objects.filter(
@@ -27,4 +37,4 @@ def search(query):
     # search in discuss
     discuss_search_results = discuss_search(query)
 
-    return networks+events+meeting_notes+wiki_search_results+discuss_search_results
+    return networks+internchannels+events+meeting_notes+wiki_search_results+discuss_search_results

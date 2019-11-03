@@ -55,9 +55,10 @@ HACKERSPACE_MEETUP_GROUP = 'noisebridge'
 # how do you want to call people coming to your hackerspace?
 HACKERSPACE_PEOPLE_NAME = 'Noisebuts'
 
+HACKERSPACE_DISCUSS_URL = 'https://discuss.noisebridge.info/'
 HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS = [
-    {'NAME': 'Discuss', 'URL': 'https://discuss.noisebridge.info/'},
-    {'NAME': 'Slack', 'URL': 'https://noisebridge.slack.com/'}
+    {'name': 'Discuss', 'url': HACKERSPACE_DISCUSS_URL},
+    {'name': 'Slack', 'url': 'https://noisebridge.slack.com/'}
 ]
 
 # if your hackerspace has official opening hours, define them here as a json
