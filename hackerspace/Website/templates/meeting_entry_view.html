@@ -13,7 +13,11 @@
         {% endfor %}
     </div>
     {% endif %}
+    {% if '<div ' in selected_meeting.text_notes %}
+    {{ selected_meeting.text_notes|safe }}
+    {% else %}
     <pre>{{ selected_meeting.text_notes }}</pre>
+    {% endif %}
     <div class="divider_20"></div>
     </div>
 </div>

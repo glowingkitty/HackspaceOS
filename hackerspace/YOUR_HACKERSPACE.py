@@ -61,6 +61,8 @@ HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS = [
     {'name': 'Slack', 'url': 'https://noisebridge.slack.com/'}
 ]
 
+WIKI_API_URL = 'https://www.noisebridge.net/api.php'
+
 # if your hackerspace has official opening hours, define them here as a json
 HACKERSPACE_OPENING_HOURS_SUMMARY = 'Mon-Sun, 11AM -  10PM'
 HACKERSPACE_OPENING_HOURS = {}

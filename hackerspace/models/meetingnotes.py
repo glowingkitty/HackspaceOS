@@ -4,13 +4,15 @@ import time
 from datetime import datetime
 
 import pytz
+import requests
 from django.db import models
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 
 from hackerspace.models.events import updateTime
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING, RISEUPPAD_MEETING_PATH
+from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_TIMEZONE_STRING,
+                                          RISEUPPAD_MEETING_PATH, WIKI_API_URL)
 
 
 def startChrome(headless, url):
@@ -18,8 +20,8 @@ def startChrome(headless, url):
     if headless == True:
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
-        browser_path = os.path.join(
-            sys.path[0], 'hackerspace/website/selenium/chromedriver_'+sys.platform)
+    browser_path = os.path.join(
+        sys.path[0], 'hackerspace/website/selenium/chromedriver_'+sys.platform)
     browser = webdriver.Chrome(
         chrome_options=options, executable_path=browser_path)
     browser.get(url)
@@ -41,6 +43,25 @@ class MeetingNoteSet(models.QuerySet):
 
     def past(self):
         return self.all().order_by('-int_UNIXtime_created')
+
+    def import_all_from_wiki(self):
+        response_json = requests.get(WIKI_API_URL +
+                                     '?action=query&list=categorymembers&cmtitle=Category:Meeting_Notes&cmlimit=500&format=json').json()
+
+        all_wiki_pages = [
+            x['title'] for x in response_json['query']['categorymembers'] if 'Meeting Notes 20' in x['title']]
+
+        while 'continue' in response_json and 'cmcontinue' in response_json['continue']:
+            response_json = requests.get(WIKI_API_URL +
+                                         '?action=query&list=categorymembers&cmcontinue='+response_json['continue']['cmcontinue']+'&cmtitle=Category:Meeting_Notes&cmlimit=500&format=json').json()
+
+            all_wiki_pages += [
+                x['title'] for x in response_json['query']['categorymembers'] if 'Meeting Notes 20' in x['title']]
+
+        for meeting in all_wiki_pages:
+            MeetingNote().import_from_wiki(meeting)
+
+        print('Imported all meeting notes from wiki')
 
     def search_results(self):
         results_list = []
@@ -114,6 +135,26 @@ class MeetingNote(models.Model):
         self.text_notes = open(os.path.join(
             sys.path[0], 'hackerspace/meeting_notes/'+self.text_date+'.txt'), 'r').read()
         self.save()
+
+    def import_from_wiki(self, page):
+        self.text_date = page.split('Notes ')[1].replace(' ', '-')
+
+        # see if notes already exist, else, create
+        if MeetingNote.objects.filter(text_date=self.text_date).exists() == False:
+            # remove all links
+            from bs4 import BeautifulSoup
+            response_json = requests.get(
+                WIKI_API_URL+'?action=parse&page='+page+'&format=json').json()['parse']
+            soup = BeautifulSoup(str(response_json['text']).replace(
+                "{\'*\': \'", "").replace("'}", "").replace("\\n", "").replace("\\\'", "\'"), 'html.parser')
+            for a in soup.findAll('a'):
+                del a['href']
+            self.text_notes = str(soup)
+
+            self.save()
+            print('Imported from wiki - '+self.text_date)
+        else:
+            print('Skipped - Already exists. '+self.text_date)
 
     def save(self, *args, **kwargs):
         self = updateTime(self)
