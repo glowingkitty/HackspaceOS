@@ -20,6 +20,11 @@ from hackerspace.website import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.landingpage_view, name='landingpage'),
+    path('meetings', views.meetings_view, name='meetings'),
+    path('meeting/present', views.meeting_present_view,
+         name='meeting_present_view'),
+    path('meeting/<str:date>', views.meeting_entry_view,
+         name='meeting_present_view'),
     path('get/', views.get_view, name='get'),
     path('search', views.search_view, name='search'),
 ]

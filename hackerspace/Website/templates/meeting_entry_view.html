@@ -1,0 +1,22 @@
+{% block content %}
+
+<div class="meeting_block full_width">
+    <div class="max_500">
+    <h2 class="h2 large">Sep 21, 2019 | Meeting notes</h2>
+    <p class="subheading small_distance_bottom">Keywords:</p>
+    <div>
+        <a href="#" onclick="enterSearch(this.innerText)" class="keyword">Lasercutter</a>
+    </div>
+    <p>
+    This is a long text
+    </p>
+    <div class="divider_20"></div>
+    </div>
+</div>
+<div class="divider_20"></div>
+{% include "components/body/meetings/next_meeting.html" %}
+<div class="divider_20"></div>
+<div class="divider_20"></div>
+{% include "components/body/meetings/past_meetings.html" %}
+
+{% endblock %}

@@ -1,6 +1,10 @@
+from datetime import datetime
+
+import pytz
 from django.db import models
 
 from hackerspace.models.events import updateTime
+from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
 
 
 def getKeywords(description):
@@ -9,7 +13,16 @@ def getKeywords(description):
     return keywords
 
 
+class MeetingNoteSet(models.QuerySet):
+    def current(self):
+        return self.filter(text_notes__isnull=True).order_by('-int_UNIXtime_created').first()
+
+    def past(self):
+        return self.all().order_by('-int_UNIXtime_created')
+
+
 class MeetingNote(models.Model):
+    objects = MeetingNoteSet.as_manager()
     text_notes = models.TextField(blank=True, null=True)
 
     many_consensus_items = models.ManyToManyField(

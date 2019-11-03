@@ -1,4 +1,5 @@
 import requests
+from hackerspace.models import MeetingNote
 
 
 def wiki_search(query, limit=10):
@@ -18,3 +19,14 @@ def wiki_search(query, limit=10):
         })
 
     return results
+
+
+def save_from_wiki__meeting(url):
+    # save the archived meeting notes into our database
+    date = ''
+    text = ''
+
+    MeetingNote(
+        int_UNIXtime_created='',
+        text_notes=text
+    ).save()

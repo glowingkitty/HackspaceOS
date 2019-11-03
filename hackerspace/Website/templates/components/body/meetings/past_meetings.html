@@ -1,0 +1,17 @@
+{% block content %}
+
+<div class="max_500">
+    <h2 class="h2 large">Previous notes</h2>
+    {% for note in past_meeting_notes %}
+    <div class="meeting_block inline_block">
+        <h3 class="h3">{{ note.date }}</h3>
+        <p class="meeting_text_summary">{{ note.text }}</p>
+    </div>
+    {% endfor %}
+    <div class="cta_center">
+        <a href="#" class="cta_button secondary">Show more</a>
+        <div class="divider_100"></div>
+    </div>
+</div>
+
+{% endblock %}

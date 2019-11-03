@@ -99,6 +99,9 @@ def createEvent(event):
 
 
 class EventSet(models.QuerySet):
+    def next_meeting(self):
+        return self.filter(str_name='Noisebridge General Meeting', int_UNIXtime_event_start__gt=time.time()).order_by('int_UNIXtime_event_start').first()
+
     def in_space(self, one_space=None, str_space=None):
         if one_space:
             return self.filter(one_space=one_space)

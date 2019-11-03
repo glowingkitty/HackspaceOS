@@ -3,6 +3,21 @@
     margin: 0px;
 }
 
+.subheading {
+    color: #818181;
+    font-size: 12px;
+}
+
+.subheading.small_distance_bottom {
+    margin-bottom: 5px;
+}
+
+.h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 20px;
+    text-align: left;
+}
 
 .side_menu {
     position: fixed;

@@ -1,0 +1,18 @@
+{% block content %}
+
+<div class="max_500">
+    <h2 class="h2 large">Join today&#x27;s meeting!</h2>
+    <p class="subheading">Join us now, live, as a note taker for our current meeting:</p>
+</div>
+<div class="meeting_block">
+    <h3 class="h3">Sep 21, 2019</h3>
+    <a href="/meeting/present" class="cta_button secondary present_mode">Presentation mode</a>
+    <div class="html-embed">
+        <iframe style="width:100%;height:100%" src="https://pad.riseup.net/p/{{ HACKERSPACE.RISEUPPAD_MEETING_PATH }}"></iframe>
+    </div>
+</div>
+<div class="max_500">
+    <p class="subheading">Did you know?<br>You can manually add a keyword to the notes by using #. For example: #lasercutter. But have in mind: Hashtags don’t work for words with spaces in between.</p>
+</div>
+
+{% endblock %}

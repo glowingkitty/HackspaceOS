@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 
-from hackerspace.models import Error, Event
+from hackerspace.models import Error, Event, MeetingNote
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
@@ -33,9 +33,8 @@ def error_view(request, error_log, exc_type, exc_value, tb):
 
 
 def landingpage_view(request):
-    # try:
     print('landingpage_view')
-    response = render(request, 'index.html', {
+    response = render(request, 'page.html', {
         'view': 'landingpage_view',
         'css_files': ['body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map', 'footer', 'overlays'],
         'page_name': HACKERSPACE.HACKERSPACE_NAME,
@@ -48,15 +47,63 @@ def landingpage_view(request):
     )
 
     return response
-    # except:
-    #     import sys
-    #     import traceback
-    #     exc_type, exc_value, tb = sys.exc_info()
-    #     error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
+
+
+def meetings_view(request):
+    print('meetings_view')
+    response = render(request, 'page.html', {
+        'view': 'meetings_view',
+        'css_files': ['body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
+        'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
+        'page_description': 'Join our weekly meetings!',
+        'cookie_consent': request.COOKIES.get('consent'),
+        'HACKERSPACE': HACKERSPACE,
+        'next_meeting': Event.objects.next_meeting(),
+        'past_meetings': MeetingNote.objects.past()[:4]
+    }
+    )
+
+    return response
+
+
+def meeting_present_view(request):
+    print('meeting_present_view')
+    response = render(request, 'meeting_present.html', {
+        'view': 'meeting_present_view',
+        'css_files': ['body', 'header', 'meetings'],
+        'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | Presentation mode',
+        'page_description': 'Join our weekly meetings!',
+        'cookie_consent': request.COOKIES.get('consent'),
+        'HACKERSPACE': HACKERSPACE,
+        'current_meeting': MeetingNote.objects.current()
+    }
+    )
+
+    return response
+
+
+def meeting_entry_view(request, date):
+    print('meeting_entry_view')
+    selected_meeting = ''
+    # if meeting not found, redirect to all meetings page
+
+    response = render(request, 'page.html', {
+        'view': 'meeting_entry_view',
+        'css_files': ['body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
+        'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+'selected_meeting.date',
+        'page_description': 'Join our weekly meetings!',
+        'cookie_consent': request.COOKIES.get('consent'),
+        'HACKERSPACE': HACKERSPACE,
+        'selected_meeting': selected_meeting,
+        'next_meeting': Event.objects.next_meeting(),
+        'past_meetings': MeetingNote.objects.past()[:4]
+    }
+    )
+
+    return response
 
 
 def get_view(request):
-    # try:
     print('get_view')
     if request.GET.get('what', None) == 'events_slider':
         response = JsonResponse(
@@ -75,15 +122,9 @@ def get_view(request):
         )
 
     return response
-    # except:
-    #     import sys
-    #     import traceback
-    #     exc_type, exc_value, tb = sys.exc_info()
-    #     error_view(request, traceback.format_exc(), exc_type, exc_value, tb)
 
 
 def search_view(request):
-    # try:
     print('search_view')
     search_results = search(request.GET.get('q', None))
     response = JsonResponse(
@@ -97,8 +138,3 @@ def search_view(request):
     )
 
     return response
-    # except:
-    #     import sys
-    #     import traceback
-    #     exc_type, exc_value, tb = sys.exc_info()
-    #     error_view(request, traceback.format_exc(), exc_type, exc_value, tb)

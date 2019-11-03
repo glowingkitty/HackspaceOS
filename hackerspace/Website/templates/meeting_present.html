@@ -1,0 +1,29 @@
+{% block content %}
+
+{% include "components/head/head.html" with css_files=css_files %}
+
+<body class="meeting_note_present_body">
+    <div class="notes_embedded">
+        <iframe style="width:100%;height:100%" src="https://pad.riseup.net/p/{{ HACKERSPACE.RISEUPPAD_MEETING_PATH }}"></iframe>
+    </div>
+    <div class="meeting_presenter_mode_header">
+        <div class="currently_text">Currently:</div>
+        {% for main_topic in current_meeting.list_main_topics %}
+        <h2 class="h2 meeting_present">{{ main_topic }}</h2>
+        {% endfor %}
+        <div class="presenter_mode_buttons">
+            <a href="#" class="cta_button secondary" style="display: inline-block;">Previous</a>
+            <div class="inline_divider"></div>
+            <a href="#" class="cta_button secondary" style="display: inline-block;">Next topic</a>
+        </div>
+    </div>
+    <div class="meeting_live_text">
+        <div class="live_icon"></div>
+        <div class="meeting_live_text_span">Live</div>
+        <div class="meeting_live_text_span"><span class="text-span">https://</span>{{ HACKERSPACE.DOMAIN }}/meeting</div>
+    </div>
+    <a href="#" class="cta_button secondary end_meeting">End meeting</a>
+</body>
+</html>
+
+{% endblock %}

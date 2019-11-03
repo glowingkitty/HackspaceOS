@@ -44,6 +44,10 @@ HACKERSPACE_SOCIAL_NETWORKS = [
 
 HACKERSPACE_TIMEZONE_STRING = 'America/Los_Angeles'
 
+# https://pad.riseup.net/p/{{PATH}}
+RISEUPPAD_MEETING_PATH = 'nbmeeting'
+DOMAIN = 'noisebridge.net'
+
 
 # https://www.meetup.com/{{HACKERSPACE_MEETUP_GROUP}}/
 HACKERSPACE_MEETUP_GROUP = 'noisebridge'

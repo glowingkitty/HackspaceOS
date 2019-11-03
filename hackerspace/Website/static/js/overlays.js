@@ -10,4 +10,5 @@ function closeOverlays() {
     setTimeout(function () {
         document.getElementById('dark_overlay').classList.remove('block')
     }, 200)
+    enterSearch('')
 }
