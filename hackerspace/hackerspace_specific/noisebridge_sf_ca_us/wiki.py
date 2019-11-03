@@ -2,7 +2,7 @@ import requests
 from hackerspace.models import MeetingNote
 
 
-def wiki_search(query, limit=10):
+def wiki_search(query, limit=5):
     # search in the Noisebridge wiki -> returns the search suggestions of the mini search bar on the top right
     response_json = requests.get('https://www.noisebridge.net/api.php?action=opensearch&format=json&formatversion=2&search=' +
                                  query+'&namespace=0&limit='+str(limit)+'&suggest=true').json()

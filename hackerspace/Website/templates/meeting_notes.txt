@@ -1,8 +1,6 @@
 -
 
-These are the notes from [https://www.noisebridge.net/wiki/Category:Meeting_Notes The {{ RandomNumber }}th Meeting of Noisebridge].
-
-help take notes at - https://pad.riseup.net/p/nbmeeting
+These are the notes from [https://www.noisebridge.net/wiki/Category:Meeting_Notes The {{ MeetingNumber }}th Meeting of Noisebridge].
 
 Date: {{ Date }}
 Note-taker: '''NOTE TAKER NAME'''

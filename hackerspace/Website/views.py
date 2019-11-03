@@ -7,6 +7,7 @@ from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
 from hackerspace.website.search import search
+from django.http import HttpResponseRedirect
 
 
 def error_view(request, error_log, exc_type, exc_value, tb):
@@ -84,13 +85,16 @@ def meeting_present_view(request):
 
 def meeting_entry_view(request, date):
     print('meeting_entry_view')
-    selected_meeting = ''
+    selected_meeting = MeetingNote.objects.filter(text_date=date).first()
+
     # if meeting not found, redirect to all meetings page
+    if not selected_meeting:
+        return HttpResponseRedirect('/meetings')
 
     response = render(request, 'page.html', {
         'view': 'meeting_entry_view',
         'css_files': ['body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
-        'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+'selected_meeting.date',
+        'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected_meeting.text_date,
         'page_description': 'Join our weekly meetings!',
         'cookie_consent': request.COOKIES.get('consent'),
         'HACKERSPACE': HACKERSPACE,

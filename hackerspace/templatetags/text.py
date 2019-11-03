@@ -20,3 +20,8 @@ def shorten(text, limit):
         return text[:limit]+'...'
     else:
         return text
+
+
+@register.filter
+def split(text, separator):
+    return text.split(separator)

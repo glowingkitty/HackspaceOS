@@ -1,15 +1,19 @@
+{% load text %}
+
 {% block content %}
 
 <div class="meeting_block full_width">
     <div class="max_500">
-    <h2 class="h2 large">Sep 21, 2019 | Meeting notes</h2>
+    <h2 class="h2 large">Meeting Notes | {{ selected_meeting.text_date }}</h2>
+    {% if selected_meeting.text_keywords %}
     <p class="subheading small_distance_bottom">Keywords:</p>
     <div>
-        <a href="#" onclick="enterSearch(this.innerText)" class="keyword">Lasercutter</a>
+        {% for keyword in selected_meeting.text_keywords|split:',' %}
+        <a href="#" onclick="enterSearch(this.innerText)" class="keyword">{{ keyword }}</a>
+        {% endfor %}
     </div>
-    <p>
-    This is a long text
-    </p>
+    {% endif %}
+    <pre>{{ selected_meeting.text_notes }}</pre>
     <div class="divider_20"></div>
     </div>
 </div>

@@ -112,6 +112,10 @@
     background-image: url('../images/search/event.svg');
 }
 
+.search_result.discuss {
+    background-image: url('../images/search/discuss.svg');
+}
+
 .search_input {
     padding-left: 15px;
     background-color: transparent;
