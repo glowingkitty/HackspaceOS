@@ -150,6 +150,21 @@ def save_view(request):
     return response
 
 
+def remove_view(request):
+    print('remove_view')
+    if request.GET.get('keyword', None) and request.META['HTTP_REFERER'] and MeetingNote.objects.filter(text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).exists():
+        meeting = MeetingNote.objects.filter(
+            text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).first()
+
+        meeting.remove_keyword(request.GET.get('keyword'))
+        response = JsonResponse({'success': True})
+    else:
+        response = JsonResponse({'error': 'Request incomplete or wrong'})
+        response.status_code = 404
+
+    return response
+
+
 def search_view(request):
     print('search_view')
     search_results = search(request.GET.get('q', None))

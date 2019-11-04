@@ -177,6 +177,20 @@
 }
 
 
+.remove_keyword_button {
+    transform: rotate(45deg);
+    background-image: url('../images/plus.svg');
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: none;
+    width: 20px;
+    height: 20px;
+    padding-left: 5px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
 .keyword {
     display: inline-block;
     margin-right: 5px;
@@ -198,6 +212,10 @@
     -webkit-transform: translate(0px, -5px);
     -ms-transform: translate(0px, -5px);
     transform: translate(0px, -5px);
+}
+
+.keyword:hover .remove_keyword_button {
+    display: inline-block;
 }
 
 .keyword.input {

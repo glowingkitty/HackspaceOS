@@ -12,7 +12,7 @@ function saveKeyword() {
     document.getElementById('keyword_input').style.display = 'none'
 
     if (document.getElementById('keyword_input').value && document.getElementById('keyword_input').value != '') {
-        document.getElementById('keywords').innerHTML = document.getElementById('keywords').innerHTML + '<a href="#" onclick="enterSearch(this.innerText)" class="keyword">' + document.getElementById('keyword_input').value + '</a>'
+        document.getElementById('keywords').innerHTML = document.getElementById('keywords').innerHTML + '<a href="#" onclick="enterSearch(this.innerText)" class="keyword">' + document.getElementById('keyword_input').value + '<span class="remove_keyword_button" onclick="removeKeyword(event,this)"></span></a>'
         axios.get("/save?keyword=" + document.getElementById('keyword_input').value)
             .then(function () {
                 document.getElementById('keyword_input').value = ''
@@ -22,6 +22,18 @@ function saveKeyword() {
             })
             .finally(function () {});
     }
+}
+
+function removeKeyword(event, element) {
+    event.stopPropagation();
+    axios.get("/remove?keyword=" + element.parentElement.innerText)
+        .then(function () {
+            element.parentElement.outerHTML = ''
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {});
 }
 
 function startNewMeeting() {

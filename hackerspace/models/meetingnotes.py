@@ -132,12 +132,18 @@ class MeetingNote(models.Model):
         return self.text_keywords
 
     def add_keyword(self, keyword):
-        if self.text_keywords and self.text_keywords != '':
+        if self.text_keywords and keyword != '':
             self.text_keywords += ', '+keyword
         else:
             self.text_keywords = keyword
         super(MeetingNote, self).save()
         print('Saved keyword - '+keyword)
+
+    def remove_keyword(self, keyword):
+        if self.text_keywords and keyword != '':
+            self.text_keywords = self.text_keywords.replace(', '+keyword, '')
+            super(MeetingNote, self).save()
+            print('Saved keyword - '+keyword)
 
     def __str__(self):
         return self.text_date

@@ -37,6 +37,7 @@ urlpatterns = [
 
     path('get/', views.get_view, name='get'),
     path('save', views.save_view, name='save'),
+    path('remove', views.remove_view, name='remove'),
     path('search', views.search_view, name='search'),
     path('new', views.new_view, name='search'),
 ]
