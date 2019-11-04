@@ -143,7 +143,7 @@ class MeetingNote(models.Model):
         if self.text_keywords and keyword != '':
             self.text_keywords = self.text_keywords.replace(', '+keyword, '')
             super(MeetingNote, self).save()
-            print('Saved keyword - '+keyword)
+            print('Removed keyword - '+keyword)
 
     def __str__(self):
         return self.text_date
