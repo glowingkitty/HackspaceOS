@@ -48,6 +48,8 @@ HACKERSPACE_TIMEZONE_STRING = 'America/Los_Angeles'
 RISEUPPAD_MEETING_PATH = 'nbmeeting'
 DOMAIN = 'noisebridge.net'
 
+WEBSITE_GIT = 'https://github.com/marcoEDU/HackerspaceTemplatePackage/tree/master/hackerspace'
+WEBSITE_GIT_PROVIDER = 'GitHub'
 
 # https://www.meetup.com/{{HACKERSPACE_MEETUP_GROUP}}/
 HACKERSPACE_MEETUP_GROUP = 'noisebridge'
