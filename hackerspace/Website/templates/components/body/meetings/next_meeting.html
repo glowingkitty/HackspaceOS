@@ -4,6 +4,15 @@
     <h2 class="h2 large">{% if current_meeting %}Or join{% else %}Join{% endif %} our next meeting!</h2>
     <div class="divider_20"></div>
     {% include "components/body/result_preview_block.html" with result=next_meeting %}
+    <div class="divider_20"></div>
+    <p class="subheading">
+        Did you know?<br>
+        {{ next_meeting.str_relative_time }} <a href="{{ HACKERSPACE.IMPORTANT_URLS.AUTO_CREATE_NEW_MEETING }}" class="highlight_text_red" target="_blank">this script</a> 
+        automatically creates a new meeting note for <a href="/event/{{ next_meeting.str_slug }}" class="highlight_text_red" target="_blank">the upcoming meeting</a>
+        , based on <a href="{{ HACKERSPACE.IMPORTANT_URLS.MEETING_TEMPLATE }}" class="highlight_text_red" target="_blank">our template</a> - and saves it at midnight automatically to our database!<br>
+        <br>
+        <a href="#" class="highlight_text_red" onclick="startNewMeeting()">Click here to manually start a new meeting</a>
+    </p>
 </div>
 
 {% endblock %}

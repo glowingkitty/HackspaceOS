@@ -86,3 +86,9 @@ HACKERSPACE_IS_OPEN_BASED_ON_OPENING_HOURS = True
 # If you don't want the "Open now" info on the landingpage be
 # dependend on the opening hours, use the following line to call a function to see if the space is open (return True) or closed (return False)
 HACKERSPACE_IS_OPEN_CUSTOM_CHECK = None
+
+
+IMPORTANT_URLS = {
+    'AUTO_CREATE_NEW_MEETING': WEBSITE_GIT,
+    'MEETING_TEMPLATE': WEBSITE_GIT+'/Website/templates/meeting_notes.txt'
+}
