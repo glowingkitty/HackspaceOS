@@ -5,14 +5,21 @@
 <div class="meeting_block full_width">
     <div class="max_500">
     <h2 class="h2 large">Meeting Notes | {{ selected_meeting.text_date }}</h2>
-    {% if selected_meeting.text_keywords %}
     <p class="subheading small_distance_bottom">Keywords:</p>
     <div>
-        {% for keyword in selected_meeting.text_keywords|split:',' %}
-        <a href="#" onclick="enterSearch(this.innerText)" class="keyword">{{ keyword }}</a>
-        {% endfor %}
+        <div id="keywords" style="display: inline-block">
+            {% if selected_meeting.text_keywords%}
+                {% for keyword in selected_meeting.text_keywords|split:',' %}
+                    {% if keyword %}
+                    <a href="#" onclick="enterSearch(this.innerText)" class="keyword">{{ keyword }}</a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <a href="#" id="keyword_add" onclick="showAddKeyword()" class="keyword add_button">Add</a>
+        <input id="keyword_input" class="keyword input" style="display: none" ></input>
+        <a href="#" id="keyword_save" onclick="saveKeyword()" style="display: none" class="keyword save_button">Save</a>
     </div>
-    {% endif %}
     {% if '<div ' in selected_meeting.text_notes %}
     {{ selected_meeting.text_notes|safe }}
     {% else %}

@@ -20,6 +20,8 @@
     margin-right: 1%;
     margin-bottom: 2%;
     margin-left: 1%;
+    height: 149px;
+    overflow: hidden;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
 }
@@ -189,12 +191,31 @@
     font-size: 14px;
     line-height: 30px;
     text-decoration: none;
+    margin-bottom: 10px;
 }
 
 .keyword:hover {
     -webkit-transform: translate(0px, -5px);
     -ms-transform: translate(0px, -5px);
     transform: translate(0px, -5px);
+}
+
+.keyword.input {
+    font-family: 'Lexend Deca', sans-serif;
+    border: none;
+}
+
+.keyword.add_button {
+    padding-left: 33px;
+    background-image: url('../images/plus.svg');
+    background-position: 7px 50%;
+    background-size: auto 70%;
+    background-repeat: no-repeat;
+    color: #ed1d23;
+}
+
+.keyword.save_button {
+    color: #ed1d23;
 }
 
 pre {

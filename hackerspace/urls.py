@@ -26,5 +26,6 @@ urlpatterns = [
     path('meeting/<str:date>', views.meeting_entry_view,
          name='meeting_present_view'),
     path('get/', views.get_view, name='get'),
+    path('save', views.save_view, name='save'),
     path('search', views.search_view, name='search'),
 ]

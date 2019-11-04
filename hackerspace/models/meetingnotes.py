@@ -129,7 +129,15 @@ class MeetingNote(models.Model):
     def getKeywords(self):
         keywords = ''
         # to do
-        return keywords
+        return self.text_keywords
+
+    def add_keyword(self, keyword):
+        if self.text_keywords and self.text_keywords != '':
+            self.text_keywords += ', '+keyword
+        else:
+            self.text_keywords = keyword
+        super(MeetingNote, self).save()
+        print('Saved keyword - '+keyword)
 
     def __str__(self):
         return self.text_date
@@ -174,7 +182,7 @@ class MeetingNote(models.Model):
         if not self.text_date:
             self.text_date = str(self.date)
 
-        if self.text_notes:
+        if self.text_notes and not self.text_keywords:
             self.text_keywords = self.getKeywords()
         else:
             self.start()
