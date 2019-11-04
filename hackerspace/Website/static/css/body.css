@@ -3,6 +3,21 @@
     margin: 0px;
 }
 
+
+.logo {
+    position: absolute;
+    left: 0%;
+    top: 10px;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    height: 80px;
+    background-image: url('../images/logo.svg');
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 .subheading {
     color: #818181;
     font-size: 12px;
@@ -28,6 +43,7 @@
     z-index: 20;
     width: 200px;
     padding: 50px 10px 10px;
+    padding-top: 140px;
     background-color: #2e2e2e;
     box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
     -webkit-transition: all 200ms ease;
@@ -44,7 +60,7 @@
 .search_bar {
     position: absolute;
     left: 10px;
-    top: 10px;
+    top: 100px;
     right: 10px;
     bottom: auto;
     z-index: 10;

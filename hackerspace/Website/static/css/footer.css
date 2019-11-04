@@ -3,6 +3,8 @@
     background-color: #2e2e2e;
     color: #fff;
     text-align: center;
+    float: left;
+    width: 100%;
 }
 
 .link {

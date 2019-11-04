@@ -53,7 +53,7 @@ DOMAIN = 'noisebridge.net'
 HACKERSPACE_MEETUP_GROUP = 'noisebridge'
 
 # how do you want to call people coming to your hackerspace?
-HACKERSPACE_PEOPLE_NAME = 'Noisebuts'
+HACKERSPACE_PEOPLE_NAME = 'Noisebutts'
 
 HACKERSPACE_DISCUSS_URL = 'https://discuss.noisebridge.info/'
 HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS = [
