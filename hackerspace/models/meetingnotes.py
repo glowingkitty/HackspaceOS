@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import time
 from datetime import datetime
@@ -88,6 +89,8 @@ class MeetingNote(models.Model):
     text_date = models.TextField(blank=True, null=True)
     text_notes = models.TextField(blank=True, null=True)
 
+    text_main_topics = models.TextField(blank=True, null=True)
+
     many_consensus_items = models.ManyToManyField(
         'ConsensusItem', related_name="m_consensus_items", blank=True)
 
@@ -101,6 +104,10 @@ class MeetingNote(models.Model):
         local_time = datetime.fromtimestamp(
             self.int_UNIXtime_created, local_timezone)
         return local_time.date()
+
+    @property
+    def list_main_topics(self):
+        return self.text_main_topics.split(',')
 
     def start(self):
         print('Starting...')
@@ -131,10 +138,28 @@ class MeetingNote(models.Model):
         # to do: auto notify via slack
         print('Done: Ended & saved meeting')
 
-    def getKeywords(self):
+    def get_keywords(self):
         keywords = ''
         # to do
         return self.text_keywords
+
+    def get_main_topics(self):
+        # find main topics via heading in notes
+        main_topics = re.findall('(?<==).*', self.text_notes)
+        main_topics = [
+            x.replace('==', '')
+            .replace('= ', '')
+            .replace(' =', '')
+            .replace('=', '')
+            .replace('[[', '')
+            .replace(']]', '')
+            .strip()
+            for x in main_topics if
+            x != ''
+            and x.istitle()
+        ]
+
+        return ','.join(main_topics)
 
     def add_keyword(self, keyword):
         if self.text_keywords and keyword != '':
@@ -193,8 +218,14 @@ class MeetingNote(models.Model):
         if not self.text_date:
             self.text_date = str(self.date)
 
+        super(MeetingNote, self).save(*args, **kwargs)
+
+        if not self.text_main_topics:
+            self.text_main_topics = self.get_main_topics()
+
         if self.text_notes and not self.text_keywords:
-            self.text_keywords = self.getKeywords()
+            self.text_keywords = self.get_keywords()
         else:
             self.start()
+
         super(MeetingNote, self).save(*args, **kwargs)

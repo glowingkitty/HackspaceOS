@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="result_preview">
+<a class="result_preview" href="{{ result.url_meetup_event }}" target="_blank">
     {% if result.text_series_timing %}
     <div class="result_preview_relative_time repeating_day">{{ result.str_series }}</div>
     {% endif %}
@@ -14,6 +14,6 @@
     <div class="text_semitransparent with_padding_left">{{ result.datetime_range }}</div>
     </div>
     <div class="result_preview_right"{% if result.url_featured_photo %} style="background-image: url('{{ result.url_featured_photo }}')"{% endif %}></div>
-</div>
+</a>
 
 {% endblock %}

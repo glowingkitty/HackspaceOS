@@ -70,6 +70,10 @@ def meetings_view(request):
 
 def meeting_present_view(request):
     print('meeting_present_view')
+    current_meeting = MeetingNote.objects.current()
+    if not current_meeting:
+        return HttpResponseRedirect('/meetings')
+
     response = render(request, 'meeting_present.html', {
         'view': 'meeting_present_view',
         'css_files': ['body', 'header', 'meetings'],

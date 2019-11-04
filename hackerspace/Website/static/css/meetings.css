@@ -14,6 +14,18 @@
     text-decoration: none;
 }
 
+.presenter_mode_meeting {
+    width: 40%;
+    height: 38%;
+    -ms-zoom: 2.5;
+    -moz-transform: scale(2.5);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(2.55);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(2.5);
+    -webkit-transform-origin: 0 0;
+}
+
 .meeting_block.inline_block {
     display: inline-block;
     width: 38%;
@@ -65,7 +77,7 @@
 .notes_embedded {
     position: absolute;
     left: 0%;
-    top: 11px;
+    top: -22px;
     right: 0%;
     bottom: 50px;
 }
@@ -76,7 +88,7 @@
     top: 0%;
     right: 0%;
     bottom: auto;
-    height: 50px;
+    height: 70px;
     padding-top: 5px;
     padding-right: 15px;
     padding-left: 15px;
@@ -104,11 +116,11 @@
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    border-radius: 20px;
+    border-radius: 200px;
     background-color: #ed1d23;
     color: #fff;
-    font-size: 24px;
-    line-height: 40px;
+    font-size: 45px;
+    line-height: 60px;
 }
 
 .live_icon {
@@ -134,7 +146,7 @@
     left: auto;
     top: auto;
     right: 10px;
-    bottom: 6px;
+    bottom: 17px;
     opacity: 0.3;
 }
 
@@ -155,12 +167,13 @@
     margin-right: 20px;
     float: left;
     color: #919191;
-    font-size: 30px;
-    line-height: 40px;
+    font-size: 50px;
+    line-height: 70px;
 }
 
 
 .presenter_mode_buttons {
+    margin-top: 10px;
     float: right;
     opacity: 0.3;
     -webkit-transition: all 200ms ease;

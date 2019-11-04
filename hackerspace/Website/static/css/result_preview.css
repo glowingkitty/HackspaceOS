@@ -13,6 +13,8 @@
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.18);
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
+    color: black;
+    display: inline-block;
 }
 
 .result_preview:hover {

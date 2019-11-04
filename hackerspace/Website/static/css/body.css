@@ -5,6 +5,8 @@
 
 
 .logo {
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
     position: absolute;
     left: 0%;
     top: 10px;
@@ -16,6 +18,13 @@
     background-position: 50% 50%;
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+.logo:hover {
+    transform: rotateY(360deg);
+    -webkit-transform: rotateY(3600deg);
+    transition-duration: 20s;
+    -webkit-transition-duration: 20s;
 }
 
 .subheading {
