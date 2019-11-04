@@ -141,6 +141,38 @@
     float: left;
     border-radius: 20px;
     background-color: #fff;
+    -webkit-animation: flash_live 2s infinite;
+    /* Safari 4.0 - 8.0 */
+    animation: flash_live 2s infinite;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes flash_live {
+    0% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.1;
+    }
+}
+
+@keyframes flash_live {
+    0% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.1;
+    }
 }
 
 
