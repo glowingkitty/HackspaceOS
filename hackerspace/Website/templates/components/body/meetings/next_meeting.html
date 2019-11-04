@@ -11,7 +11,9 @@
         automatically creates a new meeting note for <a href="/event/{{ next_meeting.str_slug }}" class="highlight_text_red" target="_blank">the upcoming meeting</a>
         , based on <a href="{{ HACKERSPACE.IMPORTANT_URLS.MEETING_TEMPLATE }}" class="highlight_text_red" target="_blank">our template</a> - and saves it at midnight automatically to our database!<br>
         <br>
+        {% if not current_meeting %}
         <a href="#" class="highlight_text_red" onclick="startNewMeeting()">Click here to manually start a new meeting</a>
+        {% endif %}
     </p>
 </div>
 

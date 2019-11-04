@@ -38,14 +38,19 @@ def openMeetingNotes():
 
 
 class MeetingNoteSet(models.QuerySet):
+    def remove_empty_notes(self):
+        self.filter(text_notes__isnull=True).delete()
+        print('Deleted all empty notes')
+
     def current(self):
         return self.filter(text_notes__isnull=True).order_by('-int_UNIXtime_created').first()
 
     def past(self, older_then=None):
         if older_then:
             self = self.filter(
+                text_notes__isnull=False,
                 int_UNIXtime_created__lt=older_then.int_UNIXtime_created)
-        return self.all().order_by('-int_UNIXtime_created')
+        return self.filter(text_notes__isnull=False).order_by('-int_UNIXtime_created')
 
     def import_all_from_wiki(self):
         response_json = requests.get(WIKI_API_URL +
