@@ -265,10 +265,15 @@ class Event(models.Model):
             minutes_in_future = int((timestamp - time.time())/60)
             return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
 
-        # in next 24 hours
-        elif timestamp < time.time()+(60*60*24):
+        # in next 12 hours
+        elif timestamp < time.time()+(60*60*12):
             hours_in_future = int(((timestamp - time.time())/60)/60)
             return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
+
+        # else if in next 6 days, return name of day
+        elif timestamp < time.time()+(60*60*24*6):
+            name_of_weekday = self.datetime_start.strftime("%A")
+            return name_of_weekday
 
         else:
             return None

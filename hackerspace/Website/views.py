@@ -59,6 +59,7 @@ def meetings_view(request):
         'page_description': 'Join our weekly meetings!',
         'cookie_consent': request.COOKIES.get('consent'),
         'HACKERSPACE': HACKERSPACE,
+        'current_meeting': MeetingNote.objects.current(),
         'next_meeting': Event.objects.next_meeting(),
         'past_meetings': MeetingNote.objects.past()[:4]
     }

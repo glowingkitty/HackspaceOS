@@ -5,8 +5,8 @@
     <p class="subheading">Join us now, live, as a note taker for our current meeting:</p>
 </div>
 <div class="meeting_block">
-    <h3 class="h3">Sep 21, 2019</h3>
-    <a href="/meeting/present" class="cta_button secondary present_mode">Presentation mode</a>
+    <h3 class="h3">{{ current_meeting.text_date }}</h3>
+    <a href="/meeting/present" target="_blank" class="cta_button secondary present_mode">Presentation mode</a>
     <div class="html-embed">
         <iframe style="width:100%;height:100%" src="https://pad.riseup.net/p/{{ HACKERSPACE.RISEUPPAD_MEETING_PATH }}"></iframe>
     </div>
