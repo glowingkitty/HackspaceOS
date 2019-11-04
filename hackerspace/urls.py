@@ -21,18 +21,22 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.landingpage_view, name='landingpage'),
+
     path('meetings', views.meetings_view, name='meetings'),
     path('meeting', RedirectView.as_view(
          url='meetings', permanent=False), name='meeting'),
     path('meetings/', RedirectView.as_view(
          url='meetings', permanent=False), name='meetings/'),
+    path('meeting/', RedirectView.as_view(
+        url='meetings', permanent=False), name='meeting/'),
+
     path('meeting/present', views.meeting_present_view,
          name='meeting_present_view'),
     path('meeting/<str:date>', views.meeting_entry_view,
          name='meeting_present_view'),
-    path('meeting/', RedirectView.as_view(
-        url='meetings', permanent=False), name='meeting/'),
+
     path('get/', views.get_view, name='get'),
     path('save', views.save_view, name='save'),
     path('search', views.search_view, name='search'),
+    path('new', views.new_view, name='search'),
 ]

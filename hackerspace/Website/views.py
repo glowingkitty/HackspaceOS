@@ -125,6 +125,12 @@ def get_view(request):
                 'html': getOpenNowStatus()
             }
         )
+    elif request.GET.get('what', None) == 'start_meeting':
+        response = JsonResponse(
+            {
+                'html': get_template('components/body/meetings/current_meeting.html').render({})
+            }
+        )
 
     return response
 
@@ -156,5 +162,25 @@ def search_view(request):
                 })
         }
     )
+
+    return response
+
+
+def new_view(request):
+    print('new_view')
+
+    if request.GET.get('what', None) == 'meeting':
+        new_meeting = MeetingNote()
+        new_meeting.save()
+
+        response = JsonResponse(
+            {
+                'html': get_template(
+                    'components/body/meetings/current_meeting.html').render({
+                        'current_meeting': new_meeting,
+                        'HACKERSPACE': HACKERSPACE,
+                    })
+            }
+        )
 
     return response

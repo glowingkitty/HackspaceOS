@@ -23,3 +23,19 @@ function saveKeyword() {
             .finally(function () {});
     }
 }
+
+function startNewMeeting() {
+    // show loading screen
+    request_html('what=start_meeting', 'join_next_meeting', 'outer')
+
+    // make request to start new meeting
+    axios.get('/new?what=meeting')
+        .then(function (response) {
+            // if done, replace meeting placeholder with real meeting preview
+            document.getElementById('current_meeting_block').outerHTML = response.data.html
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+        .finally(function () {});
+}
