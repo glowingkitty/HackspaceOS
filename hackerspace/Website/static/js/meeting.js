@@ -51,3 +51,39 @@ function startNewMeeting() {
         })
         .finally(function () {});
 }
+
+function nextMeetingTopic() {
+    let current_meeting_topic_num = parseInt(document.getElementById('current_meeting_topic').value)
+    let next_meeting_topic_num = current_meeting_topic_num + 1
+    if (document.getElementById('meeting_topic_' + next_meeting_topic_num)) {
+        document.getElementById('meeting_topic_' + current_meeting_topic_num).style.display = 'none'
+        document.getElementById('meeting_topic_' + next_meeting_topic_num).style.display = 'inline-block'
+        document.getElementById('current_meeting_topic').value = next_meeting_topic_num
+
+        document.getElementById('previous_meeting_button').style.display = 'inline-block'
+        let overnext_meeting_topic_num = current_meeting_topic_num + 2
+        if (document.getElementById('meeting_topic_' + overnext_meeting_topic_num)) {
+            document.getElementById('next_meeting_button').style.display = 'inline-block'
+        } else {
+            document.getElementById('next_meeting_button').style.display = 'none'
+        }
+    }
+}
+
+function previousMeetingTopic() {
+    let current_meeting_topic_num = parseInt(document.getElementById('current_meeting_topic').value)
+    let previous_meeting_topic_num = current_meeting_topic_num - 1
+    if (document.getElementById('meeting_topic_' + previous_meeting_topic_num)) {
+        document.getElementById('meeting_topic_' + current_meeting_topic_num).style.display = 'none'
+        document.getElementById('meeting_topic_' + previous_meeting_topic_num).style.display = 'inline-block'
+        document.getElementById('current_meeting_topic').value = previous_meeting_topic_num
+
+        document.getElementById('next_meeting_button').style.display = 'inline-block'
+        let overprevious_meeting_topic_num = current_meeting_topic_num - 2
+        if (document.getElementById('meeting_topic_' + overprevious_meeting_topic_num)) {
+            document.getElementById('previous_meeting_button').style.display = 'inline-block'
+        } else {
+            document.getElementById('previous_meeting_button').style.display = 'none'
+        }
+    }
+}

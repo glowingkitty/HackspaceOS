@@ -132,7 +132,7 @@ def get_view(request):
     elif request.GET.get('what', None) == 'start_meeting':
         response = JsonResponse(
             {
-                'html': get_template('components/body/meetings/current_meeting.html').render({})
+                'html': get_template('components/body/meetings/current_meeting.html').render({'HACKERSPACE': HACKERSPACE})
             }
         )
 

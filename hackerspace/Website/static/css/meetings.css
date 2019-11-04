@@ -1,3 +1,14 @@
+.h2.meeting_present {
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 57px;
+    line-height: 70px;
+    max-width: 55%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .meeting_block {
     position: relative;
     width: 90%;

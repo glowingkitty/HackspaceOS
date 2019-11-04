@@ -8,13 +8,14 @@
     </div>
     <div class="meeting_presenter_mode_header">
         <div class="currently_text">Currently:</div>
+        <input type="hidden" id="current_meeting_topic" value="1"></input>
         {% for main_topic in current_meeting.list_main_topics %}
-        <h2 class="h2 meeting_present">{{ main_topic }}</h2>
+        <h2 id="meeting_topic_{{ forloop.counter }}" class="h2 meeting_present"{% if forloop.counter > 1 %} style="display: none"{% endif %}>{{ main_topic }}</h2>
         {% endfor %}
         <div class="presenter_mode_buttons">
-            <a href="#" class="cta_button secondary" style="display: inline-block;">Previous</a>
+            <a id="previous_meeting_button" onclick="previousMeetingTopic()" href="#" class="cta_button secondary" style="display: none;">Previous</a>
             <div class="inline_divider"></div>
-            <a href="#" class="cta_button secondary" style="display: inline-block;">Next topic</a>
+            <a id="next_meeting_button" onclick="nextMeetingTopic()" href="#" class="cta_button secondary" style="display: inline-block;">Next topic</a>
         </div>
     </div>
     <div class="meeting_live_text">

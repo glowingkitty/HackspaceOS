@@ -144,8 +144,9 @@ class MeetingNote(models.Model):
         return self.text_keywords
 
     def get_main_topics(self):
-        # find main topics via heading in notes
-        main_topics = re.findall('(?<==).*', self.text_notes)
+        # find main topics via heading in note template
+        main_topics = re.findall('(?<==).*', open(os.path.join(
+            sys.path[0], 'hackerspace/website/templates/meeting_notes.txt'), 'r').read())
         main_topics = [
             x.replace('==', '')
             .replace('= ', '')
@@ -156,6 +157,7 @@ class MeetingNote(models.Model):
             .strip()
             for x in main_topics if
             x != ''
+            and x != 'Meeting Summary'
             and x.istitle()
         ]
 
