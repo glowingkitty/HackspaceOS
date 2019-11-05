@@ -10,7 +10,12 @@
         <div class="currently_text">Currently:</div>
         <input type="hidden" id="current_meeting_topic" value="1"></input>
         {% for main_topic in current_meeting.list_main_topics %}
-        <h2 id="meeting_topic_{{ forloop.counter }}" class="h2 meeting_present"{% if forloop.counter > 1 %} style="display: none"{% endif %}>{{ main_topic }}</h2>
+        <div class="meeting_topic_block" id="meeting_topic_{{ forloop.counter }}"{% if forloop.counter > 1 %} style="display: none"{% endif %}>
+            <h2 class="h2 meeting_present"{% if main_topic == 'Discussion' %} style="width: auto"{% endif %}>{{ main_topic }}</h2>
+            {% if main_topic == 'Discussion' %}
+            <input class="discussion_topic_input" placeholder="Enter topic"></input>
+            {% endif %}
+        </div>
         {% endfor %}
         <div class="presenter_mode_buttons">
             <a id="previous_meeting_button" onclick="previousMeetingTopic()" href="#" class="cta_button secondary" style="display: none;">Previous</a>

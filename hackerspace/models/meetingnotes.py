@@ -157,7 +157,9 @@ class MeetingNote(models.Model):
             .strip()
             for x in main_topics if
             x != ''
-            and x != 'Meeting Summary'
+            and 'Meeting Summary' not in x
+            and 'End of Meeting' not in x
+            and 'Discussion Item' not in x
             and x.istitle()
         ]
 

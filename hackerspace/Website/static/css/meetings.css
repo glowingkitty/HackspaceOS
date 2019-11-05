@@ -4,9 +4,22 @@
     margin-bottom: 0px;
     font-size: 57px;
     line-height: 70px;
-    max-width: 55%;
+    width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.discussion_topic_input {
+    width: 340px;
+    display: inline-block;
+    font-size: 40px;
+    position: absolute;
+    top: 13px;
+    margin-left: 20px;
+    font-family: 'Lexend Deca', sans-serif;
+    border-radius: 200px;
+    border: none;
+    padding-left: 20px;
 }
 
 .meeting_block {
@@ -303,4 +316,9 @@ pre {
     /* Opera 7 */
     word-wrap: break-word;
     /* Internet Explorer 5.5+ */
+}
+
+.meeting_topic_block {
+    display: inline-block;
+    width: 55%;
 }
