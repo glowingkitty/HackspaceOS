@@ -139,9 +139,14 @@ class MeetingNote(models.Model):
         print('Done: Ended & saved meeting')
 
     def get_keywords(self):
-        keywords = ''
-        # to do
-        return self.text_keywords
+        keywords = re.findall('#(\w+)', self.text_notes)
+        keywords = [
+            x.replace('#', '')
+            .replace('_', ' ')
+            for x in keywords if
+            x != 'summary'
+        ]
+        return ','.join(keywords)
 
     def get_main_topics(self):
         # find main topics via heading in note template
@@ -167,7 +172,7 @@ class MeetingNote(models.Model):
 
     def add_keyword(self, keyword):
         if self.text_keywords and keyword != '':
-            self.text_keywords += ', '+keyword
+            self.text_keywords += ','+keyword
         else:
             self.text_keywords = keyword
         super(MeetingNote, self).save()
@@ -175,7 +180,8 @@ class MeetingNote(models.Model):
 
     def remove_keyword(self, keyword):
         if self.text_keywords and keyword != '':
-            self.text_keywords = self.text_keywords.replace(', '+keyword, '')
+            self.text_keywords = self.text_keywords.replace(
+                ','+keyword, '').replace(keyword+',', '')
             super(MeetingNote, self).save()
             print('Removed keyword - '+keyword)
 

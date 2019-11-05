@@ -93,6 +93,8 @@ function confirmMeetingOver() {
     document.getElementById('meeting_over_heading').innerText = 'Saving the meeting...'
     document.getElementById('meeting_over_text').innerHTML = 'This might take a minute...'
     document.getElementById('meeting_over_buttons').style.display = 'none'
+    document.getElementById('notes_embedded').style.display = 'none'
+    document.getElementById('dark_overlay').onclick = function () {}
 
     // make request to server
     axios.get("/meeting/end")

@@ -171,6 +171,7 @@ def save_view(request):
 
 def remove_view(request):
     print('remove_view')
+    print(request.META['HTTP_REFERER'])
     if request.GET.get('keyword', None) and request.META['HTTP_REFERER'] and MeetingNote.objects.filter(text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).exists():
         meeting = MeetingNote.objects.filter(
             text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).first()
