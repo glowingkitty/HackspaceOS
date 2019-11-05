@@ -20,5 +20,4 @@ function request_html(parameter, replace_id, inner_OR_outer = 'inner') {
         .finally(function () {
             // always executed
         });
-
 }

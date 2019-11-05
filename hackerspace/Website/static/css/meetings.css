@@ -1,14 +1,3 @@
-.h2.meeting_present {
-    display: inline-block;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 57px;
-    line-height: 70px;
-    width: 100%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
 .discussion_topic_input {
     width: 340px;
     display: inline-block;
@@ -36,6 +25,15 @@
     background-color: #ffefa0;
     color: black;
     text-decoration: none;
+}
+
+.meeting_block.overlay {
+    width: 500px;
+    margin: auto;
+    margin-top: 30vh;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .presenter_mode_meeting {
@@ -94,9 +92,6 @@
     text-align: center;
 }
 
-.divider_100 {
-    height: 100px;
-}
 
 .notes_embedded {
     position: absolute;
@@ -189,76 +184,6 @@
 }
 
 
-.cta_button.secondary.present_mode {
-    position: absolute;
-    left: auto;
-    top: 6px;
-    right: 15px;
-    bottom: auto;
-}
-
-.cta_button.secondary.end_meeting {
-    position: absolute;
-    left: auto;
-    top: auto;
-    right: 10px;
-    bottom: 17px;
-    opacity: 0.3;
-}
-
-.cta_button.secondary.end_meeting:hover {
-    opacity: 1;
-}
-
-.meeting_live_text_span {
-    margin-right: 20px;
-    float: left;
-}
-
-.text-span {
-    opacity: 0.5;
-}
-
-.currently_text {
-    margin-right: 20px;
-    float: left;
-    color: #919191;
-    font-size: 50px;
-    line-height: 70px;
-}
-
-
-.presenter_mode_buttons {
-    margin-top: 10px;
-    float: right;
-    opacity: 0.3;
-    -webkit-transition: all 200ms ease;
-    transition: all 200ms ease;
-}
-
-.presenter_mode_buttons:hover {
-    opacity: 1;
-}
-
-.inline_divider {
-    display: inline-block;
-    width: 20px;
-}
-
-
-.remove_keyword_button {
-    transform: rotate(45deg);
-    background-image: url('../images/plus.svg');
-    background-size: contain;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    display: none;
-    width: 20px;
-    height: 20px;
-    padding-left: 5px;
-    -webkit-transition: all 200ms ease;
-    transition: all 200ms ease;
-}
 
 .keyword {
     display: inline-block;

@@ -30,8 +30,11 @@ urlpatterns = [
     path('meeting/', RedirectView.as_view(
         url='meetings', permanent=False), name='meeting/'),
 
+
     path('meeting/present', views.meeting_present_view,
          name='meeting_present_view'),
+    path('meeting/end', views.meeting_end_view,
+         name='meeting_end_view'),
     path('meeting/<str:date>', views.meeting_entry_view,
          name='meeting_present_view'),
 

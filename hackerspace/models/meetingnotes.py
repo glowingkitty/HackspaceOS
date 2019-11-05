@@ -132,7 +132,7 @@ class MeetingNote(models.Model):
     def end(self):
         # save meeting notes
         browser = openMeetingNotes()
-        self.text_date = browser.find_element_by_id('innerdocbody').text
+        self.text_notes = browser.find_element_by_id('innerdocbody').text
         self.save()
 
         # to do: auto notify via slack

@@ -1,0 +1,17 @@
+.divider_10 {
+    width: 100%;
+    height: 10px;
+}
+
+.divider_20 {
+    height: 20px;
+}
+
+.divider_100 {
+    height: 100px;
+}
+
+.inline_divider {
+    display: inline-block;
+    width: 20px;
+}

@@ -7,13 +7,6 @@
     width: 100%;
 }
 
-.link {
-    display: inline-block;
-    padding: 10px;
-    color: hsla(0, 0%, 100%, 0.5);
-    text-decoration: none;
-}
-
 .social_icon {
     display: inline-block;
     width: 35px;

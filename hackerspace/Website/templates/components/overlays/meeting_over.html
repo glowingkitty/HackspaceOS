@@ -1,0 +1,12 @@
+{% block content %}
+
+<div class="meeting_block overlay" onclick="event.stopPropagation()" id="meeting_over">
+    <h2 id="meeting_over_heading" class="h2 large">Is the meeting over?</h2>
+    <div id="meeting_over_text">If you click yes, <a class="inline_link" href="{{ HACKERSPACE.IMPORTANT_URLS.END_MEETING }}" target="_blank">this script will end the meeting</a> and save it to <a class="inline_link" href="/meetings" target="_blank">our archive</a>.</div>
+    <div class="divider_20"></div>
+    <div id="meeting_over_buttons">
+        <a onclick="confirmMeetingOver()" href="#" class="cta_button next_to_secondary">Yes</a><a href="#" onclick="closeOverlays()" class="cta_button secondary next_to_main_cta">Not yet</a>
+    </div>
+</div>
+
+{% endblock %}

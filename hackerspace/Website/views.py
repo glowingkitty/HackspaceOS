@@ -37,7 +37,7 @@ def landingpage_view(request):
     print('landingpage_view')
     response = render(request, 'page.html', {
         'view': 'landingpage_view',
-        'css_files': ['body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map', 'footer', 'overlays'],
+        'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map', 'footer', 'overlays'],
         'page_name': HACKERSPACE.HACKERSPACE_NAME,
         'page_description': make_description_sentence(),
         'cookie_consent': request.COOKIES.get('consent'),
@@ -54,7 +54,7 @@ def meetings_view(request):
     print('meetings_view')
     response = render(request, 'page.html', {
         'view': 'meetings_view',
-        'css_files': ['body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
+        'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
         'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
         'page_description': 'Join our weekly meetings!',
         'cookie_consent': request.COOKIES.get('consent'),
@@ -76,7 +76,7 @@ def meeting_present_view(request):
 
     response = render(request, 'meeting_present.html', {
         'view': 'meeting_present_view',
-        'css_files': ['body', 'header', 'meetings'],
+        'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'meetings', 'overlays'],
         'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | Presentation mode',
         'page_description': 'Join our weekly meetings!',
         'cookie_consent': request.COOKIES.get('consent'),
@@ -84,6 +84,21 @@ def meeting_present_view(request):
         'current_meeting': MeetingNote.objects.current()
     }
     )
+
+    return response
+
+
+def meeting_end_view(request):
+    print('meeting_end_view')
+    current_meeting = MeetingNote.objects.current()
+    if current_meeting:
+        current_meeting.end()
+        response = JsonResponse(
+            {'meeting_url': '/meeting/'+current_meeting.text_date})
+
+    else:
+        response = JsonResponse({'alert': 'No current meeting found'})
+        response.status_code = 500
 
     return response
 
@@ -98,7 +113,7 @@ def meeting_entry_view(request, date):
 
     response = render(request, 'page.html', {
         'view': 'meeting_entry_view',
-        'css_files': ['body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
+        'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
         'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected_meeting.text_date,
         'page_description': 'Join our weekly meetings!',
         'cookie_consent': request.COOKIES.get('consent'),

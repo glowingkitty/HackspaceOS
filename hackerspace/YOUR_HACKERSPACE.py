@@ -90,5 +90,6 @@ HACKERSPACE_IS_OPEN_CUSTOM_CHECK = None
 
 IMPORTANT_URLS = {
     'AUTO_CREATE_NEW_MEETING': WEBSITE_GIT,
+    'END_MEETING': WEBSITE_GIT+'/models/meetingnotes.py#L132',
     'MEETING_TEMPLATE': WEBSITE_GIT+'/Website/templates/meeting_notes.txt'
 }

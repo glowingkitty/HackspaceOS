@@ -1,0 +1,144 @@
+.cta_button {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 16px 45px 10px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #ed1d23;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.cta_button.next_to_secondary {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    margin-right: 4%;
+}
+
+
+.cta_button:hover {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.4);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+.cta_button.secondary {
+    padding-top: 10px;
+    padding-right: 25px;
+    padding-left: 25px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    background-color: #fff;
+    color: #ed1d23;
+}
+
+.cta_button.cta_button.secondary.next_to_main_cta {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    padding: 16px 45px 10px;
+    margin-right: 0px;
+}
+
+.cta_button.secondary.with_icon {
+    padding-left: 44px;
+    background-position: 5% 50%;
+    background-size: auto 65%;
+    background-repeat: no-repeat;
+}
+
+.cta_button.secondary.with_icon.plus_icon {
+    background-image: url('../images/plus.svg');
+}
+
+.donate_button {
+    position: fixed;
+    left: auto;
+    top: 0%;
+    right: 0%;
+    bottom: auto;
+    z-index: 12;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    color: #ed1d23;
+    font-size: 16px;
+    line-height: 40px;
+    text-decoration: none;
+}
+
+.donate_button:hover {
+    box-shadow: 0 7px 8px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+
+.cta_button.secondary.present_mode {
+    position: absolute;
+    left: auto;
+    top: 6px;
+    right: 15px;
+    bottom: auto;
+}
+
+.cta_button.secondary.end_meeting {
+    position: absolute;
+    left: auto;
+    top: auto;
+    right: 10px;
+    bottom: 17px;
+    opacity: 0.3;
+}
+
+.cta_button.secondary.end_meeting:hover {
+    opacity: 1;
+}
+
+
+.presenter_mode_buttons {
+    margin-top: 10px;
+    float: right;
+    opacity: 0.3;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.presenter_mode_buttons:hover {
+    opacity: 1;
+}
+
+.remove_keyword_button {
+    transform: rotate(45deg);
+    background-image: url('../images/plus.svg');
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: none;
+    width: 20px;
+    height: 20px;
+    padding-left: 5px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}

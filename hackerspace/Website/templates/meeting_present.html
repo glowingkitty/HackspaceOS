@@ -3,6 +3,11 @@
 {% include "components/head/head.html" with css_files=css_files %}
 
 <body class="meeting_note_present_body">
+
+    <div id="dark_overlay" class="dark_overlay" onclick="closeOverlays()">
+        {% include "components/overlays/meeting_over.html" %}
+    </div>
+    
     <div class="notes_embedded">
         <iframe class="presenter_mode_meeting" src="https://pad.riseup.net/p/{{ HACKERSPACE.RISEUPPAD_MEETING_PATH }}"></iframe>
     </div>
@@ -31,7 +36,7 @@
             {% if HACKERSPACE.DOMAIN in request.META.HTTP_HOST %}https://{% else %}http://{% endif %}</span>
             {{ request.META.HTTP_HOST }}/meeting</div>
     </div>
-    <a href="#" class="cta_button secondary end_meeting">End meeting</a>
+    <a href="#" onclick="showOverlayBlock()" class="cta_button secondary end_meeting">End meeting</a>
 </body>
 </html>
 

@@ -87,3 +87,25 @@ function previousMeetingTopic() {
         }
     }
 }
+
+function confirmMeetingOver() {
+    // change to 'please wait' screen
+    document.getElementById('meeting_over_heading').innerText = 'Saving the meeting...'
+    document.getElementById('meeting_over_text').innerHTML = 'This might take a minute...'
+    document.getElementById('meeting_over_buttons').style.display = 'none'
+
+    // make request to server
+    axios.get("/meeting/end")
+        .then(function (response) {
+            // load meeting page
+            if (response.data.meeting_url)
+                window.location = response.data.meeting_url
+            else {
+                alert(response.data.alert)
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {});
+}

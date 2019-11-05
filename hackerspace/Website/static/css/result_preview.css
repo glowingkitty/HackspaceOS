@@ -29,10 +29,6 @@
     opacity: 0;
 }
 
-.divider_10 {
-    width: 100%;
-    height: 10px;
-}
 
 .result_preview_left {
     position: relative;
@@ -69,29 +65,6 @@
     background-position: 50% 50%;
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-.h2 {
-    max-height: 60px;
-    padding-left: 5px;
-    border-left: 5px solid #ed1d23;
-    font-size: 18px;
-    -webkit-column-count: auto;
-    column-count: auto;
-    overflow: hidden;
-}
-
-
-.h2.large {
-    max-height: 100%;
-    font-size: 25px;
-    line-height: 30px;
-}
-
-
-.h2.in_result_preview_block {
-    margin-left: 10px;
-    margin-top: 20px;
 }
 
 .text_semitransparent {
