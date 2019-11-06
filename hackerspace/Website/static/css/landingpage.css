@@ -74,6 +74,7 @@
     background-repeat: no-repeat;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
+    cursor: pointer
 }
 
 .landingpage_quick_access_icon:hover {

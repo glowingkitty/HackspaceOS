@@ -27,6 +27,7 @@ def search(query):
     events = Event.objects.filter(
         Q(str_name__icontains=query) | Q(text_description__icontains=query)
     ).upcoming().search_results()[:5]
+
     meeting_notes = MeetingNote.objects.filter(
         Q(text_date__icontains=query) | Q(text_keywords__icontains=query)
     ).past().search_results()[:5]

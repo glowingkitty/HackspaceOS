@@ -33,6 +33,7 @@ HACKERSPACE_SOCIAL_NETWORKS = [
     {'name': 'Instagram', 'url': 'https://www.instagram.com/noisebridgehackerspace/'},
     {'name': 'Facebook', 'url': 'https://www.facebook.com/noisebridge'},
     {'name': 'Twitter', 'url': 'https://www.twitter.com/noisebridge'},
+    {'name': 'Twitch', 'url': 'https://www.twitch.tv/noisebridge'},
     {'name': 'Mailinglists', 'url': 'https://lists.noisebridge.net/listinfo'},
     {'name': 'Flickr', 'url': 'https://www.flickr.com/groups/noisebridge'},
     {'name': 'Foursquare',

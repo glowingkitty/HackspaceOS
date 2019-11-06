@@ -133,6 +133,10 @@ html {
     background-image: url('../images/search/wiki.svg');
 }
 
+.search_result.meetingnote {
+    background-image: url('../images/search/notes.svg');
+}
+
 .search_result.event {
     background-image: url('../images/search/event.svg');
 }

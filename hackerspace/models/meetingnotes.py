@@ -78,7 +78,7 @@ class MeetingNoteSet(models.QuerySet):
         for result in results:
             results_list.append({
                 'icon': 'meetingnote',
-                'name': str(result),
+                'name': 'Meeting notes - '+str(result),
                 'url': '/meeting/'+result.text_date
             })
         return results_list
@@ -146,7 +146,12 @@ class MeetingNote(models.Model):
             for x in keywords if
             x != 'summary'
         ]
-        return ','.join(keywords)
+        filtered = []
+        for keyword in keywords:
+            if keyword not in filtered:
+                filtered.append(keyword)
+
+        return ','.join(filtered)
 
     def get_main_topics(self):
         # find main topics via heading in note template

@@ -33,9 +33,20 @@ What happened at the meeting:
 = Participation =
 '''Everyone at Noisebridge is a participant at Noisebridge.'''
  
-(What does that mean? How do you get a door key? Access to Slack, Discuss, etc?)
+(What does that mean? How do you get a door key? Joining guildes? Access to Slack, Discuss, etc?)
  
+ = Financial Report =
+'''Anarchist societies under a capitalist state need money to survive and thrive, yo.'''
  
+* Funds in bank:
+* Noisetor (See the bulletpoints at the bottom of http://noisetor.net/finances/#summary):
+* Any other details by those participating in handling our financials
+* The latest financial reports from the treasurer are available at https://noisebridge.net/wiki/Finances
+
+
+== Fundraising Update ==
+'''How's it all going'''
+
 = [[Philanthropist|Philanthropists]]=
 '''A Philanthropist at Noisebridge has earned enough trust from the community to open and close the space.'''
  
@@ -47,23 +58,10 @@ What happened at the meeting:
  
 (What does that mean? What do we expect from Members? How do you become a Member? etc)
  
- 
-= Financial Report =
-'''Anarchist societies under a capitalist state need money to survive and thrive, yo.'''
- 
-* Funds in bank:
-* Noisetor (See the bulletpoints at the bottom of http://noisetor.net/finances/#summary):
-* Any other details by those participating in handling our financials
-* The latest financial reports from the treasurer are available at https://noisebridge.net/wiki/Finances
- 
-== Fundraising Update ==
-'''How's it all going'''
- 
 = Consensus =
 '''Consensus is how the Noisebridge Membership may change how Noisebridge works.'''
  
 (How does Consensus work? What types of things are good for formal Consensus? What is small-c consensus? What is a "block"?)
- 
  
 == [[ Consensus Items History | Proposals from last week ]] ==
 ''(Add any items which are consensed upon or someone has raised a principle objection for to the [[Consensus Items History]] page.)''
@@ -71,6 +69,9 @@ What happened at the meeting:
 == [[ Current Consensus Items | Proposals for next week ]] ==
 ''(Add any new items for consensus to the [[Current Consensus Items]] page.)''
  
+ 
+
+
 = Discussion =
  
 == Discussion Item 1 ==

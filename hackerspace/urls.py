@@ -19,7 +19,7 @@ from hackerspace.website import views
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('as78dgahasd1e1e/', admin.site.urls),
     path('', views.landingpage_view, name='landingpage'),
 
     path('meetings', views.meetings_view, name='meetings'),

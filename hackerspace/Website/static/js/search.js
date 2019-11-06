@@ -4,6 +4,15 @@ function search(query) {
     CancelToken = axios.CancelToken;
     source = CancelToken.source();
     if (query != undefined && query != '') {
+        // show black block
+        showOverlayBlock()
+
+        // show search bar active
+        if (document.getElementById('search_bar').className == 'search_bar') {
+            document.getElementById('search_bar').classList.add('active')
+        }
+
+        document.getElementById('search_results').innerHTML = 'Searching ...'
 
         axios.get("/search?q=" + query, {
                 cancelToken: new CancelToken(function executor(c) {
@@ -12,15 +21,6 @@ function search(query) {
                 })
             })
             .then(function (response) {
-
-                // show black block
-                showOverlayBlock()
-
-                // show search bar active
-                if (document.getElementById('search_bar').className == 'search_bar') {
-                    document.getElementById('search_bar').classList.add('active')
-                }
-
                 // show results
                 document.getElementById('search_results').innerHTML = response.data.html
 
@@ -38,6 +38,7 @@ function search(query) {
         if (document.getElementById('search_bar').className == 'search_bar active') {
             document.getElementById('search_bar').classList.remove('active')
         }
+
         closeOverlays()
     }
 }
