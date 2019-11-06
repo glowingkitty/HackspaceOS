@@ -94,3 +94,6 @@ IMPORTANT_URLS = {
     'END_MEETING': WEBSITE_GIT+'/models/meetingnotes.py#L132',
     'MEETING_TEMPLATE': WEBSITE_GIT+'/Website/templates/meeting_notes.txt'
 }
+
+SAYHELLO = 'Greetings by the person at the computer next to the entrance. Hello fellow ' + \
+    HACKERSPACE_PEOPLE_NAME+'. Be excellent to each other and have an excellent day'
