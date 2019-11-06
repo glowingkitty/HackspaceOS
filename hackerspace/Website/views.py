@@ -15,6 +15,7 @@ def get_view_response(request, page, sub_page, hashname):
         return {
             'slug': '/',
             'view': page+'_view',
+            'inspace': True if request.COOKIES.get('inspace') else None,
             'page_name': HACKERSPACE.HACKERSPACE_NAME,
             'page_description': make_description_sentence(),
             'cookie_consent': request.COOKIES.get('consent'),
@@ -27,6 +28,7 @@ def get_view_response(request, page, sub_page, hashname):
         return {
             'slug': page,
             'view': page+'_view',
+            'inspace': True if request.COOKIES.get('inspace') else None,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
             'page_description': 'Join our weekly meetings!',
             'cookie_consent': request.COOKIES.get('consent'),
@@ -41,6 +43,7 @@ def get_view_response(request, page, sub_page, hashname):
             text_date=sub_page).first()
         return {
             'view': page+'_view',
+            'inspace': True if request.COOKIES.get('inspace') else None,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected_meeting.text_date,
             'page_description': 'Join our weekly meetings!',
             'cookie_consent': request.COOKIES.get('consent'),
@@ -135,13 +138,16 @@ def meeting_view(request, date):
 
 def get_view(request):
     print('get_view')
+    in_space = request.COOKIES.get('in_space')
     if request.GET.get('what', None) == 'events_slider':
         response = JsonResponse(
             {
                 'html': get_template(
                     'components/body/events_slider.html').render({
                         'upcoming_events': Event.objects.upcoming()[:5]
-                    })
+                    }),
+                'events_in_30_minutes': Event.objects.in_minutes(minutes=30, name_only=True) if in_space else None,
+                'events_in_5_minutes': Event.objects.in_minutes(minutes=5, name_only=True) if in_space else None,
             }
         )
     elif request.GET.get('what', None) == 'open_status':

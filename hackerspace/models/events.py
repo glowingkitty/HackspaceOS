@@ -133,6 +133,24 @@ class EventSet(models.QuerySet):
     def upcoming(self):
         return self.filter(int_UNIXtime_event_end__gt=time.time()).order_by('int_UNIXtime_event_start')
 
+    def in_minutes(self, minutes, name_only=False):
+        date_in_x_minutes = datetime.now(pytz.timezone(
+            HACKERSPACE_TIMEZONE_STRING))+timedelta(minutes=minutes)
+        events_in_x_minutes = []
+        self = self.upcoming()[:3]
+        for event in self.all():
+            event_start_date = event.datetime_start
+
+            if event_start_date.date() == date_in_x_minutes.date() \
+                    and event_start_date.hour == date_in_x_minutes.hour \
+                    and event_start_date.minute == date_in_x_minutes.minute:
+                events_in_x_minutes.append(event)
+
+        if name_only == True:
+            return [x.str_name for x in events_in_x_minutes]
+
+        return events_in_x_minutes
+
     def search_results(self):
         results_list = []
         added = []

@@ -20,7 +20,6 @@
         history.pushState("", document.title, window.location.pathname);
         if (page=='/'){
             changeText();
-            {% comment %} check_if_in_space(); {% endcomment %}
             setInterval(function () {
                 request_html('what=events_slider', 'events_slider', 'outer')
                 request_html('what=open_status', 'open_status', 'inner')
@@ -30,7 +29,9 @@
 </script>
 </script>
 {% for file_name in ''|getJSfiles %}
+{% if file_name != 'inspace' or inspace == True %}
 <script src="{% static file_name|getJSpath %}" type="text/javascript"></script>
+{% endif %}
 {% endfor %}
 
 {% endblock %}

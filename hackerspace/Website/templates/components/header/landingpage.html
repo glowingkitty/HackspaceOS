@@ -11,15 +11,18 @@
             data-period="2000"
             data-rotate='[ {{ HACKERSPACE.HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'></span>
         </div>
-        {% comment %} <a id="cta_button_in_space" href="#" onclick="marryspeak('Hello fellow {{ HACKERSPACE.HACKERSPACE_PEOPLE_NAME }}')" style="display: none" class="cta_button">
+        {% if inspace %}
+        <a href="#" onclick="marryspeak('Hello fellow {{ HACKERSPACE.HACKERSPACE_PEOPLE_NAME }}');this.style.display='none'" class="cta_button">
             <div>Say hello!</div>
-        </a> {% endcomment %}
-        <a id="cta_button" href="#visit_us" class="cta_button">
+        </a>
+        {% else %}
+        <a href="#visit_us" class="cta_button">
             <div>Visit us!</div>
             <div id="open_status" class="cta_extra_info">
                 {{ is_open_status|safe }}
             </div>
         </a>
+        {% endif %}
     </div>
     <div class="header_separator"></div>
     <div class="header_image"></div>

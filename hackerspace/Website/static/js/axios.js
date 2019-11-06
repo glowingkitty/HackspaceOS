@@ -22,6 +22,18 @@ function request_html(parameter, replace_id, inner_OR_outer = 'inner') {
                         history.pushState({}, response.data.page_name, page);
                         document.title = response.data.page_name
                     }
+
+                    // if getting events, inform about next events
+                    if (response.data.events_in_5_minutes) {
+                        for (event_name in response.data.events_in_5_minutes) {
+                            marryspeak(response.data.events_in_5_minutes[event_name] + ' is starting in 5 minnutes')
+                        }
+                    }
+                    if (response.data.events_in_30_minutes) {
+                        for (event_name in response.data.events_in_30_minutes) {
+                            marryspeak(response.data.events_in_30_minutes[event_name] + ' is starting in 30 minnutes')
+                        }
+                    }
                 }
             })
             .catch(function (error) {

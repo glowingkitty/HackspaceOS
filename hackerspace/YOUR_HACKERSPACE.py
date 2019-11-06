@@ -87,6 +87,7 @@ HACKERSPACE_IS_OPEN_BASED_ON_OPENING_HOURS = True
 # dependend on the opening hours, use the following line to call a function to see if the space is open (return True) or closed (return False)
 HACKERSPACE_IS_OPEN_CUSTOM_CHECK = None
 
+EMBEDDED_MAP_URL = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.178154041456!2d-122.42143928490898!3d37.762420679761654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e23baa2b1df%3A0x81b913a252fb8d04!2sNoisebridge!5e0!3m2!1sen!2sus!4v1572324947963!5m2!1sen!2sus'
 
 IMPORTANT_URLS = {
     'AUTO_CREATE_NEW_MEETING': WEBSITE_GIT,
