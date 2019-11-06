@@ -109,6 +109,16 @@ class MeetingNote(models.Model):
     def list_main_topics(self):
         return self.text_main_topics.split(',')
 
+    @property
+    def running_since(self):
+        # reduce 30 seconds, considering time it takes to create notes
+        seconds_ago = time.time()-self.int_UNIXtime_created-30
+        minutes = round(seconds_ago/60)
+        hours = round(minutes/60) if minutes > 60 else 0
+        if minutes > 60:
+            minutes = minutes-(hours*60)
+        return '{}h {}min'.format(hours, minutes)
+
     def start(self):
         print('Starting...')
         browser = openMeetingNotes()
@@ -170,7 +180,6 @@ class MeetingNote(models.Model):
             and 'Meeting Summary' not in x
             and 'End of Meeting' not in x
             and 'Discussion Item' not in x
-            and x.istitle()
         ]
 
         return ','.join(main_topics)
