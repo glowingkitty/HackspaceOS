@@ -244,6 +244,9 @@ pre {
 }
 
 .meeting_topic_block {
-    display: inline-block;
-    width: 55%;
+    position: absolute;
+    left: 260px;
+    right: 330PX;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
