@@ -24,6 +24,10 @@
                 request_html('what=events_slider', 'events_slider', 'outer')
                 request_html('what=open_status', 'open_status', 'inner')
             }, 60 * 1000);
+        } else if (page=='/meeting/present'){
+            setInterval(function () {
+                request_html('what=meeting_duration', 'current_time_text', 'inner')
+            }, 30 * 1000)
         }
     }
 </script>

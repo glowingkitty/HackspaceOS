@@ -42,6 +42,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected_meeting = MeetingNote.objects.filter(
             text_date=sub_page).first()
         return {
+            'slug': '/meeting/'+selected_meeting.text_date,
             'view': page+'_view',
             'inspace': True if request.COOKIES.get('inspace') else None,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected_meeting.text_date,
@@ -102,6 +103,7 @@ def meeting_present_view(request):
         return HttpResponseRedirect('/meetings')
 
     response = render(request, 'meeting_present.html', {
+        'slug': '/meeting/present',
         'view': 'meeting_present_view',
         'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | Presentation mode',
         'page_description': 'Join our weekly meetings!',
@@ -139,29 +141,42 @@ def meeting_view(request, date):
 def get_view(request):
     print('get_view')
     in_space = request.COOKIES.get('in_space')
+    marry_messages = []
     if request.GET.get('what', None) == 'events_slider':
+        if in_space:
+            marry_messages += Event.objects.in_minutes(
+                minutes=5, name_only=True)
+            marry_messages += Event.objects.in_minutes(
+                minutes=30, name_only=True)
+
         response = JsonResponse(
             {
                 'html': get_template(
                     'components/body/events_slider.html').render({
                         'upcoming_events': Event.objects.upcoming()[:5]
                     }),
-                'events_in_30_minutes': Event.objects.in_minutes(minutes=30, name_only=True) if in_space else None,
-                'events_in_5_minutes': Event.objects.in_minutes(minutes=5, name_only=True) if in_space else None,
+                'marryspeak': marry_messages
             }
         )
     elif request.GET.get('what', None) == 'open_status':
+        response = JsonResponse({'html': getOpenNowStatus()})
+
+    elif request.GET.get('what', None) == 'meeting_duration':
+        running_since = MeetingNote.objects.current().running_since
+        if in_space:
+            if running_since == '1h 30min':
+                marry_messages.append(
+                    'Thanks everyone for partipicating in the weekly meeting. The meeting is going on now for 1 hour and 30 minutes')
+            elif running_since == '2h 30min':
+                marry_messages.append(
+                    'I always love people actively discussion topics related to Noisebridge. However, it seems the meeting is going on now for 2 hours and 30 minutes. Please come to an end soon')
+
         response = JsonResponse(
-            {
-                'html': getOpenNowStatus()
-            }
-        )
+            {'html': MeetingNote.objects.current().running_since, 'marryspeak': marry_messages})
+
     elif request.GET.get('what', None) == 'start_meeting':
-        response = JsonResponse(
-            {
-                'html': get_template('components/body/meetings/current_meeting.html').render({'HACKERSPACE': HACKERSPACE})
-            }
-        )
+        response = JsonResponse({'html': get_template(
+            'components/body/meetings/current_meeting.html').render({'HACKERSPACE': HACKERSPACE})})
 
     elif request.GET.get('what', None):
         page = request.GET.get('what', None)

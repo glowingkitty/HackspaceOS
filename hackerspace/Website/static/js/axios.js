@@ -23,15 +23,10 @@ function request_html(parameter, replace_id, inner_OR_outer = 'inner') {
                 }
             }
 
-            // if getting events, inform about next events
-            if (response.data.events_in_5_minutes) {
-                for (event_name in response.data.events_in_5_minutes) {
-                    marryspeak(response.data.events_in_5_minutes[event_name] + ' is starting in 5 minnutes')
-                }
-            }
-            if (response.data.events_in_30_minutes) {
-                for (event_name in response.data.events_in_30_minutes) {
-                    marryspeak(response.data.events_in_30_minutes[event_name] + ' is starting in 30 minnutes')
+            // if message for marry, speak it out
+            if (response.data.marryspeak) {
+                for (message in response.data.marryspeak) {
+                    marryspeak(response.data.marryspeak[message])
                 }
             }
         })

@@ -2,7 +2,7 @@
 
 {% include "components/head/head.html" with css_files=css_files %}
 
-<body class="meeting_note_present_body">
+<body onload="onLoadFunctions('{{ slug }}')" class="meeting_note_present_body">
 
     <div id="dark_overlay" class="dark_overlay" onclick="closeOverlays()">
         {% include "components/overlays/meeting_over.html" %}
@@ -12,7 +12,7 @@
         <iframe class="presenter_mode_meeting" src="https://pad.riseup.net/p/{{ HACKERSPACE.RISEUPPAD_MEETING_PATH }}"></iframe>
     </div>
     <div class="meeting_presenter_mode_header">
-        <div class="currently_text">Currently:</div>
+        <div id="current_time_text" class="current_time_text">Currently:</div>
         <input type="hidden" id="current_meeting_topic" value="1"></input>
         {% for main_topic in current_meeting.list_main_topics %}
         <div class="meeting_topic_block" id="meeting_topic_{{ forloop.counter }}"{% if forloop.counter > 1 %} style="display: none"{% endif %}>
