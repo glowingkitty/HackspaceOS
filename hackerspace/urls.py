@@ -35,7 +35,7 @@ urlpatterns = [
          name='meeting_present_view'),
     path('meeting/end', views.meeting_end_view,
          name='meeting_end_view'),
-    path('meeting/<str:date>', views.meeting_entry_view,
+    path('meeting/<str:date>', views.meeting_view,
          name='meeting_present_view'),
 
     path('get/', views.get_view, name='get'),

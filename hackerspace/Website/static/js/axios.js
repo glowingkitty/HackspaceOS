@@ -15,7 +15,7 @@ function request_html(parameter, replace_id, inner_OR_outer = 'inner') {
                     }
 
                     // call extra functions if loading a new page
-                    parameter = parameter.replace('00', '/')
+                    parameter = parameter.replace('__', '/')
                     page = parameter.split('=')[1]
                     if (page.includes('/')) {
                         onLoadFunctions(page)

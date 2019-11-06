@@ -10,11 +10,11 @@ from hackerspace.website.search import search
 from django.http import HttpResponseRedirect
 
 
-def get_view_response(request, view_name, hashname):
-    if view_name == 'landingpage':
+def get_view_response(request, page, sub_page, hashname):
+    if page == 'landingpage':
         return {
             'slug': '/',
-            'view': view_name+'_view',
+            'view': page+'_view',
             'page_name': HACKERSPACE.HACKERSPACE_NAME,
             'page_description': make_description_sentence(),
             'cookie_consent': request.COOKIES.get('consent'),
@@ -23,10 +23,10 @@ def get_view_response(request, view_name, hashname):
             'upcoming_events': Event.objects.upcoming()[:5],
             'hash': hashname
         }
-    elif view_name == 'meetings':
+    elif page == 'meetings':
         return {
-            'slug': view_name,
-            'view': view_name+'_view',
+            'slug': page,
+            'view': page+'_view',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
             'page_description': 'Join our weekly meetings!',
             'cookie_consent': request.COOKIES.get('consent'),
@@ -36,15 +36,29 @@ def get_view_response(request, view_name, hashname):
             'past_meetings': MeetingNote.objects.past()[:4],
             'hash': hashname
         }
+    elif page == 'meeting':
+        selected_meeting = MeetingNote.objects.filter(
+            text_date=sub_page).first()
+        return {
+            'view': 'meeting_view',
+            'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected_meeting.text_date,
+            'page_description': 'Join our weekly meetings!',
+            'cookie_consent': request.COOKIES.get('consent'),
+            'HACKERSPACE': HACKERSPACE,
+            'selected_meeting': selected_meeting,
+            'next_meeting': Event.objects.next_meeting(),
+            'past_meetings': MeetingNote.objects.past(selected_meeting)[:4]
+        }
 
 
-def get_page_response(request, view_name):
-    print(view_name+'_view')
-    page = view_name
+def get_page_response(request, page, sub_page=None):
+    print(page+'_view')
+    page = page
     hash_name = request.build_absolute_uri().split(
         '#')[1] if '#' in request.build_absolute_uri() else None
     response = render(request, 'page.html',
-                      get_view_response(request, page, hash_name))
+                      get_view_response(request, page, sub_page, hash_name))
     return response
 
 
@@ -113,28 +127,11 @@ def meeting_end_view(request):
     return response
 
 
-def meeting_entry_view(request, date):
-    print('meeting_entry_view')
-    selected_meeting = MeetingNote.objects.filter(text_date=date).first()
-
+def meeting_view(request, date):
     # if meeting not found, redirect to all meetings page
-    if not selected_meeting:
+    if not MeetingNote.objects.filter(text_date=date).exists():
         return HttpResponseRedirect('/meetings')
-
-    response = render(request, 'page.html', {
-        'view': 'meeting_entry_view',
-        'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
-        'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected_meeting.text_date,
-        'page_description': 'Join our weekly meetings!',
-        'cookie_consent': request.COOKIES.get('consent'),
-        'HACKERSPACE': HACKERSPACE,
-        'selected_meeting': selected_meeting,
-        'next_meeting': Event.objects.next_meeting(),
-        'past_meetings': MeetingNote.objects.past(selected_meeting)[:4]
-    }
-    )
-
-    return response
+    return get_page_response(request, 'meeting', date)
 
 
 def get_view(request):
@@ -160,15 +157,21 @@ def get_view(request):
                 'html': get_template('components/body/meetings/current_meeting.html').render({'HACKERSPACE': HACKERSPACE})
             }
         )
+
     elif request.GET.get('what', None):
         page = request.GET.get('what', None)
-        if page == '00':
+        if page == '__':
             page = 'landingpage'
         else:
-            page = page.replace('00', '', 1)
+            page = page.replace('__', '', 1)
+
+        if '__' in page:
+            page, sub_page = page.split('__')
+        else:
+            sub_page = None
 
         hashname = page.split('#')[1] if '#' in page else None
-        response_context = get_view_response(request, page, hashname)
+        response_context = get_view_response(request, page, sub_page, hashname)
         response = JsonResponse(
             {
                 'html': get_template(page+'_view.html').render(response_context),
