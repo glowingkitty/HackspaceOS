@@ -157,9 +157,10 @@ class EventSet(models.QuerySet):
         results = self.all()
         for result in results:
             if not result.str_name in added:
+                relative_time = result.str_relative_time
                 results_list.append({
                     'icon': 'event',
-                    'name': str(result),
+                    'name': result.str_name+'<br>=> '+(relative_time if relative_time else str(result.datetime_start.date())),
                     'url': result.url_meetup_event
                 })
                 added.append(result.str_name)
