@@ -1,9 +1,9 @@
 {% load static %}
-{% load paths %}
+{% load css %}
 
 {% block content %}
 
-{% for file_name in css_files %}
+{% for file_name in ''|getCSSfiles %}
 <link href="{% static file_name|getCSSpath %}" rel="stylesheet" type="text/css">
 {% endfor %}
 

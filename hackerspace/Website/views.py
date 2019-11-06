@@ -10,6 +10,44 @@ from hackerspace.website.search import search
 from django.http import HttpResponseRedirect
 
 
+def get_view_response(request, view_name, hashname):
+    if view_name == 'landingpage':
+        return {
+            'slug': '/',
+            'view': view_name+'_view',
+            'page_name': HACKERSPACE.HACKERSPACE_NAME,
+            'page_description': make_description_sentence(),
+            'cookie_consent': request.COOKIES.get('consent'),
+            'HACKERSPACE': HACKERSPACE,
+            'is_open_status': getOpenNowStatus(),
+            'upcoming_events': Event.objects.upcoming()[:5],
+            'hash': hashname
+        }
+    elif view_name == 'meetings':
+        return {
+            'slug': view_name,
+            'view': view_name+'_view',
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
+            'page_description': 'Join our weekly meetings!',
+            'cookie_consent': request.COOKIES.get('consent'),
+            'HACKERSPACE': HACKERSPACE,
+            'current_meeting': MeetingNote.objects.current(),
+            'next_meeting': Event.objects.next_meeting(),
+            'past_meetings': MeetingNote.objects.past()[:4],
+            'hash': hashname
+        }
+
+
+def get_page_response(request, view_name):
+    print(view_name+'_view')
+    page = view_name
+    hash_name = request.build_absolute_uri().split(
+        '#')[1] if '#' in request.build_absolute_uri() else None
+    response = render(request, 'page.html',
+                      get_view_response(request, page, hash_name))
+    return response
+
+
 def error_view(request, error_log, exc_type, exc_value, tb):
     error = Error(
         json_context={
@@ -34,38 +72,11 @@ def error_view(request, error_log, exc_type, exc_value, tb):
 
 
 def landingpage_view(request):
-    print('landingpage_view')
-    response = render(request, 'page.html', {
-        'view': 'landingpage_view',
-        'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'event_slider', 'result_preview', 'landingpage', 'map', 'footer', 'overlays'],
-        'page_name': HACKERSPACE.HACKERSPACE_NAME,
-        'page_description': make_description_sentence(),
-        'cookie_consent': request.COOKIES.get('consent'),
-        'HACKERSPACE': HACKERSPACE,
-        'is_open_status': getOpenNowStatus(),
-        'upcoming_events': Event.objects.upcoming()[:5]
-    }
-    )
-
-    return response
+    return get_page_response(request, 'landingpage')
 
 
 def meetings_view(request):
-    print('meetings_view')
-    response = render(request, 'page.html', {
-        'view': 'meetings_view',
-        'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
-        'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
-        'page_description': 'Join our weekly meetings!',
-        'cookie_consent': request.COOKIES.get('consent'),
-        'HACKERSPACE': HACKERSPACE,
-        'current_meeting': MeetingNote.objects.current(),
-        'next_meeting': Event.objects.next_meeting(),
-        'past_meetings': MeetingNote.objects.past()[:4]
-    }
-    )
-
-    return response
+    return get_page_response(request, 'meetings')
 
 
 def meeting_present_view(request):
@@ -76,7 +87,6 @@ def meeting_present_view(request):
 
     response = render(request, 'meeting_present.html', {
         'view': 'meeting_present_view',
-        'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'meetings', 'overlays'],
         'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | Presentation mode',
         'page_description': 'Join our weekly meetings!',
         'cookie_consent': request.COOKIES.get('consent'),
@@ -150,6 +160,24 @@ def get_view(request):
                 'html': get_template('components/body/meetings/current_meeting.html').render({'HACKERSPACE': HACKERSPACE})
             }
         )
+    elif request.GET.get('what', None):
+        page = request.GET.get('what', None)
+        if page == '00':
+            page = 'landingpage'
+        else:
+            page = page.replace('00', '', 1)
+
+        hashname = page.split('#')[1] if '#' in page else None
+        response_context = get_view_response(request, page, hashname)
+        response = JsonResponse(
+            {
+                'html': get_template(page+'_view.html').render(response_context),
+                'page_name': response_context['page_name']
+            }
+        )
+    else:
+        response = JsonResponse({'error': 'no "what" defined'})
+        response.status_code = 404
 
     return response
 
@@ -171,7 +199,6 @@ def save_view(request):
 
 def remove_view(request):
     print('remove_view')
-    print(request.META['HTTP_REFERER'])
     if request.GET.get('keyword', None) and request.META['HTTP_REFERER'] and MeetingNote.objects.filter(text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).exists():
         meeting = MeetingNote.objects.filter(
             text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).first()

@@ -12,6 +12,15 @@ function request_html(parameter, replace_id, inner_OR_outer = 'inner') {
                 } else if (inner_OR_outer == 'outer') {
                     document.getElementById(replace_id).outerHTML = response.data.html
                 }
+
+                // call extra functions if loading a new page
+                parameter = parameter.replace('00', '/')
+                page = parameter.split('=')[1]
+                if (page.includes('/')) {
+                    onLoadFunctions(page)
+                    history.pushState({}, response.data.page_name, page);
+                    document.title = response.data.page_name
+                }
             }
         })
         .catch(function (error) {

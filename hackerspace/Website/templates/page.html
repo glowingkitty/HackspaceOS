@@ -2,13 +2,16 @@
 
 {% include "components/head/head.html" with css_files=css_files %}
 
-<body class="body" onload="onLoadFunctions()">
+<body class="body" onload="onLoadFunctions('{{ slug }}')">
   {% include "components/menu.html" %}
-  <div class="page_content">
+  <div class="page_content" style="overflow: hidden;">
     <div id="dark_overlay" class="dark_overlay" onclick="closeOverlays()"></div>
     <a href="#" onclick="openMenu()" class="menu_icon"></a>
     <a href="#" class="donate_button">Donate</a>
-    {% include ""|add:view|add:'.html' %}
+    <div id="page_content">
+      {% include ""|add:view|add:'.html' %}
+    </div>
+    {% include "components/footer.html" %}
   </div>
 </body>
 </html>

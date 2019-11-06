@@ -3,5 +3,5 @@ function openMenu() {
 }
 
 function getPage(page) {
-    request_html('what=' + page)
+    request_html('what=' + encodeURI(page.replace('/', '00')), 'page_content', 'inner')
 }
