@@ -40,8 +40,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected_meeting = MeetingNote.objects.filter(
             text_date=sub_page).first()
         return {
-            'view': 'meeting_view',
-            'css_files': ['buttons', 'divider', 'fonts', 'body', 'header', 'result_preview', 'landingpage', 'footer', 'overlays', 'meetings'],
+            'view': page+'_view',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected_meeting.text_date,
             'page_description': 'Join our weekly meetings!',
             'cookie_consent': request.COOKIES.get('consent'),
