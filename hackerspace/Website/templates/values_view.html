@@ -1,0 +1,15 @@
+{% block content %}
+
+<div class="header_block sub_page">
+    <div class="header_separator"></div>
+    <div class="header_image"></div>
+</div>
+{% if current_meeting %}
+{% include "components/body/meetings/current_meeting.html" %}
+{% endif %}
+<div class="divider_20"></div>
+{% include "components/body/meetings/next_meeting.html" %}
+<div class="divider_20"></div>
+{% include "components/body/meetings/past_meetings.html" %}
+
+{% endblock %}

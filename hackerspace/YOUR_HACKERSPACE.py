@@ -61,7 +61,6 @@ HACKERSPACE_PEOPLE_NAME = 'Noisebutts'
 HACKERSPACE_DISCUSS_URL = 'https://discuss.noisebridge.info/'
 HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS = [
     {'name': 'Discuss', 'url': HACKERSPACE_DISCUSS_URL},
-    {'name': 'Slack', 'url': 'https://noisebridge.slack.com/'}
 ]
 
 WIKI_API_URL = 'https://www.noisebridge.net/api.php'

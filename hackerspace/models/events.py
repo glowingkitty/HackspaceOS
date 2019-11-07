@@ -147,7 +147,7 @@ class EventSet(models.QuerySet):
                 events_in_x_minutes.append(event)
 
         if name_only == True:
-            return [x.str_name for x in events_in_x_minutes]
+            return [x.str_name.replace('&', 'and').replace('@', 'at').replace('|', '') for x in events_in_x_minutes]
 
         return events_in_x_minutes
 

@@ -22,6 +22,14 @@ urlpatterns = [
     path('as78dgahasd1e1e/', admin.site.urls),
     path('', views.landingpage_view, name='landingpage'),
 
+    path('values', views.values_view, name='values'),
+    path('values/', RedirectView.as_view(
+         url='values', permanent=False), name='values/'),
+    path('ourvalues', RedirectView.as_view(
+        url='values', permanent=False), name='ourvalues/'),
+    path('ourvalues/', RedirectView.as_view(
+        url='values', permanent=False), name='ourvalues'),
+
     path('meetings', views.meetings_view, name='meetings'),
     path('meeting', RedirectView.as_view(
          url='meetings', permanent=False), name='meeting'),

@@ -11,48 +11,54 @@ from django.http import HttpResponseRedirect
 
 
 def get_view_response(request, page, sub_page, hashname):
+    context = {
+        'view': page+'_view',
+        'inspace': True if request.COOKIES.get('inspace') else None,
+        'HACKERSPACE': HACKERSPACE,
+        'hash': hashname
+    }
+
     if page == 'landingpage':
-        return {
+        return {**context, **{
             'slug': '/',
-            'view': page+'_view',
-            'inspace': True if request.COOKIES.get('inspace') else None,
             'page_name': HACKERSPACE.HACKERSPACE_NAME,
             'page_description': make_description_sentence(),
-            'cookie_consent': request.COOKIES.get('consent'),
-            'HACKERSPACE': HACKERSPACE,
             'is_open_status': getOpenNowStatus(),
-            'upcoming_events': Event.objects.upcoming()[:5],
-            'hash': hashname
-        }
+            'upcoming_events': Event.objects.upcoming()[:5]
+        }}
+    elif page == 'values':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME,
+            'page_description': 'Our values at '+HACKERSPACE.HACKERSPACE_NAME
+        }}
     elif page == 'meetings':
-        return {
-            'slug': page,
-            'view': page+'_view',
-            'inspace': True if request.COOKIES.get('inspace') else None,
+        return {**context, **{
+            'slug': '/'+page,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
             'page_description': 'Join our weekly meetings!',
-            'cookie_consent': request.COOKIES.get('consent'),
-            'HACKERSPACE': HACKERSPACE,
             'current_meeting': MeetingNote.objects.current(),
             'next_meeting': Event.objects.next_meeting(),
-            'past_meetings': MeetingNote.objects.past()[:4],
-            'hash': hashname
-        }
+            'past_meetings': MeetingNote.objects.past()[:4]
+        }}
     elif page == 'meeting':
         selected_meeting = MeetingNote.objects.filter(
             text_date=sub_page).first()
-        return {
+        return {**context, **{
             'slug': '/meeting/'+selected_meeting.text_date,
-            'view': page+'_view',
-            'inspace': True if request.COOKIES.get('inspace') else None,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected_meeting.text_date,
             'page_description': 'Join our weekly meetings!',
-            'cookie_consent': request.COOKIES.get('consent'),
-            'HACKERSPACE': HACKERSPACE,
             'selected_meeting': selected_meeting,
             'next_meeting': Event.objects.next_meeting(),
             'past_meetings': MeetingNote.objects.past(selected_meeting)[:4]
-        }
+        }}
+    elif page == 'meeting_present':
+        return {**context, **{
+            'slug': '/meeting/present',
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | Presentation mode',
+            'page_description': 'Join our weekly meetings!',
+            'current_meeting': MeetingNote.objects.current()
+        }}
 
 
 def get_page_response(request, page, sub_page=None):
@@ -60,8 +66,10 @@ def get_page_response(request, page, sub_page=None):
     page = page
     hash_name = request.build_absolute_uri().split(
         '#')[1] if '#' in request.build_absolute_uri() else None
-    response = render(request, 'page.html',
-                      get_view_response(request, page, sub_page, hash_name))
+
+    html = 'page.html' if page != 'meeting_present' else 'meeting_present.html'
+    response = render(request, html, get_view_response(
+        request, page, sub_page, hash_name))
     return response
 
 
@@ -92,28 +100,25 @@ def landingpage_view(request):
     return get_page_response(request, 'landingpage')
 
 
+def values_view(request):
+    return get_page_response(request, 'values')
+
+
 def meetings_view(request):
     return get_page_response(request, 'meetings')
 
 
 def meeting_present_view(request):
-    print('meeting_present_view')
-    current_meeting = MeetingNote.objects.current()
-    if not current_meeting:
+    if not MeetingNote.objects.current():
         return HttpResponseRedirect('/meetings')
+    return get_page_response(request, 'meeting_present')
 
-    response = render(request, 'meeting_present.html', {
-        'slug': '/meeting/present',
-        'view': 'meeting_present_view',
-        'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | Presentation mode',
-        'page_description': 'Join our weekly meetings!',
-        'cookie_consent': request.COOKIES.get('consent'),
-        'HACKERSPACE': HACKERSPACE,
-        'current_meeting': MeetingNote.objects.current()
-    }
-    )
 
-    return response
+def meeting_view(request, date):
+    # if meeting not found, redirect to all meetings page
+    if not MeetingNote.objects.filter(text_date=date).exists():
+        return HttpResponseRedirect('/meetings')
+    return get_page_response(request, 'meeting', date)
 
 
 def meeting_end_view(request):
@@ -129,13 +134,6 @@ def meeting_end_view(request):
         response.status_code = 500
 
     return response
-
-
-def meeting_view(request, date):
-    # if meeting not found, redirect to all meetings page
-    if not MeetingNote.objects.filter(text_date=date).exists():
-        return HttpResponseRedirect('/meetings')
-    return get_page_response(request, 'meeting', date)
 
 
 def get_view(request):

@@ -107,7 +107,7 @@ class MeetingNote(models.Model):
 
     @property
     def list_main_topics(self):
-        return self.text_main_topics.split(',')
+        return self.text_main_topics.split(',') if self.text_main_topics else None
 
     @property
     def running_since(self):
