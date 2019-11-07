@@ -73,29 +73,6 @@ def get_page_response(request, page, sub_page=None):
     return response
 
 
-def error_view(request, error_log, exc_type, exc_value, tb):
-    error = Error(
-        json_context={
-            'origin': 'views.py',
-            'error_log': error_log,
-            'exc_type': exc_type,
-            'exc_value': exc_value,
-            'tb': tb
-        }
-    )
-
-    response = render(request, '500.html', {
-        'page_name': HACKERSPACE.HACKERSPACE_NAME+' - Server Error (Code '+(error.str_error_code if error else '????')+')',
-        'page_description': 'Sorry, something went wrong! We posted it in our Git repo and the infrastructure Slack channel!',
-        'cookie_consent': request.COOKIES.get('consent'),
-    }
-    )
-
-    response.status_code = 500
-
-    return response
-
-
 def landingpage_view(request):
     return get_page_response(request, 'landingpage')
 
