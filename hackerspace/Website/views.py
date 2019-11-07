@@ -119,10 +119,16 @@ def get_view(request):
     marry_messages = []
     if request.GET.get('what', None) == 'events_slider':
         if in_space:
-            marry_messages += Event.objects.in_minutes(
+            events_in_5_minutes = Event.objects.in_minutes(
                 minutes=5, name_only=True)
-            marry_messages += Event.objects.in_minutes(
+            events_in_30_minutes = Event.objects.in_minutes(
                 minutes=30, name_only=True)
+            if events_in_5_minutes or events_in_30_minutes:
+                marry_messages.append('We have some awesome events upcoming')
+            for event in events_in_5_minutes:
+                marry_messages.append(event+' starts in 5 minutes.')
+            for event in events_in_30_minutes:
+                marry_messages.append(event+' starts in 30 minutes.')
 
         response = JsonResponse(
             {
