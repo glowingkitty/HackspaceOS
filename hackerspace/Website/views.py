@@ -29,7 +29,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'values':
         return {**context, **{
             'slug': '/'+page,
-            'page_name': HACKERSPACE.HACKERSPACE_NAME,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Values',
             'page_description': 'Our values at '+HACKERSPACE.HACKERSPACE_NAME
         }}
     elif page == 'meetings':

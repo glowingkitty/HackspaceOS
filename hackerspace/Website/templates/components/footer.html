@@ -21,6 +21,9 @@
     <div>Edit our website!</div>
     <a href="{{ HACKERSPACE.WEBSITE_GIT }}" target="_blank" class="link">on {{ HACKERSPACE.WEBSITE_GIT_PROVIDER }}</a>
     <div class="divider_20"></div>
+    <div>Or edit content on our website!</div>
+    <a href="{{ HACKERSPACE.EDIT_CONTENT_LINK }}" target="_blank" class="link">{{ HACKERSPACE.EDIT_CONTENT_INFO }}</a>
+    <div class="divider_20"></div>
     <div class="divider_20"></div>
     <div>
         {% if HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS|exists:'Twitter' %}
