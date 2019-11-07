@@ -19,6 +19,7 @@
     transition: all 200ms ease;
 }
 
+
 .cta_button.next_to_secondary {
     display: inline-block;
     width: 30%;
@@ -45,6 +46,29 @@
     background-color: #fff;
     color: #ed1d23;
 }
+
+
+@media (prefers-color-scheme: dark) {
+    .cta_button {
+        background-color: #bf0006;
+        box-shadow: 0 2px 6px 0 rgba(255, 255, 255, 0.25);
+        -webkit-animation: LEDsStrong 8s infinite;
+        /* Safari 4.0 - 8.0 */
+        animation: LEDsStrong 8s infinite;
+    }
+
+    .cta_button:hover {
+        box-shadow: 0 8px 8px 0 rgba(255, 255, 255, 0.25);
+        -webkit-transform: translate(0px, -5px);
+        -ms-transform: translate(0px, -5px);
+        transform: translate(0px, -5px);
+    }
+
+    .cta_button.secondary {
+        background-color: rgb(43, 43, 43)
+    }
+}
+
 
 .cta_button.cta_button.secondary.next_to_main_cta {
     display: inline-block;
@@ -92,6 +116,13 @@
     -webkit-transform: translate(0px, -5px);
     -ms-transform: translate(0px, -5px);
     transform: translate(0px, -5px);
+}
+
+@media (prefers-color-scheme: dark) {
+    .donate_button {
+        background-color: rgb(43, 43, 43);
+        animation: LEDsStrong 8s infinite;
+    }
 }
 
 

@@ -27,6 +27,14 @@
     text-decoration: none;
 }
 
+@media (prefers-color-scheme: dark) {
+    .meeting_block {
+        background-color: #e2bc00
+    }
+}
+
+
+
 .meeting_block.overlay {
     width: 500px;
     margin: auto;

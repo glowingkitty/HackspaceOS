@@ -7,6 +7,13 @@ html {
     margin: 0px;
 }
 
+@media (prefers-color-scheme: dark) {
+    .body {
+        color: #d4d4d4;
+        background-color: black;
+    }
+}
+
 
 .logo {
     transform: rotateY(0deg);
@@ -57,6 +64,17 @@ html {
     box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .side_menu {
+        background-color: #1f1f1f;
+        box-shadow: 0 8px 117px 0 rgba(197, 1, 1, 0.4);
+        -webkit-animation: LEDs 8s infinite;
+        /* Safari 4.0 - 8.0 */
+        animation: LEDs 8s infinite;
+    }
 }
 
 .page_content {

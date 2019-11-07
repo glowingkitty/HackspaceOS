@@ -24,6 +24,21 @@
     transform: translate(0px, -5px);
 }
 
+@media (prefers-color-scheme: dark) {
+    .result_preview {
+        background-color: rgb(43, 43, 43);
+        box-shadow: 0 4px 4px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .result_preview:hover {
+        box-shadow: 0 9px 8px 0 rgba(255, 255, 255, 0.18);
+        -webkit-transform: translate(0px, -5px);
+        -ms-transform: translate(0px, -5px);
+        transform: translate(0px, -5px);
+    }
+}
+
+
 .result_preview.placeholder_left {
     width: 36%;
     opacity: 0;

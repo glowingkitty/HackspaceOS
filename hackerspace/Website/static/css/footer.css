@@ -7,6 +7,13 @@
     width: 100%;
 }
 
+@media (prefers-color-scheme: dark) {
+    .footer {
+        background-color: #1f1f1f
+    }
+}
+
+
 .social_icon {
     display: inline-block;
     width: 35px;

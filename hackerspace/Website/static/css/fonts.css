@@ -8,6 +8,12 @@
     line-height: 30px;
 }
 
+@media (prefers-color-scheme: dark) {
+    .header_text {
+        background-color: black
+    }
+}
+
 .highlight_text_red {
     color: #ed1d23;
     text-decoration: none;
@@ -26,6 +32,12 @@
 .h2.in_result_preview_block {
     margin-left: 10px;
     margin-top: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .h2.in_result_preview_block {
+        color: #d4d4d4
+    }
 }
 
 .h2.meeting_present {
