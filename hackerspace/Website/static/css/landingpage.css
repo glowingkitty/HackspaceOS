@@ -13,8 +13,8 @@
     margin-left: auto;
 }
 
-.max_500 {
-    max-width: 500px;
+.max_540 {
+    max-width: 540px;
     margin-right: auto;
     margin-left: auto;
     font-size: 16px;
@@ -22,7 +22,7 @@
 
 
 @media (max-width: 540px) {
-    .max_500 {
+    .max_540 {
         padding-right: 25px;
         padding-left: 25px;
     }

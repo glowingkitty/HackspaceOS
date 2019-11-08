@@ -17,6 +17,10 @@
     display: inline-block;
 }
 
+.result_preview.change_contrast {
+    background-color: white;
+}
+
 .result_preview:hover {
     box-shadow: 0 9px 8px 0 rgba(0, 0, 0, 0.18);
     -webkit-transform: translate(0px, -5px);
@@ -35,6 +39,10 @@
         -webkit-transform: translate(0px, -5px);
         -ms-transform: translate(0px, -5px);
         transform: translate(0px, -5px);
+    }
+
+    .result_preview.change_contrast {
+        background-color: black
     }
 }
 
@@ -64,9 +72,9 @@
     -ms-flex-pack: center;
     justify-content: center;
     -webkit-box-align: center;
-    -webkit-align-items: center;
+    /* -webkit-align-items: center; */
     -ms-flex-align: center;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .result_preview_right {

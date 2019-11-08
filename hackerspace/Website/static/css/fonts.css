@@ -32,7 +32,10 @@
 .h2.in_result_preview_block {
     margin-left: 10px;
     margin-top: 20px;
+    max-height: 47px;
+    margin-bottom: 3px;
 }
+
 
 @media (prefers-color-scheme: dark) {
     .h2.in_result_preview_block {

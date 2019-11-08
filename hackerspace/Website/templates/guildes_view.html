@@ -5,16 +5,30 @@
     <div class="header_image"></div>
 </div>
 
-<div class="max_500">
+<div class="max_540">
     <h2 class="h2 large">Guildes</h2>
     <div>
         A guilde is a group at Noisebridge with a common interest area, responsible for specific spaces and machines at Noisebridge.<br>
         <br>
-        <a class="inline_link" href="#">Show full wiki page<a>
+        <a class="inline_link" href="#">Show full wiki page</a>
     </div>
     <div class="divider_20"></div>
-    
-    
+    <div class="divider_20"></div>
+    <div class="divider_20"></div>
+</div>
+
+<div class="visually_separated_content">
+    <div class="header_separator upside"></div>
+
+    <div class="divider_100"></div>
+    <div class="max_540">
+        {% for result in all_guildes %}
+        {% include "components/body/result_preview_block.html" with change_contrast=True %}
+        {% endfor %}
+    </div>
+    <div class="divider_100"></div>
+
+
 </div>
 
 

@@ -14,6 +14,16 @@ html {
     }
 }
 
+.visually_separated_content {
+    position: relative;
+    background-color: #ececec;
+}
+
+@media (prefers-color-scheme: dark) {
+    .visually_separated_content {
+        background-color: rgb(43, 43, 43)
+    }
+}
 
 .logo {
     transform: rotateY(0deg);
