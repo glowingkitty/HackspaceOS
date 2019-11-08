@@ -4,6 +4,14 @@
 {% block content %}
 
 <div class="footer">
+    {% if page_git_url %}
+    <div>Edit this page!</div>
+    <a href="{{ page_git_url }}" target="_blank" class="link">on {{ HACKERSPACE.WEBSITE_GIT_PROVIDER }}</a>
+    {% else %}
+    <div>Edit our website!</div>
+    <a href="{{ HACKERSPACE.WEBSITE_GIT }}" target="_blank" class="link">on {{ HACKERSPACE.WEBSITE_GIT_PROVIDER }}</a>
+    {% endif %}
+    <div class="divider_20"></div>
     <div>Talk with your fellow {{ HACKERSPACE.HACKERSPACE_PEOPLE_NAME }}!</div>
     {% for platform in HACKERSPACE.HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS %}
     <a href="{{ platform.url }}" target="_blank" class="link">on {{ platform.name }}</a>
@@ -16,13 +24,6 @@
         <a href="{{ network.url }}" target="_blank" class="social_icon {{ network.name|lower }}"></a>
         {% endif %}
     {% endfor %}
-    <div class="divider_20"></div>
-    <div class="divider_20"></div>
-    <div>Edit our website!</div>
-    <a href="{{ HACKERSPACE.WEBSITE_GIT }}" target="_blank" class="link">on {{ HACKERSPACE.WEBSITE_GIT_PROVIDER }}</a>
-    <div class="divider_20"></div>
-    <div>Or edit content on our website!</div>
-    <a href="{{ HACKERSPACE.EDIT_CONTENT_LINK }}" target="_blank" class="link">{{ HACKERSPACE.EDIT_CONTENT_INFO }}</a>
     <div class="divider_20"></div>
     <div class="divider_20"></div>
     <div>

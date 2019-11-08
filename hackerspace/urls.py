@@ -38,6 +38,7 @@ urlpatterns = [
     path('meeting/', RedirectView.as_view(
         url='meetings', permanent=False), name='meeting/'),
 
+    path('guildes', views.guildes_view, name='guildes'),
 
     path('meeting/present', views.meeting_present_view,
          name='meeting_present_view'),

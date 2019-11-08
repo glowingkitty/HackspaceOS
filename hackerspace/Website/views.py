@@ -1,13 +1,12 @@
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 
-from hackerspace.models import Error, Event, MeetingNote
+from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
+from hackerspace.models import Error, Event, Guilde, MeetingNote
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
-from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
 from hackerspace.website.search import search
-from django.http import HttpResponseRedirect
 
 
 def get_view_response(request, page, sub_page, hashname):
@@ -15,7 +14,8 @@ def get_view_response(request, page, sub_page, hashname):
         'view': page+'_view',
         'inspace': True if request.COOKIES.get('inspace') else None,
         'HACKERSPACE': HACKERSPACE,
-        'hash': hashname
+        'hash': hashname,
+        'page_git_url': HACKERSPACE.WEBSITE_GIT+'Website/templates/'+page+'_view.html',
     }
 
     if page == 'landingpage':
@@ -26,12 +26,14 @@ def get_view_response(request, page, sub_page, hashname):
             'is_open_status': getOpenNowStatus(),
             'upcoming_events': Event.objects.upcoming()[:5]
         }}
+
     elif page == 'values':
         return {**context, **{
             'slug': '/'+page,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Values',
             'page_description': 'Our values at '+HACKERSPACE.HACKERSPACE_NAME
         }}
+
     elif page == 'meetings':
         return {**context, **{
             'slug': '/'+page,
@@ -42,15 +44,15 @@ def get_view_response(request, page, sub_page, hashname):
             'past_meetings': MeetingNote.objects.past()[:10]
         }}
     elif page == 'meeting':
-        selected_meeting = MeetingNote.objects.filter(
+        selected = MeetingNote.objects.filter(
             text_date=sub_page).first()
         return {**context, **{
-            'slug': '/meeting/'+selected_meeting.text_date,
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected_meeting.text_date,
+            'slug': '/meeting/'+selected.text_date,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected.text_date,
             'page_description': 'Join our weekly meetings!',
-            'selected_meeting': selected_meeting,
+            'selected': selected,
             'next_meeting': Event.objects.next_meeting(),
-            'past_meetings': MeetingNote.objects.past(selected_meeting)[:10]
+            'past_meetings': MeetingNote.objects.past(selected)[:10]
         }}
     elif page == 'meeting_present':
         return {**context, **{
@@ -58,6 +60,23 @@ def get_view_response(request, page, sub_page, hashname):
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | Presentation mode',
             'page_description': 'Join our weekly meetings!',
             'current_meeting': MeetingNote.objects.current()
+        }}
+
+    elif page == 'guildes':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Guildes',
+            'page_description': 'Join a guilde at '+HACKERSPACE.HACKERSPACE_NAME+'!',
+            'all_guildes': Guilde.objects.all()[:10]
+        }}
+    elif page == 'guilde':
+        selected = Guilde.objects.filter(
+            str_name__icontains=sub_page).first()
+        return {**context, **{
+            'slug': '/guilde/'+selected.text_date,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Guilde | '+selected.str_name,
+            'page_description': 'Join our weekly meetings!',
+            'selected': selected
         }}
 
 
@@ -111,6 +130,18 @@ def meeting_end_view(request):
         response.status_code = 500
 
     return response
+
+
+def guildes_view(request):
+    return get_page_response(request, 'guildes')
+
+
+def guilde_view(request, name):
+    # if guilde not found, redirect to all meetings page
+    name_lower = name.lower()
+    if not Guilde.objects.filter(str_name__icontains=name_lower).exists():
+        return HttpResponseRedirect('/guildes')
+    return get_page_response(request, 'guilde', name_lower)
 
 
 def get_view(request):
