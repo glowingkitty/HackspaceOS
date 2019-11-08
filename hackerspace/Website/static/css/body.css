@@ -70,7 +70,6 @@ html {
 @media (prefers-color-scheme: dark) {
     .side_menu {
         background-color: #1f1f1f;
-        box-shadow: 0 8px 117px 0 rgba(197, 1, 1, 0.4);
         -webkit-animation: LEDs 8s infinite;
         /* Safari 4.0 - 8.0 */
         animation: LEDs 8s infinite;
@@ -200,6 +199,15 @@ html {
     -webkit-transform: translate(0px, -5px);
     -ms-transform: translate(0px, -5px);
     transform: translate(0px, -5px);
+}
+
+@media (prefers-color-scheme: dark) {
+    .menu_icon {
+        background-color: black;
+        -webkit-animation: LEDsStrong 8s infinite;
+        /* Safari 4.0 - 8.0 */
+        animation: LEDsStrong 8s infinite;
+    }
 }
 
 
