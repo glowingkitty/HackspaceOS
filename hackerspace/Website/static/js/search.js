@@ -5,7 +5,7 @@ function search(query) {
     source = CancelToken.source();
     if (query != undefined && query != '') {
         // show black block
-        showOverlayBlock()
+        showOverlay()
 
         // show search bar active
         if (document.getElementById('search_bar').className == 'search_bar') {

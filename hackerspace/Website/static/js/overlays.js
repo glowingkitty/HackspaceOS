@@ -1,4 +1,4 @@
-function showOverlayBlock() {
+function showOverlay() {
     document.getElementById('dark_overlay').classList.add('block')
     setTimeout(function () {
         document.getElementById('dark_overlay').classList.add('visible')
@@ -6,6 +6,7 @@ function showOverlayBlock() {
 }
 
 function closeOverlays() {
+    document.getElementById('side_menu').classList.remove('open')
     document.getElementById('dark_overlay').classList.remove('visible')
     setTimeout(function () {
         document.getElementById('dark_overlay').classList.remove('block')
