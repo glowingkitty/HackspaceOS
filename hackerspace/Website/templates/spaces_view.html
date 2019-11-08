@@ -1,0 +1,32 @@
+{% block content %}
+
+<div class="header_block sub_page">
+    <div class="header_separator"></div>
+    <div class="header_image"></div>
+</div>
+
+<div class="max_540">
+    <h2 class="h2 large">Spaces</h2>
+    <div>
+        At Noisebridge fellow hackers like you created all kinds of awesome spaces. Check them out!
+    </div>
+    <div class="divider_20"></div>
+    <div class="divider_20"></div>
+</div>
+
+<div class="visually_separated_content">
+    <div class="header_separator upside"></div>
+
+    <div class="divider_100"></div>
+    <div class="max_540">
+        {% for result in all_spaces %}
+        {% include "components/body/result_preview_block.html" with change_contrast=True %}
+        {% endfor %}
+    </div>
+    <div class="divider_100"></div>
+
+
+</div>
+
+
+{% endblock %}

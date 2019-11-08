@@ -2,6 +2,7 @@ from django.db import models
 
 from hackerspace.models import Event
 from hackerspace.models.events import updateTime
+import urllib.parse
 
 
 class GuildeSet(models.QuerySet):
@@ -42,5 +43,6 @@ class Guilde(models.Model):
 
     def save(self, *args, **kwargs):
         self = updateTime(self)
-        self.str_slug = 'guilde/'+self.str_name.lower().replace(' ', '-')
+        self.str_slug = urllib.parse.quote(
+            'guilde/'+self.str_name.lower().replace(' ', '-'))
         super(Guilde, self).save(*args, **kwargs)

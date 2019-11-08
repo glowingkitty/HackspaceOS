@@ -48,6 +48,10 @@ urlpatterns = [
     path('guilde/<str:sub_page>', views.guilde_view,
          name='guilde_view'),
 
+    path('spaces', views.spaces_view, name='spaces'),
+    path('space/<str:sub_page>', views.space_view,
+         name='space_view'),
+
     path('get/', views.get_view, name='get'),
     path('load_more', views.load_more_view, name='load_more'),
     path('save', views.save_view, name='save'),

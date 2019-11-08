@@ -1,0 +1,46 @@
+{% load array %}
+{% block content %}
+
+<div class="header_block sub_page">
+    <div class="header_separator"></div>
+    <div class="header_image"></div>
+</div>
+
+<div class="divider_20"></div>
+<div class="max_540">
+    <h2 class="h2 large">{{ selected.str_name }}</h2>
+    <div>
+        {{ selected.text_description }}<br>
+        <br>
+        <a class="inline_link" href="{{ selected.url_wiki }}" target="_blank">Show full wiki page</a>
+    </div>
+</div>
+
+<div class="divider_20"></div>
+<div class="divider_20"></div>
+
+<div class="visually_separated_content">
+    <div class="header_separator upside"></div>
+
+    <div class="divider_100"></div>
+    <div class="max_540">
+        <div class="blocks_inline_50_percent">
+            <h2 class="h2 large">Machines</h2>
+            {% for result in selected.machines|upto:3 %}
+            {% include "components/body/result_preview_block.html" with change_contrast=True %}
+            {% endfor %}
+        </div>
+        <div class="blocks_inline_50_percent">
+            <h2 class="h2 large">Guilde</h2>
+            {% for result in selected.guilde %}
+            {% include "components/body/result_preview_block.html" with change_contrast=True %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="divider_100"></div>
+
+
+</div>
+
+
+{% endblock %}

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 
 from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
-from hackerspace.models import Error, Event, Guilde, MeetingNote
+from hackerspace.models import Error, Event, Guilde, MeetingNote, Space
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.website.search import search
@@ -80,6 +80,24 @@ def get_view_response(request, page, sub_page, hashname):
             'selected': selected
         }}
 
+    elif page == 'spaces':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Spaces',
+            'page_description': HACKERSPACE.HACKERSPACE_NAME+' has many awesome spaces!',
+            'all_spaces': Space.objects.all()[:10]
+        }}
+    elif page == 'space':
+        if 'space/' not in sub_page:
+            sub_page = 'space/'+sub_page
+        selected = Space.objects.filter(str_slug=sub_page).first()
+        return {**context, **{
+            'slug': '/space/'+sub_page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Space | '+selected.str_name,
+            'page_description': selected.text_description,
+            'selected': selected
+        }}
+
 
 def get_page_response(request, page, sub_page=None):
     print(page+'_view')
@@ -139,10 +157,22 @@ def guildes_view(request):
 
 def guilde_view(request, sub_page):
     sub_page = 'guilde/'+sub_page
-    # if guilde not found, redirect to all meetings page
+    # if guilde not found, redirect to all guildes page
     if not Guilde.objects.filter(str_slug=sub_page).exists():
         return HttpResponseRedirect('/guildes')
     return get_page_response(request, 'guilde', sub_page)
+
+
+def spaces_view(request):
+    return get_page_response(request, 'spaces')
+
+
+def space_view(request, sub_page):
+    sub_page = 'space/'+sub_page
+    # if space not found, redirect to all spaces page
+    if not Space.objects.filter(str_slug=sub_page).exists():
+        return HttpResponseRedirect('/spaces')
+    return get_page_response(request, 'space', sub_page)
 
 
 def get_view(request):
