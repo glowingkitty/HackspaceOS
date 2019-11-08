@@ -1,3 +1,4 @@
+{% load array %}
 {% block content %}
 
 <div class="header_block sub_page">
@@ -31,19 +32,19 @@
 
     <div class="divider_100"></div>
     <div class="max_540">
-        <div>
+        <div class="blocks_inline_50_percent">
             <h2 class="h2 large">Events</h2>
-            {% for result in selected.events %}
+            {% for result in selected.events|upto:3 %}
             {% include "components/body/result_preview_block.html" with change_contrast=True %}
             {% endfor %}
         </div>
-        <div>
+        <div class="blocks_inline_50_percent">
             <h2 class="h2 large">Projects</h2>
             {% for result in selected.projects %}
             {% include "components/body/result_preview_block.html" with change_contrast=True %}
             {% endfor %}
         </div>
-        <div>
+        <div class="block_full_width">
             <h2 class="h2 large">Discussions</h2>
         </div>
     </div>

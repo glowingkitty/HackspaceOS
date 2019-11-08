@@ -19,7 +19,8 @@ class Guilde(models.Model):
 
     @property
     def events(self):
-        return Event.objects.by_guilde(one_guilde=self)
+        search_query = self.str_name.lower().split('guilde')[0]
+        return Event.objects.upcoming().filter(str_name__icontains=search_query)
 
     def save(self, *args, **kwargs):
         self = updateTime(self)

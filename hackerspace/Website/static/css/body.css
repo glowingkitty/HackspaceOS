@@ -243,3 +243,14 @@ html {
     }
 
 }
+
+.blocks_inline_50_percent {
+    width: 49%;
+    display: inline-block;
+    vertical-align: text-top
+}
+
+.block_full_width {
+    width: 100%;
+    display: block;
+}
