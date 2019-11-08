@@ -1,6 +1,6 @@
 from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.wiki import wiki_search
 from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.discuss import discuss_search
-from hackerspace.models import Event, MeetingNote
+from hackerspace.models import Event, MeetingNote, Guilde
 from django.db.models import Q
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS, HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS
 
@@ -32,10 +32,14 @@ def search(query):
         Q(text_date__icontains=query) | Q(text_keywords__icontains=query)
     ).past().search_results()[:5]
 
+    guildes = Guilde.objects.filter(
+        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+    ).search_results()[:5]
+
     # search in wiki
     wiki_search_results = wiki_search(query)
 
     # search in discuss
     discuss_search_results = discuss_search(query)
 
-    return networks+internchannels+events+meeting_notes+wiki_search_results+discuss_search_results
+    return networks+internchannels+events+guildes+meeting_notes+wiki_search_results+discuss_search_results
