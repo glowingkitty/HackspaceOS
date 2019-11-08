@@ -1,4 +1,33 @@
 /* Safari 4.0 - 8.0 */
+@-webkit-keyframes flash_live {
+    0% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.1;
+    }
+}
+
+@keyframes flash_live {
+    0% {
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.1;
+    }
+}
+
+/* Safari 4.0 - 8.0 */
 @-webkit-keyframes LEDs {
     0% {
         box-shadow: 0 0px 117px 0 rgba(197, 1, 1, 0.7);
