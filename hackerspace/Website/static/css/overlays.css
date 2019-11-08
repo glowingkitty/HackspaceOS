@@ -20,3 +20,33 @@
     background-color: #000000d1;
     opacity: 1;
 }
+
+.overlay_block {
+    position: relative;
+    display: none;
+    width: 500px;
+    margin: auto;
+    margin-top: 22vh;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #ececec;
+    border-radius: 20px;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 520px) {
+    .overlay_block {
+        width: 80%;
+        padding: 20px;
+        margin-top: 20px;
+        padding-top: 5px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .overlay_block {
+        background-color: rgb(43, 43, 43);
+        box-shadow: 0 2px 6px 0 rgba(255, 255, 255, 0.25);
+    }
+}

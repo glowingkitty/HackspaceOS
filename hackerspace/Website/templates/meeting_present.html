@@ -23,9 +23,9 @@
         </div>
         {% endfor %}
         <div class="presenter_mode_buttons">
-            <a id="previous_meeting_button" onclick="previousMeetingTopic()" href="#" class="cta_button secondary" style="display: none;">Previous</a>
+            <a id="previous_meeting_button" onclick="previousMeetingTopic()" href="#" class="button__cta secondary" style="display: none;">Previous</a>
             <div class="inline_divider"></div>
-            <a id="next_meeting_button" onclick="nextMeetingTopic()" href="#" class="cta_button secondary" style="display: inline-block;">Next topic</a>
+            <a id="next_meeting_button" onclick="nextMeetingTopic()" href="#" class="button__cta secondary" style="display: inline-block;">Next topic</a>
         </div>
     </div>
     <div class="meeting_live_text">
@@ -36,7 +36,7 @@
             {% if HACKERSPACE.DOMAIN in request.META.HTTP_HOST %}https://{% else %}http://{% endif %}</span>
             {{ request.META.HTTP_HOST }}/meeting</div>
     </div>
-    <a href="#" onclick="showOverlay()" class="cta_button secondary end_meeting">End meeting</a>
+    <a href="#" onclick="showOverlay()" class="button__cta secondary end_meeting">End meeting</a>
 </body>
 </html>
 

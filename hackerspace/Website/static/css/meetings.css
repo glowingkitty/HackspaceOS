@@ -11,6 +11,19 @@
     padding-left: 20px;
 }
 
+
+.presenter_mode_buttons {
+    margin-top: 10px;
+    float: right;
+    opacity: 0.3;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.presenter_mode_buttons:hover {
+    opacity: 1;
+}
+
 .meeting_block {
     position: relative;
     width: 90%;
@@ -216,7 +229,7 @@
     transform: translate(0px, -5px);
 }
 
-.keyword:hover .remove_keyword_button {
+.keyword:hover .button__remove_keyword {
     display: inline-block;
 }
 

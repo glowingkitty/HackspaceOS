@@ -10,7 +10,7 @@
         <div id="keywords" style="display: inline-block">
             {% if selected_meeting.text_keywords%}
                 {% for keyword in selected_meeting.text_keywords|split:',' %}
-                    <a href="#" onclick="enterSearch(this.innerText)" onhover="" class="keyword">{{ keyword }}<span class="remove_keyword_button" onclick="removeKeyword(event,this)"></span></a>
+                    <a href="#" onclick="enterSearch(this.innerText)" onhover="" class="keyword">{{ keyword }}<span class="button__remove_keyword" onclick="removeKeyword(event,this)"></span></a>
                 {% endfor %}
             {% endif %}
         </div>

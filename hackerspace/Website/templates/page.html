@@ -5,9 +5,11 @@
 <body class="body" onload="onLoadFunctions('{{ slug }}')">
   {% include "components/menu.html" %}
   <div class="page_content" style="overflow: hidden;">
-    <div id="dark_overlay" class="dark_overlay" onclick="closeOverlays()"></div>
+    <div id="dark_overlay" class="dark_overlay" onclick="closeOverlays()">
+      {% include "components/overlays/donate.html" %}
+    </div>
     <a href="#" onclick="openMenu()" class="menu_icon"></a>
-    <a href="#" class="donate_button">Donate</a>
+    <a href="#" onclick="showOverlay('donate')" class="button__donate">Donate</a>
     <div id="page_content">
       {% include ""|add:view|add:'.html' %}
     </div>

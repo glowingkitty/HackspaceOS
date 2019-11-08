@@ -12,11 +12,11 @@
             data-rotate='[ {{ HACKERSPACE.HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'></span>
         </div>
         {% if inspace %}
-        <a href="#" onclick="marryspeak('{{ HACKERSPACE.SAYHELLO }}');this.style.display='none'" class="cta_button">
+        <a href="#" onclick="marryspeak('{{ HACKERSPACE.SAYHELLO }}');this.style.display='none'" class="button__cta">
             <div>Say hello!</div>
         </a>
         {% else %}
-        <a href="#visit_us" class="cta_button">
+        <a href="#visit_us" class="button__cta">
             <div>Visit us!</div>
             <div id="open_status" class="cta_extra_info">
                 {{ is_open_status|safe }}

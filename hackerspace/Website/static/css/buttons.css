@@ -1,4 +1,4 @@
-.cta_button {
+.button__cta {
     position: relative;
     display: -webkit-box;
     display: -webkit-flex;
@@ -20,7 +20,7 @@
 }
 
 
-.cta_button.next_to_secondary {
+.button__cta.next_to_secondary {
     display: inline-block;
     width: 30%;
     text-align: center;
@@ -28,14 +28,14 @@
 }
 
 
-.cta_button:hover {
+.button__cta:hover {
     box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.4);
     -webkit-transform: translate(0px, -5px);
     -ms-transform: translate(0px, -5px);
     transform: translate(0px, -5px);
 }
 
-.cta_button.secondary {
+.button__cta.secondary {
     padding-top: 10px;
     padding-right: 25px;
     padding-left: 25px;
@@ -49,7 +49,7 @@
 
 
 @media (prefers-color-scheme: dark) {
-    .cta_button {
+    .button__cta {
         background-color: #bf0006;
         box-shadow: 0 2px 6px 0 rgba(255, 255, 255, 0.25);
         -webkit-animation: LEDsStrong 8s infinite;
@@ -57,20 +57,20 @@
         animation: LEDsStrong 8s infinite;
     }
 
-    .cta_button:hover {
+    .button__cta:hover {
         box-shadow: 0 8px 8px 0 rgba(255, 255, 255, 0.25);
         -webkit-transform: translate(0px, -5px);
         -ms-transform: translate(0px, -5px);
         transform: translate(0px, -5px);
     }
 
-    .cta_button.secondary {
+    .button__cta.secondary {
         background-color: rgb(43, 43, 43)
     }
 }
 
 
-.cta_button.cta_button.secondary.next_to_main_cta {
+.button__cta.button__cta.secondary.next_to_main_cta {
     display: inline-block;
     width: 30%;
     text-align: center;
@@ -78,18 +78,18 @@
     margin-right: 0px;
 }
 
-.cta_button.secondary.with_icon {
+.button__cta.secondary.with_icon {
     padding-left: 44px;
     background-position: 5% 50%;
     background-size: auto 65%;
     background-repeat: no-repeat;
 }
 
-.cta_button.secondary.with_icon.plus_icon {
+.button__cta.secondary.with_icon.plus_icon {
     background-image: url('../images/plus.svg');
 }
 
-.donate_button {
+.button__donate {
     position: fixed;
     left: auto;
     top: 0%;
@@ -111,7 +111,7 @@
     text-decoration: none;
 }
 
-.donate_button:hover {
+.button__donate:hover {
     box-shadow: 0 7px 8px 0 rgba(0, 0, 0, 0.25);
     -webkit-transform: translate(0px, -5px);
     -ms-transform: translate(0px, -5px);
@@ -119,14 +119,14 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .donate_button {
+    .button__donate {
         background-color: rgb(43, 43, 43);
         animation: LEDsStrong 8s infinite;
     }
 }
 
 
-.cta_button.secondary.present_mode {
+.button__cta.secondary.present_mode {
     position: absolute;
     left: auto;
     top: 6px;
@@ -134,7 +134,7 @@
     bottom: auto;
 }
 
-.cta_button.secondary.end_meeting {
+.button__cta.secondary.end_meeting {
     position: absolute;
     left: auto;
     top: auto;
@@ -143,24 +143,13 @@
     opacity: 0.3;
 }
 
-.cta_button.secondary.end_meeting:hover {
+.button__cta.secondary.end_meeting:hover {
     opacity: 1;
 }
 
 
-.presenter_mode_buttons {
-    margin-top: 10px;
-    float: right;
-    opacity: 0.3;
-    -webkit-transition: all 200ms ease;
-    transition: all 200ms ease;
-}
 
-.presenter_mode_buttons:hover {
-    opacity: 1;
-}
-
-.remove_keyword_button {
+.button__remove_keyword {
     transform: rotate(45deg);
     background-image: url('../images/plus.svg');
     background-size: contain;
@@ -172,4 +161,87 @@
     padding-left: 5px;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
+}
+
+
+.button__cube {
+    width: 105px;
+    background-color: white;
+    display: inline-block;
+    border-radius: 10px;
+    margin: 5px;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    padding-top: 70px;
+    padding-bottom: 10px;
+    font-size: 12px;
+    background-position: 50% 30%;
+    background-size: auto;
+    background-repeat: no-repeat;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
+}
+
+.button__cube:hover {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+.button__cube.money {
+    background-image: url('../images/donate/Money.svg')
+}
+
+.button__cube.hardware {
+    background-image: url('../images/donate/Hardware.svg')
+}
+
+.button__cube.organize_event {
+    background-image: url('../images/donate/OrganizeEvent.svg')
+}
+
+.button__cube.volunteer {
+    background-image: url('../images/donate/Volunteer.svg')
+}
+
+@media (prefers-color-scheme: dark) {
+    .button__cube {
+        background-color: black;
+        animation: LEDsStrong 8s infinite;
+        color: #d4d4d4
+    }
+}
+
+.button__close_overlay {
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: white;
+    background-position: 50% 30%;
+    background-size: auto;
+    background-repeat: no-repeat;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
+    background-image: url('../images/plus.svg');
+    transform: rotate(45deg);
+    border-radius: 200px;
+}
+
+.button__close_overlay:hover {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+    .button__close_overlay {
+        background-color: black;
+        animation: LEDsStrong 8s infinite;
+        color: #d4d4d4
+    }
 }

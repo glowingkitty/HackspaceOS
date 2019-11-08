@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Liked</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Liked" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="like" transform="translate(1.000000, 2.000000)" fill="#ED1D23" fill-rule="nonzero">
+            <path d="M15.904,5.12291304 C17.19552,2.10754348 20.14592,0.000630434783 23.5776,0.000630434783 C28.20032,0.000630434783 31.5296,3.89608696 31.94816,8.5386087 C31.94816,8.5386087 32.17408,9.69104348 31.6768,11.7658043 C30.99968,14.591413 29.408,17.1018043 27.26208,19.0176957 L15.904,29 L4.73728,19.0170652 C2.59136,17.1018043 0.99968,14.5907826 0.32256,11.7651739 C-0.17472,9.69041304 0.0512,8.53797826 0.0512,8.53797826 C0.46976,3.89545652 3.79904,0 8.42176,0 C11.85408,0 14.61248,2.10754348 15.904,5.12291304 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>
