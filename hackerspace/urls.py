@@ -47,6 +47,7 @@ urlpatterns = [
          name='meeting_present_view'),
 
     path('get/', views.get_view, name='get'),
+    path('load_more', views.load_more_view, name='load_more'),
     path('save', views.save_view, name='save'),
     path('remove', views.remove_view, name='remove'),
     path('search', views.search_view, name='search'),

@@ -2,17 +2,12 @@
 
 <div class="max_500">
     <h2 class="h2 large">Previous meeting notes</h2>
-    {% for note in past_meetings %}
-    <a class="meeting_block inline_block" onclick="getPage('/meeting/{{ note.text_date }}')"  href="#">
-        <h3 class="h3">{{ note.text_date }}</h3>
-        {% if note.text_keywords %}
-        <div class="meeting_text_summary">Keywords:</div>
-        <p class="meeting_text_summary">{{ note.text_keywords }}</p>
-        {% endif %}
-    </a>
-    {% endfor %}
+
+    {% include "components/body/meetings/meetings_list.html" %}
+
     <div class="cta_center">
-        <a href="#" class="button__cta secondary">Show more</a>
+        <input type="hidden" id="more_start_from" value="10"></input>
+        <a href="#" onclick="showMore('meeting_notes')" class="button__cta secondary">Show more</a>
         <div class="divider_100"></div>
     </div>
 </div>

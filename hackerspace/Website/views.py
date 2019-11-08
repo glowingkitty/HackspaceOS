@@ -39,7 +39,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_description': 'Join our weekly meetings!',
             'current_meeting': MeetingNote.objects.current(),
             'next_meeting': Event.objects.next_meeting(),
-            'past_meetings': MeetingNote.objects.past()[:4]
+            'past_meetings': MeetingNote.objects.past()[:10]
         }}
     elif page == 'meeting':
         selected_meeting = MeetingNote.objects.filter(
@@ -50,7 +50,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_description': 'Join our weekly meetings!',
             'selected_meeting': selected_meeting,
             'next_meeting': Event.objects.next_meeting(),
-            'past_meetings': MeetingNote.objects.past(selected_meeting)[:4]
+            'past_meetings': MeetingNote.objects.past(selected_meeting)[:10]
         }}
     elif page == 'meeting_present':
         return {**context, **{
@@ -181,6 +181,29 @@ def get_view(request):
         )
     else:
         response = JsonResponse({'error': 'no "what" defined'})
+        response.status_code = 404
+
+    return response
+
+
+def load_more_view(request):
+    print('load_more_view')
+    if request.GET.get('what', None) and request.GET.get('from', None):
+        try:
+            start_from = int(request.GET.get('from', None))
+            upt_to = int(start_from+10)
+            response = JsonResponse({
+                'html': get_template('meetings_list.html').render({
+                    'past_meetings': MeetingNote.objects.past()[start_from:upt_to]
+                }),
+                'continue_from': upt_to
+            })
+        except:
+            response = JsonResponse({'error': 'Request failed'})
+            response.status_code = 404
+
+    else:
+        response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404
 
     return response

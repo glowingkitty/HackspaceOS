@@ -37,3 +37,17 @@ function request_html(parameter, replace_id, inner_OR_outer = 'inner') {
             // always executed
         });
 }
+
+function showMore(what) {
+    axios.get("/load_more?what=" + what + '&from=' + document.getElementById('more_start_from').value)
+        .then(function (response) {
+            document.getElementById('more_start_from').value = response.data.continue_from
+            document.getElementById('next_results').outerHTML = response.data.html
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+}

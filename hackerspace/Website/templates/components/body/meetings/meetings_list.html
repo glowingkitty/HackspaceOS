@@ -1,0 +1,14 @@
+{% block content %}
+
+{% for note in past_meetings %}
+<a class="meeting_block inline_block" onclick="getPage('/meeting/{{ note.text_date }}')"  href="#">
+    <h3 class="h3">{{ note.text_date }}</h3>
+    {% if note.text_keywords %}
+    <div class="meeting_text_summary">Keywords:</div>
+    <p class="meeting_text_summary">{{ note.text_keywords }}</p>
+    {% endif %}
+</a>
+{% endfor %}
+<div id="next_results"></div>
+
+{% endblock %}
