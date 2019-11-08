@@ -36,6 +36,10 @@ class Guilde(models.Model):
         search_query = self.str_name.lower().split('guilde')[0]
         return Event.objects.upcoming().filter(str_name__icontains=search_query)
 
+    @property
+    def menu_heading(self):
+        return 'menu_h_guildes'
+
     def save(self, *args, **kwargs):
         self = updateTime(self)
         self.str_slug = 'guilde/'+self.str_name.lower().replace(' ', '-')
