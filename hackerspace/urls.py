@@ -37,15 +37,16 @@ urlpatterns = [
          url='meetings', permanent=False), name='meetings/'),
     path('meeting/', RedirectView.as_view(
         url='meetings', permanent=False), name='meeting/'),
-
-    path('guildes', views.guildes_view, name='guildes'),
-
     path('meeting/present', views.meeting_present_view,
          name='meeting_present_view'),
     path('meeting/end', views.meeting_end_view,
          name='meeting_end_view'),
-    path('meeting/<str:date>', views.meeting_view,
+    path('meeting/<str:sub_page>', views.meeting_view,
          name='meeting_present_view'),
+
+    path('guildes', views.guildes_view, name='guildes'),
+    path('guilde/<str:sub_page>', views.guilde_view,
+         name='guilde_view'),
 
     path('get/', views.get_view, name='get'),
     path('load_more', views.load_more_view, name='load_more'),

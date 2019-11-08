@@ -5,7 +5,7 @@
 <body class="body" onload="onLoadFunctions('{{ slug }}')">
   {% include "components/menu.html" %}
   <div class="page_content" style="overflow: hidden;">
-    <div id="dark_overlay" class="dark_overlay" onclick="closeOverlays()">
+    <div id="dark_overlay" class="dark_overlay" onclick="clearSearch();closeOverlays()">
       {% include "components/overlays/donate.html" %}
     </div>
     <a href="#" onclick="openMenu()" class="menu_icon"></a>

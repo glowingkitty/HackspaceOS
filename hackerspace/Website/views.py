@@ -70,10 +70,9 @@ def get_view_response(request, page, sub_page, hashname):
             'all_guildes': Guilde.objects.all()[:10]
         }}
     elif page == 'guilde':
-        selected = Guilde.objects.filter(
-            str_name__icontains=sub_page).first()
+        selected = Guilde.objects.filter(str_slug='guilde/'+sub_page).first()
         return {**context, **{
-            'slug': '/guilde/'+selected.text_date,
+            'slug': '/guilde/'+sub_page,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Guilde | '+selected.str_name,
             'page_description': 'Join our weekly meetings!',
             'selected': selected
@@ -110,11 +109,11 @@ def meeting_present_view(request):
     return get_page_response(request, 'meeting_present')
 
 
-def meeting_view(request, date):
+def meeting_view(request, sub_page):
     # if meeting not found, redirect to all meetings page
-    if not MeetingNote.objects.filter(text_date=date).exists():
+    if not MeetingNote.objects.filter(text_date=sub_page).exists():
         return HttpResponseRedirect('/meetings')
-    return get_page_response(request, 'meeting', date)
+    return get_page_response(request, 'meeting', sub_page)
 
 
 def meeting_end_view(request):
@@ -136,12 +135,12 @@ def guildes_view(request):
     return get_page_response(request, 'guildes')
 
 
-def guilde_view(request, name):
+def guilde_view(request, sub_page):
+    sub_page = 'guilde/'+sub_page
     # if guilde not found, redirect to all meetings page
-    name_lower = name.lower()
-    if not Guilde.objects.filter(str_name__icontains=name_lower).exists():
+    if not Guilde.objects.filter(str_slug=sub_page).exists():
         return HttpResponseRedirect('/guildes')
-    return get_page_response(request, 'guilde', name_lower)
+    return get_page_response(request, 'guilde', sub_page)
 
 
 def get_view(request):
@@ -192,6 +191,7 @@ def get_view(request):
 
     elif request.GET.get('what', None):
         page = request.GET.get('what', None)
+        print(page)
         if page == '__':
             page = 'landingpage'
         else:
@@ -201,6 +201,8 @@ def get_view(request):
             page, sub_page = page.split('__')
         else:
             sub_page = None
+
+        print(page, sub_page)
 
         hashname = page.split('#')[1] if '#' in page else None
         response_context = get_view_response(request, page, sub_page, hashname)
@@ -220,19 +222,14 @@ def get_view(request):
 def load_more_view(request):
     print('load_more_view')
     if request.GET.get('what', None) and request.GET.get('from', None):
-        try:
-            start_from = int(request.GET.get('from', None))
-            upt_to = int(start_from+10)
-            response = JsonResponse({
-                'html': get_template('meetings_list.html').render({
-                    'past_meetings': MeetingNote.objects.past()[start_from:upt_to]
-                }),
-                'continue_from': upt_to
-            })
-        except:
-            response = JsonResponse({'error': 'Request failed'})
-            response.status_code = 404
-
+        start_from = int(request.GET.get('from', None))
+        upt_to = int(start_from+10)
+        response = JsonResponse({
+            'html': get_template('components/body/meetings/meetings_list.html').render({
+                'past_meetings': MeetingNote.objects.past()[start_from:upt_to]
+            }),
+            'continue_from': upt_to
+        })
     else:
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404

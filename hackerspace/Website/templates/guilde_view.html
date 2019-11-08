@@ -1,0 +1,56 @@
+{% block content %}
+
+<div class="header_block sub_page">
+    <div class="header_separator"></div>
+    <div class="header_image"></div>
+</div>
+
+<div class="divider_20"></div>
+<div class="max_540">
+    <h2 class="h2 large">{{ selected.str_name }}</h2>
+    <div>
+        {{ selected.text_description }}<br>
+        <br>
+        <a class="inline_link" href="{{ selected.url_wiki }}" target="_blank">Show full wiki page</a>
+    </div>
+</div>
+
+{% if selected.many_members.all %}
+<div class="max_540">
+    <h2 class="h2 large">People</h2>
+    {% for person in selected.many_members.all %}
+    {{ person }}
+    {% endfor %}
+</div>
+{% endif %}
+<div class="divider_20"></div>
+<div class="divider_20"></div>
+
+<div class="visually_separated_content">
+    <div class="header_separator upside"></div>
+
+    <div class="divider_100"></div>
+    <div class="max_540">
+        <div>
+            <h2 class="h2 large">Events</h2>
+            {% for result in selected.events %}
+            {% include "components/body/result_preview_block.html" with change_contrast=True %}
+            {% endfor %}
+        </div>
+        <div>
+            <h2 class="h2 large">Projects</h2>
+            {% for result in selected.projects %}
+            {% include "components/body/result_preview_block.html" with change_contrast=True %}
+            {% endfor %}
+        </div>
+        <div>
+            <h2 class="h2 large">Discussions</h2>
+        </div>
+    </div>
+    <div class="divider_100"></div>
+
+
+</div>
+
+
+{% endblock %}
