@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<a class="result_preview{% if change_contrast == True %} change_contrast{% endif %}" {% if result.url_meetup_event %}href="{{ result.url_meetup_event }}"{% else %}onclick="getPage('/{{ result.str_slug }}')"{% endif %} target="_blank">
+<a class="result_preview{% if change_contrast == True %} change_contrast{% endif %}" {% if result.url_meetup_event %}href="{{ result.url_meetup_event }}"{% else %}onclick="getPage('/{{ result.str_slug }}','{{ result.menu_heading }}')"{% endif %} target="_blank">
     {% if result.text_series_timing %}
     <div class="result_preview_relative_time repeating_day">{{ result.str_series }}</div>
     {% endif %}

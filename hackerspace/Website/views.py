@@ -70,7 +70,9 @@ def get_view_response(request, page, sub_page, hashname):
             'all_guildes': Guilde.objects.all()[:10]
         }}
     elif page == 'guilde':
-        selected = Guilde.objects.filter(str_slug='guilde/'+sub_page).first()
+        if 'guilde/' not in sub_page:
+            sub_page = 'guilde/'+sub_page
+        selected = Guilde.objects.filter(str_slug=sub_page).first()
         return {**context, **{
             'slug': '/guilde/'+sub_page,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Guilde | '+selected.str_name,

@@ -125,6 +125,10 @@ html {
     text-decoration: none;
 }
 
+.menu_heading.selected {
+    opacity: 1;
+}
+
 .menu_heading:hover {
     opacity: 1;
     -webkit-transform: translate(5px, 0px);
