@@ -74,10 +74,66 @@
     background-repeat: no-repeat;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
-    cursor: pointer
+    cursor: pointer;
+    opacity: 0.2
+}
+
+@media (prefers-color-scheme: dark) {
+    .landingpage_quick_access_icon {
+        opacity: 0.3
+    }
+}
+
+.landingpage_quick_access_icon.wood {
+    background-image: url('../images/areas/handsaw.svg');
+}
+
+.landingpage_quick_access_icon.printer3d {
+    background-image: url('../images/areas/3d-printer.svg');
+}
+
+.landingpage_quick_access_icon.music {
+    background-image: url('../images/areas/electric-guitar.svg');
+}
+
+.landingpage_quick_access_icon.gamedev {
+    background-image: url('../images/areas/game-controller.svg');
+}
+
+.landingpage_quick_access_icon.community {
+    background-image: url('../images/areas/group.svg');
+}
+
+.landingpage_quick_access_icon.lasercutter {
+    background-image: url('../images/areas/laser-cutting-machine.svg');
+}
+
+.landingpage_quick_access_icon.code {
+    background-image: url('../images/areas/programming.svg');
+}
+
+.landingpage_quick_access_icon.robot {
+    background-image: url('../images/areas/robot.svg');
+}
+
+.landingpage_quick_access_icon.electronic {
+    background-image: url('../images/areas/soldering-iron.svg');
+}
+
+.landingpage_quick_access_icon.drawing {
+    background-image: url('../images/areas/tools.svg');
+}
+
+.landingpage_quick_access_icon.whiteboarding {
+    background-image: url('../images/areas/whiteboard.svg');
+}
+
+.landingpage_quick_access_icon.sewing {
+    background-image: url('../images/areas/yarn-ball.svg');
 }
 
 .landingpage_quick_access_icon:hover {
+    opacity: 1;
     -webkit-transform: translate(0px, -5px);
     -ms-transform: translate(0px, -5px);
     transform: translate(0px, -5px);

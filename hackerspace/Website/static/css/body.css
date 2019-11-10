@@ -215,15 +215,15 @@ html {
 }
 
 .search_result.machine {
-    background-image: url('../images/search/discuss.svg');
+    background-image: url('../images/search/Machine.svg');
 }
 
 .search_result.guilde {
-    background-image: url('../images/search/discuss.svg');
+    background-image: url('../images/search/Group.svg');
 }
 
 .search_result.space {
-    background-image: url('../images/search/discuss.svg');
+    background-image: url('../images/search/Space.svg');
 }
 
 .search_input {

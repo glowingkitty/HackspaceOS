@@ -19,4 +19,5 @@ function getPage(page, menu_item_active) {
     clearSearch()
     request_html('what=' + encodeURI(page.replace(/\//g, '__')), 'page_content', 'inner')
     switchMenuSelected(menu_item_active)
+    window.scrollTo(0, 0);
 }
