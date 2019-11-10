@@ -17,7 +17,7 @@ def findSearches(text):
     text = cleanhtml(text)
     searches = re.findall(r'\{([^{}]*)\}\|search', text)
     for search_query in searches:
-        text = text.replace('{'+search_query+'}|search', '<a class="inline_link" onclick="enterSearch(\'' +
+        text = text.replace('{'+search_query+'}|search', '<a class="inline_link" onclick="openMenu();enterSearch(\'' +
                             search_query+'\')" href="#">'+search_query+'</a>')
 
     return text
