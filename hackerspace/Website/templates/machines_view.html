@@ -6,9 +6,9 @@
 </div>
 
 <div class="max_540">
-    <h2 class="h2 large">Guildes</h2>
+    <h2 class="h2 large">Machines</h2>
     <div>
-        A guilde is a group at Noisebridge with a common interest area, responsible for specific spaces and machines at Noisebridge.<br>
+        We have many super useful machines at {{ HACKERSPACE.HACKERSPACE_NAME }}, allowing you to build nearly everything you want to build!<br>
         <br>
         <a class="inline_link" href="#">Show full wiki page</a>
     </div>
@@ -21,7 +21,7 @@
 
     <div class="divider_100"></div>
     <div class="max_540">
-        {% for result in all_guildes %}
+        {% for result in all_machines %}
         {% include "components/body/result_preview_block.html" with change_contrast=True %}
         {% endfor %}
     </div>

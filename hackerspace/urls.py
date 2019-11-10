@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from hackerspace.website import views
 from django.views.generic.base import RedirectView
+from hackerspace.YOUR_HACKERSPACE import ADMIN_URL
 
 urlpatterns = [
-    path('as78dgahasd1e1e/', admin.site.urls),
+    path(ADMIN_URL+'/', admin.site.urls),
     path('', views.landingpage_view, name='landingpage'),
 
     path('values', views.values_view, name='values'),
@@ -51,6 +52,10 @@ urlpatterns = [
     path('spaces', views.spaces_view, name='spaces'),
     path('space/<str:sub_page>', views.space_view,
          name='space_view'),
+
+    path('machines', views.machines_view, name='machines'),
+    path('machine/<str:sub_page>', views.machine_view,
+         name='machine_view'),
 
     path('get/', views.get_view, name='get'),
     path('load_more', views.load_more_view, name='load_more'),

@@ -79,7 +79,8 @@ class MeetingNoteSet(models.QuerySet):
             results_list.append({
                 'icon': 'meetingnote',
                 'name': 'Meeting notes - '+str(result),
-                'url': '/meeting/'+result.text_date
+                'url': '/meeting/'+result.text_date,
+                'menu_heading': 'menu_h_meetings'
             })
         return results_list
 
@@ -104,6 +105,10 @@ class MeetingNote(models.Model):
         local_time = datetime.fromtimestamp(
             self.int_UNIXtime_created, local_timezone)
         return local_time.date()
+
+    @property
+    def menu_heading(self):
+        return 'menu_h_meetings'
 
     @property
     def list_main_topics(self):

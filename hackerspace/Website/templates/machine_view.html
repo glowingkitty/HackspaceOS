@@ -11,7 +11,7 @@
 <div class="max_540">
     <h2 class="h2 large">{{ selected.str_name }}</h2>
     <div>
-        {{ selected.text_description|findSearches|safe }} }}<br>
+        {{ selected.text_description|findSearches|safe }}<br>
         <br>
         {% if selected.url_wiki %}
         <a class="inline_link" href="{{ selected.url_wiki }}" target="_blank">Show full wiki page</a>
@@ -27,18 +27,16 @@
 
     <div class="divider_100"></div>
     <div class="max_540">
-        {% if selected.machines %}
-        <div class="blocks_inline_50_percent">
-            <h2 class="h2 large">Machines</h2>
-            {% for result in selected.machines|upto:3 %}
-            {% include "components/body/result_preview_block.html" with change_contrast=True %}
-            {% endfor %}
-        </div>
-        {% endif %}
         {% if selected.one_guilde %}
         <div class="blocks_inline_50_percent">
             <h2 class="h2 large">Guilde</h2>
             {% include "components/body/result_preview_block.html" with change_contrast=True result=selected.one_guilde %}
+        </div>
+        {% endif %}
+        {% if selected.one_space %}
+        <div class="blocks_inline_50_percent">
+            <h2 class="h2 large">Space</h2>
+            {% include "components/body/result_preview_block.html" with change_contrast=True result=selected.one_space %}
         </div>
         {% endif %}
     </div>
@@ -47,5 +45,6 @@
 
 </div>
 
+{% include "components/body/edit_this_page.html" %}
 
 {% endblock %}

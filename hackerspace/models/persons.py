@@ -7,6 +7,7 @@ from hackerspace.models.events import updateTime
 class Person(models.Model):
     str_name = models.CharField(max_length=250, blank=True, null=True)
     url_featured_photo = models.URLField(max_length=200, blank=True, null=True)
+    url_wiki = models.URLField(max_length=200, blank=True, null=True)
     text_description = models.TextField(blank=True, null=True)
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)

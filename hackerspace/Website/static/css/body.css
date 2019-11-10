@@ -2,6 +2,14 @@ html {
     scroll-behavior: smooth;
 }
 
+.edit_this_page_block {
+    text-align: center;
+    margin: 20px;
+    display: block;
+    width: 100%;
+    float: left;
+}
+
 .body {
     font-family: 'Lexend Deca', sans-serif;
     margin: 0px;

@@ -104,5 +104,7 @@ IMPORTANT_URLS = {
     'MEETING_TEMPLATE': WEBSITE_GIT+'/Website/templates/meeting_notes.txt'
 }
 
+ADMIN_URL = '61646d696e'
+
 SAYHELLO = 'Greetings by the person at the computer next to the entrance. Hello fellow ' + \
     HACKERSPACE_PEOPLE_NAME+'. Be excellent to each other and have an excellent day'

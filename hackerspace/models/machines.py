@@ -5,29 +5,31 @@ from hackerspace.models.events import updateTime
 import urllib.parse
 
 
-class GuildeSet(models.QuerySet):
+class MachineSet(models.QuerySet):
     def search_results(self):
         results_list = []
         results = self.all()
         for result in results:
             results_list.append({
-                'icon': 'guilde',
+                'icon': 'machine',
                 'name': result.str_name,
                 'url': '/'+result.str_slug,
-                'menu_heading': 'menu_h_guildes'
+                'menu_heading': 'menu_h_machines'
             })
         return results_list
 
 
-class Guilde(models.Model):
-    objects = GuildeSet.as_manager()
+class Machine(models.Model):
+    objects = MachineSet.as_manager()
     str_slug = models.CharField(max_length=250, blank=True, null=True)
     str_name = models.CharField(max_length=250, blank=True, null=True)
+    one_guilde = models.ForeignKey(
+        'Guilde', related_name="o_machine_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL)
+    one_space = models.ForeignKey(
+        'Space', related_name="o_machine_space", default=None, blank=True, null=True, on_delete=models.SET_NULL)
     url_featured_photo = models.URLField(max_length=200, blank=True, null=True)
     url_wiki = models.URLField(max_length=200, blank=True, null=True)
     text_description = models.TextField(blank=True, null=True)
-    many_members = models.ManyToManyField(
-        'Person', related_name="m_members", blank=True)
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
@@ -36,15 +38,14 @@ class Guilde(models.Model):
 
     @property
     def events(self):
-        search_query = self.str_name.lower().split('guilde')[0]
-        return Event.objects.upcoming().filter(str_name__icontains=search_query)
+        return Event.objects.in_space(one_space=self)
 
     @property
     def menu_heading(self):
-        return 'menu_h_guildes'
+        return 'menu_h_machines'
 
     def save(self, *args, **kwargs):
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
-            'guilde/'+self.str_name.lower().replace(' ', '-'))
-        super(Guilde, self).save(*args, **kwargs)
+            'machine/'+self.str_name.lower().replace(' ', '-'))
+        super(Machine, self).save(*args, **kwargs)

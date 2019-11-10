@@ -1,4 +1,5 @@
 {% load array %}
+{% load process_text %}
 {% block content %}
 
 <div class="header_block sub_page">
@@ -10,9 +11,11 @@
 <div class="max_540">
     <h2 class="h2 large">{{ selected.str_name }}</h2>
     <div>
-        {{ selected.text_description }}<br>
+        {{ selected.text_description|findSearches|safe }} }}<br>
         <br>
+        {% if selected.url_wiki %}
         <a class="inline_link" href="{{ selected.url_wiki }}" target="_blank">Show full wiki page</a>
+        {% endif %}
     </div>
 </div>
 
@@ -32,26 +35,26 @@
 
     <div class="divider_100"></div>
     <div class="max_540">
+        {% if selected.events %}
         <div class="blocks_inline_50_percent">
             <h2 class="h2 large">Events</h2>
             {% for result in selected.events|upto:3 %}
             {% include "components/body/result_preview_block.html" with change_contrast=True %}
             {% endfor %}
         </div>
+        {% endif %}
+        {% if selected.projects %}
         <div class="blocks_inline_50_percent">
             <h2 class="h2 large">Projects</h2>
             {% for result in selected.projects %}
             {% include "components/body/result_preview_block.html" with change_contrast=True %}
             {% endfor %}
         </div>
-        <div class="block_full_width">
-            <h2 class="h2 large">Discussions</h2>
-        </div>
+        {% endif %}
     </div>
     <div class="divider_100"></div>
-
-
 </div>
 
+{% include "components/body/edit_this_page.html" %}
 
 {% endblock %}

@@ -161,7 +161,8 @@ class EventSet(models.QuerySet):
                 results_list.append({
                     'icon': 'event',
                     'name': result.str_name+'<br>=> '+(relative_time if relative_time else str(result.datetime_start.date())),
-                    'url': result.url_meetup_event
+                    'url': result.url_meetup_event,
+                    'menu_heading': 'menu_h_events'
                 })
                 added.append(result.str_name)
         return results_list
@@ -255,6 +256,10 @@ class Event(models.Model):
         if not self.datetime_range:
             return self.str_name
         return self.str_name+' | '+self.datetime_range
+
+    @property
+    def menu_heading(self):
+        return 'menu_h_events'
 
     @property
     def str_series(self):

@@ -1,0 +1,13 @@
+{% block content %}
+
+<div class="edit_this_page_block">
+    {% if page_git_url %}
+    <div>Edit this page!</div>
+    <a href="{{ page_git_url }}" target="_blank" class="link">on {{ HACKERSPACE.WEBSITE_GIT_PROVIDER }}</a>
+    {% else %}
+    <div>Edit our website!</div>
+    <a href="{{ HACKERSPACE.WEBSITE_GIT }}" target="_blank" class="link">on {{ HACKERSPACE.WEBSITE_GIT_PROVIDER }}</a>
+    {% endif %}
+</div>
+
+{% endblock %}

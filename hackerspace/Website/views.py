@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 
 from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
-from hackerspace.models import Error, Event, Guilde, MeetingNote, Space
+from hackerspace.models import Error, Event, Guilde, MeetingNote, Space, Machine
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.website.search import search
@@ -15,7 +15,7 @@ def get_view_response(request, page, sub_page, hashname):
         'inspace': True if request.COOKIES.get('inspace') else None,
         'HACKERSPACE': HACKERSPACE,
         'hash': hashname,
-        'page_git_url': HACKERSPACE.WEBSITE_GIT+'Website/templates/'+page+'_view.html',
+        'page_git_url': HACKERSPACE.WEBSITE_GIT+'/Website/templates/'+page+'_view.html',
     }
 
     if page == 'landingpage':
@@ -98,6 +98,24 @@ def get_view_response(request, page, sub_page, hashname):
             'selected': selected
         }}
 
+    elif page == 'machines':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Machines',
+            'page_description': HACKERSPACE.HACKERSPACE_NAME+' has all kinds of awesome machines!',
+            'all_machines': Machine.objects.all()[:10]
+        }}
+    elif page == 'machine':
+        if 'machine/' not in sub_page:
+            sub_page = 'machine/'+sub_page
+        selected = Machine.objects.filter(str_slug=sub_page).first()
+        return {**context, **{
+            'slug': '/machine/'+sub_page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Machine | '+selected.str_name,
+            'page_description': selected.text_description,
+            'selected': selected
+        }}
+
 
 def get_page_response(request, page, sub_page=None):
     print(page+'_view')
@@ -173,6 +191,18 @@ def space_view(request, sub_page):
     if not Space.objects.filter(str_slug=sub_page).exists():
         return HttpResponseRedirect('/spaces')
     return get_page_response(request, 'space', sub_page)
+
+
+def machines_view(request):
+    return get_page_response(request, 'machines')
+
+
+def machine_view(request, sub_page):
+    sub_page = 'machine/'+sub_page
+    # if space not found, redirect to all spaces page
+    if not Machine.objects.filter(str_slug=sub_page).exists():
+        return HttpResponseRedirect('/machines')
+    return get_page_response(request, 'machine', sub_page)
 
 
 def get_view(request):
