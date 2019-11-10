@@ -179,8 +179,8 @@ class EventSet(models.QuerySet):
         for event in self.all()[:3]:
             event.announce_via_marry()
 
-    def pull_from_meetup(self):
-        json_our_group = requests.get('https://api.meetup.com/'+HACKERSPACE_MEETUP_GROUP+'/events',
+    def pull_from_meetup(self, slug=HACKERSPACE_MEETUP_GROUP):
+        json_our_group = requests.get('https://api.meetup.com/'+slug+'/events',
                                       params={
                                           'fields': [
                                               'featured_photo',
@@ -196,7 +196,8 @@ class EventSet(models.QuerySet):
               ' events from our hackerspace group')
 
         for event in json_our_group:
-            createEvent(event)
+            if slug == HACKERSPACE_MEETUP_GROUP or HACKERSPACE_NAME in event['name']:
+                createEvent(event)
 
         print('Done! Saved '+str(len(json_our_group)) + ' events from Meetup')
 
