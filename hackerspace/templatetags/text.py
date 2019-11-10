@@ -30,3 +30,16 @@ def split(text, separator):
 @register.filter
 def classname(value):
     return value.__class__.__name__.lower()
+
+
+@register.filter
+def getDefaultImage(name):
+    name = name.lower()
+    if 'game' in name:
+        return 'game'
+    elif 'music' in name:
+        return 'music'
+    elif 'sewing' in name:
+        return 'sewing'
+    else:
+        return 'class'

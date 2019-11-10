@@ -90,6 +90,22 @@
     background-repeat: no-repeat;
 }
 
+.result_preview_right.game {
+    background-image: url('../images/events/event_gaming.png');
+}
+
+.result_preview_right.music {
+    background-image: url('../images/events/event_music.png');
+}
+
+.result_preview_right.sewing {
+    background-image: url('../images/events/event_sewing.png');
+}
+
+.result_preview_right.class {
+    background-image: url('../images/events/event_class.png');
+}
+
 .text_semitransparent {
     color: #919191;
 }
