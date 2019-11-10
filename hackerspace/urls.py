@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from hackerspace.website import views
 from django.views.generic.base import RedirectView
-from hackerspace.settings import ADMIN_URL
+from config.config import ADMIN_URL
 
 urlpatterns = [
     path(ADMIN_URL+'/', admin.site.urls),
