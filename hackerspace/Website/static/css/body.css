@@ -214,6 +214,18 @@ html {
     background-image: url('../images/search/discuss.svg');
 }
 
+.search_result.machine {
+    background-image: url('../images/search/discuss.svg');
+}
+
+.search_result.guilde {
+    background-image: url('../images/search/discuss.svg');
+}
+
+.search_result.space {
+    background-image: url('../images/search/discuss.svg');
+}
+
 .search_input {
     padding-left: 15px;
     background-color: transparent;

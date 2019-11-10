@@ -70,8 +70,14 @@
 .link {
     display: inline-block;
     padding: 10px;
-    color: hsla(0, 0%, 100%, 0.5);
+    color: hsla(0, 0%, 0%, 0.5);
     text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    .link {
+        color: hsla(0, 0%, 100%, 0.5);
+    }
 }
 
 
