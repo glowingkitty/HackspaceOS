@@ -211,46 +211,58 @@ class EventSet(models.QuerySet):
 
 class Event(models.Model):
     objects = EventSet.as_manager()
-    str_name = models.CharField(max_length=250, blank=True, null=True)
-    int_UNIXtime_event_start = models.IntegerField(blank=True, null=True)
-    int_minutes_duration = models.IntegerField(default=60)
-    int_UNIXtime_event_end = models.IntegerField(blank=True, null=True)
+    str_name = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='Name')
+    int_UNIXtime_event_start = models.IntegerField(
+        blank=True, null=True, verbose_name='Event start (UNIX time)')
+    int_minutes_duration = models.IntegerField(
+        default=60, verbose_name='Duration in minutes')
+    int_UNIXtime_event_end = models.IntegerField(
+        blank=True, null=True, verbose_name='Event end (UNIX time)')
 
-    url_featured_photo = models.URLField(max_length=200, blank=True, null=True)
-    text_description = models.TextField(blank=True, null=True)
+    url_featured_photo = models.URLField(
+        max_length=200, blank=True, null=True, verbose_name='Photo URL')
+    text_description = models.TextField(
+        blank=True, null=True, verbose_name='Description')
 
     str_location_name = models.CharField(
-        max_length=250, default=HACKERSPACE_NAME)
+        max_length=250, default=HACKERSPACE_NAME, verbose_name='Location Name')
     str_location_street = models.CharField(
-        max_length=250, default=HACKERSPACE_ADDRESS['STREET'])
+        max_length=250, default=HACKERSPACE_ADDRESS['STREET'], verbose_name='Location Street')
     str_location_zip = models.CharField(
-        max_length=10, default=HACKERSPACE_ADDRESS['ZIP'])
+        max_length=10, default=HACKERSPACE_ADDRESS['ZIP'], verbose_name='Location ZIP')
     str_location_city = models.CharField(
-        max_length=50, default=HACKERSPACE_ADDRESS['CITY'])
+        max_length=50, default=HACKERSPACE_ADDRESS['CITY'], verbose_name='Location City')
     str_location_countrycode = models.CharField(
-        max_length=50, default=HACKERSPACE_ADDRESS['COUNTRYCODE'])
+        max_length=50, default=HACKERSPACE_ADDRESS['COUNTRYCODE'], verbose_name='Location Country Code')
 
     one_space = models.ForeignKey(
-        'Space', related_name="o_space", default=None, blank=True, null=True, on_delete=models.SET_NULL)
+        'Space', related_name="o_space", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Space')
     one_guilde = models.ForeignKey(
-        'Guilde', related_name="o_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL)
+        'Guilde', related_name="o_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Guilde')
     many_hosts = models.ManyToManyField(
-        'Person', related_name="m_persons", blank=True)
+        'Person', related_name="m_persons", blank=True, verbose_name='Hosts')
 
-    str_series_id = models.CharField(max_length=250, blank=True, null=True)
-    int_series_startUNIX = models.IntegerField(blank=True, null=True)
-    int_series_endUNIX = models.IntegerField(blank=True, null=True)
+    str_series_id = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='Series ID')
+    int_series_startUNIX = models.IntegerField(
+        blank=True, null=True, verbose_name='Series Start (UNIX time)')
+    int_series_endUNIX = models.IntegerField(
+        blank=True, null=True, verbose_name='Series End (UNIX time)')
     text_series_timing = models.TextField(
         blank=True, null=True)  # json saved as text
 
-    url_meetup_event = models.URLField(max_length=250, blank=True, null=True)
-    url_discuss_event = models.URLField(max_length=250, blank=True, null=True)
-    url_slack_event = models.URLField(max_length=250, blank=True, null=True)
+    url_meetup_event = models.URLField(
+        max_length=250, blank=True, null=True, verbose_name='Meetup URL')
+    url_discuss_event = models.URLField(
+        max_length=250, blank=True, null=True, verbose_name='Discuss URL')
+    url_slack_event = models.URLField(
+        max_length=250, blank=True, null=True, verbose_name='Slack URL')
 
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
     str_timezone = models.CharField(
-        max_length=100, default=HACKERSPACE_TIMEZONE_STRING, blank=True, null=True)
+        max_length=100, default=HACKERSPACE_TIMEZONE_STRING, blank=True, null=True, verbose_name='Timezone')
 
     def __str__(self):
         if not self.datetime_range:

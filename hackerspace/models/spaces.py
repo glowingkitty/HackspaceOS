@@ -22,12 +22,16 @@ class SpaceSet(models.QuerySet):
 class Space(models.Model):
     objects = SpaceSet.as_manager()
     str_slug = models.CharField(max_length=250, blank=True, null=True)
-    str_name = models.CharField(max_length=250, blank=True, null=True)
-    url_featured_photo = models.URLField(max_length=200, blank=True, null=True)
-    url_wiki = models.URLField(max_length=200, blank=True, null=True)
+    str_name = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='Name')
+    url_featured_photo = models.URLField(
+        max_length=200, blank=True, null=True, verbose_name='Photo URL')
+    url_wiki = models.URLField(
+        max_length=200, blank=True, null=True, verbose_name='Wiki URL')
     one_guilde = models.ForeignKey(
-        'Guilde', related_name="o_spaces_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL)
-    text_description = models.TextField(blank=True, null=True)
+        'Guilde', related_name="o_spaces_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Guilde')
+    text_description = models.TextField(
+        blank=True, null=True, verbose_name='Description')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 

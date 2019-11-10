@@ -22,12 +22,16 @@ class GuildeSet(models.QuerySet):
 class Guilde(models.Model):
     objects = GuildeSet.as_manager()
     str_slug = models.CharField(max_length=250, blank=True, null=True)
-    str_name = models.CharField(max_length=250, blank=True, null=True)
-    url_featured_photo = models.URLField(max_length=200, blank=True, null=True)
-    url_wiki = models.URLField(max_length=200, blank=True, null=True)
-    text_description = models.TextField(blank=True, null=True)
+    str_name = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='Name')
+    url_featured_photo = models.URLField(
+        max_length=200, blank=True, null=True, verbose_name='Photo URL')
+    url_wiki = models.URLField(
+        max_length=200, blank=True, null=True, verbose_name='Wiki URL')
+    text_description = models.TextField(
+        blank=True, null=True, verbose_name='Description')
     many_members = models.ManyToManyField(
-        'Person', related_name="m_members", blank=True)
+        'Person', related_name="m_members", blank=True, verbose_name='Members')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
