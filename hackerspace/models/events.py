@@ -35,7 +35,7 @@ def updateTime(result):
 
 
 def extractSpace(json_meetup_result):
-    if not 'how_to_find_us' in json_meetup_result:
+    if 'how_to_find_us' in json_meetup_result:
         from hackerspace.models import Space
         spaces = Space.objects.all()
 
