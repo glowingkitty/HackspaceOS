@@ -7,6 +7,7 @@ from hackerspace.models import Error, Event, Guilde, MeetingNote, Space, Machine
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.website.search import search
+from config.config import ADMIN_URL
 
 
 def get_view_response(request, page, sub_page, hashname):
@@ -16,6 +17,8 @@ def get_view_response(request, page, sub_page, hashname):
         'HACKERSPACE': HACKERSPACE,
         'hash': hashname,
         'page_git_url': HACKERSPACE.WEBSITE_GIT+'/Website/templates/'+page+'_view.html',
+        'ADMIN_URL': ADMIN_URL,
+        'user': request.user
     }
 
     if page == 'landingpage':

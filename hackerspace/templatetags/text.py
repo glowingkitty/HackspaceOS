@@ -25,3 +25,8 @@ def shorten(text, limit):
 @register.filter
 def split(text, separator):
     return text.split(separator)
+
+
+@register.filter
+def classname(value):
+    return value.__class__.__name__.lower()
