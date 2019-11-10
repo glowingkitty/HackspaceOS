@@ -7,7 +7,7 @@ from hackerspace.models import Error, Event, Guilde, MeetingNote, Space, Machine
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.website.search import search
-from config.config import ADMIN_URL
+from config import ADMIN_URL
 
 
 def get_view_response(request, page, sub_page, hashname):
