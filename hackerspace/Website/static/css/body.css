@@ -122,6 +122,36 @@ html {
     padding-bottom: 10px;
 }
 
+@media (max-width: 900px) {
+    .search_bar.active {
+        width: 700px;
+    }
+}
+
+@media (max-width: 750px) {
+    .search_bar.active {
+        width: 500px;
+    }
+}
+
+@media (max-width: 550px) {
+    .search_bar.active {
+        width: 400px;
+    }
+}
+
+@media (max-width: 450px) {
+    .search_bar.active {
+        width: 300px;
+    }
+}
+
+@media (max-width: 350px) {
+    .search_bar.active {
+        width: 100%;
+    }
+}
+
 .menu_heading {
     margin: 10px 13px;
     opacity: 0.5;
