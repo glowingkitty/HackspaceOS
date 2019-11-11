@@ -1,6 +1,7 @@
 from hackerspace.models.events import Event
 from hackerspace.models.spaces import Space
 from hackerspace.models.machines import Machine
+from hackerspace.models.projects import Project
 from hackerspace.models.guildes import Guilde
 from django.contrib import admin
 
@@ -11,6 +12,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Event, AuthorAdmin)
+admin.site.register(Project, AuthorAdmin)
 admin.site.register(Guilde, AuthorAdmin)
 admin.site.register(Machine, AuthorAdmin)
 admin.site.register(Space, AuthorAdmin)

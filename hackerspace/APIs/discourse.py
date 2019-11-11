@@ -35,10 +35,22 @@ def get_categories():
     return [x['slug'] for x in response_json['category_list']['categories']]
 
 
-def get_category_posts(category):
+def get_category_posts(category, all_pages=False):
     print('get_category_posts()')
     response_json = requests.get(
         HACKERSPACE_DISCOURSE_URL+'c/'+category+'.json', headers={'Accept': 'application/json'}).json()
+    if all_pages == True:
+        results = response_json['topic_list']['topics']
+        page = 1
+
+        while len(response_json['topic_list']['topics']) > 0:
+            response_json = requests.get(HACKERSPACE_DISCOURSE_URL+'c/'+category +
+                                         '.json?page='+str(page), headers={'Accept': 'application/json'}).json()
+            results += response_json['topic_list']['topics']
+            page += 1
+
+        return results
+
     return response_json['topic_list']['topics']
 
 

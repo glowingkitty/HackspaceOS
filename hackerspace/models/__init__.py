@@ -2,6 +2,7 @@
 from hackerspace.errors import Error
 from hackerspace.models.events import Event
 from hackerspace.models.machines import Machine
+from hackerspace.models.projects import Project
 from hackerspace.models.spaces import Space
 from hackerspace.models.persons import Person
 from hackerspace.models.guildes import Guilde

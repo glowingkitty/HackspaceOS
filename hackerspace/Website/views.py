@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 
 from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
-from hackerspace.models import Error, Event, Guilde, MeetingNote, Space, Machine
+from hackerspace.models import Error, Project, Event, Guilde, MeetingNote, Space, Machine
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.website.search import search
@@ -119,6 +119,24 @@ def get_view_response(request, page, sub_page, hashname):
             'selected': selected
         }}
 
+    elif page == 'projects':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Projects',
+            'page_description': 'People at '+HACKERSPACE.HACKERSPACE_NAME+' created all kinds of awesome projects!',
+            'all_projects': Project.objects.latest()[:10]
+        }}
+    elif page == 'project':
+        if 'project/' not in sub_page:
+            sub_page = 'project/'+sub_page
+        selected = Project.objects.filter(str_slug=sub_page).first()
+        return {**context, **{
+            'slug': '/project/'+sub_page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Project | '+selected.str_name,
+            'page_description': selected.text_description,
+            'selected': selected
+        }}
+
 
 def get_page_response(request, page, sub_page=None):
     print(page+'_view')
@@ -206,6 +224,18 @@ def machine_view(request, sub_page):
     if not Machine.objects.filter(str_slug=sub_page).exists():
         return HttpResponseRedirect('/machines')
     return get_page_response(request, 'machine', sub_page)
+
+
+def projects_view(request):
+    return get_page_response(request, 'projects')
+
+
+def project_view(request, sub_page):
+    sub_page = 'project/'+sub_page
+    # if space not found, redirect to all spaces page
+    if not Project.objects.filter(str_slug=sub_page).exists():
+        return HttpResponseRedirect('/projects')
+    return get_page_response(request, 'projectf', sub_page)
 
 
 def get_view(request):

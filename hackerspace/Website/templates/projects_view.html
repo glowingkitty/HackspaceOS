@@ -6,9 +6,9 @@
 </div>
 
 <div class="max_540">
-    <h2 class="h2 large">Spaces</h2>
+    <h2 class="h2 large">Project</h2>
     <div>
-        At {{ HACKERSPACE.HACKERSPACE_NAME }} fellow hackers like you created all kinds of awesome spaces. Check them out!
+        At {{ HACKERSPACE.HACKERSPACE_NAME }} fellow hackers like you created all kinds of awesome projects - both their own and projects for the space. Check them out!
     </div>
     <div class="divider_20"></div>
     <div class="divider_20"></div>
@@ -19,7 +19,7 @@
 
     <div class="divider_100"></div>
     <div class="max_540">
-        {% for result in all_spaces %}
+        {% for result in all_projects %}
         {% include "components/body/result_preview_block.html" with change_contrast=True %}
         {% endfor %}
     </div>
