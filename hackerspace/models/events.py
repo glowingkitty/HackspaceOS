@@ -205,7 +205,7 @@ class EventSet(models.QuerySet):
         # to do
         return []
 
-    def pull_from_discuss(self):
+    def pull_from_discourse(self):
         # to do
         return []
 
@@ -255,8 +255,8 @@ class Event(models.Model):
 
     url_meetup_event = models.URLField(
         max_length=250, blank=True, null=True, verbose_name='Meetup URL')
-    url_discuss_event = models.URLField(
-        max_length=250, blank=True, null=True, verbose_name='Discuss URL')
+    url_discourse_event = models.URLField(
+        max_length=250, blank=True, null=True, verbose_name='discourse URL')
     url_slack_event = models.URLField(
         max_length=250, blank=True, null=True, verbose_name='Slack URL')
 

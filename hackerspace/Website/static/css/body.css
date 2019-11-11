@@ -210,8 +210,8 @@ html {
     background-image: url('../images/search/event.svg');
 }
 
-.search_result.discuss {
-    background-image: url('../images/search/discuss.svg');
+.search_result.discourse {
+    background-image: url('../images/search/discourse.svg');
 }
 
 .search_result.machine {
