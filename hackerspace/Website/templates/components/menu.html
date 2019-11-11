@@ -10,20 +10,23 @@
     <div id="search_results"></div>
   </div>
   <a href="#" id="menu_h_landingpage" onclick="getPage('/','menu_h_landingpage')" class="menu_heading{% if slug == '/' %} selected{% endif %}">Landingpage</a>
+  
   <a href="#" onclick="getPage('/values','menu_h_values')" class="menu_heading">About</a>
   <a href="#" id="menu_h_values" onclick="getPage('/values','menu_h_values')" class="menu_heading{% if slug == '/values' %} selected{% endif %} sub_heading">Values</a>
   <a href="https://www.noisebridge.net/wiki/Manual" target="_blank" class="menu_heading sub_heading">Manual</a>
   <a href="https://www.flickr.com/groups/noisebridge/pool/" target="_blank" class="menu_heading sub_heading">Photos</a>
-  {% comment %} 
-  <a href="#" onclick="getPage('/events')" class="menu_heading">Events</a> {% endcomment %}
-  <a href="#" id="menu_h_meetings" onclick="getPage('/meetings','menu_h_meetings')" class="menu_heading{% if slug == '/meetings' %} selected{% endif %}">Meetings</a>
-  <a href="#" id="menu_h_guildes" onclick="getPage('/guildes','menu_h_guildes')" class="menu_heading{% if slug == '/guildes' or 'guilde/' in slug %} selected{% endif %}">Guildes</a>
-  <a href="#" id="menu_h_spaces" onclick="getPage('/spaces','menu_h_spaces')" class="menu_heading{% if slug == '/spaces' or 'space/' in slug %} selected{% endif %}">Spaces</a>
-  <a href="#" id="menu_h_machines" onclick="getPage('/machines','menu_h_machines')" class="menu_heading{% if slug == '/machines' or 'machine/' in slug %} selected{% endif %}">Machines</a>
-  <a href="#" id="menu_h_projects" onclick="getPage('/projects','menu_h_projects')" class="menu_heading{% if slug == '/projects' or 'project/' in slug %} selected{% endif %}">Projects</a>
-  {% comment %} 
-  <a href="#" onclick="getPage('/consensus')" class="menu_heading">Consensus Items</a> {% endcomment %}
-  {% comment %} <a href="#" onclick="getPage('/libraries')" class="menu_heading">Libraries</a>
+  
+  <a href="#" onclick="getPage('/projects','menu_h_projects')" class="menu_heading">Participate</a>
+  <a href="#" id="menu_h_projects" onclick="getPage('/projects','menu_h_projects')" class="menu_heading sub_heading{% if slug == '/projects' or 'project/' in slug %} selected{% endif %}">Projects</a>
+  <a href="#" id="menu_h_spaces" onclick="getPage('/spaces','menu_h_spaces')" class="menu_heading sub_heading{% if slug == '/spaces' or 'space/' in slug %} selected{% endif %}">Spaces</a>
+  <a href="#" id="menu_h_machines" onclick="getPage('/machines','menu_h_machines')" class="menu_heading sub_heading{% if slug == '/machines' or 'machine/' in slug %} selected{% endif %}">Machines</a>
+  <a href="#" id="menu_h_meetings" onclick="getPage('/meetings','menu_h_meetings')" class="menu_heading sub_heading{% if slug == '/meetings' %} selected{% endif %}">Meetings</a>
+  <a href="#" id="menu_h_consensus" onclick="getPage('/consensus','menu_h_consensus')" class="menu_heading sub_heading{% if slug == '/consensus' or 'consensus/' in slug %} selected{% endif %}">Consensus</a>
+  <a href="#" id="menu_h_guildes" onclick="getPage('/guildes','menu_h_guildes')" class="menu_heading sub_heading{% if slug == '/guildes' or 'guilde/' in slug %} selected{% endif %}">Guildes</a>
+  <a href="#" onclick="showOverlay('donate')" class="menu_heading sub_heading">Donate</a>
+
+  {% comment %}<a href="#" onclick="getPage('/events')" class="menu_heading">Events</a>
+  <a href="#" onclick="getPage('/libraries')" class="menu_heading">Libraries</a>
   <a href="#" onclick="getPage('/books')" class="menu_heading sub_heading">Books</a>
   <a href="#" onclick="getPage('/books')" class="menu_heading sub_heading">Games</a> {% endcomment %}
 </div>

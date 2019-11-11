@@ -27,6 +27,8 @@ class Wish(models.Model):
         'Person', related_name="o_wishes_person", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Guilde')
     text_description = models.TextField(
         blank=True, null=True, verbose_name='Description')
+    url_discourse = models.URLField(
+        max_length=200, blank=True, null=True, verbose_name='Discourse URL')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
@@ -39,6 +41,4 @@ class Wish(models.Model):
 
     def save(self, *args, **kwargs):
         self = updateTime(self)
-        self.str_slug = urllib.parse.quote(
-            'wish/'+self.str_name.lower().replace(' ', '-'))
         super(Wish, self).save(*args, **kwargs)

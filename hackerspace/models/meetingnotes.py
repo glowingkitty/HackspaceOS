@@ -93,7 +93,7 @@ class MeetingNote(models.Model):
     text_main_topics = models.TextField(blank=True, null=True)
 
     many_consensus_items = models.ManyToManyField(
-        'ConsensusItem', related_name="m_consensus_items", blank=True)
+        'Consensus', related_name="m_consensus_items", blank=True)
 
     text_keywords = models.TextField(blank=True, null=True)
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)

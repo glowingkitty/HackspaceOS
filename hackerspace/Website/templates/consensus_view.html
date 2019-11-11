@@ -1,0 +1,43 @@
+{% block content %}
+
+<div class="header_block sub_page">
+    <div class="header_separator"></div>
+    <div class="header_image"></div>
+</div>
+
+<div class="max_540">
+    <h2 class="h2 large">Big-C consensus items</h2>
+    <div>{% if all_consensus_items %}{{ all_consensus_items.count }}{% else %}0{% endif %} current item{% if all_consensus_items.count > 1 %}s{% endif %}</div>
+    <br>
+    <div>
+        Most things at {{ HACKERSPACE.HACKERSPACE_NAME }} at done via do-ocracy or small-c-consensus. But if you want to realize something that would change how Noisebridge operates in a drastical way - or if Noisebridge should spend a lot of money on something - add a big-c consensus item. In the next 2 weeks we then discuss that item during the Weekly General Meeting, before it gets approved - if no member objects.<br>
+        <br>
+        <a class="inline_link" href="https://www.noisebridge.net/wiki/Consensus_Process" target="_blank">Learn more on our wiki</a>
+        <br>
+        <br>
+        {% if user.is_authenticated %}
+        <a href="/{{ ADMIN_URL }}/hackerspace/consensus/add/" target="_blank" class="button__cta inline">Add a consensus item</a>
+        {% endif %}
+    </div>
+    <div class="divider_20"></div>
+    <div class="divider_20"></div>
+</div>
+
+<div class="visually_separated_content">
+    <div class="header_separator upside"></div>
+
+    <div class="divider_100"></div>
+    <div class="max_540">
+        {% for result in all_consensus_items %}
+        {% include "components/body/result_preview_block.html" with change_contrast=True url_external=result.url_discourse %}
+        {% endfor %}
+    </div>
+    <div class="divider_100"></div>
+
+
+</div>
+
+{% include "components/body/edit_this_page.html" %}
+
+
+{% endblock %}

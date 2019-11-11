@@ -3,7 +3,6 @@ import urllib.parse
 from django.db import models
 
 from hackerspace.APIs.discourse import get_category_posts
-from hackerspace.models import Event
 from hackerspace.models.events import updateTime
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
 from datetime import datetime
@@ -11,11 +10,24 @@ from dateutil import parser
 
 
 class ProjectSet(models.QuerySet):
+    def search_results(self):
+        results_list = []
+        results = self.all()
+        for result in results:
+            results_list.append({
+                'icon': 'project',
+                'name': result.str_name,
+                'url': result.url_discourse
+            })
+        return results_list
+
     def latest(self):
         return self.order_by('-int_UNIXtime_created')
 
     def pull_from_discourse(self):
         print('pull_from_discourse()')
+        from hackerspace.models import Person
+
         projects = get_category_posts(category='projects', all_pages=True)
         print('process {} projects'.format(len(projects)))
         for project in projects:
@@ -25,6 +37,7 @@ class ProjectSet(models.QuerySet):
                     'url_featured_photo': project['image_url'] if project['image_url'] and '/uploads' in project['image_url'] else None,
                     'url_discourse': HACKERSPACE_DISCOURSE_URL + 't/'+project['slug'],
                     'text_description': project['excerpt'],
+                    'one_creator': Person.objects.get_discourse_creator(project['slug']),
                     'int_UNIXtime_created': round(datetime.timestamp(parser.parse(project['created_at'])))
                 }
                 )
@@ -41,6 +54,8 @@ class Project(models.Model):
         max_length=200, blank=True, null=True, verbose_name='Discourse URL')
     text_description = models.TextField(
         blank=True, null=True, verbose_name='Description')
+    one_creator = models.ForeignKey(
+        'Person', related_name="o_project_creator", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Creator')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
@@ -70,5 +85,5 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
-            'project/'+self.str_name.lower().replace(' ', '-'))
+            'project/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
         super(Project, self).save(*args, **kwargs)

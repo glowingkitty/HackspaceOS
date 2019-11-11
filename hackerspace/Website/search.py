@@ -1,6 +1,6 @@
 from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.wiki import wiki_search
 from hackerspace.APIs.discourse import discourse_search
-from hackerspace.models import Event, MeetingNote, Guilde, Machine
+from hackerspace.models import Event, MeetingNote, Guilde, Machine, Space, Consensus, Project
 from django.db.models import Q
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS, HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS
 
@@ -40,10 +40,30 @@ def search(query):
         Q(str_name__icontains=query) | Q(text_description__icontains=query)
     ).search_results()[:5]
 
+    spaces = Space.objects.filter(
+        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+    ).search_results()[:5]
+
+    consensus_items = Consensus.objects.filter(
+        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+    ).search_results()[:5]
+
+    projects = Project.objects.filter(
+        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+    ).search_results()[:5]
+
     # search in wiki
-    wiki_search_results = wiki_search(query)
+    try:
+        wiki_search_results = wiki_search(query)
+    except:
+        print('wiki search failed')
+        wiki_search_results = []
 
     # search in discourse
-    discourse_search_results = discourse_search(query)
+    try:
+        discourse_search_results = discourse_search(query)
+    except:
+        print('discourse search failed')
+        discourse_search_results = []
 
-    return networks+internchannels+events+guildes+machines+meeting_notes+wiki_search_results+discourse_search_results
+    return networks+internchannels+events+guildes+machines+spaces+meeting_notes+consensus_items+projects+wiki_search_results+discourse_search_results

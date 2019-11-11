@@ -226,6 +226,14 @@ html {
     background-image: url('../images/search/Space.svg');
 }
 
+.search_result.project {
+    background-image: url('../images/search/project.svg');
+}
+
+.search_result.consensus {
+    background-image: url('../images/search/consensus.svg');
+}
+
 .search_input {
     padding-left: 15px;
     background-color: transparent;

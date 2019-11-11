@@ -11,6 +11,11 @@
         A guilde is a group at Noisebridge with a common interest area, responsible for specific spaces and machines at Noisebridge.<br>
         <br>
         <a class="inline_link" href="#">Show full wiki page</a>
+        <br>
+        <br>
+        {% if user.is_authenticated %}
+        <a href="/{{ ADMIN_URL }}/hackerspace/guilde/add/" target="_blank" class="button__cta inline">Add a guilde</a>
+        {% endif %}
     </div>
     <div class="divider_20"></div>
     <div class="divider_20"></div>

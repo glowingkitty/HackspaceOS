@@ -61,6 +61,8 @@ urlpatterns = [
     path('project/<str:sub_page>', views.project_view,
          name='project_view'),
 
+    path('consensus', views.consensus_view, name='consensus'),
+
     path('get/', views.get_view, name='get'),
     path('load_more', views.load_more_view, name='load_more'),
     path('save', views.save_view, name='save'),

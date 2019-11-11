@@ -2,11 +2,20 @@ from django.db import models
 
 from hackerspace.models import Event
 from hackerspace.models.events import updateTime
-from hackerspace.APIs.discourse import get_users
+from hackerspace.APIs.discourse import get_users, get_post_details
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
+from django.db.models import Q
 
 
 class PersonSet(models.QuerySet):
+    def get_discourse_creator(self, slug):
+        print('get_discourse_creator()')
+        try:
+            details = get_post_details(slug)
+            return self.filter(Q(str_name=details['name']) | Q(str_name=details['username'])).first()
+        except:
+            return None
+
     def pull_from_discourse(self):
         print('pull_from_discourse()')
         users = get_users()

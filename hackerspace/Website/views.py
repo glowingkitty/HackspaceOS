@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 
 from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
-from hackerspace.models import Error, Project, Event, Guilde, MeetingNote, Space, Machine
+from hackerspace.models import Error, Project, Event, Guilde, MeetingNote, Space, Machine, Consensus
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.website.search import search
@@ -137,6 +137,14 @@ def get_view_response(request, page, sub_page, hashname):
             'selected': selected
         }}
 
+    elif page == 'consensus':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Big-C consensus items',
+            'page_description': 'When you want to do something that would drastically change '+HACKERSPACE.HACKERSPACE_NAME+' (or need a lot of money from Noisebridge for a project) - suggest a Big-C consensus item!',
+            'all_consensus_items': Consensus.objects.current()
+        }}
+
 
 def get_page_response(request, page, sub_page=None):
     print(page+'_view')
@@ -235,7 +243,11 @@ def project_view(request, sub_page):
     # if space not found, redirect to all spaces page
     if not Project.objects.filter(str_slug=sub_page).exists():
         return HttpResponseRedirect('/projects')
-    return get_page_response(request, 'projectf', sub_page)
+    return get_page_response(request, 'project', sub_page)
+
+
+def consensus_view(request):
+    return get_page_response(request, 'consensus')
 
 
 def get_view(request):

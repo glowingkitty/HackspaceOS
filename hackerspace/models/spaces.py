@@ -53,5 +53,5 @@ class Space(models.Model):
     def save(self, *args, **kwargs):
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
-            'space/'+self.str_name.lower().replace(' ', '-'))
+            'space/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Space, self).save(*args, **kwargs)

@@ -51,5 +51,5 @@ class Machine(models.Model):
     def save(self, *args, **kwargs):
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
-            'machine/'+self.str_name.lower().replace(' ', '-'))
+            'machine/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Machine, self).save(*args, **kwargs)

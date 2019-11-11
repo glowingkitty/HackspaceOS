@@ -54,6 +54,13 @@ def get_category_posts(category, all_pages=False):
     return response_json['topic_list']['topics']
 
 
+def get_post_details(slug):
+    print('get_post_details()')
+    response_json = requests.get(
+        HACKERSPACE_DISCOURSE_URL+'t/'+slug+'.json', headers={'Accept': 'application/json'})
+    return response_json.json()['post_stream']['posts'][0]
+
+
 def get_users(sort='days_visited'):
     print('get_users()')
     results = []
