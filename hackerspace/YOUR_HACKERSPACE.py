@@ -56,6 +56,7 @@ EDIT_CONTENT_INFO = 'ask on the #rack channel in Slack for access to the website
 
 # https://www.meetup.com/{{HACKERSPACE_MEETUP_GROUP}}/
 HACKERSPACE_MEETUP_GROUP = 'noisebridge'
+EXTRA_MEETUP_GROUPS = ['Free-Code-Camp-SF', 'StartupSchool-SF']
 
 # how do you want to call people coming to your hackerspace?
 HACKERSPACE_PEOPLE_NAME = 'Noisebutts'
