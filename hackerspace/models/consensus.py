@@ -37,7 +37,6 @@ class ConsensusSet(models.QuerySet):
                     'text_description': consensus_item['excerpt'],
                     'int_UNIXtime_created': round(datetime.timestamp(parser.parse(consensus_item['created_at']))),
                     'one_creator': Person.objects.get_discourse_creator(consensus_item['slug']),
-                    'str_status': 'new',
                 }
                 )
 
@@ -71,7 +70,7 @@ class Consensus(models.Model):
     one_creator = models.ForeignKey(
         'Person', related_name="o_consensus_creator", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Creator')
     str_status = models.CharField(
-        max_length=250, blank=True, null=True, choices=STATUS_CHOICES, verbose_name='Status')
+        max_length=250, default='new', choices=STATUS_CHOICES, verbose_name='Status')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
