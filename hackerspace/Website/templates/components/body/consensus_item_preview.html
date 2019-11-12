@@ -9,11 +9,14 @@
     <div class="block__consensus_status">
         <div class="text__consensus_status{% if result.str_status == 'new' %} active{% endif %}">New</div>
         <div class="text__consensus_status{% if result.str_status == 'passed_1' %} active{% endif %}">Meeting 1 passed</div>
-        {% if result.str_status != 'rejected' %}
-        <div class="text__consensus_status{% if result.str_status == 'approved' %} active{% endif %}">Meeting 2 passed</div>
-        {% endif %}
-        {% if result.str_status == 'rejected' %}
+        {% if result.str_status == 'approved' %}
+        <div class="text__consensus_status active">Meeting 2 passed</div>
+        {% elif result.str_status == 'rejected' %}
         <div class="text__consensus_status active">Rejected</div>
+        {% elif result.str_status == 'archived' %}
+        <div class="text__consensus_status active">Archived</div>
+        {% else %}
+        <div class="text__consensus_status">Meeting 2 passed</div>
         {% endif %}
     </div>
 </a>

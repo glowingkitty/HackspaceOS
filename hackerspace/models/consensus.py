@@ -44,10 +44,10 @@ class ConsensusSet(models.QuerySet):
         return self.order_by('-int_UNIXtime_created')
 
     def current(self):
-        return self.exclude(str_status='approved').latest()
+        return self.filter(Q(str_status='new') | Q(str_status='passed_1')).latest()
 
     def archived(self):
-        return self.filter(Q(str_status='approved') | Q(str_status='rejected')).latest()
+        return self.filter(Q(str_status='approved') | Q(str_status='rejected') | Q(str_status='archived')).latest()
 
 
 STATUS_CHOICES = (
