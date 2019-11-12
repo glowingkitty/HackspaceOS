@@ -1,3 +1,4 @@
+import re
 from django.template import Library
 from hackerspace.tools.tools import remove_tags
 
@@ -12,6 +13,13 @@ def prepareForTextCarusel(HACKERSPACE_IS_SENTENCES):
     if output.endswith(', '):
         output = output[:-2]
     return output
+
+
+@register.filter
+def cleanhtml(raw_html):
+    cleanr = re.compile('<.*?>')
+    cleantext = re.sub(cleanr, '', raw_html)
+    return cleantext
 
 
 @register.filter

@@ -128,3 +128,33 @@
     font-size: 50px;
     line-height: 70px;
 }
+
+.tab_heading {
+    width: 49%;
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: black;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    opacity: 0.5;
+}
+
+.tab_heading:hover {
+    opacity: 1;
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+.tab_heading.active {
+    opacity: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+    .tab_heading {
+        color: #d4d4d4;
+    }
+}

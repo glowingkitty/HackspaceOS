@@ -142,7 +142,8 @@ def get_view_response(request, page, sub_page, hashname):
             'slug': '/'+page,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Big-C consensus items',
             'page_description': 'When you want to do something that would drastically change '+HACKERSPACE.HACKERSPACE_NAME+' (or need a lot of money from Noisebridge for a project) - suggest a Big-C consensus item!',
-            'all_consensus_items': Consensus.objects.current()
+            'all_current_items': Consensus.objects.current(),
+            'all_archived_items': Consensus.objects.archived(),
         }}
 
 

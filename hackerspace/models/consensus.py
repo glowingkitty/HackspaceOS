@@ -7,6 +7,7 @@ from hackerspace.models.events import updateTime
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
 from datetime import datetime
 from dateutil import parser
+from django.db.models import Q
 
 
 class ConsensusSet(models.QuerySet):
@@ -46,11 +47,16 @@ class ConsensusSet(models.QuerySet):
     def current(self):
         return self.exclude(str_status='approved').latest()
 
+    def archived(self):
+        return self.filter(Q(str_status='approved') | Q(str_status='rejected')).latest()
+
 
 STATUS_CHOICES = (
     ('new', 'New'),
     ('passed_1', 'Meeting 1 passed'),
     ('approved', 'Approved'),
+    ('rejected', 'Rejected'),
+    ('archived', 'Archived'),
 )
 
 
