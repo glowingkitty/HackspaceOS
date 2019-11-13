@@ -13,7 +13,7 @@ from config import ADMIN_URL
 def get_view_response(request, page, sub_page, hashname):
     context = {
         'view': page+'_view',
-        'inspace': True if request.COOKIES.get('inspace') else None,
+        'in_space': True if request.COOKIES.get('in_space') else None,
         'HACKERSPACE': HACKERSPACE,
         'hash': hashname,
         'page_git_url': HACKERSPACE.WEBSITE_GIT+'/Website/templates/'+page+'_view.html',
@@ -27,7 +27,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_name': HACKERSPACE.HACKERSPACE_NAME,
             'page_description': make_description_sentence(),
             'is_open_status': getOpenNowStatus(),
-            'upcoming_events': Event.objects.upcoming()[:5]
+            'upcoming_events': Event.objects.upcoming()[:5],
         }}
 
     elif page == 'values':
