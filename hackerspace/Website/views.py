@@ -251,6 +251,18 @@ def consensus_view(request):
     return get_page_response(request, 'consensus')
 
 
+def events_view(request):
+    return get_page_response(request, 'events')
+
+
+def event_view(request, sub_page):
+    sub_page = 'event/'+sub_page
+    # if space not found, redirect to all spaces page
+    if not Event.objects.filter(str_slug=sub_page).exists():
+        return HttpResponseRedirect('/events')
+    return get_page_response(request, 'event', sub_page)
+
+
 def get_view(request):
     print('get_view')
     in_space = request.COOKIES.get('in_space')

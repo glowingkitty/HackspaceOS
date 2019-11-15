@@ -1,9 +1,5 @@
 from django.db import models
 
-from hackerspace.models import Event, Machine
-from hackerspace.models.events import updateTime
-import urllib.parse
-
 
 class SpaceSet(models.QuerySet):
     def search_results(self):
@@ -40,10 +36,14 @@ class Space(models.Model):
 
     @property
     def events(self):
+        from hackerspace.models import Event
+
         return Event.objects.in_space(one_space=self)
 
     @property
     def machines(self):
+        from hackerspace.models import Machine
+
         return Machine.objects.filter(one_space=self)
 
     @property
@@ -51,6 +51,9 @@ class Space(models.Model):
         return 'menu_h_spaces'
 
     def save(self, *args, **kwargs):
+        from hackerspace.models.events import updateTime
+        import urllib.parse
+
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
             'space/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))

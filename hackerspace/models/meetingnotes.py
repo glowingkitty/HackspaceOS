@@ -1,22 +1,12 @@
-import os
-import re
-import sys
-import time
-from datetime import datetime
-
-import pytz
-import requests
 from django.db import models
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-
-from hackerspace.models.events import updateTime
-from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_TIMEZONE_STRING,
-                                          RISEUPPAD_MEETING_PATH, WIKI_API_URL)
 
 
 def startChrome(headless, url):
+    import os
+    import sys
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+
     options = Options()
     if headless == True:
         options.add_argument('--headless')
@@ -30,6 +20,9 @@ def startChrome(headless, url):
 
 
 def openMeetingNotes():
+    import time
+    from hackerspace.YOUR_HACKERSPACE import RISEUPPAD_MEETING_PATH
+
     browser = startChrome(
         headless=True, url='https://pad.riseup.net/p/'+RISEUPPAD_MEETING_PATH)
     time.sleep(5)
@@ -54,6 +47,9 @@ class MeetingNoteSet(models.QuerySet):
         return self.filter(text_notes__isnull=False).order_by('-int_UNIXtime_created')
 
     def import_all_from_wiki(self):
+        import requests
+        from hackerspace.YOUR_HACKERSPACE import WIKI_API_URL
+
         response_json = requests.get(WIKI_API_URL +
                                      '?action=query&list=categorymembers&cmtitle=Category:Meeting_Notes&cmlimit=500&format=json').json()
 
@@ -101,6 +97,10 @@ class MeetingNote(models.Model):
 
     @property
     def date(self):
+        import pytz
+        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
+        from datetime import datetime
+
         local_timezone = pytz.timezone(HACKERSPACE_TIMEZONE_STRING)
         local_time = datetime.fromtimestamp(
             self.int_UNIXtime_created, local_timezone)
@@ -116,6 +116,8 @@ class MeetingNote(models.Model):
 
     @property
     def running_since(self):
+        import time
+
         # reduce 30 seconds, considering time it takes to create notes
         seconds_ago = time.time()-self.int_UNIXtime_created-30
         minutes = round(seconds_ago/60)
@@ -126,6 +128,15 @@ class MeetingNote(models.Model):
 
     def start(self):
         print('Starting...')
+        import os
+        import sys
+        import time
+        from datetime import datetime
+        import pytz
+        from selenium.webdriver.common.keys import Keys
+        from hackerspace.YOUR_HACKERSPACE import (
+            HACKERSPACE_TIMEZONE_STRING, RISEUPPAD_MEETING_PATH)
+
         browser = openMeetingNotes()
 
         input_field = browser.find_element_by_id('innerdocbody')
@@ -154,6 +165,8 @@ class MeetingNote(models.Model):
         print('Done: Ended & saved meeting')
 
     def get_keywords(self):
+        import re
+
         keywords = re.findall('#(\w+)', self.text_notes)
         keywords = [
             x.replace('#', '')
@@ -169,6 +182,10 @@ class MeetingNote(models.Model):
         return ','.join(filtered)
 
     def get_main_topics(self):
+        import os
+        import sys
+        import re
+
         # find main topics via heading in note template
         main_topics = re.findall('(?<==).*', open(os.path.join(
             sys.path[0], 'hackerspace/website/templates/meeting_notes.txt'), 'r').read())
@@ -208,6 +225,9 @@ class MeetingNote(models.Model):
         return self.text_date
 
     def updateCreatedBasedOnName(self):
+        import time
+        from datetime import datetime
+
         try:
             self.int_UNIXtime_created = int(time.mktime(
                 datetime.strptime(self.text_date, "%Y-%m-%d").timetuple()))
@@ -216,12 +236,18 @@ class MeetingNote(models.Model):
             print('Failed for '+self.text_date)
 
     def import_from_local(self):
+        import os
+        import sys
+
         self.text_notes = open(os.path.join(
             sys.path[0], 'hackerspace/meeting_notes/'+self.text_date+'.txt'), 'r').read()
         self.updateCreatedBasedOnName()
         self.save()
 
     def import_from_wiki(self, page):
+        import requests
+        from hackerspace.YOUR_HACKERSPACE import WIKI_API_URL
+
         self.text_date = page.split('Notes ')[1].replace(' ', '-')
 
         # see if notes already exist, else, create
@@ -243,6 +269,8 @@ class MeetingNote(models.Model):
             print('Skipped - Already exists. '+self.text_date)
 
     def save(self, *args, **kwargs):
+        from hackerspace.models.events import updateTime
+
         self = updateTime(self)
         if not self.text_date:
             self.text_date = str(self.date)

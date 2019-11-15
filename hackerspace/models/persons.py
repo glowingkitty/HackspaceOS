@@ -1,14 +1,11 @@
 from django.db import models
 
-from hackerspace.models import Event
-from hackerspace.models.events import updateTime
-from hackerspace.APIs.discourse import get_users, get_post_details
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
-from django.db.models import Q
-
 
 class PersonSet(models.QuerySet):
     def get_discourse_creator(self, slug):
+        from hackerspace.APIs.discourse import get_post_details
+        from django.db.models import Q
+
         print('get_discourse_creator()')
         try:
             details = get_post_details(slug)
@@ -17,6 +14,9 @@ class PersonSet(models.QuerySet):
             return None
 
     def pull_from_discourse(self):
+        from hackerspace.APIs.discourse import get_users
+        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
+
         print('pull_from_discourse()')
         users = get_users()
         print('process {} users'.format(len(users)))
@@ -52,19 +52,19 @@ class Person(models.Model):
             )
             for key, value in json_content.items():
                 setattr(obj, key, value)
-            obj = updateTime(obj)
             obj.save()
             print('Updated "'+obj.str_name+'"')
         except Person.DoesNotExist:
             obj = Person(**json_content)
-            obj = updateTime(obj)
             obj.save()
             print('Created "'+obj.str_name+'"')
 
     @property
     def events(self):
+        from hackerspace.models import Event
         return Event.objects.by_host(one_host=self)
 
     def save(self, *args, **kwargs):
+        from hackerspace.models.events import updateTime
         self = updateTime(self)
         super(Person, self).save(*args, **kwargs)

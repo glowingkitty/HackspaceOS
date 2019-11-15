@@ -1,12 +1,4 @@
-import urllib.parse
-
 from django.db import models
-
-from hackerspace.APIs.discourse import get_category_posts
-from hackerspace.models.events import updateTime
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
-from datetime import datetime
-from dateutil import parser
 
 
 class ProjectSet(models.QuerySet):
@@ -27,6 +19,10 @@ class ProjectSet(models.QuerySet):
     def pull_from_discourse(self):
         print('pull_from_discourse()')
         from hackerspace.models import Person
+        from hackerspace.APIs.discourse import get_category_posts
+        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
+        from datetime import datetime
+        from dateutil import parser
 
         projects = get_category_posts(category='projects', all_pages=True)
         print('process {} projects'.format(len(projects)))
@@ -73,16 +69,17 @@ class Project(models.Model):
             )
             for key, value in json_content.items():
                 setattr(obj, key, value)
-            obj = updateTime(obj)
             obj.save()
             print('Updated "'+obj.str_name+'"')
         except Project.DoesNotExist:
             obj = Project(**json_content)
-            obj = updateTime(obj)
             obj.save()
             print('Created "'+obj.str_name+'"')
 
     def save(self, *args, **kwargs):
+        from hackerspace.models.events import updateTime
+        import urllib.parse
+
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
             'project/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))

@@ -1,8 +1,4 @@
-import urllib.parse
-
 from django.db import models
-
-from hackerspace.models.events import updateTime
 
 
 class WishesSet(models.QuerySet):
@@ -40,5 +36,7 @@ class Wish(models.Model):
         return 'menu_h_wishes'
 
     def save(self, *args, **kwargs):
+        from hackerspace.models.events import updateTime
+
         self = updateTime(self)
         super(Wish, self).save(*args, **kwargs)

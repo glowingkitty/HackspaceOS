@@ -1,9 +1,5 @@
 from django.db import models
 
-from hackerspace.models import Event
-from hackerspace.models.events import updateTime
-import urllib.parse
-
 
 class GuildeSet(models.QuerySet):
     def search_results(self):
@@ -40,6 +36,8 @@ class Guilde(models.Model):
 
     @property
     def events(self):
+        from hackerspace.models import Event
+
         search_query = self.str_name.lower().split('guilde')[0]
         return Event.objects.upcoming().filter(str_name__icontains=search_query)
 
@@ -48,6 +46,9 @@ class Guilde(models.Model):
         return 'menu_h_guildes'
 
     def save(self, *args, **kwargs):
+        import urllib.parse
+        from hackerspace.models.events import updateTime
+
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
             'guilde/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))

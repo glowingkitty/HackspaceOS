@@ -1,9 +1,5 @@
 from django.db import models
 
-from hackerspace.models import Event
-from hackerspace.models.events import updateTime
-import urllib.parse
-
 
 class MachineSet(models.QuerySet):
     def search_results(self):
@@ -42,6 +38,8 @@ class Machine(models.Model):
 
     @property
     def events(self):
+        from hackerspace.models import Event
+
         return Event.objects.in_space(one_space=self)
 
     @property
@@ -49,6 +47,8 @@ class Machine(models.Model):
         return 'menu_h_machines'
 
     def save(self, *args, **kwargs):
+        from hackerspace.models.events import updateTime
+        import urllib.parse
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
             'machine/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))

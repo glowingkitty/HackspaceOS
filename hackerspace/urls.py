@@ -61,6 +61,10 @@ urlpatterns = [
     path('project/<str:sub_page>', views.project_view,
          name='project_view'),
 
+    path('events', views.events_view, name='events'),
+    path('event/<str:sub_page>', views.event_view,
+         name='event_view'),
+
     path('consensus', views.consensus_view, name='consensus'),
 
     path('get/', views.get_view, name='get'),

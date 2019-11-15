@@ -214,6 +214,7 @@ class Event(models.Model):
     objects = EventSet.as_manager()
     str_name = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
+    str_slug = models.CharField(max_length=250, blank=True, null=True)
     int_UNIXtime_event_start = models.IntegerField(
         blank=True, null=True, verbose_name='Event start (UNIX time)')
     int_minutes_duration = models.IntegerField(
@@ -360,6 +361,15 @@ class Event(models.Model):
     def str_location(self):
         return self.str_location_name+'\n'+self.str_location_street+'\n'+self.str_location_zip+'\n'+self.str_location_city+'\n'+self.str_location_countrycode
 
+    def save(self, *args, **kwargs):
+        import urllib.parse
+        from hackerspace.models.events import updateTime
+
+        self = updateTime(self)
+        self.str_slug = urllib.parse.quote(
+            'event/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
+        super(Event, self).save(*args, **kwargs)
+
     def create(self, json_content):
         try:
             obj = Event.objects.get(
@@ -368,12 +378,10 @@ class Event(models.Model):
             )
             for key, value in json_content.items():
                 setattr(obj, key, value)
-            obj = updateTime(obj)
             obj.save()
             print('Updated "'+obj.str_name+' | ' + obj.datetime_range+'"')
         except Event.DoesNotExist:
             obj = Event(**json_content)
-            obj = updateTime(obj)
             obj.save()
             print('Created "'+obj.str_name+' | ' + obj.datetime_range+'"')
 
