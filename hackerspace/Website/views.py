@@ -70,7 +70,15 @@ def get_view_response(request, page, sub_page, hashname):
             'slug': '/'+page,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Guildes',
             'page_description': 'Join a guilde at '+HACKERSPACE.HACKERSPACE_NAME+'!',
-            'all_guildes': Guilde.objects.all()[:10]
+            'headline': 'Guildes',
+            'description': 'A guilde is a group at {} with a common interest area, responsible for specific spaces and machines at {}.'.format(HACKERSPACE.HACKERSPACE_NAME, HACKERSPACE.HACKERSPACE_NAME),
+            'wiki_url': '#',
+            'add_new_requires_user': True,
+            'addnew_url': '/{}/hackerspace/guilde/add/'.format(ADMIN_URL),
+            'addnew_text': 'Add guilde',
+            'all_results': Guilde.objects.all()[:10],
+            'results_count': Guilde.objects.count(),
+            'show_more': page
         }}
     elif page == 'guilde':
         if 'guilde/' not in sub_page:
@@ -88,7 +96,14 @@ def get_view_response(request, page, sub_page, hashname):
             'slug': '/'+page,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Spaces',
             'page_description': HACKERSPACE.HACKERSPACE_NAME+' has many awesome spaces!',
-            'all_spaces': Space.objects.all()[:10]
+            'headline': 'Spaces',
+            'description': 'At {} fellow hackers like you created all kinds of awesome spaces. Check them out!'.format(HACKERSPACE.HACKERSPACE_NAME),
+            'add_new_requires_user': True,
+            'addnew_url': '/{}/hackerspace/space/add/'.format(ADMIN_URL),
+            'addnew_text': 'Add space',
+            'all_results': Space.objects.all()[:10],
+            'results_count': Space.objects.count(),
+            'show_more': page
         }}
     elif page == 'space':
         if 'space/' not in sub_page:
@@ -106,7 +121,14 @@ def get_view_response(request, page, sub_page, hashname):
             'slug': '/'+page,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Machines',
             'page_description': HACKERSPACE.HACKERSPACE_NAME+' has all kinds of awesome machines!',
-            'all_machines': Machine.objects.all()[:10]
+            'headline': 'Machines',
+            'description': 'We have many super useful machines at {}, allowing you to build nearly everything you want to build!'.format(HACKERSPACE.HACKERSPACE_NAME),
+            'add_new_requires_user': True,
+            'addnew_url': '/{}/hackerspace/machine/add/'.format(ADMIN_URL),
+            'addnew_text': 'Add machine',
+            'all_results': Machine.objects.all()[:10],
+            'results_count': Machine.objects.count(),
+            'show_more': page
         }}
     elif page == 'machine':
         if 'machine/' not in sub_page:
@@ -124,7 +146,14 @@ def get_view_response(request, page, sub_page, hashname):
             'slug': '/'+page,
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Projects',
             'page_description': 'People at '+HACKERSPACE.HACKERSPACE_NAME+' created all kinds of awesome projects!',
-            'all_projects': Project.objects.latest()[:10]
+            'headline': 'Projects',
+            'description': 'At {} fellow hackers like you created all kinds of awesome projects - both their own and projects for the space. Check them out - and create your own one!'.format(HACKERSPACE.HACKERSPACE_NAME),
+            'add_new_requires_user': False,
+            'addnew_url': '{}c/projects/'.format(HACKERSPACE.HACKERSPACE_DISCOURSE_URL),
+            'addnew_text': 'Add project',
+            'all_results': Project.objects.latest()[:10],
+            'results_count': Project.objects.count(),
+            'show_more': page
         }}
     elif page == 'project':
         if 'project/' not in sub_page:
@@ -144,6 +173,31 @@ def get_view_response(request, page, sub_page, hashname):
             'page_description': 'When you want to do something that would drastically change '+HACKERSPACE.HACKERSPACE_NAME+' (or need a lot of money from Noisebridge for a project) - suggest a Big-C consensus item!',
             'all_current_items': Consensus.objects.current(),
             'all_archived_items': Consensus.objects.archived(),
+        }}
+
+    elif page == 'events':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Events',
+            'page_description': 'At '+HACKERSPACE.HACKERSPACE_NAME+' we have all kinds of cool events - organized by your fellow hackers!',
+            'headline': 'Events',
+            'description': '{} is a place where people come together to learn, share ideas and have an excellent time. Nearly all of our events are free - so just come by and join us - or organize your own event at {}!'.format(HACKERSPACE.HACKERSPACE_NAME, HACKERSPACE.HACKERSPACE_NAME),
+            'add_new_requires_user': False,
+            'addnew_url': 'https://meetup.com/'+HACKERSPACE.HACKERSPACE_MEETUP_GROUP,
+            'addnew_text': 'Organize an event',
+            'all_results': Event.objects.upcoming()[:10],
+            'results_count': Event.objects.count(),
+            'show_more': page
+        }}
+    elif page == 'event':
+        if 'event/' not in sub_page:
+            sub_page = 'event/'+sub_page
+        selected = Event.objects.filter(str_slug=sub_page).first()
+        return {**context, **{
+            'slug': '/event/'+sub_page,
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Event | '+selected.str_name,
+            'page_description': selected.text_description,
+            'selected': selected
         }}
 
 
@@ -311,7 +365,6 @@ def get_view(request):
 
     elif request.GET.get('what', None):
         page = request.GET.get('what', None)
-        print(page)
         if page == '__':
             page = 'landingpage'
         else:
@@ -322,13 +375,11 @@ def get_view(request):
         else:
             sub_page = None
 
-        print(page, sub_page)
-
         hashname = page.split('#')[1] if '#' in page else None
         response_context = get_view_response(request, page, sub_page, hashname)
         response = JsonResponse(
             {
-                'html': get_template(page+'_view.html').render(response_context),
+                'html': get_template('results_list.html' if 'all_results' in response_context else page+'_view.html').render(response_context),
                 'page_name': response_context['page_name']
             }
         )
@@ -341,15 +392,30 @@ def get_view(request):
 
 def load_more_view(request):
     print('load_more_view')
+    from hackerspace.website.views_helper_functions import JSON_RESPONSE_more_results
+
     if request.GET.get('what', None) and request.GET.get('from', None):
-        start_from = int(request.GET.get('from', None))
-        upt_to = int(start_from+10)
-        response = JsonResponse({
-            'html': get_template('components/body/meetings/meetings_list.html').render({
-                'past_meetings': MeetingNote.objects.past()[start_from:upt_to]
-            }),
-            'continue_from': upt_to
-        })
+        if request.GET.get('what', None) == 'meeting_notes':
+            response = JSON_RESPONSE_more_results(
+                request, 'meetings/meetings_list.html', MeetingNote.objects.past())
+        elif request.GET.get('what', None) == 'events':
+            response = JSON_RESPONSE_more_results(
+                request, 'results_list_entries.html', Event.objects.upcoming())
+        elif request.GET.get('what', None) == 'projects':
+            response = JSON_RESPONSE_more_results(
+                request, 'results_list_entries.html', Project.objects.latest())
+        elif request.GET.get('what', None) == 'spaces':
+            response = JSON_RESPONSE_more_results(
+                request, 'results_list_entries.html', Space.objects.all())
+        elif request.GET.get('what', None) == 'machines':
+            response = JSON_RESPONSE_more_results(
+                request, 'results_list_entries.html', Machine.objects.all())
+        elif request.GET.get('what', None) == 'guildes':
+            response = JSON_RESPONSE_more_results(
+                request, 'results_list_entries.html', Guilde.objects.all())
+        elif request.GET.get('what', None) == 'consensus':
+            response = JSON_RESPONSE_more_results(
+                request, 'results_list_entries.html', Consensus.objects.latest())
     else:
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404

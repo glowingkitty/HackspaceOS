@@ -11,7 +11,11 @@
     <a href="#" onclick="openMenu()" class="menu_icon"></a>
     <a href="#" onclick="showOverlay('donate')" class="button__donate">Donate</a>
     <div id="page_content">
+      {% if all_results %}
+      {% include "results_list.html" %}
+      {% else %}
       {% include ""|add:view|add:'.html' %}
+      {% endif %}
     </div>
     {% include "components/footer.html" %}
   </div>

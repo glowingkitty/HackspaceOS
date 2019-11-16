@@ -43,6 +43,9 @@ function showMore(what) {
         .then(function (response) {
             document.getElementById('more_start_from').value = response.data.continue_from
             document.getElementById('next_results').outerHTML = response.data.html
+            if (response.data.more_results == false) {
+                document.getElementById('button__show_more').style.display = 'none'
+            }
         })
         .catch(function (error) {
             console.log(error);

@@ -1,0 +1,45 @@
+{% block content %}
+
+<div class="header_block sub_page">
+    <div class="header_separator"></div>
+    <div class="header_image"></div>
+</div>
+
+<div class="max_540">
+    <h2 class="h2 large">{{ headline }}</h2>
+    <div>
+        {{ description }}
+        <br>
+        {% if wiki_url %}
+        <br>
+        <a class="inline_link" href="{{ wiki_url }}">Show full wiki page</a>
+        <br>
+        {% endif %}
+        <br>
+        {% if add_new_requires_user == False or user.is_authenticated %}
+        <a href="{{ addnew_url }}" target="_blank" class="button__cta inline">{{ addnew_text }}</a>
+        {% endif %}
+    </div>
+    <div class="divider_20"></div>
+    <div class="divider_20"></div>
+</div>
+
+<div class="visually_separated_content">
+    <div class="header_separator upside"></div>
+
+    <div class="divider_100"></div>
+    <div class="max_540">
+        {% include "components/body/results_list_entries.html" %}
+        <input type="hidden" id="more_start_from" value="10"></input>
+        {% if results_count > 10 %}
+        <a href="#button__show_more" id="button__show_more" onclick="showMore('{{ show_more }}')" class="button__cta secondary">Show more</a>
+        {% endif %}
+    </div>
+    <div class="divider_100"></div>
+
+</div>
+
+{% include "components/body/edit_this_page.html" %}
+
+
+{% endblock %}
