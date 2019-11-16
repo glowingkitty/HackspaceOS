@@ -1,0 +1,8 @@
+{% block content %}
+
+{% for result in all_items %}
+{% include "components/body/consensus_item_preview.html" %}
+{% endfor %}
+<div id="next_results{{ specific_selector }}"></div>
+
+{% endblock %}

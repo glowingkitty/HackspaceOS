@@ -34,18 +34,20 @@
         {% if not all_current_items %}
         No current consensus items
         {% else %}
-        {% for result in all_current_items %}
-        {% include "components/body/consensus_item_preview.html" %}
-        {% endfor %}
+        {% include "components/body/consensus_items_entries.html" with all_items=all_current_items specific_selector='_current' %}
+        {% if all_current_items_count > 10 %}
+        <a href="#button__show_more" id="button__show_more_current" onclick="showMore('{{ show_more }}','_current')" class="button__cta secondary">Show more</a>
+        {% endif %}
         {% endif %}
     </div>
     <div id="tab__archive" style="display: none" name="tabs" class="max_540">
         {% if not all_archived_items %}
         No archived consensus items
         {% else %}
-        {% for result in all_archived_items %}
-        {% include "components/body/consensus_item_preview.html" %}
-        {% endfor %}
+        {% include "components/body/consensus_items_entries.html" with all_items=all_archived_items next_results_id_addition='_archive' %}
+        {% if all_archived_items_count > 10 %}
+        <a href="#button__show_more" id="button__show_more_archived" onclick="showMore('{{ show_more }}','_archived')" class="button__cta secondary">Show more</a>
+        {% endif %}
         {% endif %}
     </div>
     <div class="divider_100"></div>

@@ -172,7 +172,10 @@ def get_view_response(request, page, sub_page, hashname):
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Big-C consensus items',
             'page_description': 'When you want to do something that would drastically change '+HACKERSPACE.HACKERSPACE_NAME+' (or need a lot of money from Noisebridge for a project) - suggest a Big-C consensus item!',
             'all_current_items': Consensus.objects.current(),
+            'all_current_items_count': Consensus.objects.current().count(),
             'all_archived_items': Consensus.objects.archived(),
+            'all_archived_items_count': Consensus.objects.archived().count(),
+
         }}
 
     elif page == 'events':
@@ -415,7 +418,7 @@ def load_more_view(request):
                 request, 'results_list_entries.html', Guilde.objects.all())
         elif request.GET.get('what', None) == 'consensus':
             response = JSON_RESPONSE_more_results(
-                request, 'results_list_entries.html', Consensus.objects.latest())
+                request, 'consensus_items_entries.html', Consensus.objects.latest(), request.GET.get('specific_selector', None))
     else:
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404

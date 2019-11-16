@@ -38,13 +38,13 @@ function request_html(parameter, replace_id, inner_OR_outer = 'inner') {
         });
 }
 
-function showMore(what) {
-    axios.get("/load_more?what=" + what + '&from=' + document.getElementById('more_start_from').value)
+function showMore(what, specific_selector) {
+    axios.get("/load_more?what=" + what + '&from=' + document.getElementById('more_start_from').value + '&specific_selector=' + specific_selector)
         .then(function (response) {
             document.getElementById('more_start_from').value = response.data.continue_from
-            document.getElementById('next_results').outerHTML = response.data.html
+            document.getElementById('next_results' + specific_selector).outerHTML = response.data.html
             if (response.data.more_results == false) {
-                document.getElementById('button__show_more').style.display = 'none'
+                document.getElementById('button__show_more' + specific_selector).style.display = 'none'
             }
         })
         .catch(function (error) {

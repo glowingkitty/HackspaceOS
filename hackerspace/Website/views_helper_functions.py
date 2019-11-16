@@ -1,7 +1,7 @@
 # by Marco Bartsch
 
 
-def JSON_RESPONSE_more_results(request, template_path, queryset):
+def JSON_RESPONSE_more_results(request, template_path, queryset, specific_selector=None):
     print('LOG: JSON_RESPONSE_more_results(request,queryset)')
     from django.http import JsonResponse
     from django.template.loader import get_template
@@ -11,7 +11,8 @@ def JSON_RESPONSE_more_results(request, template_path, queryset):
 
     return JsonResponse({
         'html': get_template('components/body/'+template_path).render({
-            'all_results': queryset[start_from:upt_to]
+            'all_results': queryset[start_from:upt_to],
+            'specific_selector': specific_selector
         }),
         'continue_from': upt_to,
         'more_results': True if queryset.count() > upt_to else False

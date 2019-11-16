@@ -32,7 +32,7 @@
         {% include "components/body/results_list_entries.html" %}
         <input type="hidden" id="more_start_from" value="10"></input>
         {% if results_count > 10 %}
-        <a href="#button__show_more" id="button__show_more" onclick="showMore('{{ show_more }}')" class="button__cta secondary">Show more</a>
+        <a href="#button__show_more" id="button__show_more" onclick="showMore('{{ show_more }}','')" class="button__cta secondary">Show more</a>
         {% endif %}
     </div>
     <div class="divider_100"></div>
