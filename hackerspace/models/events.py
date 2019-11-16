@@ -367,7 +367,7 @@ class Event(models.Model):
 
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
-            'event/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
+            'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Event, self).save(*args, **kwargs)
 
     def create(self, json_content):
