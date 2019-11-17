@@ -13,7 +13,7 @@ function saveKeyword() {
 
     if (document.getElementById('keyword_input').value && document.getElementById('keyword_input').value != '') {
         document.getElementById('keywords').innerHTML = document.getElementById('keywords').innerHTML + '<a href="#" onclick="enterSearch(this.innerText)" class="keyword">' + document.getElementById('keyword_input').value + '<span class="button__remove_keyword" onclick="removeKeyword(event,this)"></span></a>'
-        axios.get("/save?keyword=" + document.getElementById('keyword_input').value)
+        axios.get("/save?keyword=" + document.getElementById('keyword_input').value + '&origin=' + window.location.pathname)
             .then(function () {
                 document.getElementById('keyword_input').value = ''
             })

@@ -435,7 +435,7 @@ def load_more_view(request):
                 request, 'results_list_entries.html', Guilde.objects.all())
         elif request.GET.get('what', None) == 'consensus':
             response = JSON_RESPONSE_more_results(
-                request, 'consensus_items_entries.html', Consensus.objects.latest(), request.GET.get('specific_selector', None))
+                request, 'consensus_items_entries.html', Consensus.objects.latest())
     else:
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404
@@ -445,9 +445,9 @@ def load_more_view(request):
 
 def save_view(request):
     print('save_view')
-    if request.GET.get('keyword', None) and request.META['HTTP_REFERER'] and MeetingNote.objects.filter(text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).exists():
+    if request.GET.get('keyword', None) and request.GET.get('origin', None) and MeetingNote.objects.filter(text_date=request.GET.get('origin', None).split('meeting/')[1]).exists():
         meeting = MeetingNote.objects.filter(
-            text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).first()
+            text_date=request.GET.get('origin', None).split('meeting/')[1]).first()
 
         meeting.add_keyword(request.GET.get('keyword'))
         response = JsonResponse({'success': True})

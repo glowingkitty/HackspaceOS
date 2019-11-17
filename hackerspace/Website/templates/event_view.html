@@ -90,10 +90,6 @@
             {% for result in selected.events|upto:3 %}
             {% include "components/body/result_preview_block.html" with change_contrast=True url_external=result.url_meetup_event %}
             {% endfor %}
-            {% if all_events_count > 3 %}
-            <input type="hidden" id="more_start_from" value="3"></input>
-            <a href="#button__show_more" id="button__show_more" onclick="showMore('events','')" class="button__cta secondary">Show more</a>
-            {% endif %}
         </div>
         {% endif %}
         {% if selected.projects %}
@@ -102,10 +98,6 @@
             {% for result in selected.projects %}
             {% include "components/body/result_preview_block.html" with change_contrast=True url_external=result.url_discourse %}
             {% endfor %}
-            {% if all_projects_count > 3 %}
-            <input type="hidden" id="more_start_from" value="3"></input>
-            <a href="#button__show_more" id="button__show_more" onclick="showMore('projects','')" class="button__cta secondary">Show more</a>
-            {% endif %}
         </div>
         {% endif %}
     </div>
