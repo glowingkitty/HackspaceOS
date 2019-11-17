@@ -53,6 +53,14 @@ def extractSpace(json_meetup_result):
         return Space.objects.by_name(EVENTS_SPACE_DEFAULT)
 
 
+def extractGuilde(json_meetup_result):
+    from hackerspace.YOUR_HACKERSPACE import EVENTS_GUILDES_OVERWRITE
+    from hackerspace.models import Guilde
+    for str_keyword in EVENTS_GUILDES_OVERWRITE:
+        if str_keyword in json_meetup_result['name']:
+            return Guilde.objects.filter(str_name=EVENTS_GUILDES_OVERWRITE[str_keyword]).first()
+
+
 def timezoneToOffset(timezone_name):
     return int(datetime.now(pytz.timezone(timezone_name)).utcoffset().total_seconds()*1000)
 
@@ -89,6 +97,7 @@ def createEvent(event):
         'str_location_countrycode': event['venue']['country'].upper() if event['venue']['name'] and event[
             'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['COUNTRYCODE'],
         'one_space': extractSpace(event),
+        'one_guilde': extractGuilde(event),
         'str_series_id': event['series']['id'] if 'series' in event else None,
         'int_series_startUNIX': round(
             event['series']['start_date'] / 1000) if 'series' in event and 'start_date' in event['series'] else None,

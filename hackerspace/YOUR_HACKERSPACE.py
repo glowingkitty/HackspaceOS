@@ -119,6 +119,7 @@ EVENTS_SPACES_OVERWRITE = {
 
 # overwrite event hosts with their Discuss user names!
 EVENTS_HOSTS_OVERWRITE = {
+    # {{ STR: Name }}:{{ LIST: Hosts }}
     'Free Code Camp': ['tymeart'],
     'Noisebridge Sewing Project Night': ['tymeart'],
     'Laser Cutter Safety Training': ['ruthgrace'],
@@ -130,4 +131,12 @@ EVENTS_HOSTS_OVERWRITE = {
     'Gamebridge Unityversity C# Unity Game Dev - Art And Etcetera': ['Bernice', 'Mark'],
     'Gamebridge Unityversity Unity C# Game Development': ['Mark'],
     'Noisebridge Python Class': ['Jared'],
+}
+
+EVENTS_GUILDES_OVERWRITE = {
+    # {{ STR: Keyword }}:{{ STR: Guilde Name }}
+    'Laser': 'Laser Guilde',
+    'Gamebridge': 'Gamebridge Guilde',
+    'Electronics': 'Electronics Guilde',
+    'Sewing': 'Sewing Guilde',
 }

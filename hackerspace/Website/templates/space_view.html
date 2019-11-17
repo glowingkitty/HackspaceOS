@@ -4,7 +4,10 @@
 
 <div class="header_block sub_page">
     <div class="header_separator"></div>
-    <div class="header_image"></div>
+    <div class="header_image" {% if selected.url_featured_photo %} style="
+    background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, 0.5)), to(hsla(0, 0%, 100%, 0.5))), url('{{ selected.url_featured_photo }}');
+    background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 100%, 0.5)), url('{{ selected.url_featured_photo }}');
+    " {% endif %}></div>
 </div>
 
 <div class="divider_20"></div>

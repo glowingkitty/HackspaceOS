@@ -39,7 +39,7 @@ class Guilde(models.Model):
         from hackerspace.models import Event
 
         search_query = self.str_name.lower().split('guilde')[0]
-        return Event.objects.upcoming().filter(str_name__icontains=search_query)
+        return Event.objects.upcoming().filter(one_guilde=self)
 
     @property
     def menu_heading(self):
