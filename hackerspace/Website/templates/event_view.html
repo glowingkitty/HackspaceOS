@@ -56,12 +56,18 @@
 <div class="divider_20"></div>
 
 <div class="max_540">
+    {% if selected.one_space %}
     <div class="blocks_inline_50_percent">
         <h2 class="h2 large">Space</h2>
+        {% include "components/body/result_preview_block.html" with result=selected.one_space %}
     </div>
+    {% endif %}
+    {% if selected.one_guilde %}
     <div class="blocks_inline_50_percent">
         <h2 class="h2 large">Guilde</h2>
+        {% include "components/body/result_preview_block.html" with result=selected.one_guilde %}
     </div>
+    {% endif %}
 </div>
 
 <div class="divider_20"></div>

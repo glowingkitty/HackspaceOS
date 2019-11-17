@@ -11,8 +11,10 @@
 <div class="max_540">
     <h2 class="h2 large">{{ selected.str_name }}</h2>
     <div>
+        {% if selected.text_description %}
         {{ selected.text_description|findSearches|safe }}<br>
         <br>
+        {% endif %}
         {% if selected.url_wiki %}
         <a class="inline_link" href="{{ selected.url_wiki }}" target="_blank">Show full wiki page</a>
         {% endif %}

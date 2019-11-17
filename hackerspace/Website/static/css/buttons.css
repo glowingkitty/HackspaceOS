@@ -90,6 +90,7 @@
 }
 
 .button__donate {
+    cursor: pointer;
     position: fixed;
     left: auto;
     top: 0%;

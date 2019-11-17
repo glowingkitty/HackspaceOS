@@ -246,6 +246,7 @@ html {
 }
 
 .menu_icon {
+    cursor: pointer;
     display: none;
     position: fixed;
     left: 10px;

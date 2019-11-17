@@ -19,6 +19,8 @@
     line-height: 40px;
     text-decoration: none;
     color: black;
+    padding-bottom: 10px;
+    display: block;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
 }

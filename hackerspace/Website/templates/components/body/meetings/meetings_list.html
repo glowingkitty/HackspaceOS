@@ -1,7 +1,7 @@
 {% block content %}
 
 {% for note in past_meetings %}
-<a class="meeting_block inline_block" onclick="getPage('/meeting/{{ note.text_date }}','menu_h_meetings')"  href="#">
+<a class="meeting_block inline_block" onclick="event.preventDefault();getPage('/meeting/{{ note.text_date }}','menu_h_meetings')"  href="/meeting/{{ note.text_date }}" target="_blank">
     <h3 class="h3">{{ note.text_date }}</h3>
     {% if note.text_keywords %}
     <div class="meeting_text_summary">Keywords:</div>

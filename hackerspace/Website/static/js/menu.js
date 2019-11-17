@@ -15,7 +15,6 @@ function switchMenuSelected(menu_item_active) {
 }
 
 function getPage(page, menu_item_active) {
-    event.preventDefault()
     closeOverlays()
     clearSearch()
     request_html('what=' + encodeURI(page.replace(/\//g, '__')), 'page_content', 'inner')

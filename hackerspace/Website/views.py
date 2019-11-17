@@ -16,7 +16,6 @@ def get_view_response(request, page, sub_page, hashname):
         'in_space': True if request.COOKIES.get('in_space') else None,
         'HACKERSPACE': HACKERSPACE,
         'hash': hashname,
-        'page_git_url': HACKERSPACE.WEBSITE_GIT+'/Website/templates/'+page+'_view.html',
         'ADMIN_URL': ADMIN_URL,
         'user': request.user
     }
@@ -24,6 +23,7 @@ def get_view_response(request, page, sub_page, hashname):
     if page == 'landingpage':
         return {**context, **{
             'slug': '/',
+            'page_git_url': '/Website/templates/landingpage_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME,
             'page_description': make_description_sentence(),
             'is_open_status': getOpenNowStatus(),
@@ -33,6 +33,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'values':
         return {**context, **{
             'slug': '/'+page,
+            'page_git_url': '/Website/templates/values_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Values',
             'page_description': 'Our values at '+HACKERSPACE.HACKERSPACE_NAME
         }}
@@ -40,6 +41,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'meetings':
         return {**context, **{
             'slug': '/'+page,
+            'page_git_url': '/Website/templates/meetings_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
             'page_description': 'Join our weekly meetings!',
             'current_meeting': MeetingNote.objects.current(),
@@ -51,6 +53,7 @@ def get_view_response(request, page, sub_page, hashname):
             text_date=sub_page).first()
         return {**context, **{
             'slug': '/meeting/'+selected.text_date,
+            'page_git_url': '/Website/templates/meeting_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected.text_date,
             'page_description': 'Join our weekly meetings!',
             'selected': selected,
@@ -68,11 +71,12 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'guildes':
         return {**context, **{
             'slug': '/'+page,
+            'page_git_url': '/Website/templates/results_list.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Guildes',
             'page_description': 'Join a guilde at '+HACKERSPACE.HACKERSPACE_NAME+'!',
             'headline': 'Guildes',
             'description': 'A guilde is a group at {} with a common interest area, responsible for specific spaces and machines at {}.'.format(HACKERSPACE.HACKERSPACE_NAME, HACKERSPACE.HACKERSPACE_NAME),
-            'wiki_url': '#',
+            'wiki_url': None,
             'add_new_requires_user': True,
             'addnew_url': '/{}/hackerspace/guilde/add/'.format(ADMIN_URL),
             'addnew_text': 'Add guilde',
@@ -86,6 +90,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected = Guilde.objects.filter(str_slug=sub_page).first()
         return {**context, **{
             'slug': '/guilde/'+sub_page,
+            'page_git_url': '/Website/templates/guilde_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Guilde | '+selected.str_name,
             'page_description': 'Join our weekly meetings!',
             'selected': selected
@@ -94,10 +99,12 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'spaces':
         return {**context, **{
             'slug': '/'+page,
+            'page_git_url': '/Website/templates/results_list.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Spaces',
             'page_description': HACKERSPACE.HACKERSPACE_NAME+' has many awesome spaces!',
             'headline': 'Spaces',
             'description': 'At {} fellow hackers like you created all kinds of awesome spaces. Check them out!'.format(HACKERSPACE.HACKERSPACE_NAME),
+            'wiki_url': None,
             'add_new_requires_user': True,
             'addnew_url': '/{}/hackerspace/space/add/'.format(ADMIN_URL),
             'addnew_text': 'Add space',
@@ -111,6 +118,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected = Space.objects.filter(str_slug=sub_page).first()
         return {**context, **{
             'slug': '/space/'+sub_page,
+            'page_git_url': '/Website/templates/space_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Space | '+selected.str_name,
             'page_description': selected.text_description,
             'selected': selected
@@ -119,10 +127,12 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'machines':
         return {**context, **{
             'slug': '/'+page,
+            'page_git_url': '/Website/templates/results_list.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Machines',
             'page_description': HACKERSPACE.HACKERSPACE_NAME+' has all kinds of awesome machines!',
             'headline': 'Machines',
             'description': 'We have many super useful machines at {}, allowing you to build nearly everything you want to build!'.format(HACKERSPACE.HACKERSPACE_NAME),
+            'wiki_url': None,
             'add_new_requires_user': True,
             'addnew_url': '/{}/hackerspace/machine/add/'.format(ADMIN_URL),
             'addnew_text': 'Add machine',
@@ -136,6 +146,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected = Machine.objects.filter(str_slug=sub_page).first()
         return {**context, **{
             'slug': '/machine/'+sub_page,
+            'page_git_url': '/Website/templates/machine_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Machine | '+selected.str_name,
             'page_description': selected.text_description,
             'selected': selected
@@ -144,10 +155,12 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'projects':
         return {**context, **{
             'slug': '/'+page,
+            'page_git_url': '/Website/templates/results_list.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Projects',
             'page_description': 'People at '+HACKERSPACE.HACKERSPACE_NAME+' created all kinds of awesome projects!',
             'headline': 'Projects',
             'description': 'At {} fellow hackers like you created all kinds of awesome projects - both their own and projects for the space. Check them out - and create your own one!'.format(HACKERSPACE.HACKERSPACE_NAME),
+            'wiki_url': None,
             'add_new_requires_user': False,
             'addnew_url': '{}c/projects/'.format(HACKERSPACE.HACKERSPACE_DISCOURSE_URL),
             'addnew_text': 'Add project',
@@ -161,6 +174,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected = Project.objects.filter(str_slug=sub_page).first()
         return {**context, **{
             'slug': '/project/'+sub_page,
+            'page_git_url': '/Website/templates/project_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Project | '+selected.str_name,
             'page_description': selected.text_description,
             'selected': selected
@@ -169,6 +183,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'consensus':
         return {**context, **{
             'slug': '/'+page,
+            'page_git_url': '/Website/templates/consensus_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Big-C consensus items',
             'page_description': 'When you want to do something that would drastically change '+HACKERSPACE.HACKERSPACE_NAME+' (or need a lot of money from Noisebridge for a project) - suggest a Big-C consensus item!',
             'all_current_items': Consensus.objects.current(),
@@ -181,6 +196,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'events':
         return {**context, **{
             'slug': '/'+page,
+            'page_git_url': '/Website/templates/results_list.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Events',
             'page_description': 'At '+HACKERSPACE.HACKERSPACE_NAME+' we have all kinds of cool events - organized by your fellow hackers!',
             'headline': 'Events',
@@ -198,6 +214,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected = Event.objects.filter(str_slug=sub_page).first()
         return {**context, **{
             'slug': '/event/'+sub_page,
+            'page_git_url': '/Website/templates/event_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Event | '+selected.str_name,
             'page_description': selected.text_description,
             'selected': selected
