@@ -21,3 +21,13 @@ def findSearches(text):
                             search_query+'\')" href="#">'+search_query+'</a>')
 
     return text
+
+
+@register.filter
+def TEXT_replaceLinkCSS(text):
+    return text.replace('class="linkified"', 'target="_blank" class="inline_link"')
+
+
+@register.filter
+def STR__first_name(text):
+    return text.split(' ')[0]

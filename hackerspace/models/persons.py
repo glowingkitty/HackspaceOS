@@ -28,6 +28,11 @@ class PersonSet(models.QuerySet):
                 'text_description': user['user']['title'] if user['user']['title'] != '' else None
             })
 
+    def by_name(self, name):
+        from django.db.models import Q
+        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
+        return self.filter(Q(url_discourse=HACKERSPACE_DISCOURSE_URL + 'u/'+name) | Q(str_name__icontains=name)).first()
+
 
 class Person(models.Model):
     objects = PersonSet.as_manager()

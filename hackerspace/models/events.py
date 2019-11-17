@@ -10,7 +10,9 @@ import json
 from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
                                           HACKERSPACE_MEETUP_GROUP,
                                           HACKERSPACE_NAME,
-                                          HACKERSPACE_TIMEZONE_STRING)
+                                          HACKERSPACE_TIMEZONE_STRING,
+                                          EVENTS_SPACE_DEFAULT,
+                                          EVENTS_SPACES_OVERWRITE)
 
 
 def getWeekday(number):
@@ -35,15 +37,20 @@ def updateTime(result):
 
 
 def extractSpace(json_meetup_result):
+    from hackerspace.models import Space
     if 'how_to_find_us' in json_meetup_result:
-        from hackerspace.models import Space
         spaces = Space.objects.all()
 
         for space in spaces.iterator():
             if space.str_name.lower() in json_meetup_result['how_to_find_us'].lower():
                 return space
 
-    return None
+    # else...
+    for field in EVENTS_SPACES_OVERWRITE:
+        if field in json_meetup_result['name']:
+            return Space.objects.by_name(EVENTS_SPACES_OVERWRITE[field])
+    else:
+        return Space.objects.by_name(EVENTS_SPACE_DEFAULT)
 
 
 def timezoneToOffset(timezone_name):
@@ -161,7 +168,7 @@ class EventSet(models.QuerySet):
                 results_list.append({
                     'icon': 'event',
                     'name': result.str_name+'<br>=> '+(relative_time if relative_time else str(result.datetime_start.date())),
-                    'url': result.url_meetup_event,
+                    'url': '/'+result.str_slug,
                     'menu_heading': 'menu_h_events'
                 })
                 added.append(result.str_name)
@@ -258,6 +265,8 @@ class Event(models.Model):
         max_length=250, blank=True, null=True, verbose_name='Meetup URL')
     url_discourse_event = models.URLField(
         max_length=250, blank=True, null=True, verbose_name='discourse URL')
+    url_discourse_wish = models.URLField(
+        max_length=250, blank=True, null=True, verbose_name='discourse wish URL')
     url_slack_event = models.URLField(
         max_length=250, blank=True, null=True, verbose_name='Slack URL')
 
@@ -362,13 +371,27 @@ class Event(models.Model):
         return self.str_location_name+'\n'+self.str_location_street+'\n'+self.str_location_zip+'\n'+self.str_location_city+'\n'+self.str_location_countrycode
 
     def save(self, *args, **kwargs):
+        print('LOG: Event.save')
         import urllib.parse
         from hackerspace.models.events import updateTime
+        from hackerspace.models import Space, Person
+        from hackerspace.YOUR_HACKERSPACE import EVENTS_HOSTS_OVERWRITE
 
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
             'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
+
         super(Event, self).save(*args, **kwargs)
+
+        print('LOG: --> Save hosts')
+        if not self.many_hosts.exists():
+            # search in predefined event hosts in YOURHACKERSPACE
+            for event_name in EVENTS_HOSTS_OVERWRITE:
+                if event_name in self.str_name:
+                    for host_name in EVENTS_HOSTS_OVERWRITE[event_name]:
+                        host = Person.objects.by_name(host_name)
+                        if host:
+                            self.many_hosts.add(host)
 
     def create(self, json_content):
         try:

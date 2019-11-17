@@ -99,6 +99,7 @@
 
 
 .inline_link {
+    cursor: pointer;
     display: inline-block;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;

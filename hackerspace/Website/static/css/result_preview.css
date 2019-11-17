@@ -1,4 +1,5 @@
 .result_preview {
+    cursor: pointer;
     position: relative;
     width: 251px;
     height: 91px;

@@ -107,3 +107,27 @@ IMPORTANT_URLS = {
 
 SAYHELLO = 'Greetings by the person at the computer next to the entrance. Hello fellow ' + \
     HACKERSPACE_PEOPLE_NAME+'. Be excellent to each other and have an excellent day'
+
+EVENTS_SPACE_DEFAULT = 'Hackatorium'
+EVENTS_SPACES_OVERWRITE = {
+    'Whiteboarding & Algorithms Workshop': 'Church',
+    'Noisebridge Python Class': 'Church',
+    'Gamebridge Unityversity': 'Church',
+    'Queer Game Developers Meetup': 'Church',
+    'Laser Cutter Safety Training': 'SparkleForge',
+}
+
+# overwrite event hosts with their Discuss user names!
+EVENTS_HOSTS_OVERWRITE = {
+    'Free Code Camp': ['tymeart'],
+    'Noisebridge Sewing Project Night': ['tymeart'],
+    'Laser Cutter Safety Training': ['ruthgrace'],
+    'Noisebridge Extended Tour': ['pyconaut'],
+    'Whiteboarding & Algorithms Workshop - Weekend Edition': ['Bernice'],
+    'Circuit Hacking Mondays': ['spacegreens'],
+    'BUIDL Night': ['kinnard'],
+    'Startup School SF Meetup': ['kinnard'],
+    'Gamebridge Unityversity C# Unity Game Dev - Art And Etcetera': ['Bernice', 'Mark'],
+    'Gamebridge Unityversity Unity C# Game Development': ['Mark'],
+    'Noisebridge Python Class': ['Jared'],
+}

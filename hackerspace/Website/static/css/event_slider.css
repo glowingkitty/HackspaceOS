@@ -3,7 +3,7 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    overflow: scroll;
+    overflow: auto;
     height: 150px;
     padding-top: 10px;
     -webkit-box-pack: start;

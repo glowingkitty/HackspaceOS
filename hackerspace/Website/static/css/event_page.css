@@ -1,0 +1,36 @@
+.text_box_max_height {
+    max-height: 191px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.host_preview_image {
+    width: 40px;
+    height: 40px;
+    float: left;
+    border-radius: 200px;
+    margin-right: 10px;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.host_link {
+    line-height: 40px;
+    text-decoration: none;
+    color: black;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.host_link:hover {
+    -webkit-transform: translate(5px, 0px);
+    -ms-transform: translate(5px, 0px);
+    transform: translate(5px, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+    .host_link {
+        color: #d4d4d4
+    }
+}

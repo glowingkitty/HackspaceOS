@@ -1,0 +1,97 @@
+{% load array %}
+{% load process_text %}
+{% block content %}
+
+<div class="header_block sub_page">
+    <div class="header_separator"></div>
+    <div class="header_image"></div>
+</div>
+
+<div class="divider_20"></div>
+<div class="max_540">
+    <div class="sub_heading text_semitransparent">{{ selected.datetime_range }}{% if selected.one_space %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name }}</a>{% endif %}</div>
+    <h2 class="h2 large">{{ selected.str_name }}</h2>
+    <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
+    {% if selected.url_discourse_wish %}
+    <a href="{{ selected.url_discourse_wish }}" target="_blank" class="button__cta secondary inline">Voolunteer</a>
+    {% endif %}
+    <br>
+    <br>
+    {% if selected.text_description|length > 350 %}
+    <div id="event_description" class="text_box_max_height">{{ selected.text_description|TEXT_replaceLinkCSS|safe }}</div>
+    <div class="inline_link" onclick="showFullDescription('event_description',this)">Show full description</div>
+    {% else %}
+    <div>{{ selected.text_description|TEXT_replaceLinkCSS|safe }}</div>
+    {% endif %}
+</div>
+
+<div class="divider_20"></div>
+
+<div class="max_540">
+    <div class="blocks_inline_50_percent">
+        <h2 class="h2 large">Location</h2>
+        <div>
+        {% if HACKERSPACE.HACKERSPACE_ADDRESS.STREET != selected.str_location_street %}
+        {{ selected.str_location_name }}<br>
+        {{ selected.str_location_street }}<br>
+        {{ selected.str_location_zip }} {{ selected.str_location_city }}, {{ selected.str_location_countrycode }}
+        {% else %}
+        {{ HACKERSPACE.HACKERSPACE_NAME }}<br>
+        {{ HACKERSPACE.HACKERSPACE_ADDRESS.STREET }}<br>
+        {{ HACKERSPACE.HACKERSPACE_ADDRESS.ZIP }} {{ HACKERSPACE.HACKERSPACE_ADDRESS.CITY }}, {{ HACKERSPACE.HACKERSPACE_ADDRESS.COUNTRYCODE }}
+        {% endif %}
+        </div>
+    </div>
+    <div class="blocks_inline_50_percent">
+        <h2 class="h2 large">Hosts</h2>
+        {% for host in selected.many_hosts.all %}
+        <a class="host_link" href="{{ host.url_discourse }}" target="_blank">
+            <div class="host_preview_image" style="background-image: url('{{ host.url_featured_photo }}')"></div>
+            <div>{{ host.str_name|STR__first_name }}</div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="divider_20"></div>
+
+<div class="max_540">
+    <div class="blocks_inline_50_percent">
+        <h2 class="h2 large">Space</h2>
+    </div>
+    <div class="blocks_inline_50_percent">
+        <h2 class="h2 large">Guilde</h2>
+    </div>
+</div>
+
+<div class="divider_20"></div>
+<div class="divider_20"></div>
+
+<div class="visually_separated_content">
+    <div class="header_separator upside"></div>
+
+    <div class="divider_100"></div>
+    <div class="max_540">
+        {% if selected.events %}
+        <div class="blocks_inline_50_percent">
+            <h2 class="h2 large">Events</h2>
+            {% for result in selected.events|upto:3 %}
+            {% include "components/body/result_preview_block.html" with change_contrast=True url_external=result.url_meetup_event %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if selected.projects %}
+        <div class="blocks_inline_50_percent">
+            <h2 class="h2 large">Projects</h2>
+            {% for result in selected.projects %}
+            {% include "components/body/result_preview_block.html" with change_contrast=True url_external=result.url_discourse %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <div class="divider_100"></div>
+</div>
+
+{% include "components/body/edit_this_page.html" %}
+
+{% endblock %}

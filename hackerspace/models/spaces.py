@@ -2,6 +2,9 @@ from django.db import models
 
 
 class SpaceSet(models.QuerySet):
+    def by_name(self, name):
+        return self.filter(str_name__icontains=name).first()
+
     def search_results(self):
         results_list = []
         results = self.all()
