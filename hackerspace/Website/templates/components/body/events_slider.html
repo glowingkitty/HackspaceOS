@@ -3,9 +3,7 @@
 <div id="events_slider" class="events_slider_section">
     <div class="result_preview placeholder_left"></div>
     {% for result in upcoming_events %}
-    {% with url_external=result.url_meetup_event %}
     {% include "components/body/result_preview_block.html" %}
-    {% endwith %}
     {% endfor %}
     <div class="event_slider_extra_options_block">
       {% comment %} <a href="#" class="button__cta secondary">Show all</a> {% endcomment %}

@@ -289,6 +289,13 @@ class Event(models.Model):
             return self.str_name
         return self.str_name+' | '+self.datetime_range
 
+    def next_event(self):
+        return Event.objects.upcoming().filter(str_name=self.str_name).exclude(str_slug=self.str_slug).first()
+
+    # TODO: figure out based on what (keywords?) similar events should be filtered
+    def similar_events(self):
+        return None
+
     @property
     def menu_heading(self):
         return 'menu_h_events'
