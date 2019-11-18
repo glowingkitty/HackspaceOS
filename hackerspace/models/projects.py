@@ -41,7 +41,6 @@ class ProjectSet(models.QuerySet):
 
 class Project(models.Model):
     objects = ProjectSet.as_manager()
-    str_slug = models.CharField(max_length=250, blank=True, null=True)
     str_name = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
     url_featured_photo = models.URLField(
@@ -81,6 +80,4 @@ class Project(models.Model):
         import urllib.parse
 
         self = updateTime(self)
-        self.str_slug = urllib.parse.quote(
-            'project/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
         super(Project, self).save(*args, **kwargs)
