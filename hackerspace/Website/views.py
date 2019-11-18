@@ -445,9 +445,9 @@ def load_more_view(request):
 
 def save_view(request):
     print('save_view')
-    if request.GET.get('keyword', None) and request.GET.get('origin', None) and MeetingNote.objects.filter(text_date=request.GET.get('origin', None).split('meeting/')[1]).exists():
+    if request.GET.get('keyword', None) and request.GET.get('origin', None) and MeetingNote.objects.filter(text_date=request.GET.get('origin', None).split('/')[1]).exists():
         meeting = MeetingNote.objects.filter(
-            text_date=request.GET.get('origin', None).split('meeting/')[1]).first()
+            text_date=request.GET.get('origin', None).split('/')[1]).first()
 
         meeting.add_keyword(request.GET.get('keyword'))
         response = JsonResponse({'success': True})
@@ -460,9 +460,9 @@ def save_view(request):
 
 def remove_view(request):
     print('remove_view')
-    if request.GET.get('keyword', None) and request.META['HTTP_REFERER'] and MeetingNote.objects.filter(text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).exists():
+    if request.GET.get('keyword', None) and request.GET.get('origin', None) and MeetingNote.objects.filter(text_date=request.GET.get('origin', None).split('/')[1]).exists():
         meeting = MeetingNote.objects.filter(
-            text_date=request.META['HTTP_REFERER'].split('meeting/')[1]).first()
+            text_date=request.GET.get('origin', None).split('/')[1]).first()
 
         meeting.remove_keyword(request.GET.get('keyword'))
         response = JsonResponse({'success': True})

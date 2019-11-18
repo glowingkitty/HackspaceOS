@@ -11,6 +11,9 @@ def JSON_RESPONSE_more_results(request, template_path, queryset):
         if 'guilde/' in request.GET.get('origin', None):
             queryset = queryset.filter(
                 one_guilde__str_slug=request.GET.get('origin', None)[1:])
+        elif 'space/' in request.GET.get('origin', None):
+            queryset = queryset.filter(
+                one_space__str_slug=request.GET.get('origin', None)[1:])
 
     start_from = int(request.GET.get('from', None))
     upt_to = int(start_from+10)

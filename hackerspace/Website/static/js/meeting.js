@@ -26,7 +26,7 @@ function saveKeyword() {
 
 function removeKeyword(event, element) {
     event.stopPropagation();
-    axios.get("/remove?keyword=" + element.parentElement.innerText)
+    axios.get("/remove?keyword=" + element.parentElement.innerText + '&origin=' + window.location.pathname)
         .then(function () {
             element.parentElement.outerHTML = ''
         })

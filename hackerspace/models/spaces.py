@@ -40,8 +40,7 @@ class Space(models.Model):
     @property
     def events(self):
         from hackerspace.models import Event
-
-        return Event.objects.in_space(one_space=self)
+        return Event.objects.upcoming().in_space(one_space=self)
 
     @property
     def machines(self):
