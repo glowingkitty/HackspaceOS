@@ -1,4 +1,5 @@
 .button__cta {
+    cursor: pointer;
     position: relative;
     display: -webkit-box;
     display: -webkit-flex;
