@@ -218,11 +218,7 @@ class EventSet(models.QuerySet):
         print('Done! Saved '+str(len(json_our_group)) + ' events from Meetup')
 
     def pull_from_wiki(self):
-        # to do
-        return []
-
-    def pull_from_discourse(self):
-        # to do
+        # TODO
         return []
 
 

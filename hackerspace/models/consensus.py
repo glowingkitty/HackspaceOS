@@ -6,7 +6,7 @@ from hackerspace.APIs.discourse import get_category_posts
 from hackerspace.models.events import updateTime
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
 from datetime import datetime
-from dateutil import parser
+
 from django.db.models import Q
 
 
@@ -25,6 +25,7 @@ class ConsensusSet(models.QuerySet):
     def pull_from_discourse(self):
         print('pull_from_discourse()')
         from hackerspace.models import Person
+        from dateutil import parser
 
         consensus_items = get_category_posts(
             category='consensus-items', all_pages=True)
