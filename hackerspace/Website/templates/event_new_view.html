@@ -1,0 +1,38 @@
+{% block content %}
+
+<div class="header_block sub_page">
+    <div class="header_separator"></div>
+    <div class="header_image"></div>
+</div>
+
+<div class="divider_20"></div>
+
+<div id="what_event_organize" class="max_540" style="margin-top: 20vh;margin-bottom: 30vh;">
+    <h2 class="h2 large">What event do you want to organize?</h2>
+    <input class="input_field_enter_name" autofocus="true" oninput="search_events(this.value)" placeholder="Enter a name ..."></input>
+    <div class="divider_20"></div>
+    <a id="continue_add_event_button" class="button__cta inline" style="display: none">Continue</a>
+    <div class="divider_20"></div>
+    <div class="divider_20"></div>
+</div>
+
+
+<div class="visually_separated_content" style="min-height:55vh">
+    <div class="header_separator upside"></div>
+
+    <div class="divider_100"></div>
+    <div class="max_540" id="existing_events_block" style="display: none">
+        Also consider:<br>
+        Maybe a similar at Noisebridge could need your help!
+        <div class="divider_20"></div>
+        <h2 id="existing_events_headline" class="h2 large">Similar events</h2>
+        <div id="existing_events">
+        </div>
+    </div>
+    <div class="divider_100"></div>
+</div>
+
+
+{% include "components/body/edit_this_page.html" %}
+
+{% endblock %}

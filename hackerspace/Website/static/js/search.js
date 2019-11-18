@@ -43,6 +43,43 @@ function search(query) {
     }
 }
 
+function search_events(query) {
+    if (!query || query == '') {
+        document.getElementById('what_event_organize').style.marginTop = '20vh'
+        document.getElementById('what_event_organize').style.marginBottom = '30vh'
+        document.getElementById('existing_events_block').style.display = 'none'
+        document.getElementById('continue_add_event_button').style.display = 'none'
+    } else {
+        document.getElementById('continue_add_event_button').style.display = 'inline-block'
+        axios.get("/search?q=" + query + '&filter=events', {
+                cancelToken: new CancelToken(function executor(c) {
+                    // An executor function receives a cancel function as a parameter
+                    cancel_search = c;
+                })
+            })
+            .then(function (response) {
+                // show results
+                if (response.data.num_results > 0) {
+                    document.getElementById('what_event_organize').style.marginTop = '0'
+                    document.getElementById('what_event_organize').style.marginBottom = '0'
+                    document.getElementById('existing_events_block').style.display = 'block'
+                    document.getElementById('existing_events').innerHTML = response.data.html
+                } else {
+                    document.getElementById('what_event_organize').style.marginTop = '20vh'
+                    document.getElementById('what_event_organize').style.marginBottom = '30vh'
+                    document.getElementById('existing_events_block').style.display = 'none'
+                }
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
+    }
+}
+
 function enterSearch(text) {
     document.getElementById('search_input').value = text
     search(search_input.value)

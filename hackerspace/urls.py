@@ -62,6 +62,8 @@ urlpatterns = [
          name='project_view'),
 
     path('events', views.events_view, name='events'),
+    path('event/new', views.event_new_view,
+         name='event_new_view'),
     path('event/<str:sub_page>', views.event_view,
          name='event_view'),
 

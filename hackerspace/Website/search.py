@@ -5,9 +5,19 @@ from django.db.models import Q
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS, HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS
 
 
-def search(query):
+def search(query, filter_name):
     if not query:
         return []
+
+    # search in database
+    events = Event.objects.filter(
+        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+    ).upcoming()
+
+    if filter_name == 'events':
+        return events
+    else:
+        events = events.search_results()[:5]
 
     # search in social network accounts
     networks = [{
@@ -22,11 +32,6 @@ def search(query):
         'url': x['url'],
     } for x in HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS if query.lower()
         in x['name'].lower()]
-
-    # search in database
-    events = Event.objects.filter(
-        Q(str_name__icontains=query) | Q(text_description__icontains=query)
-    ).upcoming().search_results()[:5]
 
     meeting_notes = MeetingNote.objects.filter(
         Q(text_date__icontains=query) | Q(text_keywords__icontains=query)

@@ -1,0 +1,22 @@
+.input_field_enter_name {
+    width: 92%;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 18px;
+    line-height: 40px;
+    border-radius: 200px;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
+    background-color: white
+}
+
+@media (prefers-color-scheme: dark) {
+    .input_field_enter_name {
+        color: #d4d4d4;
+        background-color: #494949;
+        -webkit-animation: LEDsStrong 8s infinite;
+        /* Safari 4.0 - 8.0 */
+        animation: LEDsStrong 8s infinite;
+    }
+}

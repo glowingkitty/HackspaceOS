@@ -219,6 +219,14 @@ def get_view_response(request, page, sub_page, hashname):
             'page_description': selected.text_description,
             'selected': selected
         }}
+    elif page == 'event_new':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_git_url': '/Website/templates/event_new_view.html',
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | New event',
+            'page_description': 'Organize an event at '+HACKERSPACE.HACKERSPACE_NAME,
+            'upcoming_events': Event.objects.upcoming()[:4],
+        }}
 
 
 def get_page_response(request, page, sub_page=None):
@@ -327,6 +335,10 @@ def consensus_view(request):
 
 def events_view(request):
     return get_page_response(request, 'events')
+
+
+def event_new_view(request):
+    return get_page_response(request, 'event_new')
 
 
 def event_view(request, sub_page):
@@ -475,14 +487,17 @@ def remove_view(request):
 
 def search_view(request):
     print('search_view')
-    search_results = search(request.GET.get('q', None))
+    search_results = search(request.GET.get('q', None),
+                            request.GET.get('filter', None))
     response = JsonResponse(
         {
             'num_results': len(search_results),
             'html': get_template(
                 'components/search/search_results.html').render({
                     'search_results': search_results
-                })
+                }) if not request.GET.get('filter', None) else get_template('components/body/results_list_entries.html').render({
+                    'all_results': search_results[:4],
+                }),
         }
     )
 
