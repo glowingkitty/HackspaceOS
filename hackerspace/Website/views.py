@@ -202,8 +202,10 @@ def get_view_response(request, page, sub_page, hashname):
             'headline': 'Events',
             'description': '{} is a place where people come together to learn, share ideas and have an excellent time. Nearly all of our events are free - so just come by and join us - or organize your own event at {}!'.format(HACKERSPACE.HACKERSPACE_NAME, HACKERSPACE.HACKERSPACE_NAME),
             'add_new_requires_user': False,
-            'addnew_url': 'https://meetup.com/'+HACKERSPACE.HACKERSPACE_MEETUP_GROUP,
+            'addnew_url': '/event/new',
             'addnew_text': 'Organize an event',
+            'addnew_target': 'same_tab',
+            'addnew_menu_selected': 'menu_h_events',
             'all_results': Event.objects.upcoming()[:10],
             'results_count': Event.objects.count(),
             'show_more': page
@@ -220,12 +222,15 @@ def get_view_response(request, page, sub_page, hashname):
             'selected': selected
         }}
     elif page == 'event_new':
+        import time
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/event_new_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | New event',
             'page_description': 'Organize an event at '+HACKERSPACE.HACKERSPACE_NAME,
             'upcoming_events': Event.objects.upcoming()[:4],
+            # test
+            'overlapping_events': Event.objects.overlapping_events(time.time()+(45*60*60), 120, 'Hackatorium')
         }}
 
 
@@ -397,17 +402,21 @@ def get_view(request):
 
     elif request.GET.get('what', None):
         page = request.GET.get('what', None)
+
         if page == '__':
             page = 'landingpage'
         else:
             page = page.replace('__', '', 1)
 
-        if '__' in page:
+        if '__' in page and not page.endswith('__new'):
             page, sub_page = page.split('__')
         else:
             sub_page = None
 
+        page = page.replace('__', '_')
+
         hashname = page.split('#')[1] if '#' in page else None
+
         response_context = get_view_response(request, page, sub_page, hashname)
         response = JsonResponse(
             {

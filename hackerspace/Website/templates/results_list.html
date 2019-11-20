@@ -17,7 +17,7 @@
         {% endif %}
         <br>
         {% if add_new_requires_user == False or user.is_authenticated %}
-        <a href="{{ addnew_url }}" target="_blank" class="button__cta inline">{{ addnew_text }}</a>
+        <a href="{{ addnew_url }}" {% if addnew_target == 'same_tab' %}onclick="event.preventDefault();getPage('{{ addnew_url }}','{{ addnew_menu_selected }}')" {% endif %}target="_blank" class="button__cta inline">{{ addnew_text }}</a>
         {% endif %}
     </div>
     <div class="divider_20"></div>

@@ -1,18 +1,15 @@
-import time
-from datetime import datetime, timedelta
+# import time
+# from datetime import datetime, timedelta
 
-import pytz
-import requests
+# import pytz
+# import requests
+
+# import json
+
+from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_MEETUP_GROUP
+
 from django.core import serializers
 from django.db import models
-import json
-
-from hackerspace.YOUR_HACKERSPACE import (HACKERSPACE_ADDRESS,
-                                          HACKERSPACE_MEETUP_GROUP,
-                                          HACKERSPACE_NAME,
-                                          HACKERSPACE_TIMEZONE_STRING,
-                                          EVENTS_SPACE_DEFAULT,
-                                          EVENTS_SPACES_OVERWRITE)
 
 
 def getWeekday(number):
@@ -29,6 +26,8 @@ def getWeekday(number):
 
 
 def updateTime(result):
+    import time
+
     # update time
     if not result.int_UNIXtime_created:
         result.int_UNIXtime_created = time.time()
@@ -38,6 +37,8 @@ def updateTime(result):
 
 def extractSpace(json_meetup_result):
     from hackerspace.models import Space
+    from hackerspace.YOUR_HACKERSPACE import EVENTS_SPACES_OVERWRITE, EVENTS_SPACE_DEFAULT
+
     if 'how_to_find_us' in json_meetup_result:
         spaces = Space.objects.all()
 
@@ -56,22 +57,31 @@ def extractSpace(json_meetup_result):
 def extractGuilde(json_meetup_result):
     from hackerspace.YOUR_HACKERSPACE import EVENTS_GUILDES_OVERWRITE
     from hackerspace.models import Guilde
+
     for str_keyword in EVENTS_GUILDES_OVERWRITE:
         if str_keyword in json_meetup_result['name']:
             return Guilde.objects.filter(str_name=EVENTS_GUILDES_OVERWRITE[str_keyword]).first()
 
 
 def timezoneToOffset(timezone_name):
+    from datetime import datetime
+    import pytz
+
     return int(datetime.now(pytz.timezone(timezone_name)).utcoffset().total_seconds()*1000)
 
 
 def offsetToTimezone(offset_ms):
+    from datetime import datetime
+    import pytz
+
     now = datetime.now(pytz.utc)  # current time
     return [tz.zone for tz in map(pytz.timezone, pytz.all_timezones_set)
             if now.astimezone(tz).utcoffset().total_seconds()*1000 == offset_ms][0]
 
 
 def extractTimezone(json_meetup_result):
+    from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
+
     if 'utc_offset' in json_meetup_result and json_meetup_result['utc_offset'] != timezoneToOffset(HACKERSPACE_TIMEZONE_STRING):
         return offsetToTimezone(json_meetup_result['utc_offset'])
 
@@ -79,6 +89,8 @@ def extractTimezone(json_meetup_result):
 
 
 def createEvent(event):
+    from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME, HACKERSPACE_ADDRESS
+
     Event().create(json_content={
         'str_name': event['name'],
         'int_UNIXtime_event_start': round(event['time']/1000),
@@ -116,7 +128,101 @@ def createEvent(event):
 
 class EventSet(models.QuerySet):
     def next_meeting(self):
+        import time
+
         return self.filter(str_name='Noisebridge General Meeting', int_UNIXtime_event_start__gt=time.time()).order_by('int_UNIXtime_event_start').first()
+
+    def in_timeframe(self, from_UNIX_time, to_UNIX_time, str_space_name=None):
+        from django.db.models import Q
+        from hackerspace.models import Space
+        if str_space_name:
+            space = Space.objects.by_name(str_space_name)
+            if space:
+                self = self.filter(one_space=space)
+        return self.filter(
+            # get events that start after from_UNIX_time and end before to_UNIX_time
+            (
+                Q(int_UNIXtime_event_start__gte=from_UNIX_time) &
+                Q(int_UNIXtime_event_start__lte=to_UNIX_time)
+            )
+            # get events that end after from_UNIX_time and before to_UNIX_time
+            | (
+                Q(int_UNIXtime_event_end__gte=from_UNIX_time) &
+                Q(int_UNIXtime_event_end__lte=to_UNIX_time)
+            )
+            # get events that start before from_UNIX_time and end after to_UNIX_time
+            | (
+                Q(int_UNIXtime_event_start__lte=from_UNIX_time) &
+                Q(int_UNIXtime_event_end__gte=to_UNIX_time)
+            )
+        )
+
+    def overlapping_events(self, new_event_UNIX_time, new_event_duration_minutes, space):
+        import pytz
+        from datetime import datetime, timedelta
+        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
+
+        local_time = datetime.fromtimestamp(
+            new_event_UNIX_time, pytz.timezone(HACKERSPACE_TIMEZONE_STRING))
+
+        hours_before = 1
+        hours_event_duration = round(new_event_duration_minutes/60)
+        hours_after = 1
+
+        times = []
+
+        counter = 0
+        while counter < hours_before:
+            counter += 1
+            times.insert(0, {
+                'int_UNIX_time': round(new_event_UNIX_time-(counter*60)),
+                'str_readable': str((local_time+timedelta(hours=-counter)).strftime('%I:%M %p'))
+            })
+
+        counter = 0
+        while counter < hours_event_duration:
+            times.append({
+                'int_UNIX_time': round(new_event_UNIX_time+(counter*60)),
+                'str_readable': str((local_time+timedelta(hours=counter)).strftime('%I:%M %p'))
+            })
+            counter += 1
+
+        while (counter-hours_event_duration) < hours_after:
+            times.append({
+                'int_UNIX_time': round(new_event_UNIX_time+(counter*60)),
+                'str_readable': str((local_time+timedelta(hours=counter)).strftime('%I:%M %p'))
+            })
+            counter += 1
+
+        for time in times:
+            time['int_percent_height'] = str(100/len(times))+'%'
+
+        queryset_overlapping_events = Event.objects.in_timeframe(
+            new_event_UNIX_time, new_event_UNIX_time+(new_event_duration_minutes*60), space)
+
+        # get values needed to show events in correct position
+        list_overlapping_events = []
+        for event in queryset_overlapping_events:
+            minutes_distance = ((
+                event.int_UNIXtime_event_start - times[0]['int_UNIX_time'])/60)+60
+
+            list_overlapping_events.append({
+                'str_name': event.str_name,
+                'str_slug': event.str_slug,
+                'int_percent_top_distance': str(round((minutes_distance/(len(times)*60))*100))+'%',
+                'int_percent_height': str(round(event.int_minutes_duration/(len(times)*60)*100))+'%'
+            })
+
+        your_event_minutes_distance = (
+            (new_event_UNIX_time - times[0]['int_UNIX_time'])/60)+60
+        return {
+            'times': times,
+            'your_event': {
+                'int_percent_top_distance': str(round((your_event_minutes_distance/(len(times)*60))*100))+'%',
+                'int_percent_height': str(round(new_event_duration_minutes/(len(times)*60)*100))+'%'
+            },
+            'overlapping_events': list_overlapping_events
+        }
 
     def in_space(self, one_space=None, str_space=None):
         if one_space:
@@ -147,9 +253,15 @@ class EventSet(models.QuerySet):
             print(event)
 
     def upcoming(self):
+        import time
+
         return self.filter(int_UNIXtime_event_end__gt=time.time()).order_by('int_UNIXtime_event_start')
 
     def in_minutes(self, minutes, name_only=False):
+        import pytz
+        from datetime import datetime, timedelta
+        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
+
         date_in_x_minutes = datetime.now(pytz.timezone(
             HACKERSPACE_TIMEZONE_STRING))+timedelta(minutes=minutes)
         events_in_x_minutes = []
@@ -196,6 +308,9 @@ class EventSet(models.QuerySet):
             event.announce_via_marry()
 
     def pull_from_meetup(self, slug=HACKERSPACE_MEETUP_GROUP):
+        import requests
+        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME
+
         json_our_group = requests.get('https://api.meetup.com/'+slug+'/events',
                                       params={
                                           'fields': [
@@ -223,6 +338,8 @@ class EventSet(models.QuerySet):
 
 
 class Event(models.Model):
+    from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME, HACKERSPACE_ADDRESS, HACKERSPACE_TIMEZONE_STRING
+
     objects = EventSet.as_manager()
     str_name = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
@@ -298,6 +415,8 @@ class Event(models.Model):
 
     @property
     def str_series(self):
+        import json
+
         if not self.text_series_timing:
             return None
 
@@ -313,6 +432,8 @@ class Event(models.Model):
 
     @property
     def str_relative_time(self):
+        import time
+
         timestamp = self.int_UNIXtime_event_start
 
         # if date within next 5 minutes
@@ -339,6 +460,9 @@ class Event(models.Model):
 
     @property
     def datetime_start(self):
+        import pytz
+        from datetime import datetime
+
         if not self.int_UNIXtime_event_start:
             return None
         local_timezone = pytz.timezone(self.str_timezone)
@@ -348,6 +472,8 @@ class Event(models.Model):
 
     @property
     def datetime_end(self):
+        from datetime import timedelta
+
         if not self.datetime_start:
             return None
         return self.datetime_start+timedelta(minutes=self.int_minutes_duration)
@@ -391,7 +517,7 @@ class Event(models.Model):
 
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
-            'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
+            'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
 
         super(Event, self).save(*args, **kwargs)
 
@@ -422,7 +548,9 @@ class Event(models.Model):
 
     # Noisebridge specific
     def announce_via_marry(self):
+        import time
         from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.marry import speak
+
         start_time = self.str_relative_time if self.int_UNIXtime_event_start < time.time(
         )+(60*60) else self.datetime_start.strftime('%I %p')
         if start_time == 'Now':

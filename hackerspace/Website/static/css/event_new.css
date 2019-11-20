@@ -20,3 +20,67 @@
         animation: LEDsStrong 8s infinite;
     }
 }
+
+.overlay_overview {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+}
+
+.times_block {
+    float: left;
+    height: 100%;
+    text-align: right;
+    margin-right: 10px;
+    width: 180px;
+}
+
+.time_overlay_time {
+    height: 20%
+}
+
+.event_slot {
+    float: left;
+    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.event_slot_headline {
+    top: 35%;
+    position: relative;
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+
+.event_slot_entry {
+    background-color: white;
+    border-radius: 20px;
+    position: relative;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    color: black;
+    width: 97%;
+    margin: auto;
+
+}
+
+.event_slot_entry.entry_link {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+    .event_slot_entry {
+        background-color: black;
+        color: #d4d4d4;
+    }
+
+    .event_slot_entry.entry_link {
+        -webkit-animation: LEDsStrong 8s infinite;
+        /* Safari 4.0 - 8.0 */
+        animation: LEDsStrong 8s infinite;
+    }
+}
