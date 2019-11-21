@@ -11,7 +11,7 @@
     -ms-flex-pack: center;
     justify-content: center;
     border-radius: 10px;
-    background-color: var(--main-color);
+    background-color: var(--PRIMARY_COLOR);
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
     color: #fff;
     font-size: 18px;
@@ -45,7 +45,7 @@
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     background-color: #fff;
-    color: var(--main-color);
+    color: var(--PRIMARY_COLOR);
 }
 
 
@@ -107,7 +107,7 @@
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
-    color: var(--main-color);
+    color: var(--PRIMARY_COLOR);
     font-size: 16px;
     line-height: 40px;
     text-decoration: none;

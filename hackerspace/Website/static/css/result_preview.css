@@ -123,7 +123,7 @@
     bottom: auto;
     padding: 3px 7px;
     border-radius: 20px;
-    background-color: #219cee;
+    background-color: var(--SECONDARY_COLOR);
     color: #fff;
 }
 

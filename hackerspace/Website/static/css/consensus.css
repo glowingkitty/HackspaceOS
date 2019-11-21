@@ -71,7 +71,7 @@
 
 
 .text__consensus_status.active {
-    background-color: #219CEE;
+    background-color: var(--SECONDARY_COLOR);
     color: white;
 }
 

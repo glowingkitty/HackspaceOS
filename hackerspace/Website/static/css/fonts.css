@@ -15,14 +15,14 @@
 }
 
 .highlight_text_red {
-    color: var(--main-color);
+    color: var(--PRIMARY_COLOR);
     text-decoration: none;
 }
 
 .h2 {
     max-height: 60px;
     padding-left: 5px;
-    border-left: 5px solid var(--main-color);
+    border-left: 5px solid var(--PRIMARY_COLOR);
     font-size: 18px;
     -webkit-column-count: auto;
     column-count: auto;
@@ -107,7 +107,7 @@
     display: inline-block;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
-    color: var(--main-color);
+    color: var(--PRIMARY_COLOR);
     text-decoration: none;
 }
 

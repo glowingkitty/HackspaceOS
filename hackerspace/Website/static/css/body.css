@@ -11,7 +11,7 @@ html {
 }
 
 .body {
-    font-family: var(--main-font);
+    font-family: var(--FONT);
     margin: 0px;
 }
 
@@ -242,7 +242,7 @@ html {
     height: 30px;
     color: white;
     font-size: 16px;
-    font-family: var(--main-font);
+    font-family: var(--FONT);
 }
 
 .menu_icon {

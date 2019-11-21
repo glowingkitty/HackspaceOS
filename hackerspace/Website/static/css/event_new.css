@@ -1,6 +1,6 @@
 .input_field_enter_name {
     width: 92%;
-    font-family: var(--main-font);
+    font-family: var(--FONT);
     font-size: 18px;
     line-height: 40px;
     border-radius: 200px;

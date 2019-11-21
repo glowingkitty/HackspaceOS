@@ -5,7 +5,7 @@
     position: absolute;
     top: 13px;
     margin-left: 20px;
-    font-family: var(--main-font);
+    font-family: var(--FONT);
     border-radius: 200px;
     border: none;
     padding-left: 20px;
@@ -137,7 +137,7 @@
 
 .meeting_note_present_body {
     background-color: #ffefa0;
-    font-family: var(--main-font);
+    font-family: var(--FONT);
 }
 
 .meeting_live_text {
@@ -157,7 +157,7 @@
     -ms-flex-align: center;
     align-items: center;
     border-radius: 200px;
-    background-color: var(--main-color);
+    background-color: var(--PRIMARY_COLOR);
     color: #fff;
     font-size: 45px;
     line-height: 60px;
@@ -203,7 +203,7 @@
 }
 
 .keyword.input {
-    font-family: var(--main-font);
+    font-family: var(--FONT);
     border: none;
 }
 
@@ -213,11 +213,11 @@
     background-position: 7px 50%;
     background-size: auto 70%;
     background-repeat: no-repeat;
-    color: var(--main-color);
+    color: var(--PRIMARY_COLOR);
 }
 
 .keyword.save_button {
-    color: var(--main-color);
+    color: var(--PRIMARY_COLOR);
 }
 
 pre {
