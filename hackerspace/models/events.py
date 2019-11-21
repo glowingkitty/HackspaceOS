@@ -1,11 +1,3 @@
-# import time
-# from datetime import datetime, timedelta
-
-# import pytz
-# import requests
-
-# import json
-
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_MEETUP_GROUP
 
 from django.core import serializers

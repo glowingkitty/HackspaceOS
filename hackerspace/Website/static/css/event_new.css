@@ -1,6 +1,6 @@
 .input_field_enter_name {
     width: 92%;
-    font-family: 'Lexend Deca', sans-serif;
+    font-family: var(--main-font);
     font-size: 18px;
     line-height: 40px;
     border-radius: 200px;
@@ -9,6 +9,14 @@
     padding-right: 20px;
     box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
     background-color: white
+}
+
+.input_field_enter_name.round_square {
+    border-radius: 10px;
+}
+
+.grey_background {
+    background-color: #f4f4f4
 }
 
 @media (prefers-color-scheme: dark) {

@@ -15,14 +15,14 @@
 }
 
 .highlight_text_red {
-    color: #ed1d23;
+    color: var(--main-color);
     text-decoration: none;
 }
 
 .h2 {
     max-height: 60px;
     padding-left: 5px;
-    border-left: 5px solid #ed1d23;
+    border-left: 5px solid var(--main-color);
     font-size: 18px;
     -webkit-column-count: auto;
     column-count: auto;
@@ -58,6 +58,10 @@
     max-height: 100%;
     font-size: 25px;
     line-height: 30px;
+}
+
+.h2.large.small_distance_bottom {
+    margin-bottom: 10px;
 }
 
 .h3 {
@@ -103,7 +107,7 @@
     display: inline-block;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
-    color: #ed1d23;
+    color: var(--main-color);
     text-decoration: none;
 }
 

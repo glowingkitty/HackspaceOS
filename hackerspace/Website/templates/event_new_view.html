@@ -9,43 +9,19 @@
 
 <div id="what_event_organize" class="max_540" style="margin-top: 20vh;margin-bottom: 30vh;">
     <h2 class="h2 large">What event do you want to organize?</h2>
-    <input class="input_field_enter_name" autofocus="true" oninput="search_events(this.value)" placeholder="Enter a name ..."></input>
+    <input class="input_field_enter_name grey_background" autofocus="true" oninput="search_events(this.value)" placeholder="Enter a name ..."></input>
     <div class="divider_20"></div>
     <a id="continue_add_event_button" class="button__cta inline" style="display: none">Continue</a>
     <div class="divider_20"></div>
     <div class="divider_20"></div>
 </div>
 
-
+{% comment %} {% include "components/body/event_new/new_event_form.html" %} {% endcomment %}
 
 <div class="visually_separated_content" style="min-height:55vh">
     <div class="header_separator upside"></div>
 
     <div class="divider_100"></div>
-
-    {% comment %} Overlay overview {% endcomment %}
-    <div class="max_540">
-        <div class="overlay_overview">
-            <div class="times_block">
-                {% for time in overlapping_events.times %}
-                <div class="time_overlay_time" style="height:{{ time.int_percent_height }}">{{ time.str_readable }}</div>
-                {% endfor %}
-            </div>
-            <div class="event_slot">
-                <div class="event_slot_entry" style="top:{{ overlapping_events.your_event.int_percent_top_distance }};height:{{ overlapping_events.your_event.int_percent_height }}">
-                    <span class="event_slot_headline">Your event</span>
-                </div>
-            </div>
-            {% for event in overlapping_events.overlapping_events %}
-            <div class="event_slot">
-                <a target="_blank" href="/{{ event.str_slug }}" class="event_slot_entry entry_link" style="top:{{ event.int_percent_top_distance }};height:{{ event.int_percent_height }}">
-                    <span class="event_slot_headline">{{ event.str_name }}</span>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
 
     <div class="max_540" id="existing_events_block" style="display: none">
         Also consider:<br>

@@ -1,0 +1,49 @@
+{% block content %}
+
+<div class="max_540">
+    <h2 class="h2 large small_distance_bottom">Name</h2>
+    <div class="subheading">Tipp: Keep it short & clear.</div> 
+    <div class="divider_10"></div>
+    <input class="input_field_enter_name round_square grey_background" autofocus="true" placeholder="Enter a name ..."></input>
+    <div class="divider_20"></div>
+</div>
+
+<div class="max_540">
+    <div class="blocks_inline_50_percent">
+        <h2 class="h2 large small_distance_bottom">Date</h2>
+        <div class="divider_10"></div>
+        <input class="input_field_enter_name round_square grey_background" style="width: 80%;" placeholder="MM/DD/YYYY"></input>
+        <div class="divider_20"></div>
+    </div>
+    <div class="blocks_inline_50_percent">
+        <h2 class="h2 large small_distance_bottom">Time</h2>
+        <div class="divider_10"></div>
+        <input class="input_field_enter_name round_square grey_background" style="width: 80%;" placeholder="HH:MM AM/PM"></input>
+        <div class="divider_20"></div>
+    </div>
+</div>
+
+<div class="max_540">
+    <div class="blocks_inline_50_percent">
+        <h2 class="h2 large small_distance_bottom">Duration</h2>
+        <div class="divider_10"></div>
+        <input class="input_field_enter_name round_square grey_background" style="width: 80%;" placeholder="HH:MM"></input>
+        <div class="divider_20"></div>
+    </div>
+    <div class="blocks_inline_50_percent">
+        <h2 class="h2 large small_distance_bottom">Space</h2>
+        <div class="divider_10"></div>
+        <select class="input_field_enter_name round_square grey_background" style="height: 41px;">
+            <option value="{{ default_space.str_name }}">{{ default_space.str_name }}</option>
+            {% for space in all_spaces %}
+            <option value="{{ space.str_name }}">{{ space.str_name }}</option>
+            {% endfor %}
+        </select>
+        <div class="divider_20"></div>
+    </div>
+</div>
+<div class="divider_20"></div>
+<div class="divider_20"></div>
+
+
+{% endblock %}

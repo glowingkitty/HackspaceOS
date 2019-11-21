@@ -5,7 +5,7 @@
     position: absolute;
     top: 13px;
     margin-left: 20px;
-    font-family: 'Lexend Deca', sans-serif;
+    font-family: var(--main-font);
     border-radius: 200px;
     border: none;
     padding-left: 20px;
@@ -137,7 +137,7 @@
 
 .meeting_note_present_body {
     background-color: #ffefa0;
-    font-family: 'Lexend Deca', sans-serif;
+    font-family: var(--main-font);
 }
 
 .meeting_live_text {
@@ -157,7 +157,7 @@
     -ms-flex-align: center;
     align-items: center;
     border-radius: 200px;
-    background-color: #ed1d23;
+    background-color: var(--main-color);
     color: #fff;
     font-size: 45px;
     line-height: 60px;
@@ -203,7 +203,7 @@
 }
 
 .keyword.input {
-    font-family: 'Lexend Deca', sans-serif;
+    font-family: var(--main-font);
     border: none;
 }
 
@@ -213,11 +213,11 @@
     background-position: 7px 50%;
     background-size: auto 70%;
     background-repeat: no-repeat;
-    color: #ed1d23;
+    color: var(--main-color);
 }
 
 .keyword.save_button {
-    color: #ed1d23;
+    color: var(--main-color);
 }
 
 pre {

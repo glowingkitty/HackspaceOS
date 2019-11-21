@@ -229,8 +229,8 @@ def get_view_response(request, page, sub_page, hashname):
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | New event',
             'page_description': 'Organize an event at '+HACKERSPACE.HACKERSPACE_NAME,
             'upcoming_events': Event.objects.upcoming()[:4],
-            # test
-            'overlapping_events': Event.objects.overlapping_events(time.time()+(45*60*60), 120, 'Hackatorium')
+            'default_space': Space.objects.filter(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT).first(),
+            'all_spaces': Space.objects.exclude(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT)
         }}
 
 

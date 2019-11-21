@@ -3,6 +3,13 @@
 
 {% block content %}
 
+<style>
+:root {
+  --main-color: {{ HACKERSPACE.DESIGN.PRIMARY_COLOR }};
+  --main-font: {{ HACKERSPACE.DESIGN.FONT }};
+}
+</style>
+
 {% for file_name in ''|getCSSfiles %}
 <link href="{% static file_name|getCSSpath %}" rel="stylesheet" type="text/css">
 {% endfor %}
