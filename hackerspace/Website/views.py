@@ -398,8 +398,14 @@ def get_view(request):
 
             hours = int(str_duration.split(':')[0])
             minutes = int(str_duration.split(':')[1])
-            datetime_input = pytz.timezone(HACKERSPACE_TIMEZONE_STRING).localize(
-                datetime.strptime(str(str_date+' '+str_time.replace(' ', '')), "%m/%d/%Y %I:%M%p"))
+            if 'AM' in str_time or 'PM' in str_time:
+                datetime_input = pytz.timezone(HACKERSPACE_TIMEZONE_STRING).localize(
+                    datetime.strptime(str(str_date+' '+str_time.replace(' ', '')), "%Y-%m-%d %I:%M%p"))
+            else:
+                datetime_input = pytz.timezone(HACKERSPACE_TIMEZONE_STRING).localize(
+                    datetime.strptime(str(str_date+' '+str_time.replace(' ', '')), "%Y-%m-%d %H:%M"))
+
+            
             new_event_UNIX_time = round(datetime.timestamp(datetime_input))
             new_event_duration_minutes = (hours*60)+minutes
 

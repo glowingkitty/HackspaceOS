@@ -18,19 +18,16 @@ function checkForOverlappingEvents() {
     if (event_date.length < 10) {
         return
     }
-    if (event_date.replace(/[^\/]/g, "").length < 2) {
+    if (event_date.replace(/[^-]/g, "").length < 2) {
         return
     }
 
     // check event time
     let event_time = document.getElementById('event_time').value
-    if (event_time.length < 7) {
+    if (event_time.length < 5) {
         return
     }
     if (event_time.replace(/[^:]/g, "").length < 1) {
-        return
-    }
-    if (!event_time.includes('AM') && !event_time.includes('PM')) {
         return
     }
 
@@ -50,7 +47,6 @@ function checkForOverlappingEvents() {
     }
 
     // make server request and check if overlapping events exist
-    request_html('overlapping_events', 'inner')
     axios.get('/get/?what=event_overlap&date=' + event_date + '&time=' + event_time + '&duration=' + event_duration + '&space=' + event_space)
         .then(function (response) {
             if (response.data.int_overlapping_events > 0) {

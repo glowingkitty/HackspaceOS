@@ -5,7 +5,7 @@
 <div class="subheading">{{ field_subheading }}</div>
 {% endif %}
 <div class="divider_10"></div>
-<input {% if input_id %}id="{{ input_id }}"{% endif %} {% if oninput %}oninput="{{ oninput }}"{% endif %} class="input_field_enter_name round_square grey_background" style="width: {% if field_width %}{{ field_width }}{% else %}80%{% endif %};" placeholder="{{ field_placeholder }}"></input>
+<input {% if input_id %}id="{{ input_id }}"{% endif %} {% if oninput %}oninput="{{ oninput }}"{% endif %} {% if input_id == 'event_date' %}type="date" {% elif input_id == 'event_time' %}type="time" {% endif %}class="input_field_enter_name round_square grey_background" style="width: {% if field_width %}{{ field_width }}{% else %}80%{% endif %};" placeholder="{{ field_placeholder }}"></input>
 <div class="divider_20"></div>
 
 {% endblock %}
