@@ -1,0 +1,13 @@
+{% block content %}
+
+<h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
+<div class="divider_10"></div>
+<select {% if input_id %}id="{{ input_id }}"{% endif %} {% if onchange %}onchange="{{ onchange }}"{% endif %} class="input_field_enter_name round_square grey_background" style="height: 41px;">
+    <option value="{{ default_selected_value }}">{{ default_selected_name }}</option>
+    {% for entry in all_entries %}
+    <option value="{{ entry.str_name }}">{{ entry.str_name }}</option>
+    {% endfor %}
+</select>
+<div class="divider_20"></div>
+
+{% endblock %}

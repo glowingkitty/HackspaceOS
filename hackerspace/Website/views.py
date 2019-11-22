@@ -230,7 +230,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_description': 'Organize an event at '+HACKERSPACE.HACKERSPACE_NAME,
             'upcoming_events': Event.objects.upcoming()[:4],
             'default_space': Space.objects.filter(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT).first(),
-            'all_spaces': Space.objects.exclude(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT)
+            'all_spaces': Space.objects.exclude(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT),
         }}
 
 
@@ -358,6 +358,7 @@ def get_view(request):
     print('get_view')
     in_space = request.COOKIES.get('in_space')
     marry_messages = []
+    response = None
     if request.GET.get('what', None) == 'events_slider':
         if in_space:
             events_in_5_minutes = Event.objects.in_minutes(
@@ -382,6 +383,38 @@ def get_view(request):
         )
     elif request.GET.get('what', None) == 'open_status':
         response = JsonResponse({'html': getOpenNowStatus()})
+
+    elif request.GET.get('what', None) == 'event_overlap':
+        str_date = request.GET.get('date', None)
+        str_time = request.GET.get('time', None)
+        str_duration = request.GET.get('duration', None)
+        str_space = request.GET.get('space', None)
+        if str_date and str_time and str_duration and str_space:
+            import time
+            from datetime import datetime
+            from pytz import timezone
+            from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
+            import pytz
+
+            hours = int(str_duration.split(':')[0])
+            minutes = int(str_duration.split(':')[1])
+            datetime_input = pytz.timezone(HACKERSPACE_TIMEZONE_STRING).localize(
+                datetime.strptime(str(str_date+' '+str_time.replace(' ', '')), "%m/%d/%Y %I:%M%p"))
+            new_event_UNIX_time = round(datetime.timestamp(datetime_input))
+            new_event_duration_minutes = (hours*60)+minutes
+
+            overlapping_events = Event.objects.overlapping_events(
+                        new_event_UNIX_time,
+                        new_event_duration_minutes,
+                        request.GET.get('space', None),
+                    )
+
+            response = JsonResponse({
+                'int_overlapping_events':len(overlapping_events['overlapping_events']),
+                'html': get_template(
+                'components/body/event_new/form_elements/overlapping_events.html').render({
+                    'overlapping_events': overlapping_events
+                })})
 
     elif request.GET.get('what', None) == 'meeting_duration':
         running_since = MeetingNote.objects.current().running_since
@@ -424,7 +457,8 @@ def get_view(request):
                 'page_name': response_context['page_name']
             }
         )
-    else:
+
+    if not response:
         response = JsonResponse({'error': 'no "what" defined'})
         response.status_code = 404
 

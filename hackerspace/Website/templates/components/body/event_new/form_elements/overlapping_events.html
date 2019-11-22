@@ -1,0 +1,29 @@
+{% block content %}
+
+<h2 class="h2 large small_distance_bottom">Overlap</h2>
+<div class="subheading">
+    Your event seems to overlap with {{ overlapping_events.overlapping_events|length }} existing event{% if overlapping_events.overlapping_events|length > 1 %}s{% endif %}.<br>
+    Consider changing the space, date, time or duration.
+</div>
+
+<div class="overlay_overview">
+    <div class="times_block">
+        {% for time in overlapping_events.times %}
+        <div class="time_overlay_time" style="height:{{ time.int_percent_height }}">{{ time.str_readable }}</div>
+        {% endfor %}
+    </div>
+    <div class="event_slot">
+        <div class="event_slot_entry" style="top:{{ overlapping_events.your_event.int_percent_top_distance }};height:{{ overlapping_events.your_event.int_percent_height }}">
+            <span class="event_slot_headline">Your event</span>
+        </div>
+    </div>
+    {% for event in overlapping_events.overlapping_events %}
+    <div class="event_slot">
+        <a target="_blank" href="/{{ event.str_slug }}" class="event_slot_entry entry_link" style="top:{{ event.int_percent_top_distance }};height:{{ event.int_percent_height }}">
+            <span class="event_slot_headline">{{ event.str_name }}</span>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

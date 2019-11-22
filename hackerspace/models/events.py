@@ -147,6 +147,9 @@ class EventSet(models.QuerySet):
                 Q(int_UNIXtime_event_start__lte=from_UNIX_time) &
                 Q(int_UNIXtime_event_end__gte=to_UNIX_time)
             )
+        ).exclude(
+            Q(int_UNIXtime_event_start__gte=to_UNIX_time) |
+            Q(int_UNIXtime_event_end__lte=from_UNIX_time)
         )
 
     def overlapping_events(self, new_event_UNIX_time, new_event_duration_minutes, space):

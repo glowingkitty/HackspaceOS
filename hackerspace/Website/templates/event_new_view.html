@@ -7,31 +7,36 @@
 
 <div class="divider_20"></div>
 
-<div id="what_event_organize" class="max_540" style="margin-top: 20vh;margin-bottom: 30vh;">
-    <h2 class="h2 large">What event do you want to organize?</h2>
-    <input class="input_field_enter_name grey_background" autofocus="true" oninput="search_events(this.value)" placeholder="Enter a name ..."></input>
-    <div class="divider_20"></div>
-    <a id="continue_add_event_button" class="button__cta inline" style="display: none">Continue</a>
-    <div class="divider_20"></div>
-    <div class="divider_20"></div>
+<div id="what_event_block">
+    <div id="what_event_organize" class="max_540" style="margin-top: 20vh;margin-bottom: 30vh;">
+        <h2 class="h2 large">What event do you want to organize?</h2>
+        <input id="input_event_name" class="input_field_enter_name grey_background" autofocus="true" oninput="search_events(this.value)" placeholder="Enter a name ..."></input>
+        <div class="divider_20"></div>
+        <a id="continue_add_event_button" onclick="showNewEventForm()" class="button__cta inline" style="display: none">Continue</a>
+        <div class="divider_20"></div>
+        <div class="divider_20"></div>
+    </div>
+
+    <div class="visually_separated_content" style="min-height:55vh">
+        <div class="header_separator upside"></div>
+
+        <div class="divider_100"></div>
+
+        <div class="max_540" id="existing_events_block" style="display: none">
+            Also consider:<br>
+            Maybe a similar at Noisebridge could need your help!
+            <div class="divider_20"></div>
+            <h2 id="existing_events_headline" class="h2 large">Similar events</h2>
+            <div id="existing_events">
+            </div>
+        </div>
+
+        <div class="divider_100"></div>
+    </div>
 </div>
 
-{% comment %} {% include "components/body/event_new/new_event_form.html" %} {% endcomment %}
-
-<div class="visually_separated_content" style="min-height:55vh">
-    <div class="header_separator upside"></div>
-
-    <div class="divider_100"></div>
-
-    <div class="max_540" id="existing_events_block" style="display: none">
-        Also consider:<br>
-        Maybe a similar at Noisebridge could need your help!
-        <div class="divider_20"></div>
-        <h2 id="existing_events_headline" class="h2 large">Similar events</h2>
-        <div id="existing_events">
-        </div>
-    </div>
-    <div class="divider_100"></div>
+<div id="new_event_form" style="display: none">
+    {% include "components/body/event_new/new_event_form.html" %}
 </div>
 
 

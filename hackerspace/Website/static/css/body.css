@@ -309,6 +309,14 @@ html {
     vertical-align: text-top
 }
 
+@media (max-width: 479px) {
+    .blocks_inline_50_percent {
+        width: 100%;
+        display: block
+    }
+}
+
+
 .block_full_width {
     width: 100%;
     display: block;
