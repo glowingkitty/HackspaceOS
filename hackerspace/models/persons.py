@@ -50,6 +50,11 @@ class Person(models.Model):
     def __str__(self):
         return self.str_name
 
+    def str_name_shortened(self):
+        if not ' ' in self.str_name:
+            return self.str_name
+        return self.str_name.split(' ')[0]+' '+self.str_name.split(' ')[1][:1]
+
     def create(self, json_content):
         try:
             obj = Person.objects.get(

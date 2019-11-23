@@ -1,0 +1,20 @@
+{% block content %}
+
+<h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
+<div class="subheading">Select the hosts of the event. Your name is missing? Make sure you signed up in <a href="{{ HACKERSPACE.HACKERSPACE_DISCOURSE_URL }}" target="_blank" class="inline_link">our Discourse group</a>.</div>
+<div class="divider_10"></div>
+
+<div id="hosts_preview_block" style="display: none">
+    <div id="hosts_preview"></div>
+    <div class="divider_20"></div>
+</div>
+
+<input type="hidden" id="added_hosts" values=""></input>
+
+<input class="input_field_enter_name round_square grey_background" style="width: 80%" oninput="search_hosts(this.value)" placeholder="Search for name ..."></input>
+<div class="divider_10"></div>
+<div id="hosts_search_results"></div>
+
+<div class="divider_20"></div>
+
+{% endblock %}

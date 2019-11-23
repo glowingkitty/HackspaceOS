@@ -1,6 +1,6 @@
 from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.wiki import wiki_search
 from hackerspace.APIs.discourse import discourse_search
-from hackerspace.models import Event, MeetingNote, Guilde, Machine, Space, Consensus, Project
+from hackerspace.models import Event, MeetingNote, Guilde, Machine, Space, Consensus, Project, Person
 from django.db.models import Q
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS, HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS
 
@@ -8,6 +8,9 @@ from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS, HACKERSPAC
 def search(query, filter_name):
     if not query:
         return []
+
+    if filter_name and filter_name == 'hosts':
+        return Person.objects.filter(Q(str_name__icontains=query) | Q(url_discourse__icontains=query))
 
     # search in database
     events = Event.objects.filter(

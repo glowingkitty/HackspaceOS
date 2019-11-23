@@ -1,21 +1,21 @@
 {% block content %}
 
 <div class="max_540">
-    {% include "components/body/event_new/form_elements/text_field.html" with input_id="event_name" field_heading="Name" field_placeholder="Enter a name ..." field_width="90%" field_subheading="Tipp: Keep it short & clear." %}
+    {% include "components/body/event_new/form_elements/input_field.html" with input_id="event_name" field_heading="Name" field_placeholder="Enter a name ..." field_width="90%" field_subheading="Tipp: Keep it short & clear." %}
 </div>
 
 <div class="max_540">
     <div class="blocks_inline_50_percent">
-        {% include "components/body/event_new/form_elements/text_field.html" with field_heading="Date" input_id="event_date" oninput="checkForOverlappingEvents()" field_placeholder="YYYY-MM-DD" %}
+        {% include "components/body/event_new/form_elements/input_field.html" with field_heading="Date" input_id="event_date" oninput="checkForOverlappingEvents()" field_placeholder="YYYY-MM-DD" %}
     </div>
     <div class="blocks_inline_50_percent">
-        {% include "components/body/event_new/form_elements/text_field.html" with field_heading="Time" input_id="event_time" oninput="checkForOverlappingEvents()" field_placeholder="HH:MM AM/PM" %}
+        {% include "components/body/event_new/form_elements/input_field.html" with field_heading="Time" input_id="event_time" oninput="checkForOverlappingEvents()" field_placeholder="HH:MM AM/PM" %}
     </div>
 </div>
 
 <div class="max_540">
     <div class="blocks_inline_50_percent">
-        {% include "components/body/event_new/form_elements/text_field.html" with field_heading="Duration" input_id="event_duration" oninput="checkForOverlappingEvents()" field_placeholder="HH:MM" %}
+        {% include "components/body/event_new/form_elements/input_field.html" with field_heading="Duration" input_id="event_duration" oninput="checkForOverlappingEvents()" field_placeholder="HH:MM" %}
     </div>
     <div class="blocks_inline_50_percent">
         {% include "components/body/event_new/form_elements/dropdown_field.html" with field_heading="Space" input_id="event_space" onchange="checkForOverlappingEvents()" all_entries=all_spaces default_selected_value=default_space.str_name default_selected_name=default_space.str_name %}
@@ -36,7 +36,46 @@
     <div class="header_separator"></div>
 </div>
 
+<div class="max_540">
+    <div class="blocks_inline_50_percent">
+        {% include "components/body/event_new/form_elements/upload_image_field.html" with field_heading="Featured photo" input_id="event_photo" field_subheading="Recommended: 1200x600 or higher" %}
+    </div>
+    <div class="blocks_inline_50_percent">
+        {% include "components/body/event_new/form_elements/text_field.html" with field_heading="Description" input_id="event_description" field_placeholder="Describe what your event is all about." %}
+    </div>
+</div>
 
+<div class="max_540">
+    <div class="blocks_inline_50_percent">
+        {% include "components/body/event_new/form_elements/location_field.html" with field_heading="Location" input_id="event_location" %}
+    </div>
+    <div class="blocks_inline_50_percent">
+        {% include "components/body/event_new/form_elements/dropdown_field.html" with field_heading="Guilde" input_id="event_guilde" all_entries=all_guildes default_selected_value='' default_selected_name='-' %}
+    </div>
+</div>
 
+<div class="max_540">
+    <div class="blocks_inline_50_percent">
+        {% include "components/body/event_new/form_elements/hosts_field.html" with field_heading="Hosts" input_id="event_hosts" %}
+    </div>
+    <div class="blocks_inline_50_percent">
+        {% include "components/body/event_new/form_elements/repeating_field.html" with field_heading="Repeating" input_id="event_repeating" %}
+    </div>
+</div>
+
+<div class="max_540">
+    <div class="blocks_inline_50_percent">
+        {% include "components/body/event_new/form_elements/volunteers_field.html" with field_heading="Volunteers" input_id="event_volunteers" %}
+    </div>
+    <div class="blocks_inline_50_percent">
+        {% include "components/body/event_new/form_elements/expected_crowd_field.html" with field_heading="Expected crowd" input_id="event_expected_crowd" %}
+    </div>
+</div>
+
+<div class="max_540">
+    <div class="blocks_inline_50_percent">
+        {% include "components/body/event_new/form_elements/publish_options_field.html" with field_heading="Publish event" input_id="event_publish_options" %}
+    </div>
+</div>
 
 {% endblock %}

@@ -65,3 +65,31 @@ function checkForOverlappingEvents() {
         });
 
 }
+
+function changeLocation(new_location) {
+    if (new_location == 'other') {
+        document.getElementById('location').value = ''
+        document.getElementById('location_text').value = ''
+        document.getElementById('location_text').style.display = 'block'
+    } else {
+        document.getElementById('location').value = new_location
+        document.getElementById('location_text').style.display = 'none'
+    }
+}
+
+function addRemoveHost(block, discourse_url) {
+    if (document.getElementById('added_hosts').value.includes(discourse_url)) {
+        block.outerHTML = ''
+        document.getElementById('added_hosts').value = document.getElementById('added_hosts').value.replace(',' + discourse_url, '')
+    } else {
+        document.getElementById('hosts_preview').innerHTML = document.getElementById('hosts_preview').innerHTML + block.outerHTML
+        block.outerHTML = ''
+        document.getElementById('added_hosts').value = document.getElementById('added_hosts').value + ',' + discourse_url
+    }
+
+    if (document.getElementById('added_hosts').value != '') {
+        document.getElementById('hosts_preview_block').style.display = 'block'
+    } else {
+        document.getElementById('hosts_preview_block').style.display = 'none'
+    }
+}

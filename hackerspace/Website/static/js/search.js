@@ -80,6 +80,30 @@ function search_events(query) {
     }
 }
 
+function search_hosts(query) {
+    axios.get("/search?q=" + query + '&filter=hosts', {
+            cancelToken: new CancelToken(function executor(c) {
+                // An executor function receives a cancel function as a parameter
+                cancel_search = c;
+            })
+        })
+        .then(function (response) {
+            // show results
+            if (response.data.num_results > 0) {
+                document.getElementById('hosts_search_results').innerHTML = response.data.html
+            } else {
+                document.getElementById('hosts_search_results').innerHTML = ''
+            }
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+}
+
 function enterSearch(text) {
     document.getElementById('search_input').value = text
     search(search_input.value)

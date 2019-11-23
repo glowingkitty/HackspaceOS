@@ -231,6 +231,7 @@ def get_view_response(request, page, sub_page, hashname):
             'upcoming_events': Event.objects.upcoming()[:4],
             'default_space': Space.objects.filter(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT).first(),
             'all_spaces': Space.objects.exclude(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT),
+            'all_guildes':Guilde.objects.all()
         }}
 
 
@@ -544,7 +545,9 @@ def search_view(request):
             'html': get_template(
                 'components/search/search_results.html').render({
                     'search_results': search_results
-                }) if not request.GET.get('filter', None) else get_template('components/body/results_list_entries.html').render({
+                }) if not request.GET.get('filter', None) else get_template('components/body/event_new/hosts_search_results.html').render({
+                    'all_hosts': search_results[:4],
+                }) if request.GET.get('filter', None)=='hosts' else get_template('components/body/results_list_entries.html').render({
                     'all_results': search_results[:4],
                 }),
         }

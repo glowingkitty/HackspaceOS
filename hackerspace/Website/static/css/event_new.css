@@ -92,3 +92,36 @@
         animation: LEDsStrong 8s infinite;
     }
 }
+
+.host_entry {
+    cursor: pointer;
+    display: block;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    float: left;
+    width: 92%;
+    margin-bottom: 4px;
+    padding: 5px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .host_entry {
+        background-color: #494949
+    }
+}
+
+.host_image {
+    width: 35px;
+    height: 35px;
+    float: left;
+    border-radius: 200px;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.host_name {
+    float: left;
+    line-height: 35px;
+    margin-left: 10px;
+}
