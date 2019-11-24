@@ -36,3 +36,9 @@ EVENTS_GUILDES_OVERWRITE = {
     'Electronics': 'Electronics Guilde',
     'Sewing': 'Sewing Guilde',
 }
+
+CROWD_SIZE = {
+    'SMALL': 'Up to 10 people',
+    'MEDIUM': 'Up to 20 people',
+    'LARGE': 'More than 20 people'
+}

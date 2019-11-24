@@ -102,3 +102,11 @@ function addRemoveHost(block, discourse_url) {
         document.getElementById('hosts_preview_block').style.display = 'none'
     }
 }
+
+function ask_who_welcomes_people(new_value) {
+    if (new_value == 'large') {
+        document.getElementById('who_welcomes_people').style.display = 'block'
+    } else {
+        document.getElementById('who_welcomes_people').style.display = 'none'
+    }
+}
