@@ -3,11 +3,11 @@ from django.shortcuts import render
 from django.template.loader import get_template
 
 from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
-from hackerspace.models import Error, Project, Event, Guilde, MeetingNote, Space, Machine, Consensus
+from hackerspace.models import Error, Person,Project, Event, Guilde, MeetingNote, Space, Machine, Consensus
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.website.search import search
-from config import ADMIN_URL
+from getKey import STR__get_key
 
 
 def get_view_response(request, page, sub_page, hashname):
@@ -16,7 +16,7 @@ def get_view_response(request, page, sub_page, hashname):
         'in_space': True if request.COOKIES.get('in_space') else None,
         'HACKERSPACE': HACKERSPACE,
         'hash': hashname,
-        'ADMIN_URL': ADMIN_URL,
+        'ADMIN_URL': STR__get_key('ADMIN_URL'),
         'user': request.user
     }
 
@@ -78,7 +78,7 @@ def get_view_response(request, page, sub_page, hashname):
             'description': 'A guilde is a group at {} with a common interest area, responsible for specific spaces and machines at {}.'.format(HACKERSPACE.HACKERSPACE_NAME, HACKERSPACE.HACKERSPACE_NAME),
             'wiki_url': None,
             'add_new_requires_user': True,
-            'addnew_url': '/{}/hackerspace/guilde/add/'.format(ADMIN_URL),
+            'addnew_url': '/{}/hackerspace/guilde/add/'.format(STR__get_key('ADMIN_URL')),
             'addnew_text': 'Add guilde',
             'all_results': Guilde.objects.all()[:10],
             'results_count': Guilde.objects.count(),
@@ -106,7 +106,7 @@ def get_view_response(request, page, sub_page, hashname):
             'description': 'At {} fellow hackers like you created all kinds of awesome spaces. Check them out!'.format(HACKERSPACE.HACKERSPACE_NAME),
             'wiki_url': None,
             'add_new_requires_user': True,
-            'addnew_url': '/{}/hackerspace/space/add/'.format(ADMIN_URL),
+            'addnew_url': '/{}/hackerspace/space/add/'.format(STR__get_key('ADMIN_URL')),
             'addnew_text': 'Add space',
             'all_results': Space.objects.all()[:10],
             'results_count': Space.objects.count(),
@@ -134,7 +134,7 @@ def get_view_response(request, page, sub_page, hashname):
             'description': 'We have many super useful machines at {}, allowing you to build nearly everything you want to build!'.format(HACKERSPACE.HACKERSPACE_NAME),
             'wiki_url': None,
             'add_new_requires_user': True,
-            'addnew_url': '/{}/hackerspace/machine/add/'.format(ADMIN_URL),
+            'addnew_url': '/{}/hackerspace/machine/add/'.format(STR__get_key('ADMIN_URL')),
             'addnew_text': 'Add machine',
             'all_results': Machine.objects.all()[:10],
             'results_count': Machine.objects.count(),
@@ -222,16 +222,24 @@ def get_view_response(request, page, sub_page, hashname):
             'selected': selected
         }}
     elif page == 'event_new':
-        import time
+        from django.middleware.csrf import get_token
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/event_new_view.html',
+            'page_git_url': '/Website/templates/success_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | New event',
             'page_description': 'Organize an event at '+HACKERSPACE.HACKERSPACE_NAME,
             'upcoming_events': Event.objects.upcoming()[:4],
             'default_space': Space.objects.filter(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT).first(),
             'all_spaces': Space.objects.exclude(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT),
-            'all_guildes':Guilde.objects.all()
+            'all_guildes':Guilde.objects.all(),
+            'csrf_token': get_token(request)
+        }}
+    elif page == 'success':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_git_url': '/Website/templates/success_view.html',
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Event submitted',
+            'page_description': 'We received your event.',
         }}
 
 
@@ -391,28 +399,11 @@ def get_view(request):
         str_duration = request.GET.get('duration', None)
         str_space = request.GET.get('space', None)
         if str_date and str_time and str_duration and str_space:
-            import time
-            from datetime import datetime
-            from pytz import timezone
-            from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
-            import pytz
-
-            hours = int(str_duration.split(':')[0])
-            minutes = int(str_duration.split(':')[1])
-            if 'AM' in str_time or 'PM' in str_time:
-                datetime_input = pytz.timezone(HACKERSPACE_TIMEZONE_STRING).localize(
-                    datetime.strptime(str(str_date+' '+str_time.replace(' ', '')), "%Y-%m-%d %I:%M%p"))
-            else:
-                datetime_input = pytz.timezone(HACKERSPACE_TIMEZONE_STRING).localize(
-                    datetime.strptime(str(str_date+' '+str_time.replace(' ', '')), "%Y-%m-%d %H:%M"))
-
+            from hackerspace.website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
             
-            new_event_UNIX_time = round(datetime.timestamp(datetime_input))
-            new_event_duration_minutes = (hours*60)+minutes
-
             overlapping_events = Event.objects.overlapping_events(
-                        new_event_UNIX_time,
-                        new_event_duration_minutes,
+                        INT__UNIX_from_date_and_time_STR(str_date, str_time),
+                        INT__duration_minutes(str_duration),
                         request.GET.get('space', None),
                     )
 
@@ -457,6 +448,8 @@ def get_view(request):
 
         hashname = page.split('#')[1] if '#' in page else None
 
+        print(page)
+        print(sub_page)
         response_context = get_view_response(request, page, sub_page, hashname)
         response = JsonResponse(
             {
@@ -555,9 +548,8 @@ def search_view(request):
 
     return response
 
-
 def new_view(request):
-    print('new_view')
+    print('LOG: new_view()')
 
     if request.GET.get('what', None) == 'meeting':
         new_meeting = MeetingNote()
@@ -573,4 +565,102 @@ def new_view(request):
             }
         )
 
+    elif request.GET.get('what', None) == 'event':
+        from hackerspace.website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
+        int_UNIXtime_event_start = INT__UNIX_from_date_and_time_STR(request.GET.get('date',None),request.GET.get('time',None))
+        int_minutes_duration = INT__duration_minutes(request.GET.get('duration',None))
+        new_event = Event(
+            boolean_approved=request.user.is_authenticated,
+            str_name=request.GET.get('name',None),
+            int_UNIXtime_event_start=int_UNIXtime_event_start,
+            int_minutes_duration=int_minutes_duration,
+            int_UNIXtime_event_end=int_UNIXtime_event_start+(60*int_minutes_duration),
+            url_featured_photo=request.GET.get('photo',None),
+            text_description=request.GET.get('description',None),
+            one_space=Space.objects.by_name(request.GET.get('space',None)),
+            one_guilde=Guilde.objects.by_name(request.GET.get('guilde',None)),
+            str_crowd_size=request.GET.get('expected_crowd',None),
+            str_welcomer=request.GET.get('event_welcomer',None)
+        )
+        if request.GET.get('location',None):
+            new_event.str_location = request.GET.get('location',None)
+        if request.GET.get('repeating',None):
+            # if repeating, mark as such and auto generate new upcoming events with "update_database" command
+            str_repeating_how_often = request.GET.get('repeating',None)
+            str_repeating_up_to = request.GET.get('repeating_up_to',None)
+            
+            if str_repeating_how_often and str_repeating_how_often!='':
+                new_event.int_series_startUNIX = new_event.int_UNIXtime_event_start
+                new_event.str_series_repeat_how_often = str_repeating_how_often
+            
+            if str_repeating_up_to and str_repeating_up_to!='':
+                new_event.int_series_endUNIX = INT__UNIX_from_date_and_time_STR(str_repeating_up_to,request.GET.get('time',None))
+
+
+        if request.GET.get('volunteers',None)=='yes':
+            # create wish entry and save URL
+            new_event = new_event.create_volunteer_wish()
+
+        new_event.save()
+
+        hosts = request.GET.get('hosts',None)
+        if hosts:
+            if hosts.startswith(','):
+                hosts = hosts[1:]
+            hosts = hosts.split(',')
+            for host in hosts:
+                new_event.many_hosts.add(Person.objects.by_url_discourse(host))
+
+        # if event is repeating, create upcoming instances
+        new_event.create_upcoming_instances()
+
+        # share event to other platforms (Meetup, Discourse, etc.)
+        new_event.create_discourse_event()
+        new_event.create_meetup_event()
+
+        # if user is signed in and event autoapproved - direct to event page, else show info
+        response = JsonResponse(
+            {
+                'url_next': '/'+new_event.str_slug if request.user.is_authenticated==True else '/success'
+            }
+        )
+
     return response
+
+
+
+def upload_view(request,what):
+    print('LOG: upload_view()')
+
+    if what == 'event-image':
+        if request.FILES['images[0]'].content_type!='image/jpeg' and request.FILES['images[0]'].content_type!='image/png':
+            response = JsonResponse({
+                            'notification': get_template('components/notification.html').render({
+                                'text_message': 'Please upload a JPG or PNG image.',
+                                'str_icon': 'error'
+                            })})
+            response.status_code = 500
+
+        else:
+            import boto3
+            import os,sys
+            from hackerspace.YOUR_HACKERSPACE import AWS_S3_BUCKET_NAME,AWS_S3_URL
+            from getKey import STR__get_key
+            
+            
+            session = boto3.Session(
+                aws_access_key_id=STR__get_key('AWS_ACCESS_KEYID'),
+                aws_secret_access_key=STR__get_key('AWS_SECRET_ACCESS_KEY'),
+            )
+            s3 = session.resource('s3')
+            image = request.FILES['images[0]']
+
+            s3.Bucket(AWS_S3_BUCKET_NAME).put_object(Key=image.name, Body=image,ACL='public-read')
+            response = JsonResponse({'url_image': 'https://'+AWS_S3_URL+'/'+image.name})
+
+
+    return response
+
+def new_event_submitted_view(request):
+    print('LOG: new_event_submitted_view()')
+    return get_page_response(request, 'success')

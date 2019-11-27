@@ -34,10 +34,8 @@
     <div class="blocks_inline_50_percent">
         <h2 class="h2 large">Location</h2>
         <div>
-        {% if HACKERSPACE.HACKERSPACE_ADDRESS.STREET != selected.str_location_street %}
-        {{ selected.str_location_name }}<br>
-        {{ selected.str_location_street }}<br>
-        {{ selected.str_location_zip }} {{ selected.str_location_city }}, {{ selected.str_location_countrycode }}
+        {% if HACKERSPACE.HACKERSPACE_ADDRESS.STREET not in selected.str_location %}
+        {{ selected.str_location }}
         {% else %}
         {{ HACKERSPACE.HACKERSPACE_NAME }}<br>
         {{ HACKERSPACE.HACKERSPACE_ADDRESS.STREET }}<br>

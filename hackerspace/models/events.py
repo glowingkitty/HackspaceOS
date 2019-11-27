@@ -1,8 +1,6 @@
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_MEETUP_GROUP
-
 from django.core import serializers
 from django.db import models
-
+from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_MEETUP_GROUP
 
 def getWeekday(number):
     days = {
@@ -82,6 +80,16 @@ def extractTimezone(json_meetup_result):
 
 def createEvent(event):
     from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME, HACKERSPACE_ADDRESS
+    str_location_name = event['venue']['name'] if event['venue']['name'] and event[
+        'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_NAME
+    str_location_street = event['venue']['address_1'] if event['venue']['name'] and event[
+        'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['STREET']
+    str_location_zip = event['venue']['zip'] if event['venue']['name'] and event[
+        'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['ZIP']
+    str_location_city = event['venue']['city'] if event['venue']['name'] and event[
+        'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['CITY']
+    str_location_countrycode = event['venue']['country'].upper() if event['venue']['name'] and event[
+        'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['COUNTRYCODE']
 
     Event().create(json_content={
         'str_name': event['name'],
@@ -90,16 +98,7 @@ def createEvent(event):
         'int_minutes_duration': ((event['duration']/1000)/60),
         'url_featured_photo': event['featured_photo']['photo_link'] if 'featured_photo' in event else None,
         'text_description': event['description'],
-        'str_location_name': event['venue']['name'] if event['venue']['name'] and event[
-            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_NAME,
-        'str_location_street': event['venue']['address_1'] if event['venue']['name'] and event[
-            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['STREET'],
-        'str_location_zip': event['venue']['zip'] if event['venue']['name'] and event[
-            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['ZIP'],
-        'str_location_city': event['venue']['city'] if event['venue']['name'] and event[
-            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['CITY'],
-        'str_location_countrycode': event['venue']['country'].upper() if event['venue']['name'] and event[
-            'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['COUNTRYCODE'],
+        'str_location': str_location_name+'\n'+str_location_street+'\n'+str_location_zip+', '+str_location_city+', '+str_location_countrycode,
         'one_space': extractSpace(event),
         'one_guilde': extractGuilde(event),
         'str_series_id': event['series']['id'] if 'series' in event else None,
@@ -247,10 +246,13 @@ class EventSet(models.QuerySet):
         for event in self.all():
             print(event)
 
-    def upcoming(self):
+    def not_approved(self):
+        return self.filter(boolean_approved=False)
+
+    def upcoming(self,boolean_approved=False):
         import time
 
-        return self.filter(int_UNIXtime_event_end__gt=time.time()).order_by('int_UNIXtime_event_start')
+        return self.filter(int_UNIXtime_event_end__gt=time.time()).exclude(boolean_approved=boolean_approved).order_by('int_UNIXtime_event_start')
 
     def in_minutes(self, minutes, name_only=False):
         import pytz
@@ -327,18 +329,32 @@ class EventSet(models.QuerySet):
 
         print('Done! Saved '+str(len(json_our_group)) + ' events from Meetup')
 
-    def pull_from_wiki(self):
-        # TODO
-        return []
-
 
 class Event(models.Model):
-    from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME, HACKERSPACE_ADDRESS, HACKERSPACE_TIMEZONE_STRING
+    from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME,LAT_LON, HACKERSPACE_ADDRESS, HACKERSPACE_TIMEZONE_STRING, CROWD_SIZE
+    SMALL = 'small'
+    MEDIUM = 'medium'
+    LARGE = 'large'
+    EVENT_CROWD_SIZE = (
+        (SMALL, CROWD_SIZE['SMALL']),
+        (MEDIUM, CROWD_SIZE['MEDIUM']),
+        (LARGE, CROWD_SIZE['LARGE']),
+    )
+
+    WEEKLY = 'weekly'
+    BIWEEKLY = 'biweekly'
+    MONTHLY = 'monthly'
+    REPEAT_HOW_OFTEN = (
+        (WEEKLY, 'weekly'),
+        (BIWEEKLY, 'biweekly'),
+        (MONTHLY, 'monthly'),
+    )
 
     objects = EventSet.as_manager()
     str_name = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
     str_slug = models.CharField(max_length=250, blank=True, null=True)
+    boolean_approved = models.BooleanField(default=True)
     int_UNIXtime_event_start = models.IntegerField(
         blank=True, null=True, verbose_name='Event start (UNIX time)')
     int_minutes_duration = models.IntegerField(
@@ -351,23 +367,17 @@ class Event(models.Model):
     text_description = models.TextField(
         blank=True, null=True, verbose_name='Description')
 
-    str_location_name = models.CharField(
-        max_length=250, default=HACKERSPACE_NAME, verbose_name='Location Name')
-    str_location_street = models.CharField(
-        max_length=250, default=HACKERSPACE_ADDRESS['STREET'], verbose_name='Location Street')
-    str_location_zip = models.CharField(
-        max_length=10, default=HACKERSPACE_ADDRESS['ZIP'], verbose_name='Location ZIP')
-    str_location_city = models.CharField(
-        max_length=50, default=HACKERSPACE_ADDRESS['CITY'], verbose_name='Location City')
-    str_location_countrycode = models.CharField(
-        max_length=50, default=HACKERSPACE_ADDRESS['COUNTRYCODE'], verbose_name='Location Country Code')
+    str_location = models.CharField(
+        max_length=250, default=HACKERSPACE_ADDRESS['STREET']+'\n'+HACKERSPACE_ADDRESS['ZIP']+', '+HACKERSPACE_ADDRESS['CITY']+', '+HACKERSPACE_ADDRESS['STATE']+', '+HACKERSPACE_ADDRESS['COUNTRYCODE'], verbose_name='Location')
+    float_lat = models.FloatField(default=LAT_LON[0], blank=True, null=True,verbose_name='Lat')
+    float_lon = models.FloatField(default=LAT_LON[1], blank=True, null=True,verbose_name='Lon')
 
     one_space = models.ForeignKey(
         'Space', related_name="o_space", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Space')
     one_guilde = models.ForeignKey(
         'Guilde', related_name="o_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Guilde')
     many_hosts = models.ManyToManyField(
-        'Person', related_name="m_persons", blank=True, verbose_name='Hosts')
+        'Person', related_name="m_persons", blank=True, null=True, verbose_name='Hosts')
 
     str_series_id = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Series ID')
@@ -375,8 +385,15 @@ class Event(models.Model):
         blank=True, null=True, verbose_name='Series Start (UNIX time)')
     int_series_endUNIX = models.IntegerField(
         blank=True, null=True, verbose_name='Series End (UNIX time)')
+    str_series_repeat_how_often = models.CharField(
+        max_length=50, choices=REPEAT_HOW_OFTEN, blank=True, null=True, verbose_name='Series How often repeating?')
     text_series_timing = models.TextField(
         blank=True, null=True)  # json saved as text
+
+    str_crowd_size = models.CharField(
+        max_length=250, choices=EVENT_CROWD_SIZE, default=SMALL, verbose_name='Expected crowd size')
+    str_welcomer = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='(for large events) Who welcomes people at the door?')
 
     url_meetup_event = models.URLField(
         max_length=250, blank=True, null=True, verbose_name='Meetup URL')
@@ -499,12 +516,98 @@ class Event(models.Model):
         # if runtime > 24 hours, show num of days instead
         return month+' '+day_num+' | '+start_time+(' - ' + end_time if self.int_minutes_duration < (24*60) else ' | '+str(round(self.int_minutes_duration/60/24))+' days')
 
-    @property
-    def str_location(self):
-        return self.str_location_name+'\n'+self.str_location_street+'\n'+self.str_location_zip+'\n'+self.str_location_city+'\n'+self.str_location_countrycode
+    def create_volunteer_wish(self):
+        print('LOG: Event.create_volunteer_wish()')
+        from hackerspace.APIs.discourse import create_post
+        self.url_discourse_wish = create_post('Volunteers for "'+self.str_name+'"',self.text_description,'classes')
+        super(Event, self).save()
+        return self
+
+    def create_upcoming_instances(self):
+        print('LOG: Event.create_upcoming_instances()')
+        import time
+        if not self.str_series_repeat_how_often:
+            return
+        
+        print('LOG: --> Define days_increase')
+        if self.str_series_repeat_how_often=='weekly':
+            days_increase = 7
+
+        elif self.str_series_repeat_how_often=='biweekly':
+            days_increase = 14
+        
+        elif self.str_series_repeat_how_often=='monthly':
+            days_increase = 30
+        
+        print('LOG: --> Define start & end time of while statement')
+        int_UNIX_time = self.int_series_startUNIX+(days_increase*24*60*60)
+        int_UNIX_end = time.time()+(2*30*24*60*60)
+        if self.int_series_endUNIX and self.int_series_endUNIX < int_UNIX_end:
+            int_UNIX_end = self.int_series_endUNIX
+
+        while int_UNIX_time < int_UNIX_end:
+            print('LOG: --> Create event on UNIX time '+str(int_UNIX_time))
+            self.pk = None
+            self.save()
+
+            int_UNIX_time+=(days_increase*24*60*60)
+        
+
+    def create_discourse_event(self):
+        print('LOG: Event.create_discourse_event()')
+        from hackerspace.APIs.discourse import create_post
+        self.url_discourse_event = create_post(self.str_name,self.text_description,'classes')
+        super(Event, self).save()
+        return self
+    
+    def create_meetup_event(self):
+        # API Doc: https://www.meetup.com/meetup_api/docs/:urlname/events/#create
+        print('LOG: Event.create_meetup_event()')
+        import requests
+        from hackerspace.YOUR_HACKERSPACE import HOW_TO_FIND_US
+        from getKey import STR__get_key
+
+        if not STR__get_key('MEETUP.ACCESS_TOKEN'):
+            print('LOG: --> No MEETUP.ACCESS_TOKEN')
+            return None
+
+        response = requests.post('https://api.meetup.com/'+HACKERSPACE_MEETUP_GROUP+'/events',
+            params={
+                'access_token': STR__get_key('MEETUP.ACCESS_TOKEN'),
+                'sign': True,
+                'announce': False,
+                'publish_status':'draft',
+                'description': self.text_description,
+                'duration':self.int_minutes_duration*60*1000,
+                'event_hosts':None,# TODO figure out meetup user IDs and how to add them here
+                'fee':{
+                    'accepts':None, # TODO add option for paid events later
+                    'amount':None,
+                    'currency':None,
+                    'refund_policy':None
+                },
+                'guest_limit':2, # from 0 to 2
+                'how_to_find_us':HOW_TO_FIND_US,
+                'lat':self.float_lat,
+                'lon':self.float_lon,
+                'name':self.str_name,
+                'self_rsvp':False,
+                'time': self.int_UNIXtime_event_start,
+                'venue_id':None, #TODO figure out how to get venue id
+                'venue_visibility':None #TODO
+            })
+        
+        #TODO returns 400 response - scope_error: Insufficient oauth scope
+        if response.status_code==200:
+            self.url_meetup_event = response.json()['link']
+            self.save()
+            return self
+        else:
+            print('LOG: --> '+str(response.status_code)+' response: '+str(response.json()))
+
 
     def save(self, *args, **kwargs):
-        print('LOG: Event.save')
+        print('LOG: Event.save()')
         import urllib.parse
         from hackerspace.models.events import updateTime
         from hackerspace.models import Space, Person
@@ -513,6 +616,21 @@ class Event(models.Model):
         self = updateTime(self)
         self.str_slug = urllib.parse.quote(
             'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
+
+        print('LOG: --> Save lat/lon if not exist yet')
+        if not self.float_lat:
+            from geopy.geocoders import Nominatim
+            from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME
+
+            geolocator = Nominatim(user_agent=HACKERSPACE_NAME.lower())
+            str_location = self.str_location.replace('\n',', ')
+            while self.float_lat==None and len(str_location)>0:
+                try:
+                    location = geolocator.geocode(str_location)
+
+                    self.float_lat, self.float_lon = location.latitude, location.longitude
+                except:
+                    str_location=','.join(str_location.split(',')[:-1])
 
         super(Event, self).save(*args, **kwargs)
 
@@ -525,6 +643,7 @@ class Event(models.Model):
                         host = Person.objects.by_name(host_name)
                         if host:
                             self.many_hosts.add(host)
+
 
     def create(self, json_content):
         try:

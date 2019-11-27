@@ -42,3 +42,7 @@ CROWD_SIZE = {
     'MEDIUM': 'Up to 20 people',
     'LARGE': 'More than 20 people'
 }
+
+# add your AWS S3 URL to which event images can be uploaded
+AWS_S3_BUCKET_NAME = '2dasd1e'
+AWS_S3_URL = AWS_S3_BUCKET_NAME+'.s3-us-west-1.amazonaws.com'

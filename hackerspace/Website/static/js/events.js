@@ -110,3 +110,139 @@ function ask_who_welcomes_people(new_value) {
         document.getElementById('who_welcomes_people').style.display = 'none'
     }
 }
+
+function isFileImage(file) {
+    const acceptedImageTypes = ['image/jpeg', 'image/png'];
+
+    return file && acceptedImageTypes.includes(file['type'])
+}
+
+function checkFileTooLarge(file) {
+    const fsize = file.size;
+    const file_size = Math.round((fsize / 1024));
+    // The size of the file. 
+    if (file_size >= 2048) {
+        return true
+    }
+}
+
+function new_event(url_image) {
+
+    // create event
+    axios.defaults.xsrfCookieName = 'csrftoken';
+    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+    axios.get("/new", {
+            params: {
+                'what': 'event',
+                'name': document.getElementById('event_name').value,
+                'date': document.getElementById('event_date').value,
+                'time': document.getElementById('event_time').value,
+                'duration': document.getElementById('event_duration').value,
+                'space': document.getElementById('event_space').value,
+                'photo': url_image,
+                'description': document.getElementById('event_description').value,
+                'location': document.getElementById('event_location').value,
+                'guilde': document.getElementById('event_guilde').value,
+                'hosts': document.getElementById('added_hosts').value,
+                'repeating': document.getElementById('repeating').value,
+                'repeating_up_to': document.getElementById('upto_date').value,
+                'volunteers': document.getElementById('event_volunteers').value,
+                'expected_crowd': document.getElementById('event_expected_crowd').value,
+                'event_welcomer': document.getElementById('event_welcomer').value,
+            }
+        })
+        .then(function (response) {
+            getPage(response.data.url_next)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+
+}
+
+function publish_event() {
+    // check if fields are missing
+    if (!document.getElementById('event_name').value) {
+        return alert('"Name" is missing')
+    }
+    if (!document.getElementById('event_date').value) {
+        return alert('"Date" is missing')
+    }
+    if (!document.getElementById('event_time').value) {
+        return alert('"Time" is missing')
+    }
+    if (!document.getElementById('event_duration').value) {
+        return alert('"Duration" is missing')
+    }
+    if (!document.getElementById('event_space').value) {
+        return alert('"Space" is missing')
+    }
+    if (!document.getElementById('event_description').value) {
+        return alert('"Description" is missing')
+    }
+    if (!document.getElementById('event_location').value) {
+        return alert('"Location" is missing')
+    }
+    if (!document.getElementById('added_hosts').value) {
+        return alert('Who is organizing the event? Select one or more hosts.')
+    }
+    if (!document.getElementById('event_volunteers').value) {
+        return alert('Select if you need volunteers or not.')
+    }
+    if (!document.getElementById('event_expected_crowd').value) {
+        return alert('Select how many people you expect.')
+    }
+    if (document.getElementById('event_expected_crowd').value == 'large' && !document.getElementById('event_welcomer').value) {
+        return alert('Field missing. Who is welcoming people at the door?')
+    }
+
+
+    // upload image
+    let url_image = null
+    let input = document.getElementById('event_photo')
+    if (input.files && input.files[0]) {
+        var files = input.files
+
+        if (isFileImage(files[0]) == false) {
+            return alert('Please upload an JPG or PNG file')
+        }
+
+        if (checkFileTooLarge(files[0]) == true) {
+            return alert('Maximum image size is 2MB')
+        }
+
+        let data = new FormData();
+
+        for (var i = 0; i < files.length; i++) {
+            let file = files.item(i);
+            data.append('images[' + i + ']', file, file.name);
+        }
+
+        axios.defaults.xsrfCookieName = 'csrftoken';
+        axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+        axios.post('/upload/event-image', data, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                },
+                cancelToken: source.token,
+            })
+            .then(function (response) {
+                url_image = response.data.url_image
+                new_event(url_image)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
+
+    } else {
+        new_event(url_image)
+    }
+
+
+}

@@ -7,7 +7,7 @@
 <div class="divider_10"></div>
 <a id="location_button_hackerspace" onclick="changeLocation('{{ HACKERSPACE.HACKERSPACE_NAME }}')" class="location_button">{{ HACKERSPACE.HACKERSPACE_NAME }}</a>
 <a id="location_button_other" onclick="changeLocation('other')" class="location_button grey not_active">Other location</a>
-<input type="hidden" id="location" value="{{ HACKERSPACE.HACKERSPACE_NAME }}"></input>
+<input type="hidden" id="{{ input_id }}" value="{{ HACKERSPACE.HACKERSPACE_NAME }}"></input>
 <textarea id="location_text" rows="5" class="input_field_enter_name round_square grey_background" oninput="document.getElementById('location').value = this.value" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%; display: none" placeholder="Street Address, ZIP code, State, Country"></textarea>
 <div class="divider_20"></div>
 

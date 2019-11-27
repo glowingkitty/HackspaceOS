@@ -1,0 +1,30 @@
+{% block content %}
+
+<div class="header_block sub_page">
+    <div class="header_separator"></div>
+    <div class="header_image"></div>
+</div>
+
+<div class="divider_20"></div>
+
+<div id="what_event_block">
+    <div class="max_540">
+        <h2 class="h2 large">We received your submitted event</h2>
+    </div>
+    <div class="max_540">
+        We received your event. It will automatically be published in 24 hours if no one rejects it.<br>
+        <br>
+        Want to publish an event directly without wait? Ask someone with a user account to create a user account for you. 
+    </div>
+
+    <div class="divider_100"></div>
+</div>
+
+<div id="new_event_form" style="display: none">
+    {% include "components/body/event_new/new_event_form.html" %}
+</div>
+
+
+{% include "components/body/edit_this_page.html" %}
+
+{% endblock %}

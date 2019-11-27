@@ -14,7 +14,10 @@ def search(query, filter_name):
 
     # search in database
     events = Event.objects.filter(
-        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+        Q(boolean_approved=True) &
+        (
+            Q(str_name__icontains=query) | Q(text_description__icontains=query)
+        )
     ).upcoming()
 
     if filter_name == 'events':

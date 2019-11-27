@@ -56,10 +56,10 @@
 
 <div class="max_540">
     <div class="blocks_inline_50_percent">
-        {% include "components/body/event_new/form_elements/hosts_field.html" with field_heading="Hosts" input_id="event_hosts" %}
+        {% include "components/body/event_new/form_elements/hosts_field.html" with field_heading="Hosts" %}
     </div>
     <div class="blocks_inline_50_percent">
-        {% include "components/body/event_new/form_elements/repeating_field.html" with field_heading="Repeating" input_id="event_repeating" %}
+        {% include "components/body/event_new/form_elements/repeating_field.html" with field_heading="Repeating" %}
     </div>
 </div>
 
@@ -73,8 +73,9 @@
 </div>
 
 <div class="divider_20"></div>
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
 <div class="max_540">
-    <a class="button__cta">Publish event</a>
+    <div onclick="publish_event()" class="button__cta">Publish event</div>
 </div>
 <div class="divider_100"></div>
 

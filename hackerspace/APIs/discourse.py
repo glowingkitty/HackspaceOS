@@ -1,11 +1,11 @@
 import requests
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
-from pprint import pprint
+from getKey import STR__get_key
 # see Discourse API - https://docs.discourse.org/
 
 
 def discourse_search(query, limit=5):
-    print('discourse_search()')
+    print('LOG: discourse_search()')
     results = []
     response_json = requests.get(
         HACKERSPACE_DISCOURSE_URL+'/search/query.json?term='+query).json()
@@ -21,22 +21,48 @@ def discourse_search(query, limit=5):
 
 
 def create_category(name):
-    print('create_category()')
+    print('LOG: create_category()')
     response_json = requests.post(HACKERSPACE_DISCOURSE_URL+'categories.json', json={
         "name": name,
     }).json()
     print(response_json)
 
 
+def create_post(str_headline, str_text, str_category):
+    # TODO test with API key
+    print('LOG: create_post()')
+    if not STR__get_key('DISCOURSE_API_KEY'):
+        print('LOG: --> Failed: DISCOURSE_API_KEY not set')
+        return None
+
+    import random
+    response = requests.post(HACKERSPACE_DISCOURSE_URL+'posts.json',
+                             headers={
+                                 'content-type': 'application/json'
+                             }, json={
+                                 "Api-Key": STR__get_key('DISCOURSE_API_KEY'),
+                                 "Api-Username": STR__get_key('DISCOURSE_API_USERNAME'),
+                                 "title": str_headline,
+                                 "topic_id": random.randint(3000, 9000),
+                                 "raw": str_text,
+                                 "category": str_category
+                             })
+    if response.status_code == 200:
+        return HACKERSPACE_DISCOURSE_URL+'/t/'+str(response.json()['id'])
+    else:
+        print(response.status_code)
+        print(response.json())
+
+
 def get_categories():
-    print('get_categories()')
+    print('LOG: get_categories()')
     response_json = requests.get(
         HACKERSPACE_DISCOURSE_URL+'categories.json', headers={'Accept': 'application/json'}).json()
     return [x['slug'] for x in response_json['category_list']['categories']]
 
 
 def get_category_posts(category, all_pages=False):
-    print('get_category_posts()')
+    print('LOG: get_category_posts()')
     response_json = requests.get(
         HACKERSPACE_DISCOURSE_URL+'c/'+category+'.json', headers={'Accept': 'application/json'}).json()
     if all_pages == True:
@@ -55,14 +81,14 @@ def get_category_posts(category, all_pages=False):
 
 
 def get_post_details(slug):
-    print('get_post_details()')
+    print('LOG: get_post_details()')
     response_json = requests.get(
         HACKERSPACE_DISCOURSE_URL+'t/'+slug+'.json', headers={'Accept': 'application/json'})
     return response_json.json()['post_stream']['posts'][0]
 
 
 def get_users(sort='days_visited'):
-    print('get_users()')
+    print('LOG: get_users()')
     results = []
     response_json = requests.get(
         HACKERSPACE_DISCOURSE_URL+'/directory_items.json?period={}&order={}'.format('all', sort), headers={'Accept': 'application/json'}).json()

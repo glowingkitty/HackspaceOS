@@ -13,6 +13,9 @@ class PersonSet(models.QuerySet):
         except:
             return None
 
+    def by_url_discourse(self, url):
+        return self.filter(url_discourse=url).first()
+
     def pull_from_discourse(self):
         from hackerspace.APIs.discourse import get_users
         from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL

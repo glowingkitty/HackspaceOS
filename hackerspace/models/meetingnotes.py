@@ -164,7 +164,7 @@ class MeetingNote(models.Model):
         # to do: auto notify via slack
         print('Done: Ended & saved meeting')
 
-    def get_keywords(self):
+    def STR__get_keywords(self):
         import re
 
         keywords = re.findall('#(\w+)', self.text_notes)
@@ -281,7 +281,7 @@ class MeetingNote(models.Model):
             self.text_main_topics = self.get_main_topics()
 
         if self.text_notes and not self.text_keywords:
-            self.text_keywords = self.get_keywords()
+            self.text_keywords = self.STR__get_keywords()
         else:
             self.start()
 

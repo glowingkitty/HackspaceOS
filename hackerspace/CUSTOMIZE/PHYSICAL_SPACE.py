@@ -9,6 +9,10 @@ HACKERSPACE_ADDRESS = {
     'EXTRA_INFO': '(entrence left next to the supermarket)'
 }
 
+HOW_TO_FIND_US = 'Entrence next to the supermarket, all the way up.'
+
+LAT_LON = (37.762389, -122.4191587)
+
 HACKERSPACE_TIMEZONE_STRING = 'America/Los_Angeles'
 
 
