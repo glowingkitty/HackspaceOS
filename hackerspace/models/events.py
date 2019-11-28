@@ -616,6 +616,10 @@ class Event(models.Model):
             days_increase = 30
         
         print('LOG: --> Define start & end time of while statement')
+        original_slug = self.str_slug
+        original_event_start = self.int_UNIXtime_event_start
+        original_event_end = self.int_UNIXtime_event_end
+
         int_UNIX_time = self.int_series_startUNIX+(days_increase*24*60*60)
         int_UNIX_end = time.time()+(2*30*24*60*60)
 
@@ -639,6 +643,12 @@ class Event(models.Model):
             self.int_UNIXtime_event_start += (days_increase*24*60*60)
             self.int_UNIXtime_event_end += (days_increase*24*60*60)
         
+
+        print('LOG: --> Back to original values of first event')
+        self.str_slug = original_slug
+        self.int_UNIXtime_event_start = original_event_start
+        self.int_UNIXtime_event_end = original_event_end
+        return self
 
     def create_discourse_event(self):
         print('LOG: event.create_discourse_event()')

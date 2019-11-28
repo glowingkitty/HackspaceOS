@@ -634,7 +634,7 @@ def new_view(request):
                 new_event.many_hosts.add(Person.objects.by_url_discourse(host))
 
         # if event is repeating, create upcoming instances
-        new_event.create_upcoming_instances()
+        new_event = new_event.create_upcoming_instances()
 
         # share event to other platforms (Meetup, Discourse, etc.)
         new_event.create_discourse_event()
