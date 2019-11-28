@@ -199,6 +199,22 @@ function publish_event(button) {
         return alert('Field missing. Who is welcoming people at the door?')
     }
 
+    // check if script in text
+    if (
+        document.getElementById('event_name').value.includes('<script>') ||
+        document.getElementById('event_date').value.includes('<script>') ||
+        document.getElementById('event_time').value.includes('<script>') ||
+        document.getElementById('event_duration').value.includes('<script>') ||
+        document.getElementById('event_space').value.includes('<script>') ||
+        document.getElementById('event_description').value.includes('<script>') ||
+        document.getElementById('event_location').value.includes('<script>') ||
+        document.getElementById('added_hosts').value.includes('<script>') ||
+        document.getElementById('event_volunteers').value.includes('<script>') ||
+        document.getElementById('event_expected_crowd').value.includes('<script>')
+    ) {
+        return alert('No JavaScript allowed')
+    }
+
     // show 'Submitting...'
     button.outerHTML = '<div>Submitting...</div>'
 
