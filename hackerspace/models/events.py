@@ -712,6 +712,25 @@ class Event(models.Model):
         from hackerspace.models.events import RESULT__updateTime
         from hackerspace.models import Space, Person
         from hackerspace.YOUR_HACKERSPACE import EVENTS_HOSTS_OVERWRITE
+        import bleach
+
+        print('LOG: --> clean from scripts')
+        if self.str_name:
+            self.str_name = bleach.clean(self.str_name)
+        if self.text_description:
+            self.text_description = bleach.clean(self.text_description)
+        if self.str_location:
+            self.str_location = bleach.clean(self.str_location)
+        if self.str_series_repeat_how_often:
+            self.str_series_repeat_how_often = bleach.clean(self.str_series_repeat_how_often)
+        if self.text_series_timing:
+            self.text_series_timing = bleach.clean(self.text_series_timing)
+        if self.str_crowd_size:
+            self.str_crowd_size = bleach.clean(self.str_crowd_size)
+        if self.str_welcomer:
+            self.str_welcomer = bleach.clean(self.str_welcomer)
+        if self.str_timezone:
+            self.str_timezone = bleach.clean(self.str_timezone)
 
         self = RESULT__updateTime(self)
         self.str_slug = urllib.parse.quote(
@@ -744,29 +763,6 @@ class Event(models.Model):
                         if host:
                             self.many_hosts.add(host)
 
-    def save(self):
-        print('LOG: event.save()')
-        
-        print('LOG: --> clean from scripts')
-        import bleach
-        if self.str_name:
-            self.str_name = bleach.clean(self.str_name)
-        if self.text_description:
-            self.text_description = bleach.clean(self.text_description)
-        if self.str_location:
-            self.str_location = bleach.clean(self.str_location)
-        if self.str_series_repeat_how_often:
-            self.str_series_repeat_how_often = bleach.clean(self.str_series_repeat_how_often)
-        if self.text_series_timing:
-            self.text_series_timing = bleach.clean(self.text_series_timing)
-        if self.str_crowd_size:
-            self.str_crowd_size = bleach.clean(self.str_crowd_size)
-        if self.str_welcomer:
-            self.str_welcomer = bleach.clean(self.str_welcomer)
-        if self.str_timezone:
-            self.str_timezone = bleach.clean(self.str_timezone)
-
-        super(Event, self).save()
 
     def create(self, json_content):
         print('LOG: event.create(json_content)')

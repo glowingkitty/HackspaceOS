@@ -6,9 +6,9 @@
     {% include "components/body/result_preview_block.html" %}
     {% endfor %}
     <div class="event_slider_extra_options_block">
-      {% comment %} <a href="#" class="button__cta secondary">Show all</a> {% endcomment %}
+      <a href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="button__cta secondary">Show all</a>
       <div class="divider_10"></div>
-      {% comment %} <a href="#" class="button__cta secondary with_icon plus_icon">Create an event</a> {% endcomment %}
+      <a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="button__cta secondary with_icon plus_icon">Create an event</a>
     </div>
 </div>
 
