@@ -2,7 +2,7 @@ from django.db import models
 
 
 class ProjectSet(models.QuerySet):
-    def search_results(self):
+    def LIST__search_results(self):
         results_list = []
         results = self.all()
         for result in results:
@@ -58,7 +58,7 @@ class Project(models.Model):
         return self.str_name
 
     @property
-    def menu_heading(self):
+    def str_menu_heading(self):
         return 'menu_h_projects'
 
     def create(self, json_content):
@@ -76,8 +76,8 @@ class Project(models.Model):
             print('Created "'+obj.str_name+'"')
 
     def save(self, *args, **kwargs):
-        from hackerspace.models.events import updateTime
+        from hackerspace.models.events import RESULT__updateTime
         import urllib.parse
 
-        self = updateTime(self)
+        self = RESULT__updateTime(self)
         super(Project, self).save(*args, **kwargs)

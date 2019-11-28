@@ -2,10 +2,12 @@ from django.db import models
 
 
 class SpaceSet(models.QuerySet):
-    def by_name(self, name):
+    def QUERYSET__by_name(self, name):
+        if not name or name == '':
+            return None
         return self.filter(str_name__icontains=name).first()
 
-    def search_results(self):
+    def LIST__search_results(self):
         results_list = []
         results = self.all()
         for result in results:
@@ -40,7 +42,7 @@ class Space(models.Model):
     @property
     def events(self):
         from hackerspace.models import Event
-        return Event.objects.upcoming().in_space(one_space=self)
+        return Event.objects.QUERYSET__upcoming().QUERYSET__in_space(one_space=self)
 
     @property
     def machines(self):
@@ -49,14 +51,14 @@ class Space(models.Model):
         return Machine.objects.filter(one_space=self)
 
     @property
-    def menu_heading(self):
+    def str_menu_heading(self):
         return 'menu_h_spaces'
 
     def save(self, *args, **kwargs):
-        from hackerspace.models.events import updateTime
+        from hackerspace.models.events import RESULT__updateTime
         import urllib.parse
 
-        self = updateTime(self)
+        self = RESULT__updateTime(self)
         self.str_slug = urllib.parse.quote(
             'space/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Space, self).save(*args, **kwargs)

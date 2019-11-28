@@ -2,7 +2,7 @@ from django.db import models
 
 
 class WishesSet(models.QuerySet):
-    def search_results(self):
+    def LIST__search_results(self):
         results_list = []
         results = self.all()
         for result in results:
@@ -32,11 +32,11 @@ class Wish(models.Model):
         return self.str_name
 
     @property
-    def menu_heading(self):
+    def str_menu_heading(self):
         return 'menu_h_wishes'
 
     def save(self, *args, **kwargs):
-        from hackerspace.models.events import updateTime
+        from hackerspace.models.events import RESULT__updateTime
 
-        self = updateTime(self)
+        self = RESULT__updateTime(self)
         super(Wish, self).save(*args, **kwargs)

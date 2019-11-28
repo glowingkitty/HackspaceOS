@@ -31,7 +31,9 @@ class PersonSet(models.QuerySet):
                 'text_description': user['user']['title'] if user['user']['title'] != '' else None
             })
 
-    def by_name(self, name):
+    def QUERYSET__by_name(self, name):
+        if not name or name == '':
+            return None
         from django.db.models import Q
         from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
         return self.filter(Q(url_discourse=HACKERSPACE_DISCOURSE_URL + 'u/'+name) | Q(str_name__icontains=name)).first()
@@ -75,9 +77,9 @@ class Person(models.Model):
     @property
     def events(self):
         from hackerspace.models import Event
-        return Event.objects.by_host(one_host=self)
+        return Event.objects.QUERYSET__by_host(one_host=self)
 
     def save(self, *args, **kwargs):
-        from hackerspace.models.events import updateTime
-        self = updateTime(self)
+        from hackerspace.models.events import RESULT__updateTime
+        self = RESULT__updateTime(self)
         super(Person, self).save(*args, **kwargs)

@@ -7,4 +7,4 @@ class Command(BaseCommand):
     help = "Announce upcoming events (Noisebridge specific)"
 
     def handle(self, *args, **options):
-        Event.objects.upcoming().announce()
+        Event.objects.QUERYSET__upcoming().announce()

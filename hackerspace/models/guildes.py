@@ -2,10 +2,12 @@ from django.db import models
 
 
 class GuildeSet(models.QuerySet):
-    def by_name(self, name):
+    def QUERYSET__by_name(self, name):
+        if not name or name == '':
+            return None
         return self.filter(str_name__icontains=name).first()
 
-    def search_results(self):
+    def LIST__search_results(self):
         results_list = []
         results = self.all()
         for result in results:
@@ -42,17 +44,17 @@ class Guilde(models.Model):
         from hackerspace.models import Event
 
         search_query = self.str_name.lower().split('guilde')[0]
-        return Event.objects.upcoming().filter(one_guilde=self)
+        return Event.objects.QUERYSET__upcoming().filter(one_guilde=self)
 
     @property
-    def menu_heading(self):
+    def str_menu_heading(self):
         return 'menu_h_guildes'
 
     def save(self, *args, **kwargs):
         import urllib.parse
-        from hackerspace.models.events import updateTime
+        from hackerspace.models.events import RESULT__updateTime
 
-        self = updateTime(self)
+        self = RESULT__updateTime(self)
         self.str_slug = urllib.parse.quote(
             'guilde/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Guilde, self).save(*args, **kwargs)

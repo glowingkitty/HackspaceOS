@@ -3,7 +3,7 @@ import urllib.parse
 from django.db import models
 
 from hackerspace.APIs.discourse import get_category_posts
-from hackerspace.models.events import updateTime
+from hackerspace.models.events import RESULT__updateTime
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
 from datetime import datetime
 
@@ -11,7 +11,7 @@ from django.db.models import Q
 
 
 class ConsensusSet(models.QuerySet):
-    def search_results(self):
+    def LIST__search_results(self):
         results_list = []
         results = self.all()
         for result in results:
@@ -79,7 +79,7 @@ class Consensus(models.Model):
         return self.str_name
 
     @property
-    def menu_heading(self):
+    def str_menu_heading(self):
         return 'menu_h_consensus'
 
     def create(self, json_content):
@@ -89,15 +89,15 @@ class Consensus(models.Model):
             )
             for key, value in json_content.items():
                 setattr(obj, key, value)
-            obj = updateTime(obj)
+            obj = RESULT__updateTime(obj)
             obj.save()
             print('Updated "'+obj.str_name+'"')
         except Consensus.DoesNotExist:
             obj = Consensus(**json_content)
-            obj = updateTime(obj)
+            obj = RESULT__updateTime(obj)
             obj.save()
             print('Created "'+obj.str_name+'"')
 
     def save(self, *args, **kwargs):
-        self = updateTime(self)
+        self = RESULT__updateTime(self)
         super(Consensus, self).save(*args, **kwargs)

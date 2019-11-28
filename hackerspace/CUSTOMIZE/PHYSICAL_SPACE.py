@@ -9,6 +9,11 @@ HACKERSPACE_ADDRESS = {
     'EXTRA_INFO': '(entrence left next to the supermarket)'
 }
 
+ADDRESS_STRING = 'Noisebridge<br>' + \
+    HACKERSPACE_ADDRESS['STREET']+'<br' + \
+    HACKERSPACE_ADDRESS['ZIP']+', '+HACKERSPACE_ADDRESS['CITY'] + \
+    ', '+HACKERSPACE_ADDRESS['STATE']+', '+HACKERSPACE_ADDRESS['COUNTRYCODE']
+
 HOW_TO_FIND_US = 'Entrence next to the supermarket, all the way up.'
 
 LAT_LON = (37.762389, -122.4191587)

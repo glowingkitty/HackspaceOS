@@ -68,7 +68,7 @@ class MeetingNoteSet(models.QuerySet):
 
         print('Imported all meeting notes from wiki')
 
-    def search_results(self):
+    def LIST__search_results(self):
         results_list = []
         results = self.all()
         for result in results:
@@ -107,7 +107,7 @@ class MeetingNote(models.Model):
         return local_time.date()
 
     @property
-    def menu_heading(self):
+    def str_menu_heading(self):
         return 'menu_h_meetings'
 
     @property
@@ -269,9 +269,9 @@ class MeetingNote(models.Model):
             print('Skipped - Already exists. '+self.text_date)
 
     def save(self, *args, **kwargs):
-        from hackerspace.models.events import updateTime
+        from hackerspace.models.events import RESULT__updateTime
 
-        self = updateTime(self)
+        self = RESULT__updateTime(self)
         if not self.text_date:
             self.text_date = str(self.date)
 

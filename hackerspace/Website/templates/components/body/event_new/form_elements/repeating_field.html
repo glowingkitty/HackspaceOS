@@ -2,13 +2,13 @@
 
 <h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
 <div class="divider_10"></div>
-<select id="repeating" class="input_field_enter_name round_square grey_background" style="height: 41px;">
+<select id="repeating" onchange="show_up_to_block(this.value)" class="input_field_enter_name round_square grey_background" style="height: 41px;">
     <option value="">-</option>
     <option value="weekly">Weekly</option>
     <option value="biweekly">Bi-Weekly</option>
     <option value="monthly">Monthly</option>
 </select>
-<div id="upto_block">
+<div id="upto_block" style="display: none">
     <div class="divider_20"></div>
     <div>Up to:</div>
     <div class="divider_10"></div>

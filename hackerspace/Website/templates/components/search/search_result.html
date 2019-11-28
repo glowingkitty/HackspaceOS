@@ -1,5 +1,5 @@
 {% block content %}
 
-<a {% if not 'http' in result.url %}onclick="event.preventDefault();getPage('{{ result.url }}','{{ result.menu_heading }}')"{% endif %} href="{{ result.url }}" target="_blank" class="search_result {{ result.icon }}">{{ result.name|safe }}</a>
+<a {% if not 'http' in result.url %}onclick="event.preventDefault();getPage('{{ result.url }}','{{ result.str_menu_heading }}')"{% endif %} href="{{ result.url }}" target="_blank" class="search_result {{ result.icon }}">{{ result.name|safe }}</a>
 
 {% endblock %}

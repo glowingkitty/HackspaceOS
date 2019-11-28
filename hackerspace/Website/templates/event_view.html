@@ -12,14 +12,18 @@
 
 <div class="divider_20"></div>
 <div class="max_540">
-    <div class="sub_heading text_semitransparent">{{ selected.datetime_range }}{% if selected.one_space %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name }}</a>{% endif %}</div>
+    <div class="sub_heading text_semitransparent">{{ selected.str_relative_time }}, {{ selected.datetime_range }}{% if selected.one_space %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name }}</a>{% endif %}</div>
     <h2 class="h2 large">{{ selected.str_name }}</h2>
+    {% if selected.url_meetup_event %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
+    {% endif %}
     {% if selected.url_discourse_wish %}
     <a href="{{ selected.url_discourse_wish }}" target="_blank" class="button__cta secondary inline">Voolunteer</a>
     {% endif %}
+    {% if selected.url_meetup_event or selected.url_discourse_wish %}
     <br>
     <br>
+    {% endif %}
     {% if selected.text_description|length > 350 %}
     <div id="event_description" class="text_box_max_height">{{ selected.text_description|TEXT_replaceLinkCSS|safe }}</div>
     <div class="inline_link" onclick="showFullDescription('event_description',this)">Show full description</div>

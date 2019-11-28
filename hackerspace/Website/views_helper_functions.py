@@ -18,6 +18,7 @@ def JSON_RESPONSE_more_results(request, template_path, queryset):
     start_from = int(request.GET.get('from', None))
     upt_to = int(start_from+10)
 
+    print('LOG: --> return JsonResponse')
     return JsonResponse({
         'html': get_template('components/body/'+template_path).render({
             'all_results': queryset[start_from:upt_to],
@@ -38,6 +39,7 @@ def DATETIME__from_date_and_time_STR(str__date, str__time):
     else:
         datetime_input = pytz.timezone(HACKERSPACE_TIMEZONE_STRING).localize(
             datetime.strptime(str(str__date+' '+str__time.replace(' ', '')), "%Y-%m-%d %H:%M"))
+    print('LOG: --> return DATETIME')
     return datetime_input
 
 
@@ -52,10 +54,12 @@ def INT__UNIX_from_date_and_time_STR(str__date, str__time):
     print('LOG: --> datetime to UNIX time')
     int_timestamp = round(datetime.timestamp(datetime_input))
 
+    print('LOG: --> return INT')
     return int_timestamp
 
 
 def INT__duration_minutes(str_duration):
     hours = int(str_duration.split(':')[0])
     minutes = int(str_duration.split(':')[1])
+    print('LOG: --> return INT')
     return (hours*60)+minutes

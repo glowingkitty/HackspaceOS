@@ -18,12 +18,12 @@ def search(query, filter_name):
         (
             Q(str_name__icontains=query) | Q(text_description__icontains=query)
         )
-    ).upcoming()
+    ).QUERYSET__upcoming()
 
     if filter_name == 'events':
         return events
     else:
-        events = events.search_results()[:5]
+        events = events.LIST__search_results()[:5]
 
     # search in social network accounts
     networks = [{
@@ -41,27 +41,27 @@ def search(query, filter_name):
 
     meeting_notes = MeetingNote.objects.filter(
         Q(text_date__icontains=query) | Q(text_keywords__icontains=query)
-    ).past().search_results()[:5]
+    ).past().LIST__search_results()[:5]
 
     guildes = Guilde.objects.filter(
         Q(str_name__icontains=query) | Q(text_description__icontains=query)
-    ).search_results()[:5]
+    ).LIST__search_results()[:5]
 
     machines = Machine.objects.filter(
         Q(str_name__icontains=query) | Q(text_description__icontains=query)
-    ).search_results()[:5]
+    ).LIST__search_results()[:5]
 
     spaces = Space.objects.filter(
         Q(str_name__icontains=query) | Q(text_description__icontains=query)
-    ).search_results()[:5]
+    ).LIST__search_results()[:5]
 
     consensus_items = Consensus.objects.filter(
         Q(str_name__icontains=query) | Q(text_description__icontains=query)
-    ).search_results()[:5]
+    ).LIST__search_results()[:5]
 
     projects = Project.objects.filter(
         Q(str_name__icontains=query) | Q(text_description__icontains=query)
-    ).search_results()[:5]
+    ).LIST__search_results()[:5]
 
     # search in wiki
     try:

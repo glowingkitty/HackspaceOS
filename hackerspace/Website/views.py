@@ -27,7 +27,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_name': HACKERSPACE.HACKERSPACE_NAME,
             'page_description': make_description_sentence(),
             'is_open_status': getOpenNowStatus(),
-            'upcoming_events': Event.objects.upcoming()[:5],
+            'upcoming_events': Event.objects.QUERYSET__upcoming()[:5],
         }}
 
     elif page == 'values':
@@ -45,7 +45,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
             'page_description': 'Join our weekly meetings!',
             'current_meeting': MeetingNote.objects.current(),
-            'next_meeting': Event.objects.next_meeting(),
+            'next_meeting': Event.objects.QUERYSET__next_meeting(),
             'past_meetings': MeetingNote.objects.past()[:10]
         }}
     elif page == 'meeting':
@@ -57,7 +57,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected.text_date,
             'page_description': 'Join our weekly meetings!',
             'selected': selected,
-            'next_meeting': Event.objects.next_meeting(),
+            'next_meeting': Event.objects.QUERYSET__next_meeting(),
             'past_meetings': MeetingNote.objects.past(selected)[:10]
         }}
     elif page == 'meeting_present':
@@ -206,7 +206,7 @@ def get_view_response(request, page, sub_page, hashname):
             'addnew_text': 'Organize an event',
             'addnew_target': 'same_tab',
             'addnew_menu_selected': 'menu_h_events',
-            'all_results': Event.objects.upcoming()[:10],
+            'all_results': Event.objects.QUERYSET__upcoming()[:10],
             'results_count': Event.objects.count(),
             'show_more': page
         }}
@@ -228,7 +228,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_git_url': '/Website/templates/success_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | New event',
             'page_description': 'Organize an event at '+HACKERSPACE.HACKERSPACE_NAME,
-            'upcoming_events': Event.objects.upcoming()[:4],
+            'upcoming_events': Event.objects.QUERYSET__upcoming()[:4],
             'default_space': Space.objects.filter(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT).first(),
             'all_spaces': Space.objects.exclude(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT),
             'all_guildes':Guilde.objects.all(),
@@ -244,7 +244,7 @@ def get_view_response(request, page, sub_page, hashname):
 
 
 def get_page_response(request, page, sub_page=None):
-    print(page+'_view')
+    print('LOG: get_page_response(request,page={},sub_page={})'.format(page,sub_page))
     page = page
     hash_name = request.build_absolute_uri().split(
         '#')[1] if '#' in request.build_absolute_uri() else None
@@ -256,24 +256,29 @@ def get_page_response(request, page, sub_page=None):
 
 
 def landingpage_view(request):
+    print('LOG: landingpage_view(request)')
     return get_page_response(request, 'landingpage')
 
 
 def values_view(request):
+    print('LOG: values_view(request)')
     return get_page_response(request, 'values')
 
 
 def meetings_view(request):
+    print('LOG: meetings_view(request)')
     return get_page_response(request, 'meetings')
 
 
 def meeting_present_view(request):
+    print('LOG: meeting_present_view(request)')
     if not MeetingNote.objects.current():
         return HttpResponseRedirect('/meetings')
     return get_page_response(request, 'meeting_present')
 
 
 def meeting_view(request, sub_page):
+    print('LOG: meeting_view(request,sub_page={})'.format(sub_page))
     # if meeting not found, redirect to all meetings page
     if not MeetingNote.objects.filter(text_date=sub_page).exists():
         return HttpResponseRedirect('/meetings')
@@ -281,7 +286,7 @@ def meeting_view(request, sub_page):
 
 
 def meeting_end_view(request):
-    print('meeting_end_view')
+    print('LOG: meeting_end_view(request)')
     current_meeting = MeetingNote.objects.current()
     if current_meeting:
         current_meeting.end()
@@ -296,10 +301,12 @@ def meeting_end_view(request):
 
 
 def guildes_view(request):
+    print('LOG: guildes_view(request)')
     return get_page_response(request, 'guildes')
 
 
 def guilde_view(request, sub_page):
+    print('LOG: guilde_view(request, {})'.format(sub_page))
     sub_page = 'guilde/'+sub_page
     # if guilde not found, redirect to all guildes page
     if not Guilde.objects.filter(str_slug=sub_page).exists():
@@ -308,10 +315,12 @@ def guilde_view(request, sub_page):
 
 
 def spaces_view(request):
+    print('LOG: spaces_view(request)')
     return get_page_response(request, 'spaces')
 
 
 def space_view(request, sub_page):
+    print('LOG: space_view(request, {})'.format(sub_page))
     sub_page = 'space/'+sub_page
     # if space not found, redirect to all spaces page
     if not Space.objects.filter(str_slug=sub_page).exists():
@@ -320,10 +329,12 @@ def space_view(request, sub_page):
 
 
 def machines_view(request):
+    print('LOG: machines_view(request)')
     return get_page_response(request, 'machines')
 
 
 def machine_view(request, sub_page):
+    print('LOG: machine_view(request, {})'.format(sub_page))
     sub_page = 'machine/'+sub_page
     # if space not found, redirect to all spaces page
     if not Machine.objects.filter(str_slug=sub_page).exists():
@@ -332,10 +343,12 @@ def machine_view(request, sub_page):
 
 
 def projects_view(request):
+    print('LOG: projects_view(request)')
     return get_page_response(request, 'projects')
 
 
 def project_view(request, sub_page):
+    print('LOG: project_view(request, {})'.format(sub_page))
     sub_page = 'project/'+sub_page
     # if space not found, redirect to all spaces page
     if not Project.objects.filter(str_slug=sub_page).exists():
@@ -344,18 +357,22 @@ def project_view(request, sub_page):
 
 
 def consensus_view(request):
+    print('LOG: consensus_view(request)')
     return get_page_response(request, 'consensus')
 
 
 def events_view(request):
+    print('LOG: events_view(request)')
     return get_page_response(request, 'events')
 
 
 def event_new_view(request):
+    print('LOG: event_new_view(request)')
     return get_page_response(request, 'event_new')
 
 
 def event_view(request, sub_page):
+    print('LOG: event_view(request, {})'.format(sub_page))
     sub_page = 'event/'+sub_page
     # if space not found, redirect to all spaces page
     if not Event.objects.filter(str_slug=sub_page).exists():
@@ -364,15 +381,15 @@ def event_view(request, sub_page):
 
 
 def get_view(request):
-    print('get_view')
+    print('LOG: get_view(request)')
     in_space = request.COOKIES.get('in_space')
     marry_messages = []
     response = None
     if request.GET.get('what', None) == 'events_slider':
         if in_space:
-            events_in_5_minutes = Event.objects.in_minutes(
+            events_in_5_minutes = Event.objects.LIST__in_minutes(
                 minutes=5, name_only=True)
-            events_in_30_minutes = Event.objects.in_minutes(
+            events_in_30_minutes = Event.objects.LIST__in_minutes(
                 minutes=30, name_only=True)
             if events_in_5_minutes or events_in_30_minutes:
                 marry_messages.append('We have some awesome events upcoming')
@@ -385,7 +402,7 @@ def get_view(request):
             {
                 'html': get_template(
                     'components/body/events_slider.html').render({
-                        'upcoming_events': Event.objects.upcoming()[:5]
+                        'upcoming_events': Event.objects.QUERYSET__upcoming()[:5]
                     }),
                 'marryspeak': marry_messages
             }
@@ -401,7 +418,7 @@ def get_view(request):
         if str_date and str_time and str_duration and str_space:
             from hackerspace.website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
             
-            overlapping_events = Event.objects.overlapping_events(
+            overlapping_events = Event.objects.JSON__overlapping_events(
                         INT__UNIX_from_date_and_time_STR(str_date, str_time),
                         INT__duration_minutes(str_duration),
                         request.GET.get('space', None),
@@ -448,8 +465,6 @@ def get_view(request):
 
         hashname = page.split('#')[1] if '#' in page else None
 
-        print(page)
-        print(sub_page)
         response_context = get_view_response(request, page, sub_page, hashname)
         response = JsonResponse(
             {
@@ -462,11 +477,12 @@ def get_view(request):
         response = JsonResponse({'error': 'no "what" defined'})
         response.status_code = 404
 
+    print('LOG: --> return response')
     return response
 
 
 def load_more_view(request):
-    print('load_more_view')
+    print('LOG: load_more_view(request)')
     from hackerspace.website.views_helper_functions import JSON_RESPONSE_more_results
 
     if request.GET.get('what', None) and request.GET.get('from', None):
@@ -475,7 +491,7 @@ def load_more_view(request):
                 request, 'meetings/meetings_list.html', MeetingNote.objects.past())
         elif request.GET.get('what', None) == 'events':
             response = JSON_RESPONSE_more_results(
-                request, 'results_list_entries.html', Event.objects.upcoming())
+                request, 'results_list_entries.html', Event.objects.QUERYSET__upcoming())
         elif request.GET.get('what', None) == 'projects':
             response = JSON_RESPONSE_more_results(
                 request, 'results_list_entries.html', Project.objects.latest())
@@ -495,11 +511,12 @@ def load_more_view(request):
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404
 
+    print('LOG: --> return response')
     return response
 
 
 def save_view(request):
-    print('save_view')
+    print('LOG: save_view(request)')
     if request.GET.get('keyword', None) and request.GET.get('origin', None) and MeetingNote.objects.filter(text_date=request.GET.get('origin', None).split('/')[1]).exists():
         meeting = MeetingNote.objects.filter(
             text_date=request.GET.get('origin', None).split('/')[1]).first()
@@ -510,11 +527,12 @@ def save_view(request):
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404
 
+    print('LOG: --> return response')
     return response
 
 
 def remove_view(request):
-    print('remove_view')
+    print('LOG: remove_view(request)')
     if request.GET.get('keyword', None) and request.GET.get('origin', None) and MeetingNote.objects.filter(text_date=request.GET.get('origin', None).split('/')[1]).exists():
         meeting = MeetingNote.objects.filter(
             text_date=request.GET.get('origin', None).split('/')[1]).first()
@@ -525,11 +543,12 @@ def remove_view(request):
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404
 
+    print('LOG: --> return response')
     return response
 
 
 def search_view(request):
-    print('search_view')
+    print('LOG: search_view(request)')
     search_results = search(request.GET.get('q', None),
                             request.GET.get('filter', None))
     response = JsonResponse(
@@ -546,10 +565,11 @@ def search_view(request):
         }
     )
 
+    print('LOG: --> return response')
     return response
 
 def new_view(request):
-    print('LOG: new_view()')
+    print('LOG: new_view(request)')
 
     if request.GET.get('what', None) == 'meeting':
         new_meeting = MeetingNote()
@@ -569,6 +589,7 @@ def new_view(request):
         from hackerspace.website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
         int_UNIXtime_event_start = INT__UNIX_from_date_and_time_STR(request.GET.get('date',None),request.GET.get('time',None))
         int_minutes_duration = INT__duration_minutes(request.GET.get('duration',None))
+        
         new_event = Event(
             boolean_approved=request.user.is_authenticated,
             str_name=request.GET.get('name',None),
@@ -577,13 +598,14 @@ def new_view(request):
             int_UNIXtime_event_end=int_UNIXtime_event_start+(60*int_minutes_duration),
             url_featured_photo=request.GET.get('photo',None),
             text_description=request.GET.get('description',None),
-            one_space=Space.objects.by_name(request.GET.get('space',None)),
-            one_guilde=Guilde.objects.by_name(request.GET.get('guilde',None)),
+            one_space=Space.objects.QUERYSET__by_name(request.GET.get('space',None)),
+            one_guilde=Guilde.objects.QUERYSET__by_name(request.GET.get('guilde',None)),
             str_crowd_size=request.GET.get('expected_crowd',None),
             str_welcomer=request.GET.get('event_welcomer',None)
         )
         if request.GET.get('location',None):
-            new_event.str_location = request.GET.get('location',None)
+            if request.GET.get('location',None)!=HACKERSPACE.HACKERSPACE_NAME:
+                new_event.str_location = request.GET.get('location',None)
         if request.GET.get('repeating',None):
             # if repeating, mark as such and auto generate new upcoming events with "update_database" command
             str_repeating_how_often = request.GET.get('repeating',None)
@@ -625,12 +647,13 @@ def new_view(request):
             }
         )
 
+    print('LOG: --> return response')
     return response
 
 
 
 def upload_view(request,what):
-    print('LOG: upload_view()')
+    print('LOG: upload_view(request,what={})'.format(what))
 
     if what == 'event-image':
         if request.FILES['images[0]'].content_type!='image/jpeg' and request.FILES['images[0]'].content_type!='image/png':
@@ -658,9 +681,11 @@ def upload_view(request,what):
             s3.Bucket(AWS_S3_BUCKET_NAME).put_object(Key=image.name, Body=image,ACL='public-read')
             response = JsonResponse({'url_image': 'https://'+AWS_S3_URL+'/'+image.name})
 
-
+    print('LOG: --> return response')
     return response
 
 def new_event_submitted_view(request):
-    print('LOG: new_event_submitted_view()')
+    print('LOG: new_event_submitted_view(request)')
+
+    print('LOG: --> return response')
     return get_page_response(request, 'success')

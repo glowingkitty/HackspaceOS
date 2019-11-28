@@ -152,7 +152,7 @@ function new_event(url_image) {
             }
         })
         .then(function (response) {
-            getPage(response.data.url_next)
+            getPage(response.data.url_next, 'menu_h_events')
         })
         .catch(function (error) {
             console.log(error);
@@ -163,7 +163,7 @@ function new_event(url_image) {
 
 }
 
-function publish_event() {
+function publish_event(button) {
     // check if fields are missing
     if (!document.getElementById('event_name').value) {
         return alert('"Name" is missing')
@@ -199,6 +199,8 @@ function publish_event() {
         return alert('Field missing. Who is welcoming people at the door?')
     }
 
+    // show 'Submitting...'
+    button.outerHTML = '<div>Submitting...</div>'
 
     // upload image
     let url_image = null
@@ -243,6 +245,12 @@ function publish_event() {
     } else {
         new_event(url_image)
     }
+}
 
-
+function show_up_to_block(repeating_block_value) {
+    if (repeating_block_value) {
+        document.getElementById('upto_block').style.display = 'block'
+    } else {
+        document.getElementById('upto_block').style.display = 'none'
+    }
 }
