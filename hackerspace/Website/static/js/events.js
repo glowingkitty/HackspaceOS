@@ -215,10 +215,7 @@ function publish_event(button) {
         return alert('No JavaScript allowed')
     }
 
-    // show 'Submitting...'
-    button.outerHTML = '<div>Submitting...</div>'
-
-    // upload image
+    // test if image is larger then maximum limit
     let url_image = null
     let input = document.getElementById('event_photo')
     if (input.files && input.files[0]) {
@@ -231,6 +228,13 @@ function publish_event(button) {
         if (checkFileTooLarge(files[0]) == true) {
             return alert('Maximum image size is 2MB')
         }
+    }
+
+    // show 'Submitting...'
+    button.outerHTML = '<div>Submitting...</div>'
+
+    // upload image
+    if (input.files && input.files[0]) {
 
         let data = new FormData();
 
