@@ -282,10 +282,21 @@ class EventSet(models.QuerySet):
         for event in self.all():
             print(event)
 
+    def publish(self):
+        print('LOG: Event.objects.publish(self)')
+        for event in self.all():
+            event.publish()
+
     def QUERYSET__not_approved(self):
         print('LOG: Event.objects.QUERYSET__not_approved(self)')
         print('LOG: --> return QUERYSET')
         return self.filter(boolean_approved=False)
+        
+    def QUERYSET__older_then_24h(self):
+        import time
+        print('LOG: Event.objects.QUERYSET__older_then_24h(self)')
+        print('LOG: --> return QUERYSET')
+        return self.filter(int_UNIXtime_created__lte=time.time()-(24*60*60))
 
     def QUERYSET__upcoming(self,boolean_approved=False):
         print('LOG: Event.objects.QUERYSET__upcoming(self,boolean_approved={})'.format(boolean_approved))
@@ -607,6 +618,11 @@ class Event(models.Model):
         # if runtime > 24 hours, show num of days instead
         print('LOG: --> return STR')
         return month+' '+day_num+' | '+start_time+(' - ' + end_time if self.int_minutes_duration < (24*60) else ' | '+str(round(self.int_minutes_duration/60/24))+' days')
+
+    def publish(self):
+        print('LOG: event.publish()')
+        self.boolean_approved=True
+        self.save()
 
     def create_volunteer_wish(self):
         print('LOG: event.create_volunteer_wish()')
