@@ -579,6 +579,8 @@ def new_view(request):
         )
 
     elif request.GET.get('what', None) == 'event':
+        from hackerspace.APIs.slack import send_message
+        from hackerspace.YOUR_HACKERSPACE import DOMAIN
         from hackerspace.website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
         int_UNIXtime_event_start = INT__UNIX_from_date_and_time_STR(request.GET.get('date',None),request.GET.get('time',None))
         int_minutes_duration = INT__duration_minutes(request.GET.get('duration',None))
@@ -612,7 +614,7 @@ def new_view(request):
                 new_event.int_series_endUNIX = INT__UNIX_from_date_and_time_STR(str_repeating_up_to,request.GET.get('time',None))
 
 
-        if request.GET.get('volunteers',None)=='yes':
+        if request.GET.get('volunteers',None)=='yes' and request.user.is_authenticated:
             # create wish entry and save URL
             new_event = new_event.create_volunteer_wish()
 
@@ -629,9 +631,22 @@ def new_view(request):
         # if event is repeating, create upcoming instances
         new_event = new_event.create_upcoming_instances()
 
-        # share event to other platforms (Meetup, Discourse, etc.)
-        new_event.create_discourse_event()
-        new_event.create_meetup_event()
+        # if loggedin user: share event to other platforms (Meetup, Discourse, etc.)
+        if request.user.is_authenticated:
+            new_event.create_discourse_event()
+            new_event.create_meetup_event()
+        
+        # else (if event created via live website) inform via slack about new event and give community chance to delete it or confirm it
+        elif 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==DOMAIN:
+            send_message(
+                'A website visitor created a new event via our website.\n'+
+                'If no one deletes it within the next 24 hours, it will be automatically published and appears in our website search'+(', meetup group' if STR__get_key('MEETUP.ACCESS_TOKEN') else '')+(' and discourse' if STR__get_key('DISCOURSE_API_KEY') else '')+'.\n'+
+                '🚫-> Does this event already exist or is it spam? Open on the following event link and click "Delete event".\n'+
+                '✅-> You have a user account for our website and want to publish the event directly? Open on the following event link and click "Approve event".\n'+
+                'https://'+DOMAIN+new_event.str_slug
+                )
+        else:
+            print('LOG: --> Request not sent via hackerspace domain. Skipped notifying via Slack.')
 
         # if user is signed in and event autoapproved - direct to event page, else show info
         response = JsonResponse(

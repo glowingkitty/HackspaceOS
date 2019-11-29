@@ -624,6 +624,10 @@ class Event(models.Model):
         self.boolean_approved=True
         self.save()
 
+        self.create_discourse_event()
+        self.create_meetup_event()
+        self.create_volunteer_wish()
+
     def create_volunteer_wish(self):
         print('LOG: event.create_volunteer_wish()')
         from hackerspace.APIs.discourse import create_post
