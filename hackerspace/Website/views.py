@@ -369,11 +369,24 @@ def event_new_view(request):
 
 def event_view(request, sub_page):
     print('LOG: event_view(request, {})'.format(sub_page))
+    return_json = False
+    if sub_page.endswith('.json'):
+        print('LOG: --> detected .json at end of URL')
+        sub_page = sub_page.replace('.json','')
+        return_json = True
+        
     sub_page = 'event/'+sub_page
     # if space not found, redirect to all spaces page
     if not Event.objects.filter(str_slug=sub_page).exists():
         return HttpResponseRedirect('/events')
-    return get_page_response(request, 'event', sub_page)
+    
+    # if .json at end of url, return json, else page
+    if return_json==True:
+        print('LOG: --> return JsonResponse')
+        return JsonResponse(Event.objects.filter(str_slug=sub_page).first().json_data)
+
+    else:
+        return get_page_response(request, 'event', sub_page)
 
 
 def get_view(request):
