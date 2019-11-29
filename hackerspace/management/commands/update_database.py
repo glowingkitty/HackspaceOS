@@ -1,4 +1,3 @@
-# by Marco Bartsch
 from django.core.management.base import BaseCommand
 from hackerspace.models import Event, Consensus, Person, Wish
 from hackerspace.YOUR_HACKERSPACE import EXTRA_MEETUP_GROUPS

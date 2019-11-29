@@ -1,8 +1,10 @@
 def STR__get_key(name):
     try:
-        from config import SECRETS
+        import json
 
-        selected = SECRETS
+        with open('config.json') as json_file:
+            selected = json.load(json_file)
+
         path = name.split('.')
         for part in path:
             selected = selected[part]

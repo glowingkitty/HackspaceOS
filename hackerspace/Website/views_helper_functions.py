@@ -1,6 +1,3 @@
-# by Marco Bartsch
-
-
 def JSON_RESPONSE_more_results(request, template_path, queryset):
     print('LOG: JSON_RESPONSE_more_results(request,queryset)')
     from django.http import JsonResponse

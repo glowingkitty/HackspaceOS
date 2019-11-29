@@ -1,4 +1,3 @@
-# by Marco Bartsch
 from django.core.management.base import BaseCommand
 from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.marry import speak
 
