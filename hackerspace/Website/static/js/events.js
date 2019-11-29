@@ -270,3 +270,43 @@ function show_up_to_block(repeating_block_value) {
         document.getElementById('upto_block').style.display = 'none'
     }
 }
+
+function approveEvent(str_slug) {
+    // show 'Approving...' text
+    document.getElementById('button__approve_event').outerHTML = '<div>Approving...</div>'
+    if (document.getElementById('button__delete_event')) {
+        document.getElementById('button__delete_event').outerHTML = ''
+    }
+
+    // send server request
+    axios.get("/approve-event?str_slug=" + str_slug)
+        .then(function () {
+            getPage(str_slug, 'menu_h_events')
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+}
+
+function deleteEvent(str_slug) {
+    // show 'Deleting...' text
+    document.getElementById('button__delete_event').outerHTML = '<div>Deleting...</div>'
+    if (document.getElementById('button__approve_event')) {
+        document.getElementById('button__approve_event').outerHTML = ''
+    }
+
+    // send server request
+    axios.get("/delete-event?str_slug=" + str_slug)
+        .then(function () {
+            getPage('/events', 'menu_h_events')
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+}

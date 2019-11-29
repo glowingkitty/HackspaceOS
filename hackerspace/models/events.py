@@ -402,7 +402,7 @@ class Event(models.Model):
     objects = EventSet.as_manager()
     str_name = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
-    str_slug = models.CharField(max_length=250, blank=True, null=True)
+    str_slug = models.CharField(max_length=250, unique=True, blank=True, null=True)
     boolean_approved = models.BooleanField(default=True)
     int_UNIXtime_event_start = models.IntegerField(
         blank=True, null=True, verbose_name='Event start (UNIX time)')
@@ -513,19 +513,19 @@ class Event(models.Model):
             return 'Now'
 
         # in next 60 minutes
-        elif timestamp < time.time()+(60*60):
+        elif timestamp <= time.time()+(60*60):
             minutes_in_future = int((timestamp - time.time())/60)
             print('LOG: --> return STR')
             return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
 
         # in next 12 hours
-        elif timestamp < time.time()+(60*60*12):
+        elif timestamp <= time.time()+(60*60*12):
             hours_in_future = int(((timestamp - time.time())/60)/60)
             print('LOG: --> return STR')
             return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
 
         # else if in next 6 days, return name of day
-        elif timestamp < time.time()+(60*60*24*6):
+        elif timestamp <= time.time()+(60*60*24*6):
             name_of_weekday = self.datetime_start.strftime("%A")
             print('LOG: --> return STR')
             return name_of_weekday
@@ -533,6 +533,24 @@ class Event(models.Model):
         else:
             print('LOG: --> return None')
             return None
+
+    @property
+    def str_relative_publish_time(self):
+        import time
+
+        int_UNIX_published_in = self.int_UNIXtime_created+(24*60*60)
+
+        # in next 60 minutes
+        if int_UNIX_published_in <= time.time()+(60*60):
+            minutes_in_future = int((int_UNIX_published_in - time.time())/60)
+            print('LOG: --> return STR')
+            return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
+
+        # in next 24 hours
+        elif int_UNIX_published_in <= time.time()+(24*60*60):
+            hours_in_future = int(((int_UNIX_published_in - time.time())/60)/60)
+            print('LOG: --> return STR')
+            return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
 
     @property
     def datetime_start(self):
@@ -616,6 +634,7 @@ class Event(models.Model):
             days_increase = 30
         
         print('LOG: --> Define start & end time of while statement')
+        original_pk = self.pk
         original_slug = self.str_slug
         original_event_start = self.int_UNIXtime_event_start
         original_event_end = self.int_UNIXtime_event_end
@@ -645,6 +664,7 @@ class Event(models.Model):
         
 
         print('LOG: --> Back to original values of first event')
+        self.pk = original_pk
         self.str_slug = original_slug
         self.int_UNIXtime_event_start = original_event_start
         self.int_UNIXtime_event_end = original_event_end

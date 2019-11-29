@@ -225,7 +225,7 @@ def get_view_response(request, page, sub_page, hashname):
         from django.middleware.csrf import get_token
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/success_view.html',
+            'page_git_url': '/Website/templates/event_new_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | New event',
             'page_description': 'Organize an event at '+HACKERSPACE.HACKERSPACE_NAME,
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:4],
@@ -233,13 +233,6 @@ def get_view_response(request, page, sub_page, hashname):
             'all_spaces': Space.objects.exclude(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT),
             'all_guildes':Guilde.objects.all(),
             'csrf_token': get_token(request)
-        }}
-    elif page == 'success':
-        return {**context, **{
-            'slug': '/'+page,
-            'page_git_url': '/Website/templates/success_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Event submitted',
-            'page_description': 'We received your event.',
         }}
 
 
@@ -643,7 +636,7 @@ def new_view(request):
         # if user is signed in and event autoapproved - direct to event page, else show info
         response = JsonResponse(
             {
-                'url_next': '/'+new_event.str_slug if request.user.is_authenticated==True else '/success'
+                'url_next': '/'+new_event.str_slug
             }
         )
 
@@ -684,8 +677,51 @@ def upload_view(request,what):
     print('LOG: --> return response')
     return response
 
-def new_event_submitted_view(request):
-    print('LOG: new_event_submitted_view(request)')
+
+def approve_event_view(request):
+    print('LOG: approve_event_view(request)')
+
+    if request.user.is_authenticated()==False:
+        print('LOG: --> Failed: User not logged in')
+        response = JsonResponse({'success': False})
+        response.status_code = 403
+    elif not request.GET.get('str_slug', None) or Event.objects.filter(boolean_approved=False,str_slug=request.GET.get('str_slug', None)).exists()==False:
+        print('LOG: --> Failed: Result not found')
+        response = JsonResponse({'success': False})
+        response.status_code = 404
+    else:
+        # approve event and all upcoming ones
+        event = Event.objects.filter(boolean_approved=False,str_slug=request.GET.get('str_slug', None)).first()
+
+        upcoming_events = Event.objects.filter(boolean_approved=False,str_name=event.str_name).all()
+        print('LOG: --> Approve all upcoming events')
+        for event in upcoming_events:
+            event.boolean_approved=True
+            event.save()
+
+        response = JsonResponse({'success': True})
+        response.status_code = 200
 
     print('LOG: --> return response')
-    return get_page_response(request, 'success')
+    return response
+
+
+def delete_event_view(request):
+    print('LOG: delete_event_view(request)')
+
+    if not request.GET.get('str_slug', None) or Event.objects.filter(str_slug=request.GET.get('str_slug', None)).exists()==False:
+        print('LOG: --> Failed: Result not found')
+        response = JsonResponse({'success': False})
+        response.status_code = 404
+    else:
+        # approve event and all upcoming ones
+        event = Event.objects.filter(str_slug=request.GET.get('str_slug', None)).first()
+
+        print('LOG: --> Delete all upcoming events')
+        Event.objects.filter(str_name=event.str_name).delete()
+
+        response = JsonResponse({'success': True})
+        response.status_code = 200
+
+    print('LOG: --> return response')
+    return response

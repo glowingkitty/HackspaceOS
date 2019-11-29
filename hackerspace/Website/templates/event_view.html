@@ -12,10 +12,26 @@
 
 <div class="divider_20"></div>
 <div class="max_540">
+    {% if selected.boolean_approved == False %}
+    <div class="new_event_info">
+        This event was submitted and doesn't show up in the search yet.<br>
+        If no one at {{ HACKERSPACE.HACKERSPACE_NAME }} rejects this event (because it's spam or a duplicate for example), it will be automatically published<br><strong>{{ selected.str_relative_publish_time }}</strong>.<br>
+        <br>
+        Want to have the event published earlier? Ask someone at {{ HACKERSPACE.HACKERSPACE_NAME }} with a user account for this website to confirm the event or to create a user account for you.
+    </div>
+    {% endif %}
     <div class="sub_heading text_semitransparent">{% if selected.str_relative_time %}{{ selected.str_relative_time }}, {% endif %}{{ selected.datetime_range }}{% if selected.one_space %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name }}</a>{% endif %}</div>
     <h2 class="h2 large">{{ selected.str_name }}</h2>
     {% if selected.url_meetup_event %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
+    {% endif %}
+    {% if user.is_authenticated and selected.boolean_approved == False %}
+    <div id="button__approve_event" onclick="approveEvent('{{ selected.str_slug }}')" class="button__cta inline">Approve event</div>
+    {% endif %}
+    {% if selected.boolean_approved == False %}
+    <div id="button__delete_event" onclick="deleteEvent('{{ selected.str_slug }}')" class="button__cta secondary inline">Delete event{% if selected.int_series_startUNIX %} series{% endif %}</div>
+    <br>
+    <br>
     {% endif %}
     {% if selected.url_discourse_wish %}
     <a href="{{ selected.url_discourse_wish }}" target="_blank" class="button__cta secondary inline">Voolunteer</a>
