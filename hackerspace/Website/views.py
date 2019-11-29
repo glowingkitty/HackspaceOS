@@ -705,6 +705,8 @@ def approve_event_view(request):
         response = JsonResponse({'success': False})
         response.status_code = 404
     else:
+        from hackerspace.APIs.slack import send_message
+        from hackerspace.YOUR_HACKERSPACE import DOMAIN
         # approve event and all upcoming ones
         event = Event.objects.filter(boolean_approved=False,str_slug=request.GET.get('str_slug', None)).first()
 
@@ -713,6 +715,10 @@ def approve_event_view(request):
         for event in upcoming_events:
             event.boolean_approved=True
             event.save()
+
+        # notify via slack that event was approved and by who
+        if 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==DOMAIN:
+            send_message('✅'+str(request.user)+' approved the event "'+event.str_name+'":\nhttps://'+DOMAIN+event.str_slug)
 
         response = JsonResponse({'success': True})
         response.status_code = 200
@@ -729,11 +735,17 @@ def delete_event_view(request):
         response = JsonResponse({'success': False})
         response.status_code = 404
     else:
+        from hackerspace.APIs.slack import send_message
+        from hackerspace.YOUR_HACKERSPACE import DOMAIN
         # approve event and all upcoming ones
         event = Event.objects.filter(str_slug=request.GET.get('str_slug', None)).first()
 
         print('LOG: --> Delete all upcoming events')
         Event.objects.filter(str_name=event.str_name).delete()
+
+        # notify via slack that event was deleted and by who
+        if 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==DOMAIN:
+            send_message('🚫'+str(request.user)+' deleted the event "'+event.str_name+'"')
 
         response = JsonResponse({'success': True})
         response.status_code = 200
