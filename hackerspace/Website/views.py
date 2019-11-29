@@ -358,6 +358,9 @@ def events_view(request):
     print('LOG: events_view(request)')
     return get_page_response(request, 'events')
 
+def events_json_view(request):
+    print('LOG: events_json_view(request)')
+    return Event.objects.QUERYSET__upcoming().RESPONSE__JSON()
 
 def event_new_view(request):
     print('LOG: event_new_view(request)')
@@ -643,7 +646,7 @@ def new_view(request):
                 'If no one deletes it within the next 24 hours, it will be automatically published and appears in our website search'+(', meetup group' if STR__get_key('MEETUP.ACCESS_TOKEN') else '')+(' and discourse' if STR__get_key('DISCOURSE_API_KEY') else '')+'.\n'+
                 '🚫-> Does this event already exist or is it spam? Open on the following event link and click "Delete event".\n'+
                 '✅-> You have a user account for our website and want to publish the event directly? Open on the following event link and click "Approve event".\n'+
-                'https://'+DOMAIN+new_event.str_slug
+                'https://'+DOMAIN+'/'+new_event.str_slug
                 )
         else:
             print('LOG: --> Request not sent via hackerspace domain. Skipped notifying via Slack.')
@@ -718,7 +721,7 @@ def approve_event_view(request):
 
         # notify via slack that event was approved and by who
         if 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==DOMAIN:
-            send_message('✅'+str(request.user)+' approved the event "'+event.str_name+'":\nhttps://'+DOMAIN+event.str_slug)
+            send_message('✅'+str(request.user)+' approved the event "'+event.str_name+'":\nhttps://'+DOMAIN+'/'+event.str_slug)
 
         response = JsonResponse({'success': True})
         response.status_code = 200

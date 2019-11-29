@@ -55,6 +55,7 @@ class Person(models.Model):
     def __str__(self):
         return self.str_name
 
+    @property
     def str_name_shortened(self):
         if not ' ' in self.str_name:
             return self.str_name

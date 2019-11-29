@@ -348,6 +348,18 @@ class EventSet(models.QuerySet):
         print('LOG: --> return LIST')
         return results_list
 
+    def RESPONSE__JSON(self):
+        from django.http import JsonResponse
+        events = []
+        for event in self.all():
+            events.append(event.json_data)
+        return JsonResponse(
+            {
+                'num_events':len(events),
+                'events': events
+            }
+        )
+
     def announce(self):
         print('LOG: Event.objects.announce(self)')
         self.announce_via_marry()
@@ -461,8 +473,6 @@ class Event(models.Model):
         max_length=250, blank=True, null=True, verbose_name='discourse URL')
     url_discourse_wish = models.URLField(
         max_length=250, blank=True, null=True, verbose_name='discourse wish URL')
-    url_slack_event = models.URLField(
-        max_length=250, blank=True, null=True, verbose_name='Slack URL')
 
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
@@ -510,6 +520,38 @@ class Event(models.Model):
         if 'monthly' in json_series_timing:
             print('LOG: --> return STR')
             return 'every month'
+    
+    @property
+    def json_data(self):
+        from hackerspace.YOUR_HACKERSPACE import DOMAIN
+        return {
+                'str_name':self.str_name,
+                'url_hackerspace_event':'https://'+DOMAIN+'/'+self.str_slug,
+                'datetime_start':str(self.datetime_start),
+                'datetime_end':str(self.datetime_end),
+                'str_timezone':self.str_timezone,
+                'int_UNIXtime_event_start':self.int_UNIXtime_event_start,
+                'int_minutes_duration':self.int_minutes_duration,
+                'int_UNIXtime_event_end':self.int_UNIXtime_event_end,
+                'url_featured_photo':self.url_featured_photo,
+                'text_description':self.text_description,
+                'str_location':self.str_location,
+                'float_lat':self.float_lat,
+                'float_lon':self.float_lon,
+                'str_space':self.one_space.str_name if self.one_space else None,
+                'str_guilde':self.one_guilde.str_name if self.one_guilde else None,
+                'list_hosts':[x.str_name_shortened for x in self.many_hosts.all()],
+                'int_series_startUNIX':self.int_series_startUNIX,
+                'int_series_endUNIX':self.int_series_endUNIX,
+                'str_series_repeat_how_often':self.str_series_repeat_how_often,
+                'str_crowd_size':self.str_crowd_size,
+                'str_welcomer':self.str_welcomer,
+                'url_meetup_event':self.url_meetup_event,
+                'url_discourse_event':self.url_discourse_event,
+                'url_discourse_wish':self.url_discourse_wish,
+                'int_UNIXtime_created':self.int_UNIXtime_created,
+                'int_UNIXtime_updated':self.int_UNIXtime_updated,
+            }
 
     @property
     def str_relative_time(self):
