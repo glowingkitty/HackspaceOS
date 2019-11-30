@@ -39,7 +39,7 @@ This website template has a lot of super useful features for your hackerspace! D
 
 => [💲Tell people how to donate](#donate)
 
-Want more? Learn how to contribute!
+Want more? [Learn how to contribute](#contribute)!
 
 <br/><br/>
 <img alt="💡LED Dark Mode!" src="./readme_images/heading_led_darkmode.png" id="dark-mode" >
