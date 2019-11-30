@@ -125,7 +125,7 @@ pip install -r requirements.txt;python create_config.py;python manage.py makemig
 
 **Step 4:** Open [config.json](./config.json) and add your missing API keys
 
-**Step 5:** Replace [this SVG logo](./hackerspace/website/static/images/logo.svg) and [this PNG logo](./hackerspace/website/static/images/logo.png) with your own
+**Step 5:** Replace [this SVG logo](./hackerspace/Website/static/images/logo.svg) and [this PNG logo](./hackerspace/Website/static/images/logo.png) with your own
 
 **Step 6:** Customize the settings in [YOUR_HACKERSPACE.py](./hackerspace/YOUR_HACKERSPACE.py) to your hackerspace
 
@@ -138,19 +138,19 @@ pip install -r requirements.txt;python create_config.py;python manage.py makemig
 
 => [Click to change your default colors & fonts](./hackerspace/CUSTOMIZE/CSS.py)
 
-=> [Click to show templates](./hackerspace/website/templates/)
+=> [Click to show templates](./hackerspace/Website/templates/)
 
-=> [Click to show CSS files](./hackerspace/website/static/css/)
+=> [Click to show CSS files](./hackerspace/Website/static/css/)
 
-=> [Click to show images](./hackerspace/website/static/images/)
+=> [Click to show images](./hackerspace/Website/static/images/)
 
-=> [Click to show JavaScript files](./hackerspace/website/static/js/)
+=> [Click to show JavaScript files](./hackerspace/Website/static/js/)
 
 => How to add a new page:
 
 -  add a new path in [urls.py](./hackerspace/urls.py)
-- add a new view in [views.py](./hackerspace/website/views.py)
-- add the template html in [/templates](./hackerspace/website/templates/)
+- add a new view in [views.py](./hackerspace/Website/views.py)
+- add the template html in [/templates](./hackerspace/Website/templates/)
 
 <br/><br/>
 <img alt="💻How to contribute" src="./readme_images/heading_contribute.png" id="contribute" >

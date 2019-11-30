@@ -8,8 +8,8 @@ register = Library()
 @register.filter
 def getJSfiles(placeholder):
     js_files = [f.replace('.js', '') for f in listdir(join(
-        sys.path[0], 'hackerspace/website/static/js')) if isfile(join(join(
-            sys.path[0], 'hackerspace/website/static/js'), f))]
+        sys.path[0], 'hackerspace/Website/static/js')) if isfile(join(join(
+            sys.path[0], 'hackerspace/Website/static/js'), f))]
     return js_files
 
 

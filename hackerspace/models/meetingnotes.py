@@ -12,7 +12,7 @@ def startChrome(headless, url):
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
     browser_path = os.path.join(
-        sys.path[0], 'hackerspace/website/selenium/chromedriver_'+sys.platform)
+        sys.path[0], 'hackerspace/Website/selenium/chromedriver_'+sys.platform)
     browser = webdriver.Chrome(
         chrome_options=options, executable_path=browser_path)
     browser.get(url)
@@ -144,7 +144,7 @@ class MeetingNote(models.Model):
 
         # copy template for new meeting into riseup pad
         meeting_template = open(os.path.join(
-            sys.path[0], 'hackerspace/website/templates/meeting_notes.txt'), 'r').read()
+            sys.path[0], 'hackerspace/Website/templates/meeting_notes.txt'), 'r').read()
         for line in reversed(meeting_template.split('\n')):
             input_field.send_keys(Keys.RETURN)
             line = line.replace('{{ Date }}', str(
@@ -188,7 +188,7 @@ class MeetingNote(models.Model):
 
         # find main topics via heading in note template
         main_topics = re.findall('(?<==).*', open(os.path.join(
-            sys.path[0], 'hackerspace/website/templates/meeting_notes.txt'), 'r').read())
+            sys.path[0], 'hackerspace/Website/templates/meeting_notes.txt'), 'r').read())
         main_topics = [
             x.replace('==', '')
             .replace('= ', '')
