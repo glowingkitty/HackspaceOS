@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from hackerspace.website import views
+from hackerspace.Website import views
 from django.views.generic.base import RedirectView
 from getKey import STR__get_key
 

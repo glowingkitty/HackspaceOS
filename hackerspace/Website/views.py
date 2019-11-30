@@ -6,7 +6,7 @@ from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
 from hackerspace.models import Error, Person,Project, Event, Guilde, MeetingNote, Space, Machine, Consensus
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
-from hackerspace.website.search import search
+from hackerspace.Website.search import search
 from getKey import STR__get_key
 
 
@@ -425,7 +425,7 @@ def get_view(request):
         str_duration = request.GET.get('duration', None)
         str_space = request.GET.get('space', None)
         if str_date and str_time and str_duration and str_space:
-            from hackerspace.website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
+            from hackerspace.Website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
             
             overlapping_events = Event.objects.JSON__overlapping_events(
                         INT__UNIX_from_date_and_time_STR(str_date, str_time),
@@ -492,7 +492,7 @@ def get_view(request):
 
 def load_more_view(request):
     print('LOG: load_more_view(request)')
-    from hackerspace.website.views_helper_functions import JSON_RESPONSE_more_results
+    from hackerspace.Website.views_helper_functions import JSON_RESPONSE_more_results
 
     if request.GET.get('what', None) and request.GET.get('from', None):
         if request.GET.get('what', None) == 'meeting_notes':
@@ -597,7 +597,7 @@ def new_view(request):
     elif request.GET.get('what', None) == 'event':
         from hackerspace.APIs.slack import send_message
         from hackerspace.YOUR_HACKERSPACE import DOMAIN
-        from hackerspace.website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
+        from hackerspace.Website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
         int_UNIXtime_event_start = INT__UNIX_from_date_and_time_STR(request.GET.get('date',None),request.GET.get('time',None))
         int_minutes_duration = INT__duration_minutes(request.GET.get('duration',None))
         
