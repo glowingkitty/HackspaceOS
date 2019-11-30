@@ -57,54 +57,51 @@ I mean… do you really need anything else to convince your hackerspace communit
 
 Tell people what is special about your hackerspace, if the space is currently open, how to get to you and your upcoming events 
 <br/><br/>
-<img src="https://media.giphy.com/media/PhZ4vnwqJSuidLycQH/source.gif" >
+[<img src="https://media.giphy.com/media/PhZ4vnwqJSuidLycQH/source.gif">](https://media.giphy.com/media/PhZ4vnwqJSuidLycQH/source.gif)
 
 <br/><br/>
 <img alt="ℹ️About section, tell your hackerspace’s story" src="./readme_images/heading_about.png" id="about" >
 
-<img alt="https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif" src="https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif" >
-
+[<img src="https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif">](https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif)
 
 <br/><br/>
 <img alt="🔍Search everything, everywhere" src="./readme_images/heading_search.png" id="search" >
 
-<img src="https://media.giphy.com/media/PhZXasQcgHTOLzSrZX/source.gif" >
-
+[<img src="https://media.giphy.com/media/PhZXasQcgHTOLzSrZX/source.gif">](https://media.giphy.com/media/PhZXasQcgHTOLzSrZX/source.gif)
 
 <br/><br/>
 <img alt="🗓Create & see all your events" src="./readme_images/heading_events.png" id="events" >
 
-<img alt="https://media.giphy.com/media/hU47h8DA0FY4k0L1DV/source.gif" src="https://media.giphy.com/media/hU47h8DA0FY4k0L1DV/source.gif" >
-
+[<img src="https://media.giphy.com/media/hU47h8DA0FY4k0L1DV/source.gif">](https://media.giphy.com/media/hU47h8DA0FY4k0L1DV/source.gif)
 
 <br/><br/>
 <img alt="🛠Show your projects" src="./readme_images/heading_projects.png" id="projects" >
 
-<img alt="https://media.giphy.com/media/Urynrna0njBO8aOcHV/source.gif" src="https://media.giphy.com/media/Urynrna0njBO8aOcHV/source.gif" >
+[<img src="https://media.giphy.com/media/Urynrna0njBO8aOcHV/source.gif">](https://media.giphy.com/media/Urynrna0njBO8aOcHV/source.gif)
 
 
 <br/><br/>
 <img alt="🏠List your spaces & machines" src="./readme_images/heading_spaces.png" id="spaces" >
 
-<img alt="https://media.giphy.com/media/KZ44vfSHmTEbqIuLun/source.gif" src="https://media.giphy.com/media/KZ44vfSHmTEbqIuLun/source.gif" >
+[<img src="https://media.giphy.com/media/KZ44vfSHmTEbqIuLun/source.gif">](https://media.giphy.com/media/KZ44vfSHmTEbqIuLun/source.gif)
 
 
 <br/><br/>
 <img alt="📝Create, archive and see all your meeting notes" src="./readme_images/heading_meeting_notes.png" id="meeting-notes" >
 
-<img alt="https://media.giphy.com/media/gHEtvxEFLcoViOzgTU/source.gif" src="https://media.giphy.com/media/gHEtvxEFLcoViOzgTU/source.gif" >
+[<img src="https://media.giphy.com/media/gHEtvxEFLcoViOzgTU/source.gif">](https://media.giphy.com/media/gHEtvxEFLcoViOzgTU/source.gif)
 
 
 <br/><br/>
 <img alt="👥Consensus Items" src="./readme_images/heading_consensus.png" id="consensus" >
 
-<img alt="https://media.giphy.com/media/QYjC6A5guL3dLnWovQ/source.gif" src="https://media.giphy.com/media/QYjC6A5guL3dLnWovQ/source.gif" >
+[<img src="https://media.giphy.com/media/QYjC6A5guL3dLnWovQ/source.gif">](https://media.giphy.com/media/QYjC6A5guL3dLnWovQ/source.gif)
 
 
 <br/><br/>
 <img alt="💲Tell people how to donate" src="./readme_images/heading_donate.png" id="donate" >
 
-<img alt="https://media.giphy.com/media/kHqtT44bciusHqgwUf/source.gif" src="https://media.giphy.com/media/kHqtT44bciusHqgwUf/source.gif" >
+[<img src="https://media.giphy.com/media/kHqtT44bciusHqgwUf/source.gif">](https://media.giphy.com/media/kHqtT44bciusHqgwUf/source.gif)
 
 
 <br/><br/>
