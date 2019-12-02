@@ -10,6 +10,14 @@ def boolean_is_image(image_url):
         return False
 
 
+def boolean_button_exists(browser, class_name):
+    try:
+        browser.find_element_by_class_name(class_name)
+        return True
+    except:
+        return False
+
+
 class PhotoSet(models.QuerySet):
     def import_from_twitter(self):
         print('LOG: import_from_twitter()')
@@ -84,7 +92,6 @@ class PhotoSet(models.QuerySet):
                 'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
 
         print('LOG: --> Finished!!')
-        time.sleep(15)
 
     def import_from_wiki(self):
         # API documentation: https://www.mediawiki.org/wiki/API:Allimages
@@ -140,7 +147,61 @@ class PhotoSet(models.QuerySet):
 
     def import_from_instagram(self):
         print('LOG: import_from_instagram()')
-        # TODO
+        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS
+        from hackerspace.models.meetingnotes import startChrome
+        import time
+        from dateutil.parser import parse
+        from datetime import datetime
+
+        # check if instagram is saved in social channels
+        for entry in HACKERSPACE_SOCIAL_NETWORKS:
+            if 'instagram.com/' in entry['url']:
+                browser = startChrome(True, entry['url'])
+                break
+        else:
+            print(
+                'LOG: --> Instagram not found in HACKERSPACE_SOCIAL_NETWORKS. Please add your Instagram URL first.')
+            exit()
+
+        # open image in overlay
+        browser.execute_script(
+            "window.scrollTo(0, 450);")
+        time.sleep(2)
+        browser.find_elements_by_class_name('v1Nh3.kIKUG._bz0w')[0].click()
+
+        # save photo
+        while boolean_button_exists(browser, 'HBoOv.coreSpriteRightPaginationArrow'):
+            time.sleep(3)
+
+            image_urls = browser.find_elements_by_class_name(
+                'KL4Bh')[-1].find_elements_by_css_selector("*")[0].get_attribute('srcset').split(',')
+
+            url_image = image_urls[-1].split(' ')[0]
+
+            if Photo.objects.filter(url_image=url_image).exists() == False:
+                try:
+                    text_post = browser.find_elements_by_class_name(
+                        'C4VMK')[0].find_elements_by_css_selector("*")[2].text
+                except:
+                    text_post = None
+                Photo(
+                    text_description=text_post,
+                    url_image=url_image,
+                    str_source='Instagram',
+                    int_UNIXtime_created=round(datetime.timestamp(parse(browser.find_elements_by_class_name(
+                        '_1o9PC.Nzb55')[0].get_attribute("datetime"))))
+                ).save()
+                print('LOG: --> New photo saved')
+            else:
+                # end script, since photos aren't new
+                print('LOG: --> No new photos. Ending script...')
+                exit()
+
+            # go to next photo
+            browser.find_element_by_class_name(
+                'HBoOv.coreSpriteRightPaginationArrow').click()
+
+        print('LOG: --> Finished!!')
 
     def import_from_flickr(self):
         print('LOG: import_from_flickr()')
