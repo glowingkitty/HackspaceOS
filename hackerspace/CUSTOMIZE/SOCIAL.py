@@ -18,6 +18,9 @@ HACKERSPACE_SOCIAL_NETWORKS = [
     {'name': 'Blog', 'url': 'https://blog.noisebridge.net/'},
 ]
 
+# https://www.instagram.com/explore/tags/.../
+INSTAGRAM_TAG = 'noisebridge'
+
 HACKERSPACE_DISCOURSE_URL = 'https://discuss.noisebridge.info/'
 HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS = [
     {'name': 'Discuss', 'url': HACKERSPACE_DISCOURSE_URL},

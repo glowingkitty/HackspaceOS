@@ -18,6 +18,44 @@ def boolean_button_exists(browser, class_name):
         return False
 
 
+def save_instagram_photos(browser):
+    import time
+    from dateutil.parser import parse
+    from datetime import datetime
+
+    # save photo
+    while boolean_button_exists(browser, 'HBoOv.coreSpriteRightPaginationArrow'):
+        time.sleep(3)
+
+        image_urls = browser.find_elements_by_class_name(
+            'KL4Bh')[-1].find_elements_by_css_selector("*")[0].get_attribute('srcset').split(',')
+
+        url_image = image_urls[-1].split(' ')[0]
+
+        if Photo.objects.filter(url_image=url_image).exists() == False:
+            try:
+                text_post = browser.find_elements_by_class_name(
+                    'C4VMK')[0].find_elements_by_css_selector("*")[2].text
+            except:
+                text_post = None
+            Photo(
+                text_description=text_post,
+                url_image=url_image,
+                url_post=browser.current_url,
+                str_source='Instagram',
+                int_UNIXtime_created=round(datetime.timestamp(parse(browser.find_elements_by_class_name(
+                    '_1o9PC.Nzb55')[0].get_attribute("datetime"))))
+            ).save()
+            print('LOG: --> New photo saved')
+        else:
+            # end script, since photos aren't new
+            print('LOG: --> Photo exists. Skipped...')
+
+        # go to next photo
+        browser.find_element_by_class_name(
+            'HBoOv.coreSpriteRightPaginationArrow').click()
+
+
 class PhotoSet(models.QuerySet):
     def import_from_twitter(self):
         print('LOG: import_from_twitter()')
@@ -27,7 +65,7 @@ class PhotoSet(models.QuerySet):
         # check if twitter is saved in social channels
         for entry in HACKERSPACE_SOCIAL_NETWORKS:
             if 'twitter.com/' in entry['url']:
-                browser = startChrome(True, entry['url']+'/media')
+                browser = startChrome(False, entry['url']+'/media')
                 break
         else:
             print(
@@ -51,7 +89,7 @@ class PhotoSet(models.QuerySet):
                 images_boxes = browser.find_elements_by_css_selector(
                     'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
 
-                if len(images_boxes) == 0:
+                if len(images_boxes) == 1 or len(images_boxes) == 0:
                     no_images_found_counter += 1
 
             # get all children (images)
@@ -61,6 +99,12 @@ class PhotoSet(models.QuerySet):
                     '_timestamp.js-short-timestamp')[0].get_attribute("data-time"))
             except:
                 int_UNIXtime = None
+
+            try:
+                url_post = browser.find_elements_by_class_name(
+                    'tweet-timestamp.js-permalink.js-nav.js-tooltip')[0].get_attribute("href")
+            except:
+                url_post = None
 
             try:
                 text_tweet = images_boxes[0].find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_class_name(
@@ -74,14 +118,13 @@ class PhotoSet(models.QuerySet):
                     Photo(
                         text_description=text_tweet,
                         url_image=url_image,
+                        url_post=url_post,
                         str_source='Twitter',
                         int_UNIXtime_created=int_UNIXtime,
                     ).save()
                     print('LOG: --> New photo saved')
                 else:
-                    # end script, since photos aren't new
-                    print('LOG: --> No new photos. Ending script...')
-                    exit()
+                    print('LOG: --> Photo exist. Skipped...')
 
             # delete tweet from timeline html
             browser.execute_script("""
@@ -150,8 +193,6 @@ class PhotoSet(models.QuerySet):
         from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS
         from hackerspace.models.meetingnotes import startChrome
         import time
-        from dateutil.parser import parse
-        from datetime import datetime
 
         # check if instagram is saved in social channels
         for entry in HACKERSPACE_SOCIAL_NETWORKS:
@@ -169,39 +210,36 @@ class PhotoSet(models.QuerySet):
         time.sleep(2)
         browser.find_elements_by_class_name('v1Nh3.kIKUG._bz0w')[0].click()
 
-        # save photo
-        while boolean_button_exists(browser, 'HBoOv.coreSpriteRightPaginationArrow'):
-            time.sleep(3)
-
-            image_urls = browser.find_elements_by_class_name(
-                'KL4Bh')[-1].find_elements_by_css_selector("*")[0].get_attribute('srcset').split(',')
-
-            url_image = image_urls[-1].split(' ')[0]
-
-            if Photo.objects.filter(url_image=url_image).exists() == False:
-                try:
-                    text_post = browser.find_elements_by_class_name(
-                        'C4VMK')[0].find_elements_by_css_selector("*")[2].text
-                except:
-                    text_post = None
-                Photo(
-                    text_description=text_post,
-                    url_image=url_image,
-                    str_source='Instagram',
-                    int_UNIXtime_created=round(datetime.timestamp(parse(browser.find_elements_by_class_name(
-                        '_1o9PC.Nzb55')[0].get_attribute("datetime"))))
-                ).save()
-                print('LOG: --> New photo saved')
-            else:
-                # end script, since photos aren't new
-                print('LOG: --> No new photos. Ending script...')
-                exit()
-
-            # go to next photo
-            browser.find_element_by_class_name(
-                'HBoOv.coreSpriteRightPaginationArrow').click()
+        # save photos
+        save_instagram_photos(browser)
 
         print('LOG: --> Finished!!')
+
+    def import_from_instagram_tag(self):
+        print('LOG: import_from_instagram_tag()')
+        from hackerspace.YOUR_HACKERSPACE import INSTAGRAM_TAG
+        from hackerspace.models.meetingnotes import startChrome
+        import time
+        from dateutil.parser import parse
+        from datetime import datetime
+
+        # check if instagram tag is saved in settings
+        if INSTAGRAM_TAG:
+            browser = startChrome(
+                True, 'https://www.instagram.com/explore/tags/{}/'.format(INSTAGRAM_TAG))
+        else:
+            print(
+                'LOG: --> Instagram tag not found in HACKERSPACE_SOCIAL_NETWORKS. Please add your Instagram tag first.')
+            exit()
+
+        # open image in overlay
+        browser.execute_script(
+            "window.scrollTo(0, 150);")
+        time.sleep(2)
+        browser.find_elements_by_class_name('v1Nh3.kIKUG._bz0w')[0].click()
+
+        # save photos
+        save_instagram_photos(browser)
 
     def import_from_flickr(self):
         print('LOG: import_from_flickr()')
@@ -214,6 +252,8 @@ class Photo(models.Model):
         blank=True, null=True, verbose_name='Description')
     url_image = models.URLField(
         max_length=250, blank=True, null=True, verbose_name='Image URL')
+    url_post = models.URLField(
+        max_length=250, blank=True, null=True, verbose_name='Post URL')
     str_source = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Source')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
