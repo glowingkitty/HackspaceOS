@@ -13,7 +13,68 @@ def boolean_is_image(image_url):
 class PhotoSet(models.QuerySet):
     def import_from_twitter(self):
         print('LOG: import_from_twitter()')
-        # TODO
+        from hackerspace.models.meetingnotes import startChrome
+        import time
+        browser = startChrome(True, 'https://twitter.com/noisebridge/media')
+        # get all image blocks
+        images_boxes = browser.find_elements_by_css_selector(
+            'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
+
+        no_images_found_counter = 0
+
+        while len(images_boxes) > 0 or no_images_found_counter < 5:
+            # if only one tweet remaining, load more via scroll loading
+            while len(images_boxes) == 1 or len(images_boxes) == 0:
+                browser.execute_script(
+                    "window.scrollTo(0, 0);")
+                browser.execute_script(
+                    "window.scrollTo(0, document.body.scrollHeight);")
+                time.sleep(3)
+                images_boxes = browser.find_elements_by_css_selector(
+                    'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
+
+                if len(images_boxes) == 0:
+                    no_images_found_counter += 1
+
+            # get all children (images)
+            children = images_boxes[0].find_elements_by_css_selector("*")
+            try:
+                int_UNIXtime = int(browser.find_elements_by_class_name(
+                    '_timestamp.js-short-timestamp')[0].get_attribute("data-time"))
+            except:
+                int_UNIXtime = None
+
+            try:
+                text_tweet = images_boxes[0].find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_class_name(
+                    'js-tweet-text-container').text
+            except:
+                text_tweet = None
+            for child in children:
+                url_image = child.get_attribute("src")
+
+                if Photo.objects.filter(url_image=url_image).exists() == False:
+                    Photo(
+                        text_description=text_tweet,
+                        url_image=url_image,
+                        str_source='Twitter',
+                        int_UNIXtime_created=int_UNIXtime,
+                    ).save()
+                    print('LOG: --> New photo saved')
+                else:
+                    # end script, since photos aren't new
+                    print('LOG: --> No new photos. Ending script...')
+                    exit()
+
+            # delete tweet from timeline html
+            browser.execute_script("""
+            document.getElementsByClassName('js-stream-item stream-item stream-item')[0].outerHTML=''
+            """)
+
+            images_boxes = browser.find_elements_by_css_selector(
+                'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
+
+        print('LOG: --> Finished!!')
+        time.sleep(15)
 
     def import_from_wiki(self):
         # API documentation: https://www.mediawiki.org/wiki/API:Allimages
@@ -88,4 +149,4 @@ class Photo(models.Model):
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.text_description
+        return self.url_image

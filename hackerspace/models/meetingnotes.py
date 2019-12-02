@@ -2,6 +2,7 @@ from django.db import models
 
 
 def startChrome(headless, url):
+    print('LOG: startChrome(headless={}, url={})'.format(headless, url))
     import os
     import sys
     from selenium import webdriver
