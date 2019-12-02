@@ -13,9 +13,19 @@ def boolean_is_image(image_url):
 class PhotoSet(models.QuerySet):
     def import_from_twitter(self):
         print('LOG: import_from_twitter()')
+        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS
         from hackerspace.models.meetingnotes import startChrome
         import time
-        browser = startChrome(True, 'https://twitter.com/noisebridge/media')
+        # check if twitter is saved in social channels
+        for entry in HACKERSPACE_SOCIAL_NETWORKS:
+            if 'twitter.com/' in entry['url']:
+                browser = startChrome(True, entry['url']+'/media')
+                break
+        else:
+            print(
+                'LOG: --> Twitter not found in HACKERSPACE_SOCIAL_NETWORKS. Please add your Twitter URL first.')
+            exit()
+
         # get all image blocks
         images_boxes = browser.find_elements_by_css_selector(
             'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
