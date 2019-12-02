@@ -9,3 +9,4 @@ from hackerspace.models.persons import Person
 from hackerspace.models.guildes import Guilde
 from hackerspace.models.meetingnotes import MeetingNote
 from hackerspace.models.wishes import Wish
+from hackerspace.models.photos import Photo
