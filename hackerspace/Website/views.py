@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 
 from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
-from hackerspace.models import Error, Person,Project, Event, Guilde, MeetingNote, Space, Machine, Consensus
+from hackerspace.models import Error, Person,Project, Event, Guilde, MeetingNote, Space, Machine, Consensus,Photo
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.Website.search import search
@@ -190,7 +190,15 @@ def get_view_response(request, page, sub_page, hashname):
             'all_current_items_count': Consensus.objects.current().count(),
             'all_archived_items': Consensus.objects.archived(),
             'all_archived_items_count': Consensus.objects.archived().count(),
+        }}
 
+    elif page == 'photos':
+        return {**context, **{
+            'slug': '/'+page,
+            'page_git_url': '/Website/templates/photos_view.html',
+            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Photos',
+            'page_description': 'Explore '+HACKERSPACE.HACKERSPACE_NAME+'\'s history in photos!',
+            'photos': Photo.objects.exclude(str_source='Wiki').latest(),
         }}
 
     elif page == 'events':
@@ -353,6 +361,9 @@ def consensus_view(request):
     print('LOG: consensus_view(request)')
     return get_page_response(request, 'consensus')
 
+def photos_view(request):
+    print('LOG: photos_view(request)')
+    return get_page_response(request, 'photos')
 
 def events_view(request):
     print('LOG: events_view(request)')

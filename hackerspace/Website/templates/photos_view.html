@@ -1,0 +1,24 @@
+{% block content %}
+
+<div class="use_hashtag_cta">Want to see your photos here? Use #noisebridge on Twitter, Instagram or Flickr.</div>
+
+<div class="photos_block">
+    {% for photo in photos %}
+    <a class="photo_preview_block" target="_blank" href="{% if photo.url_post %}{{ photo.url_post }}{% else %}{{ photo.url_image }}{% endif %}">
+        <div class="photo_preview" style="background-image: url('{{ photo.url_image }}')"></div>
+        <div class="photo_details_overlay {{ photo.str_source|lower }}">
+            <div class="photo_source {{ photo.str_source|lower }}">{{ photo.str_source }}</div>
+            {% if photo.text_description %}
+            <div class="photo_description">{{ photo.text_description }}</div>
+            {% endif %}
+            <div class="photo_time">{{ photo.str_relative_time }}</div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<div class="divider_100"></div>
+
+{% include "components/body/edit_this_page.html" %}
+
+{% endblock %}

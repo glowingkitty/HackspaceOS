@@ -14,7 +14,7 @@
   <a href="/values" onclick="event.preventDefault();getPage('/values','menu_h_values')" class="menu_heading">About</a>
   <a href="/values" id="menu_h_values" onclick="event.preventDefault();getPage('/values','menu_h_values')" class="menu_heading{% if slug == '/values' %} selected{% endif %} sub_heading">Values</a>
   <a href="https://www.noisebridge.net/wiki/Manual" target="_blank" class="menu_heading sub_heading">Manual</a>
-  <a href="https://www.flickr.com/groups/noisebridge/pool/" target="_blank" class="menu_heading sub_heading">Photos</a>
+  <a href="/photos" id="menu_h_photos" onclick="event.preventDefault();getPage('/photos','menu_h_photos')" class="menu_heading{% if slug == '/photos' %} selected{% endif %} sub_heading">Photos</a>
   
   <a href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="menu_heading">Participate</a>
   <a href="/events" id="menu_h_events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="menu_heading sub_heading{% if slug == '/events' or 'event/' in slug %} selected{% endif %}">Events</a>

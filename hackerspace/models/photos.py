@@ -83,12 +83,12 @@ class PhotoSet(models.QuerySet):
 
         return random_results
 
-    def latest(self, num_results=20, page=1):
+    def latest(self, num_results=30, page=1):
         int_from = page-1
         int_to = int_from+num_results
         return self.order_by('-int_UNIXtime_created')[int_from:int_to]
 
-    def oldest(self, num_results=20, page=1):
+    def oldest(self, num_results=30, page=1):
         int_from = page-1
         int_to = int_from+num_results
         return self.order_by('int_UNIXtime_created')[int_from:int_to]
@@ -101,7 +101,7 @@ class PhotoSet(models.QuerySet):
         # check if twitter is saved in social channels
         for entry in HACKERSPACE_SOCIAL_NETWORKS:
             if 'twitter.com/' in entry['url']:
-                browser = startChrome(False, entry['url']+'/media')
+                browser = startChrome(True, entry['url']+'/media')
                 break
         else:
             print(
@@ -373,3 +373,34 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.url_image
+
+    @property
+    def str_relative_time(self):
+        print('LOG: photo.str_relative_time')
+        import time
+        from datetime import datetime
+
+        timestamp = self.int_UNIXtime_created
+
+        # in last 60 minutes
+        if timestamp >= time.time()-(60*60):
+            minutes_in_past = int((time.time()-timestamp)/60)
+            print('LOG: --> return STR')
+            return str(minutes_in_past)+' minute'+('s' if minutes_in_past > 1 else '')+' ago'
+
+        # in last 24 hours
+        elif timestamp >= time.time()-(60*60*24):
+            hours_in_past = int(((time.time()-timestamp)/60)/60)
+            print('LOG: --> return STR')
+            return str(hours_in_past)+' hour'+('s' if hours_in_past > 1 else '')+' ago'
+
+        # else if in last 6 days, return number of days ago
+        elif timestamp >= time.time()-(60*60*24*6):
+            days_in_past = int((((time.time()-timestamp)/60)/60)/24)
+            print('LOG: --> return STR')
+            return str(days_in_past)+' day'+('s' if hours_in_past > 1 else '')+' ago'
+
+        # else date string
+        else:
+            print('LOG: --> return STR')
+            return datetime.utcfromtimestamp(timestamp).strftime('%b %d, %Y')

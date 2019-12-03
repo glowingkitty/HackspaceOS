@@ -1,0 +1,266 @@
+.use_hashtag_cta {
+    margin: 20px;
+    margin-left: 40px;
+    margin-right: 117px;
+}
+
+@media (max-width: 991px) {
+    .use_hashtag_cta {
+        margin-left: 70px;
+    }
+}
+
+
+.photo_preview_block {
+    width: 170px;
+    height: 170px;
+    margin: 3px;
+    float: left;
+    position: relative;
+}
+
+@media (max-width: 350px) {
+    .photos_block {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.photo_details_overlay {
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 10px;
+}
+
+.photo_details_overlay:hover {
+    opacity: 1;
+}
+
+.photo_details_overlay.twitter {
+    background-color: #318CFFc4;
+    color: white
+}
+
+.photo_details_overlay.instagram {
+    background-color: #ffffffc4;
+    color: black
+}
+
+.photo_details_overlay.wiki {
+    background-color: #ffffffc4;
+    color: black
+}
+
+.photo_details_overlay.flickr {
+    background-color: #0063DCc4;
+    color: white
+}
+
+.photo_preview {
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.photo_preview:hover {
+    filter: blur(4px);
+}
+
+.photo_source {
+    width: 25px;
+    height: 25px;
+    color: transparent;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-bottom: 5px;
+}
+
+.photo_source.twitter {
+    background-image: url('../images/footer/social_media/twitter.svg');
+}
+
+.photo_source.instagram {
+    background-image: url('../images/photo_gallery/instagram.png');
+}
+
+.photo_source.flickr {
+    background-image: url('../images/photo_gallery/flickr.png');
+}
+
+.photo_source.wiki {
+    background-image: url('../images/photo_gallery/wiki.png');
+}
+
+.photo_description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    bottom: 47px;
+    position: absolute;
+    top: 42px;
+    right: 10px;
+    left: 10px;
+}
+
+.photo_time {
+    position: absolute;
+    bottom: 10px;
+    opacity: 0.5;
+}
+
+.photos_block {
+    margin-left: 20px;
+}
+
+
+@media (max-width: 1275px) {
+    .photos_block {
+        margin-left: 110px;
+    }
+}
+
+@media (max-width: 1275px) {
+    .photos_block {
+        margin-left: 9%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .photos_block {
+        margin-left: 7%;
+    }
+}
+
+@media (max-width: 1170px) {
+    .photos_block {
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 1135px) {
+    .photos_block {
+        margin-left: 4%;
+    }
+}
+
+@media (max-width: 1116px) {
+    .photos_block {
+        margin-left: 12%;
+    }
+}
+
+@media (max-width: 1050px) {
+    .photos_block {
+        margin-left: 9%;
+    }
+}
+
+@media (max-width: 1050px) {
+    .photos_block {
+        margin-left: 9%;
+    }
+}
+
+@media (max-width: 991px) {
+    .photos_block {
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 950px) {
+    .photos_block {
+        margin-left: 3%;
+    }
+}
+
+@media (max-width: 950px) {
+    .photos_block {
+        margin-left: 3%;
+    }
+}
+
+@media (max-width: 915px) {
+    .photos_block {
+        margin-left: 2%;
+    }
+}
+
+@media (max-width: 915px) {
+    .photos_block {
+        margin-left: 2%;
+    }
+}
+
+@media (max-width: 897px) {
+    .photos_block {
+        margin-left: 12%;
+    }
+}
+
+@media (max-width: 830px) {
+    .photos_block {
+        margin-left: 7%;
+    }
+}
+
+@media (max-width: 780px) {
+    .photos_block {
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 741px) {
+    .photos_block {
+        margin-left: 14%;
+    }
+}
+
+@media (max-width: 650px) {
+    .photos_block {
+        margin-left: 8%;
+    }
+}
+
+@media (max-width: 573px) {
+    .photos_block {
+        margin-left: 18%;
+    }
+}
+
+@media (max-width: 500px) {
+    .photos_block {
+        margin-left: 14%;
+    }
+}
+
+@media (max-width: 410px) {
+    .photos_block {
+        margin-left: 7%;
+    }
+}
+
+@media (max-width: 379px) {
+    .photos_block {
+        margin-left: 3%;
+    }
+}
+
+@media (max-width: 350px) {
+    .photos_block {
+        margin-left: 1%;
+    }
+}
