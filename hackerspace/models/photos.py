@@ -57,6 +57,42 @@ def save_instagram_photos(browser):
 
 
 class PhotoSet(models.QuerySet):
+    def count_overview(self):
+        return {
+            'total': self.count(),
+            'Wiki': self.filter(str_source='Wiki').count(),
+            'Twitter': self.filter(str_source='Twitter').count(),
+            'Instagram': self.filter(str_source='Instagram').count(),
+            'Flickr': self.filter(str_source='Flickr').count(),
+        }
+
+    def random(self, num_results=20):
+        import random
+        # get random numbers to show random results
+        random_set = []
+        maximum = self.count()
+        while len(random_set) < num_results:
+            random_number = random.randint(0, maximum)
+            while random_number in random_set:
+                random_number = random.randint(0, maximum)
+            random_set.append(random_number)
+
+        random_results = []
+        for number in random_set:
+            random_results.append(self.all()[number])
+
+        return random_results
+
+    def latest(self, num_results=20, page=1):
+        int_from = page-1
+        int_to = int_from+num_results
+        return self.order_by('-int_UNIXtime_created')[int_from:int_to]
+
+    def oldest(self, num_results=20, page=1):
+        int_from = page-1
+        int_to = int_from+num_results
+        return self.order_by('int_UNIXtime_created')[int_from:int_to]
+
     def import_from_twitter(self):
         print('LOG: import_from_twitter()')
         from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS

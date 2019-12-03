@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from hackerspace.models import Event, Consensus, Person, Wish
+from hackerspace.models import Event, Consensus, Person, Wish, Photo
 from hackerspace.YOUR_HACKERSPACE import EXTRA_MEETUP_GROUPS
 
 
@@ -17,6 +17,13 @@ class Command(BaseCommand):
 
         print('Update Consensus Items ...')
         Consensus.objects.pull_from_discourse()
+
+        print('Update Photos ...')
+        Photo.objects.import_from_twitter()
+        Photo.objects.import_from_wiki()
+        Photo.objects.import_from_instagram()
+        Photo.objects.import_from_instagram_tag()
+        Photo.objects.import_from_flickr()
 
         # print('Update Wishes ...')
         # Wish.objects.pull_from_discourse()
