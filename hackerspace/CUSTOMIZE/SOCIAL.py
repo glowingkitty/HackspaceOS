@@ -18,6 +18,8 @@ HACKERSPACE_SOCIAL_NETWORKS = [
     {'name': 'Blog', 'url': 'https://blog.noisebridge.net/'},
 ]
 
+FLICKR_URL = 'https://flickr.com/search/?text=Noisebridge&view_all=1'
+
 # https://www.instagram.com/explore/tags/.../
 INSTAGRAM_TAG = 'noisebridge'
 

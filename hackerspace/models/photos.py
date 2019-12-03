@@ -10,7 +10,7 @@ def boolean_is_image(image_url):
         return False
 
 
-def boolean_button_exists(browser, class_name):
+def boolean_element_exists(browser, class_name):
     try:
         browser.find_element_by_class_name(class_name)
         return True
@@ -24,7 +24,7 @@ def save_instagram_photos(browser):
     from datetime import datetime
 
     # save photo
-    while boolean_button_exists(browser, 'HBoOv.coreSpriteRightPaginationArrow'):
+    while boolean_element_exists(browser, 'HBoOv.coreSpriteRightPaginationArrow'):
         time.sleep(3)
 
         image_urls = browser.find_elements_by_class_name(
@@ -128,7 +128,8 @@ class PhotoSet(models.QuerySet):
 
             # delete tweet from timeline html
             browser.execute_script("""
-            document.getElementsByClassName('js-stream-item stream-item stream-item')[0].outerHTML=''
+            document.getElementsByClassName(
+                'js-stream-item stream-item stream-item')[0].outerHTML=''
             """)
 
             images_boxes = browser.find_elements_by_css_selector(
@@ -220,8 +221,6 @@ class PhotoSet(models.QuerySet):
         from hackerspace.YOUR_HACKERSPACE import INSTAGRAM_TAG
         from hackerspace.models.meetingnotes import startChrome
         import time
-        from dateutil.parser import parse
-        from datetime import datetime
 
         # check if instagram tag is saved in settings
         if INSTAGRAM_TAG:
@@ -243,7 +242,85 @@ class PhotoSet(models.QuerySet):
 
     def import_from_flickr(self):
         print('LOG: import_from_flickr()')
-        # TODO
+        from hackerspace.YOUR_HACKERSPACE import FLICKR_URL
+        from hackerspace.models.meetingnotes import startChrome
+        import time
+        from dateutil.parser import parse
+        from datetime import datetime
+
+        # check if instagram tag is saved in settings
+        if FLICKR_URL:
+            browser = startChrome(True, FLICKR_URL)
+        else:
+            print(
+                'LOG: --> no flickr url')
+            exit()
+
+        processed_images = 0
+
+        time.sleep(5)
+        no_images_found_counter = 0
+
+        while boolean_element_exists(browser, 'view.photo-list-photo-view.awake') == True or no_images_found_counter < 5:
+            # if no photo found... click "load more" button if exists, else scroll down and wait
+            if boolean_element_exists(browser, 'view.photo-list-photo-view.awake') == False:
+                while boolean_element_exists(browser, 'view.photo-list-photo-view.awake') == False:
+                    # see if load more button exists
+                    if boolean_element_exists(browser, 'infinite-scroll-load-more') == True:
+                        browser.find_element_by_class_name(
+                            'infinite-scroll-load-more').click()
+                    else:
+                        # else scroll down
+                        browser.execute_script(
+                            "window.scrollTo(0, document.body.scrollHeight);")
+
+                    time.sleep(5)
+
+                    no_images_found_counter += 1
+                    if no_images_found_counter == 5:
+                        print('LOG: --> No more images left. Exit code.')
+                        exit()
+
+            # get the first image
+            photo = browser.find_elements_by_class_name(
+                'view.photo-list-photo-view.awake')[0]
+
+            # get image url, name and post url
+            url_image = 'https://' + \
+                photo.get_attribute("style").split('url("//')[1].split('"')[0]
+
+            if Photo.objects.filter(url_image=url_image).exists() == False:
+                str_titel = photo.find_elements_by_css_selector("*")[0].find_elements_by_css_selector(
+                    "*")[0].find_elements_by_css_selector("*")[0].get_attribute('aria-label')
+                url_post = photo.find_elements_by_css_selector("*")[0].find_elements_by_css_selector(
+                    "*")[0].find_elements_by_css_selector("*")[0].get_attribute('href')
+
+                # open photo in new tab, switch to new tab, get created date, close tab & switch to previous tab
+                new_window = startChrome(True, url_post)
+                int_UNIXtime = round(datetime.timestamp(parse(new_window.find_element_by_class_name(
+                    'date-taken-label').text.split('on ')[1])))
+                new_window.close()
+
+                # save photo
+                Photo(
+                    text_description=url_post,
+                    url_image=url_image,
+                    url_post=url_post,
+                    str_source='Flickr',
+                    int_UNIXtime_created=int_UNIXtime,
+                ).save()
+                print('LOG: --> New photo saved')
+            else:
+                print('LOG: --> Photo exist. Skipped...')
+
+            # delete image from feed and go to next one
+            browser.execute_script("""
+            document.getElementsByClassName(
+                'view photo-list-photo-view awake')[0].outerHTML=''
+            """)
+
+            processed_images += 1
+            print('LOG: -> processed_images: '+str(processed_images))
 
 
 class Photo(models.Model):
