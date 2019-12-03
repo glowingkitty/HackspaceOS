@@ -288,13 +288,12 @@ class PhotoSet(models.QuerySet):
             # get image url, name and post url
             url_image = 'https://' + \
                 photo.get_attribute("style").split('url("//')[1].split('"')[0]
+            str_titel = photo.find_elements_by_css_selector("*")[0].find_elements_by_css_selector(
+                "*")[0].find_elements_by_css_selector("*")[0].get_attribute('aria-label')
+            url_post = photo.find_elements_by_css_selector("*")[0].find_elements_by_css_selector(
+                "*")[0].find_elements_by_css_selector("*")[0].get_attribute('href')
 
-            if Photo.objects.filter(url_image=url_image).exists() == False:
-                str_titel = photo.find_elements_by_css_selector("*")[0].find_elements_by_css_selector(
-                    "*")[0].find_elements_by_css_selector("*")[0].get_attribute('aria-label')
-                url_post = photo.find_elements_by_css_selector("*")[0].find_elements_by_css_selector(
-                    "*")[0].find_elements_by_css_selector("*")[0].get_attribute('href')
-
+            if Photo.objects.filter(url_post=url_post).exists() == False:
                 # open photo in new tab, switch to new tab, get created date, close tab & switch to previous tab
                 new_window = startChrome(True, url_post)
                 int_UNIXtime = round(datetime.timestamp(parse(new_window.find_element_by_class_name(
