@@ -800,7 +800,8 @@ class Event(models.Model):
         if self.str_name:
             self.str_name = bleach.clean(self.str_name)
         if self.text_description:
-            self.text_description = bleach.clean(self.text_description)
+            if not self.url_meetup_event:
+                self.text_description = bleach.clean(self.text_description)
         if self.str_location:
             self.str_location = bleach.clean(self.str_location)
         if self.str_series_repeat_how_often:

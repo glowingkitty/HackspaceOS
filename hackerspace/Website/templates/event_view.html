@@ -21,7 +21,7 @@
     </div>
     {% endif %}
     <div class="sub_heading text_semitransparent">{% if selected.str_relative_time %}{{ selected.str_relative_time }}, {% endif %}{{ selected.datetime_range }}{% if selected.one_space %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name }}</a>{% endif %}</div>
-    <h2 class="h2 large">{{ selected.str_name }}</h2>
+    <h2 class="h2 large">{{ selected.str_name|TEXT_replaceLinkCSS|safe }}</h2>
     {% if selected.url_meetup_event %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
     {% endif %}

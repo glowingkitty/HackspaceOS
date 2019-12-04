@@ -228,7 +228,8 @@ def get_view_response(request, page, sub_page, hashname):
             'page_git_url': '/Website/templates/event_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Event | '+selected.str_name,
             'page_description': selected.text_description,
-            'selected': selected
+            'selected': selected,
+            'photos':Photo.objects.latest()[:33]
         }}
     elif page == 'event_new':
         from django.middleware.csrf import get_token
