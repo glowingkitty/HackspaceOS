@@ -12,6 +12,9 @@ HACKERSPACE_IS_SENTENCES = [
 
 WIKI_API_URL = 'https://www.noisebridge.net/api.php'
 
+# what pages should be ignored when saving all photos
+WIKI_PHOTOS_IGNORE_PAGES = ['86']
+
 DONATION_URLs = {
     'MONEY': 'https://donate.noisebridge.net/',
     'HARDWARE': 'https://www.noisebridge.net/Donations',

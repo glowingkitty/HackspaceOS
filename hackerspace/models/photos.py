@@ -56,6 +56,41 @@ def save_instagram_photos(browser):
             'HBoOv.coreSpriteRightPaginationArrow').click()
 
 
+def save_wiki_photo(photo):
+    from hackerspace.models.meetingnotes import startChrome
+    from hackerspace.YOUR_HACKERSPACE import WIKI_API_URL, WIKI_PHOTOS_IGNORE_PAGES
+    from dateutil.parser import parse
+    from datetime import datetime
+
+    if boolean_is_image(photo['url']) == True:
+        # open url in selenium, test if image is on blocked list, else save low resolution image url
+        browser = startChrome(True, photo['descriptionurl'])
+        save_image = True
+        pages_with_image = browser.find_element_by_id(
+            'mw-imagepage-section-linkstoimage').text.split('\n', 1)[1]
+        for blocked_page in WIKI_PHOTOS_IGNORE_PAGES:
+            if blocked_page in pages_with_image:
+                save_image = False
+                break
+
+        if save_image == False:
+            print('LOG: --> Skipped photo. URL on WIKI_PHOTOS_IGNORE_PAGES list')
+
+        elif Photo.objects.filter(url_image=photo['url']).exists() == False:
+            Photo(
+                text_description=photo['canonicaltitle'] if 'canonicaltitle' in photo else None,
+                url_image=browser.find_element_by_class_name(
+                    'mw-thumbnail-link').get_attribute('href'),
+                url_post=photo['descriptionurl'],
+                str_source='Wiki',
+                int_UNIXtime_created=round(
+                    datetime.timestamp(parse(photo['timestamp']))),
+            ).save()
+            print('LOG: --> New photo saved')
+
+        browser.close()
+
+
 class PhotoSet(models.QuerySet):
     def count_overview(self):
         return {
@@ -101,7 +136,7 @@ class PhotoSet(models.QuerySet):
                 break
         else:
             print(
-                'LOG: --> Twitter not found in HACKERSPACE_SOCIAL_NETWORKS. Please add your Twitter URL first.')
+                'LOG: --> Twitter not found in hackerspace.YOUR_HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS Please add your Twitter URL first.')
             exit()
 
         # get all image blocks
@@ -174,8 +209,11 @@ class PhotoSet(models.QuerySet):
         print('LOG: import_from_wiki()')
         from hackerspace.YOUR_HACKERSPACE import WIKI_API_URL
         import requests
-        from dateutil.parser import parse
-        from datetime import datetime
+
+        if not WIKI_API_URL or WIKI_API_URL == '':
+            print(
+                'LOG: --> WIKI_API_URL not found in hackerspace.YOUR_HACKERSPACE.BASICS Please add your WIKI_API_URL first.')
+            exit()
 
         parameter = {
             'action': 'query',
@@ -186,37 +224,20 @@ class PhotoSet(models.QuerySet):
             'aidir': 'descending',
             'ailimit': '500',
             'aiminsize': '50000',  # minimum 50kb size, to filter out small logos/icons
-            'aiprop': 'timestamp|canonicaltitle|url'
+            'aiprop': 'timestamp|canonicaltitle|url|user'
         }
         response_json = requests.get(WIKI_API_URL, params=parameter).json()
 
+        # for every photo...
         for photo in response_json['query']['allimages']:
-            if boolean_is_image(photo['url']) == True:
-                if Photo.objects.filter(url_image=photo['url']).exists() == False:
-                    Photo(
-                        text_description=photo['canonicaltitle'] if 'canonicaltitle' in photo else None,
-                        url_image=photo['url'],
-                        str_source='Wiki',
-                        int_UNIXtime_created=round(
-                            datetime.timestamp(parse(photo['timestamp']))),
-                    ).save()
-                    print('LOG: New photo saved')
+            save_wiki_photo(photo)
 
         while 'continue' in response_json and 'aicontinue' in response_json['continue']:
             response_json = requests.get(
                 WIKI_API_URL, params={**parameter, **{'aicontinue': response_json['continue']['aicontinue']}}).json()
 
             for photo in response_json['query']['allimages']:
-                if boolean_is_image(photo['url']) == True:
-                    if Photo.objects.filter(url_image=photo['url']).exists() == False:
-                        Photo(
-                            text_description=photo['canonicaltitle'] if 'canonicaltitle' in photo else None,
-                            url_image=photo['url'],
-                            str_source='Wiki',
-                            int_UNIXtime_created=round(
-                                datetime.timestamp(parse(photo['timestamp']))),
-                        ).save()
-                        print('LOG: New photo saved')
+                save_wiki_photo(photo)
 
         print('LOG: Complete! All photos processed! Now {} photos'.format(
             Photo.objects.count()))
