@@ -21,7 +21,7 @@ HACKERSPACE_SOCIAL_NETWORKS = [
 FLICKR_URL = 'https://flickr.com/search/?text=Noisebridge&view_all=1'
 
 # https://www.instagram.com/explore/tags/.../
-INSTAGRAM_TAG = 'noisebridge'
+HASHTAG = '#noisebridge'
 
 HACKERSPACE_DISCOURSE_URL = 'https://discuss.noisebridge.info/'
 HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS = [

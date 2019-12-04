@@ -21,8 +21,10 @@
         if (page=='/'){
             changeText();
             setInterval(function () {
+                // every minute call those functions to update landingpage
                 request_html('what=events_slider', 'events_slider', 'outer')
                 request_html('what=open_status', 'open_status', 'inner')
+                getPhotos(null,'latest')
             }, 60 * 1000);
         } else if (page=='/meeting/present'){
             setInterval(function () {

@@ -282,14 +282,14 @@ class PhotoSet(models.QuerySet):
 
     def import_from_instagram_tag(self):
         print('LOG: import_from_instagram_tag()')
-        from hackerspace.YOUR_HACKERSPACE import INSTAGRAM_TAG
+        from hackerspace.YOUR_HACKERSPACE import HASHTAG
         from hackerspace.models.meetingnotes import startChrome
         import time
 
         # check if instagram tag is saved in settings
-        if INSTAGRAM_TAG:
+        if HASHTAG:
             browser = startChrome(
-                True, 'https://www.instagram.com/explore/tags/{}/'.format(INSTAGRAM_TAG))
+                True, 'https://www.instagram.com/explore/tags/{}/'.format(HASHTAG.split('#')[1]))
         else:
             print(
                 'LOG: --> Instagram tag not found in HACKERSPACE_SOCIAL_NETWORKS. Please add your Instagram tag first.')

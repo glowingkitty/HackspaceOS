@@ -73,22 +73,29 @@ function showMorePhotos() {
 }
 
 function getPhotos(button, type) {
-    // deactivate other buttons
-    document.getElementById('button__photo_latest').classList.remove('active')
-    document.getElementById('button__photo_oldest').classList.remove('active')
-    document.getElementById('button__photo_random').classList.remove('active')
+    // if on photos page...
+    if (window.location.href.includes('/photos')) {
+        // deactivate other buttons
+        document.getElementById('button__photo_latest').classList.remove('active')
+        document.getElementById('button__photo_oldest').classList.remove('active')
+        document.getElementById('button__photo_random').classList.remove('active')
 
-    button.classList.add('active')
+        button.classList.add('active')
 
-    document.getElementById('type').value = type
+        document.getElementById('type').value = type
+    }
     axios.get('/load_more?what=photos&from=0&type=' + type)
         .then(function (response) {
-            document.getElementById('more_start_from').value = response.data.continue_from
-            document.getElementById('photos_block').innerHTML = response.data.html
-            if (response.data.more_results == false) {
-                document.getElementById('button__show_more').style.display = 'none'
+            if (window.location.href.includes('/photos')) {
+                document.getElementById('more_start_from').value = response.data.continue_from
+                document.getElementById('photos_block').innerHTML = response.data.html
+                if (response.data.more_results == false) {
+                    document.getElementById('button__show_more').style.display = 'none'
+                }
+                location.hash = '#photos_block'
+            } else {
+                document.getElementById('photos_block').innerHTML = response.data.html
             }
-            location.hash = '#photos_block'
         })
         .catch(function (error) {
             console.log(error);

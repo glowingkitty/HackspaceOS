@@ -27,7 +27,9 @@
     <div class="header_separator"></div>
     <div class="header_image">
         <div class="header_dark_overlay"></div>
-        {% include "components/body/photos_list.html" with overlays=False %}
+        <div id="photos_block">
+            {% include "components/body/photos_list.html" with overlays=False %}
+        </div>
     </div>
 </div>
 
