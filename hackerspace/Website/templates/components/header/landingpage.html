@@ -9,7 +9,7 @@
         <span
             class="txt-rotate"
             data-period="2000"
-            data-rotate='[ {{ HACKERSPACE.HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'></span>
+            data-rotate='[ {{ HACKERSPACE.HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'>{{ HACKERSPACE.HACKERSPACE_IS_SENTENCES.0 }}</span>
         </div>
         {% if in_space %}
         <a href="#" onclick="marryspeak('{{ HACKERSPACE.SAYHELLO }}');this.style.display='none'" class="button__cta">
@@ -25,7 +25,10 @@
         {% endif %}
     </div>
     <div class="header_separator"></div>
-    <div class="header_image"></div>
+    <div class="header_image">
+        <div class="header_dark_overlay"></div>
+        {% include "components/body/photos_list.html" with overlays=False %}
+    </div>
 </div>
 
 {% endblock %}

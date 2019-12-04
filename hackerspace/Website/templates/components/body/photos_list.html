@@ -3,6 +3,7 @@
 {% for photo in photos %}
 <a class="photo_preview_block" target="_blank" href="{% if photo.url_post %}{{ photo.url_post }}{% else %}{{ photo.url_image }}{% endif %}">
     <div class="photo_preview" style="background-image: url('{{ photo.url_image }}')"></div>
+    {% if not overlays or overlays != False %}
     <div class="photo_details_overlay {{ photo.str_source|lower }}">
         <div class="photo_source {{ photo.str_source|lower }}">{{ photo.str_source }}</div>
         {% if photo.text_description %}
@@ -10,6 +11,7 @@
         {% endif %}
         <div class="photo_time">{{ photo.str_relative_time }}</div>
     </div>
+    {% endif %}
 </a>
 {% endfor %}
 <div id="next_results"></div>

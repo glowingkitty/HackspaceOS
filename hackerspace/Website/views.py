@@ -28,6 +28,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_description': make_description_sentence(),
             'is_open_status': getOpenNowStatus(),
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:5],
+            'photos':Photo.objects.latest()[:33]
         }}
 
     elif page == 'values':
