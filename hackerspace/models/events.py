@@ -789,62 +789,67 @@ class Event(models.Model):
 
 
     def save(self, *args, **kwargs):
-        print('LOG: event.save()')
-        import urllib.parse
-        from hackerspace.models.events import RESULT__updateTime
-        from hackerspace.models import Space, Person
-        from hackerspace.YOUR_HACKERSPACE import EVENTS_HOSTS_OVERWRITE
-        import bleach
+        try:
+            print('LOG: event.save()')
+            import urllib.parse
+            from hackerspace.models.events import RESULT__updateTime
+            from hackerspace.models import Space, Person
+            from hackerspace.YOUR_HACKERSPACE import EVENTS_HOSTS_OVERWRITE
+            import bleach
 
-        print('LOG: --> clean from scripts')
-        if self.str_name:
-            self.str_name = bleach.clean(self.str_name)
-        if self.text_description:
-            if not self.url_meetup_event:
-                self.text_description = bleach.clean(self.text_description)
-        if self.str_location:
-            self.str_location = bleach.clean(self.str_location)
-        if self.str_series_repeat_how_often:
-            self.str_series_repeat_how_often = bleach.clean(self.str_series_repeat_how_often)
-        if self.text_series_timing:
-            self.text_series_timing = bleach.clean(self.text_series_timing)
-        if self.str_crowd_size:
-            self.str_crowd_size = bleach.clean(self.str_crowd_size)
-        if self.str_welcomer:
-            self.str_welcomer = bleach.clean(self.str_welcomer)
-        if self.str_timezone:
-            self.str_timezone = bleach.clean(self.str_timezone)
+            print('LOG: --> clean from scripts')
+            if self.str_name:
+                self.str_name = bleach.clean(self.str_name)
+            if self.text_description:
+                if not self.url_meetup_event:
+                    self.text_description = bleach.clean(self.text_description)
+            if self.str_location:
+                self.str_location = bleach.clean(self.str_location)
+            if self.str_series_repeat_how_often:
+                self.str_series_repeat_how_often = bleach.clean(self.str_series_repeat_how_often)
+            if self.text_series_timing:
+                self.text_series_timing = bleach.clean(self.text_series_timing)
+            if self.str_crowd_size:
+                self.str_crowd_size = bleach.clean(self.str_crowd_size)
+            if self.str_welcomer:
+                self.str_welcomer = bleach.clean(self.str_welcomer)
+            if self.str_timezone:
+                self.str_timezone = bleach.clean(self.str_timezone)
 
-        self = RESULT__updateTime(self)
-        self.str_slug = urllib.parse.quote(
-            'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
+            self = RESULT__updateTime(self)
+            if not self.str_slug:
+                self.str_slug = urllib.parse.quote(
+                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
 
-        print('LOG: --> Save lat/lon if not exist yet')
-        if not self.float_lat:
-            from geopy.geocoders import Nominatim
-            from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME
+            print('LOG: --> Save lat/lon if not exist yet')
+            if not self.float_lat:
+                from geopy.geocoders import Nominatim
+                from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME
 
-            geolocator = Nominatim(user_agent=HACKERSPACE_NAME.lower())
-            str_location = self.str_location.replace('\n',', ')
-            while self.float_lat==None and len(str_location)>0:
-                try:
-                    location = geolocator.geocode(str_location)
+                geolocator = Nominatim(user_agent=HACKERSPACE_NAME.lower())
+                str_location = self.str_location.replace('\n',', ')
+                while self.float_lat==None and len(str_location)>0:
+                    try:
+                        location = geolocator.geocode(str_location)
 
-                    self.float_lat, self.float_lon = location.latitude, location.longitude
-                except:
-                    str_location=','.join(str_location.split(',')[:-1])
+                        self.float_lat, self.float_lon = location.latitude, location.longitude
+                    except:
+                        str_location=','.join(str_location.split(',')[:-1])
 
-        super(Event, self).save(*args, **kwargs)
+            super(Event, self).save(*args, **kwargs)
 
-        print('LOG: --> Save hosts')
-        if not self.many_hosts.exists():
-            # search in predefined event hosts in YOURHACKERSPACE
-            for event_name in EVENTS_HOSTS_OVERWRITE:
-                if event_name in self.str_name:
-                    for host_name in EVENTS_HOSTS_OVERWRITE[event_name]:
-                        host = Person.objects.QUERYSET__by_name(host_name)
-                        if host:
-                            self.many_hosts.add(host)
+            print('LOG: --> Save hosts')
+            if not self.many_hosts.exists():
+                # search in predefined event hosts in YOURHACKERSPACE
+                for event_name in EVENTS_HOSTS_OVERWRITE:
+                    if event_name in self.str_name:
+                        for host_name in EVENTS_HOSTS_OVERWRITE[event_name]:
+                            host = Person.objects.QUERYSET__by_name(host_name)
+                            if host:
+                                self.many_hosts.add(host)
+        except:
+            print('LOG: --> ERROR: coudlnt save event - '+str(self))
+
 
 
     def create(self, json_content):
@@ -856,7 +861,7 @@ class Event(models.Model):
             )
             for key, value in json_content.items():
                 setattr(obj, key, value)
-            obj.save()
+            super(Event, obj).save()
             print('LOG: --> Updated "'+obj.str_name+' | ' + obj.datetime_range+'"')
 
         except Event.DoesNotExist:

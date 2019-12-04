@@ -80,7 +80,9 @@ def save_wiki_photo(photo):
         if save_image == False:
             print('LOG: --> Skipped photo. URL on WIKI_PHOTOS_IGNORE_PAGES list')
 
-        elif Photo.objects.filter(url_post=photo['descriptionurl']).exists() == False:
+        elif Photo.objects.filter(url_post=photo['descriptionurl']).exists() == True:
+            print('LOG: --> Skipped photo. Already exists.')
+        else:
             try:
                 url_image = browser.find_element_by_class_name(
                     'mw-thumbnail-link').get_attribute('href')
