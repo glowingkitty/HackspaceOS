@@ -218,7 +218,7 @@ function publish_event(button) {
     // test if image is larger then maximum limit
     let url_image = null
     let input = document.getElementById('event_photo')
-    if (input.files && input.files[0]) {
+    if (input && input.files && input.files[0]) {
         var files = input.files
 
         if (isFileImage(files[0]) == false) {
@@ -234,7 +234,7 @@ function publish_event(button) {
     button.outerHTML = '<div>Submitting...</div>'
 
     // upload image
-    if (input.files && input.files[0]) {
+    if (input && input.files && input.files[0]) {
 
         let data = new FormData();
 

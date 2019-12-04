@@ -20,7 +20,7 @@ from django.views.generic.base import RedirectView
 from getKey import STR__get_key
 
 urlpatterns = [
-    path(STR__get_key('ADMIN_URL')+'/', admin.site.urls),
+    path(STR__get_key('DJANGO.ADMIN_URL')+'/', admin.site.urls),
     path('', views.landingpage_view, name='landingpage'),
 
     path('values', views.values_view, name='values'),

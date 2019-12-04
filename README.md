@@ -117,10 +117,10 @@ git clone git@github.com:marcoEDU/HackerspaceTemplatePackage.git
 **Step 3:** Via the main folder of this code - execute in your terminal: 
 
 ```
-pip install -r requirements.txt;python create_config.py;python manage.py makemigrations;python manage.py migrate
+pip install -r requirements.txt;python create_secrets.py;python manage.py makemigrations;python manage.py migrate;python manage.py setup
 ```
 
-**Step 4:** Open [config.json](./config.json) and add your missing API keys
+**Step 4:** Open [secrets.json](./secrets.json) and add your missing API keys
 
 **Step 5:** Replace [this SVG logo](./hackerspace/Website/static/images/logo.svg) and [this PNG logo](./hackerspace/Website/static/images/logo.png) with your own
 

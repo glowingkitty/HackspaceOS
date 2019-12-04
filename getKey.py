@@ -2,7 +2,7 @@ def STR__get_key(name):
     try:
         import json
 
-        with open('config.json') as json_file:
+        with open('secrets.json') as json_file:
             selected = json.load(json_file)
 
         path = name.split('.')
@@ -12,3 +12,10 @@ def STR__get_key(name):
         return selected
     except:
         return None
+
+
+def BOOLEAN__key_exists(name):
+    if STR__get_key(name):
+        return True
+    else:
+        return False

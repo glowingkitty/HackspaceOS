@@ -1,5 +1,6 @@
 
 # https://www.meetup.com/{{HACKERSPACE_MEETUP_GROUP}}/
+from getKey import STR__get_key
 HACKERSPACE_MEETUP_GROUP = 'noisebridge'
 EXTRA_MEETUP_GROUPS = ['Free-Code-Camp-SF', 'StartupSchool-SF']
 
@@ -44,5 +45,5 @@ CROWD_SIZE = {
 }
 
 # add your AWS S3 URL to which event images can be uploaded
-AWS_S3_BUCKET_NAME = '2dasd1e'
-AWS_S3_URL = AWS_S3_BUCKET_NAME+'.s3-us-west-1.amazonaws.com'
+AWS_S3_URL = STR__get_key('AWS.S3.BUCKET_NAME')+'.s3-' + \
+    STR__get_key('AWS.S3.SERVER_AREA')+'.amazonaws.com'

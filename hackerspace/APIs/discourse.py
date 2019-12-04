@@ -1,6 +1,6 @@
 import requests
 from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
-from getKey import STR__get_key
+from getKey import STR__get_key, BOOLEAN__key_exists
 # see Discourse API - https://docs.discourse.org/
 
 
@@ -31,8 +31,8 @@ def create_category(name):
 def create_post(str_headline, str_text, str_category):
     # TODO test with API key
     print('LOG: create_post()')
-    if not STR__get_key('DISCOURSE_API_KEY'):
-        print('LOG: --> Failed: DISCOURSE_API_KEY not set')
+    if BOOLEAN__key_exists('DISCOURSE.API_KEY') == False:
+        print('LOG: --> Failed: DISCOURSE.API_KEY not set')
         return None
 
     import random
@@ -40,8 +40,8 @@ def create_post(str_headline, str_text, str_category):
                              headers={
                                  'content-type': 'application/json'
                              }, json={
-                                 "Api-Key": STR__get_key('DISCOURSE_API_KEY'),
-                                 "Api-Username": STR__get_key('DISCOURSE_API_USERNAME'),
+                                 "Api-Key": STR__get_key('DISCOURSE.API_KEY'),
+                                 "Api-Username": STR__get_key('DISCOURSE.API_USERNAME'),
                                  "title": str_headline,
                                  "topic_id": random.randint(3000, 9000),
                                  "raw": str_text,

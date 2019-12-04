@@ -7,7 +7,7 @@ from hackerspace.models import Error, Person,Project, Event, Guilde, MeetingNote
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.Website.search import search
-from getKey import STR__get_key
+from getKey import STR__get_key,BOOLEAN__key_exists
 
 
 def get_view_response(request, page, sub_page, hashname):
@@ -16,7 +16,7 @@ def get_view_response(request, page, sub_page, hashname):
         'in_space': True if request.COOKIES.get('in_space') else None,
         'HACKERSPACE': HACKERSPACE,
         'hash': hashname,
-        'ADMIN_URL': STR__get_key('ADMIN_URL'),
+        'ADMIN_URL': STR__get_key('DJANGO.ADMIN_URL'),
         'user': request.user
     }
 
@@ -79,7 +79,7 @@ def get_view_response(request, page, sub_page, hashname):
             'description': 'A guilde is a group at {} with a common interest area, responsible for specific spaces and machines at {}.'.format(HACKERSPACE.HACKERSPACE_NAME, HACKERSPACE.HACKERSPACE_NAME),
             'wiki_url': None,
             'add_new_requires_user': True,
-            'addnew_url': '/{}/hackerspace/guilde/add/'.format(STR__get_key('ADMIN_URL')),
+            'addnew_url': '/{}/hackerspace/guilde/add/'.format(STR__get_key('DJANGO.ADMIN_URL')),
             'addnew_text': 'Add guilde',
             'all_results': Guilde.objects.all()[:10],
             'results_count': Guilde.objects.count(),
@@ -107,7 +107,7 @@ def get_view_response(request, page, sub_page, hashname):
             'description': 'At {} fellow hackers like you created all kinds of awesome spaces. Check them out!'.format(HACKERSPACE.HACKERSPACE_NAME),
             'wiki_url': None,
             'add_new_requires_user': True,
-            'addnew_url': '/{}/hackerspace/space/add/'.format(STR__get_key('ADMIN_URL')),
+            'addnew_url': '/{}/hackerspace/space/add/'.format(STR__get_key('DJANGO.ADMIN_URL')),
             'addnew_text': 'Add space',
             'all_results': Space.objects.all()[:10],
             'results_count': Space.objects.count(),
@@ -135,7 +135,7 @@ def get_view_response(request, page, sub_page, hashname):
             'description': 'We have many super useful machines at {}, allowing you to build nearly everything you want to build!'.format(HACKERSPACE.HACKERSPACE_NAME),
             'wiki_url': None,
             'add_new_requires_user': True,
-            'addnew_url': '/{}/hackerspace/machine/add/'.format(STR__get_key('ADMIN_URL')),
+            'addnew_url': '/{}/hackerspace/machine/add/'.format(STR__get_key('DJANGO.ADMIN_URL')),
             'addnew_text': 'Add machine',
             'all_results': Machine.objects.all()[:10],
             'results_count': Machine.objects.count(),
@@ -671,7 +671,7 @@ def new_view(request):
         elif 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==DOMAIN:
             send_message(
                 'A website visitor created a new event via our website.\n'+
-                'If no one deletes it within the next 24 hours, it will be automatically published and appears in our website search'+(', meetup group' if STR__get_key('MEETUP.ACCESS_TOKEN') else '')+(' and discourse' if STR__get_key('DISCOURSE_API_KEY') else '')+'.\n'+
+                'If no one deletes it within the next 24 hours, it will be automatically published and appears in our website search'+(', meetup group' if STR__get_key('MEETUP.ACCESS_TOKEN') else '')+(' and discourse' if BOOLEAN__key_exists('DISCOURSE.API_KEY')==True else '')+'.\n'+
                 '🚫-> Does this event already exist or is it spam? Open on the following event link and click "Delete event".\n'+
                 '✅-> You have a user account for our website and want to publish the event directly? Open on the following event link and click "Approve event".\n'+
                 'https://'+DOMAIN+'/'+new_event.str_slug
@@ -711,8 +711,8 @@ def upload_view(request,what):
             
             
             session = boto3.Session(
-                aws_access_key_id=STR__get_key('AWS_ACCESS_KEYID'),
-                aws_secret_access_key=STR__get_key('AWS_SECRET_ACCESS_KEY'),
+                aws_access_key_id=STR__get_key('AWS.ACCESS_KEYID'),
+                aws_secret_access_key=STR__get_key('AWS.SECRET_ACCESS_KEY'),
             )
             s3 = session.resource('s3')
             image = request.FILES['images[0]']

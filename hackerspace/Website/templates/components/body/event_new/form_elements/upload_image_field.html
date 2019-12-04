@@ -1,11 +1,19 @@
+{% load secrets %}
 {% block content %}
 
 <h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
+
+{% if 'AWS.ACCESS_KEYID'|key_exists and 'AWS.SECRET_ACCESS_KEY'|key_exists and 'AWS.S3.BUCKET_NAME'|key_exists and 'AWS.S3.SERVER_AREA'|key_exists %}
+
 {% if field_subheading %}
 <div class="subheading">{{ field_subheading }}</div>
 {% endif %}
 <div class="divider_10"></div>
 <input {% if input_id %}id="{{ input_id }}"{% endif %} class="input_field_enter_name round_square grey_background" style="width: {% if field_width %}{{ field_width }}{% else %}80%{% endif %};height: 130px;" type="file" accept="image/*"></input>
 <div class="divider_20"></div>
+
+{% else %}
+<div style="opacity: 0.5">Server config incomplete. Ask the website admin to setup the secrets for AWS, to enable uploading photos.</div>
+{% endif %}
 
 {% endblock %}
