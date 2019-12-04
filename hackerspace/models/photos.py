@@ -80,7 +80,7 @@ def save_wiki_photo(photo):
         if save_image == False:
             print('LOG: --> Skipped photo. URL on WIKI_PHOTOS_IGNORE_PAGES list')
 
-        elif Photo.objects.filter(url_image=photo['url']).exists() == False:
+        elif Photo.objects.filter(url_post=photo['descriptionurl']).exists() == False:
             Photo(
                 text_description=photo['canonicaltitle'] if 'canonicaltitle' in photo else None,
                 url_image=browser.find_element_by_class_name(
