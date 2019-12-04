@@ -20,7 +20,7 @@
 }
 
 @media (max-width: 350px) {
-    .photos_block {
+    .photo_preview_block {
         width: 150px;
         height: 150px;
     }
@@ -120,6 +120,77 @@
     position: absolute;
     bottom: 10px;
     opacity: 0.5;
+}
+
+.photo_menu_overlay {
+    z-index: 20;
+    position: fixed;
+    bottom: 20px;
+    margin-left: 30%;
+    background-color: white;
+    border-radius: 200px;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 570px) {
+    .photo_menu_overlay {
+        margin-left: 22%;
+    }
+}
+
+@media (max-width: 414px) {
+    .photo_menu_overlay {
+        margin-left: 14%;
+    }
+}
+
+@media (max-width: 320px) {
+    .photo_menu_overlay {
+        margin-left: 2%;
+    }
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .photo_menu_overlay {
+        background-color: black;
+        -webkit-animation: LEDsStrong 8s infinite;
+        /* Safari 4.0 - 8.0 */
+        animation: LEDsStrong 8s infinite;
+    }
+}
+
+.photo_menu_heading {
+    cursor: pointer;
+    font-size: 20px;
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding: 15px;
+    border-radius: 200px;
+    opacity: 0.5;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.photo_menu_heading.active {
+    background-color: #ececec;
+    opacity: 1
+}
+
+.photo_menu_heading:hover {
+    background-color: #ececec;
+    opacity: 1
+}
+
+@media (prefers-color-scheme: dark) {
+    .photo_menu_heading.active {
+        background-color: rgb(43, 43, 43);
+    }
+
+    .photo_menu_heading:hover {
+        background-color: rgb(43, 43, 43);
+    }
 }
 
 .photos_block {

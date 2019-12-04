@@ -198,7 +198,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_git_url': '/Website/templates/photos_view.html',
             'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Photos',
             'page_description': 'Explore '+HACKERSPACE.HACKERSPACE_NAME+'\'s history in photos!',
-            'photos': Photo.objects.exclude(str_source='Wiki').latest(),
+            'photos': Photo.objects.latest()[:30],
         }}
 
     elif page == 'events':
@@ -503,7 +503,7 @@ def get_view(request):
 
 def load_more_view(request):
     print('LOG: load_more_view(request)')
-    from hackerspace.Website.views_helper_functions import JSON_RESPONSE_more_results
+    from hackerspace.Website.views_helper_functions import JSON_RESPONSE_more_results,JSON_RESPONSE_more_photos
 
     if request.GET.get('what', None) and request.GET.get('from', None):
         if request.GET.get('what', None) == 'meeting_notes':
@@ -527,6 +527,8 @@ def load_more_view(request):
         elif request.GET.get('what', None) == 'consensus':
             response = JSON_RESPONSE_more_results(
                 request, 'consensus_items_entries.html', Consensus.objects.latest())
+        elif request.GET.get('what', None) == 'photos':
+            response = JSON_RESPONSE_more_photos(request)
     else:
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404

@@ -66,7 +66,7 @@ class PhotoSet(models.QuerySet):
             'Flickr': self.filter(str_source='Flickr').count(),
         }
 
-    def random(self, num_results=20):
+    def random(self, num_results=30):
         import random
         # get random numbers to show random results
         random_set = []
@@ -83,15 +83,11 @@ class PhotoSet(models.QuerySet):
 
         return random_results
 
-    def latest(self, num_results=30, page=1):
-        int_from = page-1
-        int_to = int_from+num_results
-        return self.order_by('-int_UNIXtime_created')[int_from:int_to]
+    def latest(self):
+        return self.order_by('-int_UNIXtime_created')
 
-    def oldest(self, num_results=30, page=1):
-        int_from = page-1
-        int_to = int_from+num_results
-        return self.order_by('int_UNIXtime_created')[int_from:int_to]
+    def oldest(self):
+        return self.order_by('int_UNIXtime_created')
 
     def import_from_twitter(self):
         print('LOG: import_from_twitter()')

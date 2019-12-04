@@ -2,19 +2,22 @@
 
 <div class="use_hashtag_cta">Want to see your photos here? Use #noisebridge on Twitter, Instagram or Flickr.</div>
 
-<div class="photos_block">
-    {% for photo in photos %}
-    <a class="photo_preview_block" target="_blank" href="{% if photo.url_post %}{{ photo.url_post }}{% else %}{{ photo.url_image }}{% endif %}">
-        <div class="photo_preview" style="background-image: url('{{ photo.url_image }}')"></div>
-        <div class="photo_details_overlay {{ photo.str_source|lower }}">
-            <div class="photo_source {{ photo.str_source|lower }}">{{ photo.str_source }}</div>
-            {% if photo.text_description %}
-            <div class="photo_description">{{ photo.text_description }}</div>
-            {% endif %}
-            <div class="photo_time">{{ photo.str_relative_time }}</div>
-        </div>
-    </a>
-    {% endfor %}
+<div id="photos_block" class="photos_block">
+    {% include "components/body/photos_list.html" %}
+</div>
+
+
+<div class="cta_center">
+    <input type="hidden" id="more_start_from" value="30"></input>
+    <input type="hidden" id="type" value="latest"></input>
+    <div class="divider_20"></div>
+    <a href="#button__show_more" id="button__show_more" onclick="showMorePhotos()" class="button__cta secondary inline">Show more</a>
+</div>
+
+<div class="photo_menu_overlay">
+    <div id="button__photo_latest" onclick="getPhotos(this,'latest')" class="photo_menu_heading active">Latest</div>
+    <div id="button__photo_oldest" onclick="getPhotos(this,'oldest')" class="photo_menu_heading">Oldest</div>
+    <div id="button__photo_random" onclick="getPhotos(this,'random')" class="photo_menu_heading">Random</div>
 </div>
 
 <div class="divider_100"></div>

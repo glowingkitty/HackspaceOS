@@ -52,14 +52,12 @@
 @media (prefers-color-scheme: dark) {
     .button__cta {
         background-color: #bf0006;
-        box-shadow: 0 2px 6px 0 rgba(255, 255, 255, 0.25);
         -webkit-animation: LEDsStrong 8s infinite;
         /* Safari 4.0 - 8.0 */
         animation: LEDsStrong 8s infinite;
     }
 
     .button__cta:hover {
-        box-shadow: 0 8px 8px 0 rgba(255, 255, 255, 0.25);
         -webkit-transform: translate(0px, -5px);
         -ms-transform: translate(0px, -5px);
         transform: translate(0px, -5px);

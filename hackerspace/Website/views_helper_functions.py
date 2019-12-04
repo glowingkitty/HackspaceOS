@@ -1,5 +1,5 @@
 def JSON_RESPONSE_more_results(request, template_path, queryset):
-    print('LOG: JSON_RESPONSE_more_results(request,queryset)')
+    print('LOG: JSON_RESPONSE_more_results(request, template_path, queryset)')
     from django.http import JsonResponse
     from django.template.loader import get_template
 
@@ -23,6 +23,33 @@ def JSON_RESPONSE_more_results(request, template_path, queryset):
         }),
         'continue_from': upt_to,
         'more_results': True if queryset.count() > upt_to else False
+    })
+
+
+def JSON_RESPONSE_more_photos(request):
+    print('LOG: JSON_RESPONSE_more_photos(request)')
+    from django.http import JsonResponse
+    from django.template.loader import get_template
+    from hackerspace.models import Photo
+
+    start_from = int(request.GET.get('from', None))
+    upt_to = int(start_from+30)
+
+    # get photos: latest, oldest or random
+    if request.GET.get('type', None) == 'latest':
+        queryset = Photo.objects.latest()
+    elif request.GET.get('type', None) == 'oldest':
+        queryset = Photo.objects.oldest()
+    elif request.GET.get('type', None) == 'random':
+        queryset = Photo.objects.random()
+
+    print('LOG: --> return JsonResponse')
+    return JsonResponse({
+        'html': get_template('components/body/photos_list.html').render({
+            'photos': queryset[start_from:upt_to] if request.GET.get('type', None) != 'random' else queryset,
+        }),
+        'continue_from': upt_to,
+        'more_results': True if request.GET.get('type', None) == 'random' or queryset.count() > upt_to else False
     })
 
 
