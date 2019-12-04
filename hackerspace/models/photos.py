@@ -66,12 +66,16 @@ def save_wiki_photo(photo):
         # open url in selenium, test if image is on blocked list, else save low resolution image url
         browser = startChrome(True, photo['descriptionurl'])
         save_image = True
-        pages_with_image = browser.find_element_by_id(
-            'mw-imagepage-section-linkstoimage').text.split('\n', 1)[1]
-        for blocked_page in WIKI_PHOTOS_IGNORE_PAGES:
-            if blocked_page in pages_with_image:
-                save_image = False
-                break
+        try:
+            pages_with_image = browser.find_element_by_id(
+                'mw-imagepage-section-linkstoimage').text.split('\n', 1)[1]
+            for blocked_page in WIKI_PHOTOS_IGNORE_PAGES:
+                if blocked_page in pages_with_image:
+                    save_image = False
+                    break
+        except:
+            print(
+                'LOG: --> mw-imagepage-section-linkstoimage not found - coudlnt check if image url is blocked')
 
         if save_image == False:
             print('LOG: --> Skipped photo. URL on WIKI_PHOTOS_IGNORE_PAGES list')
