@@ -1,6 +1,6 @@
 
 # https://www.meetup.com/{{HACKERSPACE_MEETUP_GROUP}}/
-from getKey import STR__get_key
+from getKey import STR__get_key, BOOLEAN__key_exists
 HACKERSPACE_MEETUP_GROUP = 'noisebridge'
 EXTRA_MEETUP_GROUPS = ['Free-Code-Camp-SF', 'StartupSchool-SF']
 
@@ -45,5 +45,8 @@ CROWD_SIZE = {
 }
 
 # add your AWS S3 URL to which event images can be uploaded
-AWS_S3_URL = STR__get_key('AWS.S3.BUCKET_NAME')+'.s3-' + \
-    STR__get_key('AWS.S3.SERVER_AREA')+'.amazonaws.com'
+if BOOLEAN__key_exists('AWS.S3.BUCKET_NAME') and BOOLEAN__key_exists('AWS.S3.SERVER_AREA'):
+    AWS_S3_URL = STR__get_key('AWS.S3.BUCKET_NAME')+'.s3-' + \
+        STR__get_key('AWS.S3.SERVER_AREA')+'.amazonaws.com'
+else:
+    AWS_S3_URL = None
