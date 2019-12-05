@@ -18,7 +18,8 @@ class PersonSet(models.QuerySet):
 
     def pull_from_discourse(self):
         from hackerspace.APIs.discourse import get_users
-        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
+        from getKey import STR__get_key
+        DISCOURSE_URL = STR__get_key('DISCOURSE.DISCOURSE_URL')
 
         print('pull_from_discourse()')
         users = get_users()
@@ -26,8 +27,8 @@ class PersonSet(models.QuerySet):
         for user in users:
             Person().create(json_content={
                 'str_name': user['user']['name'] if user['user']['name'] and user['user']['name'] != '' else user['user']['username'],
-                'url_featured_photo': HACKERSPACE_DISCOURSE_URL + user['user']['avatar_template'].replace('{size}', '240'),
-                'url_discourse': HACKERSPACE_DISCOURSE_URL + 'u/'+user['user']['username'],
+                'url_featured_photo': DISCOURSE_URL + user['user']['avatar_template'].replace('{size}', '240'),
+                'url_discourse': DISCOURSE_URL + 'u/'+user['user']['username'],
                 'text_description': user['user']['title'] if user['user']['title'] != '' else None
             })
 
@@ -35,8 +36,9 @@ class PersonSet(models.QuerySet):
         if not name or name == '':
             return None
         from django.db.models import Q
-        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
-        return self.filter(Q(url_discourse=HACKERSPACE_DISCOURSE_URL + 'u/'+name) | Q(str_name__icontains=name)).first()
+        from getKey import STR__get_key
+
+        return self.filter(Q(url_discourse=STR__get_key('DISCOURSE.DISCOURSE_URL') + 'u/'+name) | Q(str_name__icontains=name)).first()
 
 
 class Person(models.Model):

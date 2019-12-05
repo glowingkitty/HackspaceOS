@@ -1,3 +1,5 @@
+{% load config %}
+{% load secrets %}
 {% block content %}
 
 <div class="header_block sub_page">
@@ -11,12 +13,12 @@
     <br>
     <br>
     <div>
-        Most things at {{ HACKERSPACE.HACKERSPACE_NAME }} at done via do-ocracy or small-c-consensus. But if you want to realize something that would change how Noisebridge operates in a drastical way - or if Noisebridge should spend a lot of money on something - add a big-c consensus item. In the next 2 weeks we then discuss that item during the Weekly General Meeting, before it gets approved - if no member objects.<br>
+        Most things at {{ 'BASICS.NAME'|get_config }} at done via do-ocracy or small-c-consensus. But if you want to realize something that would change how Noisebridge operates in a drastical way - or if Noisebridge should spend a lot of money on something - add a big-c consensus item. In the next 2 weeks we then discuss that item during the Weekly General Meeting, before it gets approved - if no member objects.<br>
         <br>
         <a class="inline_link" href="https://www.noisebridge.net/wiki/Consensus_Process" target="_blank">Learn more on our wiki</a>
         <br>
         <br>
-        <a href="{{ HACKERSPACE.HACKERSPACE_DISCOURSE_URL }}c/consensus-items" target="_blank" class="button__cta inline">Add a consensus item</a>
+        <a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}c/consensus-items" target="_blank" class="button__cta inline">Add a consensus item</a>
     </div>
     <div class="divider_20"></div>
     <div class="divider_20"></div>

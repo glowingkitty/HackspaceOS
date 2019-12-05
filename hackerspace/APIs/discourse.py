@@ -1,20 +1,21 @@
 import requests
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
 from getKey import STR__get_key, BOOLEAN__key_exists
 # see Discourse API - https://docs.discourse.org/
+
+DISCOURSE_URL = STR__get_key('DISCOURSE.DISCOURSE_URL')
 
 
 def discourse_search(query, limit=5):
     print('LOG: discourse_search()')
     results = []
     response_json = requests.get(
-        HACKERSPACE_DISCOURSE_URL+'/search/query.json?term='+query).json()
+        DISCOURSE_URL+'/search/query.json?term='+query).json()
     if 'topics' in response_json:
         for post in response_json['topics']:
             results.append({
                 'icon': 'discourse',
                 'name': post['title'],
-                'url': HACKERSPACE_DISCOURSE_URL+'/t/'+str(post['id'])
+                'url': DISCOURSE_URL+'/t/'+str(post['id'])
             })
 
     return results
@@ -22,7 +23,7 @@ def discourse_search(query, limit=5):
 
 def create_category(name):
     print('LOG: create_category()')
-    response_json = requests.post(HACKERSPACE_DISCOURSE_URL+'categories.json', json={
+    response_json = requests.post(DISCOURSE_URL+'categories.json', json={
         "name": name,
     }).json()
     print(response_json)
@@ -36,7 +37,7 @@ def create_post(str_headline, str_text, str_category):
         return None
 
     import random
-    response = requests.post(HACKERSPACE_DISCOURSE_URL+'posts.json',
+    response = requests.post(DISCOURSE_URL+'posts.json',
                              headers={
                                  'content-type': 'application/json'
                              }, json={
@@ -48,7 +49,7 @@ def create_post(str_headline, str_text, str_category):
                                  "category": str_category
                              })
     if response.status_code == 200:
-        return HACKERSPACE_DISCOURSE_URL+'/t/'+str(response.json()['id'])
+        return DISCOURSE_URL+'/t/'+str(response.json()['id'])
     else:
         print(response.status_code)
         print(response.json())
@@ -57,20 +58,20 @@ def create_post(str_headline, str_text, str_category):
 def get_categories():
     print('LOG: get_categories()')
     response_json = requests.get(
-        HACKERSPACE_DISCOURSE_URL+'categories.json', headers={'Accept': 'application/json'}).json()
+        DISCOURSE_URL+'categories.json', headers={'Accept': 'application/json'}).json()
     return [x['slug'] for x in response_json['category_list']['categories']]
 
 
 def get_category_posts(category, all_pages=False):
     print('LOG: get_category_posts()')
     response_json = requests.get(
-        HACKERSPACE_DISCOURSE_URL+'c/'+category+'.json', headers={'Accept': 'application/json'}).json()
+        DISCOURSE_URL+'c/'+category+'.json', headers={'Accept': 'application/json'}).json()
     if all_pages == True:
         results = response_json['topic_list']['topics']
         page = 1
 
         while len(response_json['topic_list']['topics']) > 0:
-            response_json = requests.get(HACKERSPACE_DISCOURSE_URL+'c/'+category +
+            response_json = requests.get(DISCOURSE_URL+'c/'+category +
                                          '.json?page='+str(page), headers={'Accept': 'application/json'}).json()
             results += response_json['topic_list']['topics']
             page += 1
@@ -83,7 +84,7 @@ def get_category_posts(category, all_pages=False):
 def get_post_details(slug):
     print('LOG: get_post_details()')
     response_json = requests.get(
-        HACKERSPACE_DISCOURSE_URL+'t/'+slug+'.json', headers={'Accept': 'application/json'})
+        DISCOURSE_URL+'t/'+slug+'.json', headers={'Accept': 'application/json'})
     return response_json.json()['post_stream']['posts'][0]
 
 
@@ -91,13 +92,13 @@ def get_users(sort='days_visited'):
     print('LOG: get_users()')
     results = []
     response_json = requests.get(
-        HACKERSPACE_DISCOURSE_URL+'/directory_items.json?period={}&order={}'.format('all', sort), headers={'Accept': 'application/json'}).json()
+        DISCOURSE_URL+'/directory_items.json?period={}&order={}'.format('all', sort), headers={'Accept': 'application/json'}).json()
     results += response_json['directory_items']
 
     page = 1
     while len(response_json['directory_items']) > 0:
         response_json = requests.get(
-            HACKERSPACE_DISCOURSE_URL+'/directory_items.json?page={}&period={}&order={}'.format(page, 'all', sort), headers={'Accept': 'application/json'}).json()
+            DISCOURSE_URL+'/directory_items.json?page={}&period={}&order={}'.format(page, 'all', sort), headers={'Accept': 'application/json'}).json()
         results += response_json['directory_items']
         page += 1
 

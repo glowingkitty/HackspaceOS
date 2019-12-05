@@ -1,14 +1,17 @@
 {% load static %}
 {% load css %}
+{% load config %}
 
 {% block content %}
 
 <style>
+{% with CSS='CSS'|get_config %}
 :root {
-  --PRIMARY_COLOR: {{ HACKERSPACE.DESIGN.PRIMARY_COLOR }};
-  --SECONDARY_COLOR: {{ HACKERSPACE.DESIGN.SECONDARY_COLOR }};
-  --FONT: {{ HACKERSPACE.DESIGN.FONT }};
+  --PRIMARY_COLOR: {{ CSS.PRIMARY_COLOR }};
+  --SECONDARY_COLOR: {{ CSS.SECONDARY_COLOR }};
+  --FONT: {{ CSS.FONT }};
 }
+{% endwith %}
 </style>
 
 {% for file_name in ''|getCSSfiles %}

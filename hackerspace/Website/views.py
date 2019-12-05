@@ -2,19 +2,17 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 
-from hackerspace import YOUR_HACKERSPACE as HACKERSPACE
 from hackerspace.models import Error, Person,Project, Event, Guilde, MeetingNote, Space, Machine, Consensus,Photo
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.Website.search import search
 from getKey import STR__get_key,BOOLEAN__key_exists
-
+from getConfig import get_config
 
 def get_view_response(request, page, sub_page, hashname):
     context = {
         'view': page+'_view',
         'in_space': True if request.COOKIES.get('in_space') else None,
-        'HACKERSPACE': HACKERSPACE,
         'hash': hashname,
         'ADMIN_URL': STR__get_key('DJANGO.ADMIN_URL'),
         'user': request.user
@@ -24,7 +22,7 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/',
             'page_git_url': '/Website/templates/landingpage_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME,
+            'page_name': get_config('BASICS.NAME'),
             'page_description': make_description_sentence(),
             'is_open_status': getOpenNowStatus(),
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:5],
@@ -35,15 +33,15 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/values_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Values',
-            'page_description': 'Our values at '+HACKERSPACE.HACKERSPACE_NAME
+            'page_name': get_config('BASICS.NAME')+' | Values',
+            'page_description': 'Our values at '+get_config('BASICS.NAME')
         }}
 
     elif page == 'meetings':
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/meetings_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meetings',
+            'page_name': get_config('BASICS.NAME')+' | Meetings',
             'page_description': 'Join our weekly meetings!',
             'current_meeting': MeetingNote.objects.current(),
             'next_meeting': Event.objects.QUERYSET__next_meeting(),
@@ -55,7 +53,7 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/meeting/'+selected.text_date,
             'page_git_url': '/Website/templates/meeting_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | '+selected.text_date,
+            'page_name': get_config('BASICS.NAME')+' | Meeting | '+selected.text_date,
             'page_description': 'Join our weekly meetings!',
             'selected': selected,
             'next_meeting': Event.objects.QUERYSET__next_meeting(),
@@ -64,7 +62,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'meeting_present':
         return {**context, **{
             'slug': '/meeting/present',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Meeting | Presentation mode',
+            'page_name': get_config('BASICS.NAME')+' | Meeting | Presentation mode',
             'page_description': 'Join our weekly meetings!',
             'current_meeting': MeetingNote.objects.current()
         }}
@@ -73,10 +71,10 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Guildes',
-            'page_description': 'Join a guilde at '+HACKERSPACE.HACKERSPACE_NAME+'!',
+            'page_name': get_config('BASICS.NAME')+' | Guildes',
+            'page_description': 'Join a guilde at '+get_config('BASICS.NAME')+'!',
             'headline': 'Guildes',
-            'description': 'A guilde is a group at {} with a common interest area, responsible for specific spaces and machines at {}.'.format(HACKERSPACE.HACKERSPACE_NAME, HACKERSPACE.HACKERSPACE_NAME),
+            'description': 'A guilde is a group at {} with a common interest area, responsible for specific spaces and machines at {}.'.format(get_config('BASICS.NAME'), get_config('BASICS.NAME')),
             'wiki_url': None,
             'add_new_requires_user': True,
             'addnew_url': '/{}/hackerspace/guilde/add/'.format(STR__get_key('DJANGO.ADMIN_URL')),
@@ -92,7 +90,7 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/guilde/'+sub_page,
             'page_git_url': '/Website/templates/guilde_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Guilde | '+selected.str_name,
+            'page_name': get_config('BASICS.NAME')+' | Guilde | '+selected.str_name,
             'page_description': 'Join our weekly meetings!',
             'selected': selected
         }}
@@ -101,10 +99,10 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Spaces',
-            'page_description': HACKERSPACE.HACKERSPACE_NAME+' has many awesome spaces!',
+            'page_name': get_config('BASICS.NAME')+' | Spaces',
+            'page_description': get_config('BASICS.NAME')+' has many awesome spaces!',
             'headline': 'Spaces',
-            'description': 'At {} fellow hackers like you created all kinds of awesome spaces. Check them out!'.format(HACKERSPACE.HACKERSPACE_NAME),
+            'description': 'At {} fellow hackers like you created all kinds of awesome spaces. Check them out!'.format(get_config('BASICS.NAME')),
             'wiki_url': None,
             'add_new_requires_user': True,
             'addnew_url': '/{}/hackerspace/space/add/'.format(STR__get_key('DJANGO.ADMIN_URL')),
@@ -120,7 +118,7 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/space/'+sub_page,
             'page_git_url': '/Website/templates/space_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Space | '+selected.str_name,
+            'page_name': get_config('BASICS.NAME')+' | Space | '+selected.str_name,
             'page_description': selected.text_description,
             'selected': selected
         }}
@@ -129,10 +127,10 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Machines',
-            'page_description': HACKERSPACE.HACKERSPACE_NAME+' has all kinds of awesome machines!',
+            'page_name': get_config('BASICS.NAME')+' | Machines',
+            'page_description': get_config('BASICS.NAME')+' has all kinds of awesome machines!',
             'headline': 'Machines',
-            'description': 'We have many super useful machines at {}, allowing you to build nearly everything you want to build!'.format(HACKERSPACE.HACKERSPACE_NAME),
+            'description': 'We have many super useful machines at {}, allowing you to build nearly everything you want to build!'.format(get_config('BASICS.NAME')),
             'wiki_url': None,
             'add_new_requires_user': True,
             'addnew_url': '/{}/hackerspace/machine/add/'.format(STR__get_key('DJANGO.ADMIN_URL')),
@@ -148,7 +146,7 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/machine/'+sub_page,
             'page_git_url': '/Website/templates/machine_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Machine | '+selected.str_name,
+            'page_name': get_config('BASICS.NAME')+' | Machine | '+selected.str_name,
             'page_description': selected.text_description,
             'selected': selected
         }}
@@ -157,13 +155,13 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Projects',
-            'page_description': 'People at '+HACKERSPACE.HACKERSPACE_NAME+' created all kinds of awesome projects!',
+            'page_name': get_config('BASICS.NAME')+' | Projects',
+            'page_description': 'People at '+get_config('BASICS.NAME')+' created all kinds of awesome projects!',
             'headline': 'Projects',
-            'description': 'At {} fellow hackers like you created all kinds of awesome projects - both their own and projects for the space. Check them out - and create your own one!'.format(HACKERSPACE.HACKERSPACE_NAME),
+            'description': 'At {} fellow hackers like you created all kinds of awesome projects - both their own and projects for the space. Check them out - and create your own one!'.format(get_config('BASICS.NAME')),
             'wiki_url': None,
             'add_new_requires_user': False,
-            'addnew_url': '{}c/projects/'.format(HACKERSPACE.HACKERSPACE_DISCOURSE_URL),
+            'addnew_url': '{}c/projects/'.format(STR__get_key('DISCOURSE.DISCOURSE_URL')),
             'addnew_text': 'Add project',
             'all_results': Project.objects.latest()[:10],
             'results_count': Project.objects.count(),
@@ -176,7 +174,7 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/project/'+sub_page,
             'page_git_url': '/Website/templates/project_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Project | '+selected.str_name,
+            'page_name': get_config('BASICS.NAME')+' | Project | '+selected.str_name,
             'page_description': selected.text_description,
             'selected': selected
         }}
@@ -185,8 +183,8 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/consensus_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Big-C consensus items',
-            'page_description': 'When you want to do something that would drastically change '+HACKERSPACE.HACKERSPACE_NAME+' (or need a lot of money from Noisebridge for a project) - suggest a Big-C consensus item!',
+            'page_name': get_config('BASICS.NAME')+' | Big-C consensus items',
+            'page_description': 'When you want to do something that would drastically change '+get_config('BASICS.NAME')+' (or need a lot of money from Noisebridge for a project) - suggest a Big-C consensus item!',
             'all_current_items': Consensus.objects.current(),
             'all_current_items_count': Consensus.objects.current().count(),
             'all_archived_items': Consensus.objects.archived(),
@@ -197,8 +195,8 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/photos_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Photos',
-            'page_description': 'Explore '+HACKERSPACE.HACKERSPACE_NAME+'\'s history in photos!',
+            'page_name': get_config('BASICS.NAME')+' | Photos',
+            'page_description': 'Explore '+get_config('BASICS.NAME')+'\'s history in photos!',
             'photos': Photo.objects.latest()[:30],
         }}
 
@@ -206,10 +204,10 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Events',
-            'page_description': 'At '+HACKERSPACE.HACKERSPACE_NAME+' we have all kinds of cool events - organized by your fellow hackers!',
+            'page_name': get_config('BASICS.NAME')+' | Events',
+            'page_description': 'At '+get_config('BASICS.NAME')+' we have all kinds of cool events - organized by your fellow hackers!',
             'headline': 'Events',
-            'description': '{} is a place where people come together to learn, share ideas and have an excellent time. Nearly all of our events are free - so just come by and join us - or organize your own event at {}!'.format(HACKERSPACE.HACKERSPACE_NAME, HACKERSPACE.HACKERSPACE_NAME),
+            'description': '{} is a place where people come together to learn, share ideas and have an excellent time. Nearly all of our events are free - so just come by and join us - or organize your own event at {}!'.format(get_config('BASICS.NAME'), get_config('BASICS.NAME')),
             'add_new_requires_user': False,
             'addnew_url': '/event/new',
             'addnew_text': 'Organize an event',
@@ -226,21 +224,22 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/event/'+sub_page,
             'page_git_url': '/Website/templates/event_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | Event | '+selected.str_name,
+            'page_name': get_config('BASICS.NAME')+' | Event | '+selected.str_name,
             'page_description': selected.text_description,
             'selected': selected,
             'photos':Photo.objects.latest()[:33]
         }}
     elif page == 'event_new':
         from django.middleware.csrf import get_token
+        EVENTS_SPACE_DEFAULT = get_config('EVENTS.EVENTS_SPACE_DEFAULT')
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/event_new_view.html',
-            'page_name': HACKERSPACE.HACKERSPACE_NAME+' | New event',
-            'page_description': 'Organize an event at '+HACKERSPACE.HACKERSPACE_NAME,
+            'page_name': get_config('BASICS.NAME')+' | New event',
+            'page_description': 'Organize an event at '+get_config('BASICS.NAME'),
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:4],
-            'default_space': Space.objects.filter(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT).first(),
-            'all_spaces': Space.objects.exclude(str_name=HACKERSPACE.EVENTS_SPACE_DEFAULT),
+            'default_space': Space.objects.filter(str_name=EVENTS_SPACE_DEFAULT).first(),
+            'all_spaces': Space.objects.exclude(str_name=EVENTS_SPACE_DEFAULT),
             'all_guildes':Guilde.objects.all(),
             'csrf_token': get_token(request)
         }}
@@ -468,7 +467,7 @@ def get_view(request):
 
     elif request.GET.get('what', None) == 'start_meeting':
         response = JsonResponse({'html': get_template(
-            'components/body/meetings/current_meeting.html').render({'HACKERSPACE': HACKERSPACE})})
+            'components/body/meetings/current_meeting.html').render()})
 
     elif request.GET.get('what', None):
         page = request.GET.get('what', None)
@@ -603,16 +602,17 @@ def new_view(request):
             {
                 'html': get_template(
                     'components/body/meetings/current_meeting.html').render({
-                        'current_meeting': new_meeting,
-                        'HACKERSPACE': HACKERSPACE,
+                        'current_meeting': new_meeting
                     })
             }
         )
 
     elif request.GET.get('what', None) == 'event':
         from hackerspace.APIs.slack import send_message
-        from hackerspace.YOUR_HACKERSPACE import DOMAIN
         from hackerspace.Website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
+        
+        DOMAIN = get_config('WEBSITE.DOMAIN')
+        
         int_UNIXtime_event_start = INT__UNIX_from_date_and_time_STR(request.GET.get('date',None),request.GET.get('time',None))
         int_minutes_duration = INT__duration_minutes(request.GET.get('duration',None))
         
@@ -630,7 +630,7 @@ def new_view(request):
             str_welcomer=request.GET.get('event_welcomer',None)
         )
         if request.GET.get('location',None):
-            if request.GET.get('location',None)!=HACKERSPACE.HACKERSPACE_NAME:
+            if request.GET.get('location',None)!=get_config('BASICS.NAME'):
                 new_event.str_location = request.GET.get('location',None)
         if request.GET.get('repeating',None):
             # if repeating, mark as such and auto generate new upcoming events with "update_database" command
@@ -706,19 +706,23 @@ def upload_view(request,what):
         else:
             import boto3
             import os,sys
-            from hackerspace.YOUR_HACKERSPACE import AWS_S3_BUCKET_NAME,AWS_S3_URL
-            from getKey import STR__get_key
             
-            
-            session = boto3.Session(
-                aws_access_key_id=STR__get_key('AWS.ACCESS_KEYID'),
-                aws_secret_access_key=STR__get_key('AWS.SECRET_ACCESS_KEY'),
-            )
-            s3 = session.resource('s3')
-            image = request.FILES['images[0]']
+            if BOOLEAN__key_exists('AWS.ACCESS_KEYID') and BOOLEAN__key_exists('AWS.SECRET_ACCESS_KEY') and BOOLEAN__key_exists('AWS.S3.BUCKET_NAME') and BOOLEAN__key_exists('AWS.S3.SERVER_AREA'):
+                AWS_S3_URL = STR__get_key('AWS.S3.BUCKET_NAME')+'.s3-' + \
+                    STR__get_key('AWS.S3.SERVER_AREA')+'.amazonaws.com'
+                
+                session = boto3.Session(
+                    aws_access_key_id=STR__get_key('AWS.ACCESS_KEYID'),
+                    aws_secret_access_key=STR__get_key('AWS.SECRET_ACCESS_KEY'),
+                )
+                s3 = session.resource('s3')
+                image = request.FILES['images[0]']
 
-            s3.Bucket(AWS_S3_BUCKET_NAME).put_object(Key=image.name, Body=image,ACL='public-read')
-            response = JsonResponse({'url_image': 'https://'+AWS_S3_URL+'/'+image.name})
+                s3.Bucket(STR__get_key('AWS.S3.BUCKET_NAME')).put_object(Key=image.name, Body=image,ACL='public-read')
+                response = JsonResponse({'url_image': 'https://'+AWS_S3_URL+'/'+image.name})
+            else:
+                print('LOG: --> AWS secrets are missing. Couldnt upload image.')
+                response = JsonResponse({'url_image': None})
 
     print('LOG: --> return response')
     return response
@@ -737,7 +741,8 @@ def approve_event_view(request):
         response.status_code = 404
     else:
         from hackerspace.APIs.slack import send_message
-        from hackerspace.YOUR_HACKERSPACE import DOMAIN
+        
+        DOMAIN = get_config('WEBSITE.DOMAIN')
         # approve event and all upcoming ones
         event = Event.objects.filter(boolean_approved=False,str_slug=request.GET.get('str_slug', None)).first()
 
@@ -767,7 +772,7 @@ def delete_event_view(request):
         response.status_code = 404
     else:
         from hackerspace.APIs.slack import send_message
-        from hackerspace.YOUR_HACKERSPACE import DOMAIN
+
         # approve event and all upcoming ones
         event = Event.objects.filter(str_slug=request.GET.get('str_slug', None)).first()
 
@@ -775,7 +780,7 @@ def delete_event_view(request):
         Event.objects.filter(str_name=event.str_name).delete()
 
         # notify via slack that event was deleted and by who
-        if 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==DOMAIN:
+        if 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==get_config('WEBSITE.DOMAIN'):
             send_message('🚫'+str(request.user)+' deleted the event "'+event.str_name+'"')
 
         response = JsonResponse({'success': True})

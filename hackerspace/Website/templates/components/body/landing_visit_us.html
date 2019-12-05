@@ -1,20 +1,23 @@
+{% load config %}
 {% block content %}
 
 <div id="visit_us" class="max_540">
     <h2 class="h2 large">Visit us!</h2>
     <div class="table">
       <div class="visit_us_text_left">When?</div>
-      <div class="visit_us_text_right">{{ HACKERSPACE.HACKERSPACE_OPENING_HOURS_SUMMARY }}</div>
+      <div class="visit_us_text_right">{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY'|get_config }}</div>
     </div>
     <div class="divider_10"></div>
     <div class="table">
       <div class="visit_us_text_left">Where?</div>
-      <div class="visit_us_text_right">{{ HACKERSPACE.HACKERSPACE_ADDRESS.STREET }}<br>{{ HACKERSPACE.HACKERSPACE_ADDRESS.CITY }}<br>{{ HACKERSPACE.HACKERSPACE_ADDRESS.STATE }} {{ HACKERSPACE.HACKERSPACE_ADDRESS.ZIP }}<br>{{ HACKERSPACE.HACKERSPACE_ADDRESS.EXTRA_INFO }}</div>
+      {% with HACKERSPACE_ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
+      <div class="visit_us_text_right">{{ HACKERSPACE_ADDRESS.STREET }}<br>{{ HACKERSPACE_ADDRESS.CITY }}<br>{{ HACKERSPACE_ADDRESS.STATE }} {{ HACKERSPACE_ADDRESS.ZIP }}<br>{{ HACKERSPACE_ADDRESS.HOW_TO_FIND_US }}</div>
+      {% endwith %}
     </div>
     <div class="divider_20"></div>
-    <iframe class="map_preview" src="{{ HACKERSPACE.EMBEDDED_MAP_URL }}" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+    <iframe class="map_preview" src="{{ 'BASICS.EMBEDDED_MAP_URL'|get_config }}" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
     <div class="align_center move_up">
-      <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ HACKERSPACE.HACKERSPACE_NAME }},{{ HACKERSPACE.HACKERSPACE_ADDRESS.CITY }}" class="button__cta secondary inline">Navigate</a>
+      <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ 'BASICS.NAME'|get_config }},{{ HACKERSPACE.HACKERSPACE_ADDRESS.CITY }}" class="button__cta secondary inline">Navigate</a>
     </div>
     <div class="divider_20"></div>
     <div class="divider_20"></div>

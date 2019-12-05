@@ -1,3 +1,14 @@
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
 def show_message(text):
     # split up string so it fits into lines (27 character per lines)
     words = text.split(' ')
@@ -18,22 +29,23 @@ def show_message(text):
     print('                                      ')
     print('                                      ')
     print('                                      ')
-    print('  /-------------------------------\   ')
+    print(bcolors.HEADER+'  /-------------------------------\   '+bcolors.ENDC)
     for line in lines:
-        print('  |  '+line+'  |   ')
-    print('  \       /-----------------------/   ')
-    print('   \     /   ')
-    print('    \---/   ')
+        print(bcolors.HEADER+'  |  '+bcolors.ENDC +
+              line+bcolors.HEADER+'  |   '+bcolors.ENDC)
+    print(bcolors.HEADER+'  \       /-----------------------/   '+bcolors.ENDC)
+    print(bcolors.HEADER+'   \     /   '+bcolors.ENDC)
+    print(bcolors.HEADER+'    \---/   '+bcolors.ENDC)
     print('            ')
-    print('    ^  ^    ')
-    print('    \__/     ')
+    print(bcolors.OKGREEN+'    ^  ^    '+bcolors.ENDC)
+    print(bcolors.OKGREEN+'    \__/    '+bcolors.ENDC)
     print('            ')
 
 
 def show_messages(list_messages):
     for message in list_messages:
         show_message(message)
-        input("Press Enter to continue...")
+        input(bcolors.WARNING+"Press Enter to continue..."+bcolors.ENDC)
 
 
 def set_secrets(json_secrets, str_set_what):

@@ -1,18 +1,20 @@
 {% load array %}
 {% load socialnetworks %}
+{% load config %}
 
 {% block content %}
 
 <div class="footer">
     <div class="divider_20"></div>
-    <div>Talk with your fellow {{ HACKERSPACE.HACKERSPACE_PEOPLE_NAME }}!</div>
-    {% for platform in HACKERSPACE.HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS %}
+    <div>Talk with your fellow {{ 'PHYSICAL_SPACE.PEOPLE_NAME'|get_config }}!</div>
+    {% for platform in 'SOCIAL.INTERNAL_COMMUNICATION_PLATFORMS'|get_config %}
     <a href="{{ platform.url }}" target="_blank" class="link dark_back">on {{ platform.name }}</a>
     {% endfor %}
     <div class="divider_20"></div>
     <div>And join us online!</div>
     <div class="divider_10"></div>
-    {% for network in HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS|upto:5 %}
+    {% with SOCIAL_NETWORKS='SOCIAL.SOCIAL_NETWORKS'|get_config %}
+    {% for network in SOCIAL_NETWORKS|upto:5 %}
         {% if network.name|lower != 'twitter' %}
         <a href="{{ network.url }}" target="_blank" class="social_icon {{ network.name|lower }}"></a>
         {% endif %}
@@ -20,12 +22,13 @@
     <div class="divider_20"></div>
     <div class="divider_20"></div>
     <div>
-        {% if HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS|exists:'Twitter' %}
+        {% if SOCIAL_NETWORKS|exists:'Twitter' %}
         <div class="footer_half_block" style="float: left">
-            <a class="twitter-timeline" href="https://twitter.com/{{ HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS|getTwitterUsername }}?ref_src=twsrc%5Etfw" data-width="100%" data-height="100%">Tweets by {{ HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS|getTwitterUsername }}</a>
+            <a class="twitter-timeline" href="https://twitter.com/{{ SOCIAL_NETWORKS|getTwitterUsername }}?ref_src=twsrc%5Etfw" data-width="100%" data-height="100%">Tweets by {{ SOCIAL_NETWORKS|getTwitterUsername }}</a>
             <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
         {% endif %}
+        {% endwith %}
         <div class="footer_half_block">
             <div class="divider_20"></div>
             <div>Did you know?<br>Hackerspaces exists all over the world!</div>

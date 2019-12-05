@@ -1,18 +1,21 @@
+{% load config %}
 {% load text %}
 
 {% block content %}
 
 <div class="header_block">
     <div class="header_center">
-        <div class="header_logo">{{ HACKERSPACE.HACKERSPACE_NAME }}</div>
+        <div class="header_logo">{{ 'BASICS.NAME'|get_config }}</div>
         <div class="header_text">
         <span
             class="txt-rotate"
             data-period="2000"
-            data-rotate='[ {{ HACKERSPACE.HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'>{{ HACKERSPACE.HACKERSPACE_IS_SENTENCES.0 }}</span>
+            {% with HACKERSPACE_IS_SENTENCES='BASICS.HACKERSPACE_IS_SENTENCES'|get_config %}
+            data-rotate='[ {{ HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'>{{ HACKERSPACE_IS_SENTENCES.0 }}</span>
+            {% endwith %}
         </div>
         {% if in_space %}
-        <a href="#" onclick="marryspeak('{{ HACKERSPACE.SAYHELLO }}');this.style.display='none'" class="button__cta">
+        <a href="#" onclick="marryspeak('{{ 'EXTRAS.SAYHELLO'|get_config }}');this.style.display='none'" class="button__cta">
             <div>Say hello!</div>
         </a>
         {% else %}

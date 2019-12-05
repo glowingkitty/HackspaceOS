@@ -20,9 +20,9 @@ class ProjectSet(models.QuerySet):
         print('pull_from_discourse()')
         from hackerspace.models import Person
         from hackerspace.APIs.discourse import get_category_posts
-        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_DISCOURSE_URL
         from datetime import datetime
         from dateutil import parser
+        from getKey import STR__get_key
 
         projects = get_category_posts(category='projects', all_pages=True)
         print('process {} projects'.format(len(projects)))
@@ -31,7 +31,7 @@ class ProjectSet(models.QuerySet):
                 Project().create(json_content={
                     'str_name': project['title'],
                     'url_featured_photo': project['image_url'] if project['image_url'] and '/uploads' in project['image_url'] else None,
-                    'url_discourse': HACKERSPACE_DISCOURSE_URL + 't/'+project['slug'],
+                    'url_discourse': STR__get_key('DISCOURSE.DISCOURSE_URL') + 't/'+project['slug'],
                     'text_description': project['excerpt'],
                     'one_creator': Person.objects.get_discourse_creator(project['slug']),
                     'int_UNIXtime_created': round(datetime.timestamp(parser.parse(project['created_at'])))

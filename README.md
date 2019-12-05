@@ -124,7 +124,7 @@ pip install -r requirements.txt;python create_secrets.py;python manage.py makemi
 
 **Step 5:** Replace [this SVG logo](./hackerspace/Website/static/images/logo.svg) and [this PNG logo](./hackerspace/Website/static/images/logo.png) with your own
 
-**Step 6:** Customize the settings in [YOUR_HACKERSPACE.py](./hackerspace/YOUR_HACKERSPACE.py) to your hackerspace
+**Step 6:** Customize the settings in [config.json](./config.json) to your hackerspace
 
 **Step 7:** Test your website
 

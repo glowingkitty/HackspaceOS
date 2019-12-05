@@ -1,5 +1,6 @@
 {% load array %}
 {% load text %}
+{% load config %}
 {% block content %}
 
 <div class="header_block sub_page">
@@ -15,9 +16,9 @@
     {% if selected.boolean_approved == False %}
     <div class="new_event_info">
         This event was submitted and doesn't show up in the search yet.<br>
-        If no one at {{ HACKERSPACE.HACKERSPACE_NAME }} rejects this event (because it's spam or a duplicate for example), it will be automatically published<br><strong>{{ selected.str_relative_publish_time }}</strong>.<br>
+        If no one at {{ 'BASICS.NAME'|get_config }} rejects this event (because it's spam or a duplicate for example), it will be automatically published<br><strong>{{ selected.str_relative_publish_time }}</strong>.<br>
         <br>
-        Want to have the event published earlier? Ask someone at {{ HACKERSPACE.HACKERSPACE_NAME }} with a user account for this website to confirm the event or to create a user account for you.
+        Want to have the event published earlier? Ask someone at {{ 'BASICS.NAME'|get_config }} with a user account for this website to confirm the event or to create a user account for you.
     </div>
     {% endif %}
     <div class="sub_heading text_semitransparent">{% if selected.str_relative_time %}{{ selected.str_relative_time }}, {% endif %}{{ selected.datetime_range }}{% if selected.one_space %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name }}</a>{% endif %}</div>
@@ -54,13 +55,15 @@
     <div class="blocks_inline_50_percent">
         <h2 class="h2 large">Location</h2>
         <div>
-        {% if HACKERSPACE.HACKERSPACE_ADDRESS.STREET not in selected.str_location %}
+        {% with HACKERSPACE_ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
+        {% if HACKERSPACE_ADDRESS.STREET not in selected.str_location %}
         {{ selected.str_location }}
         {% else %}
-        {{ HACKERSPACE.HACKERSPACE_NAME }}<br>
-        {{ HACKERSPACE.HACKERSPACE_ADDRESS.STREET }}<br>
-        {{ HACKERSPACE.HACKERSPACE_ADDRESS.ZIP }} {{ HACKERSPACE.HACKERSPACE_ADDRESS.CITY }}, {{ HACKERSPACE.HACKERSPACE_ADDRESS.COUNTRYCODE }}
+        {{ 'BASICS.NAME'|get_config }}<br>
+        {{ HACKERSPACE_ADDRESS.STREET }}<br>
+        {{ HACKERSPACE_ADDRESS.ZIP }} {{ HACKERSPACE_ADDRESS.CITY }}, {{ HACKERSPACE_ADDRESS.COUNTRYCODE }}
         {% endif %}
+        {% endwith %}
         </div>
     </div>
     {% if selected.many_hosts.exists %}

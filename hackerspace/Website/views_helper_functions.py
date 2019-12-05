@@ -54,14 +54,16 @@ def JSON_RESPONSE_more_photos(request):
 
 
 def DATETIME__from_date_and_time_STR(str__date, str__time):
-    from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
     import pytz
     from datetime import datetime
+    from getConfig import get_config
+
+    TIMEZONE_STRING = get_config('PHYSICAL_SPACE.TIMEZONE_STRING')
     if 'AM' in str__time or 'PM' in str__time:
-        datetime_input = pytz.timezone(HACKERSPACE_TIMEZONE_STRING).localize(
+        datetime_input = pytz.timezone(TIMEZONE_STRING).localize(
             datetime.strptime(str(str__date+' '+str__time.replace(' ', '')), "%Y-%m-%d %I:%M%p"))
     else:
-        datetime_input = pytz.timezone(HACKERSPACE_TIMEZONE_STRING).localize(
+        datetime_input = pytz.timezone(TIMEZONE_STRING).localize(
             datetime.strptime(str(str__date+' '+str__time.replace(' ', '')), "%Y-%m-%d %H:%M"))
     print('LOG: --> return DATETIME')
     return datetime_input

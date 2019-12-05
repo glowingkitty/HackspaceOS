@@ -1,6 +1,6 @@
 from django.core import serializers
 from django.db import models
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_MEETUP_GROUP
+from getConfig import get_config
 
 def INT__getWeekday(number):
     print('LOG: INT__getWeekday(number={})'.format(number))
@@ -30,7 +30,7 @@ def RESULT__updateTime(result):
 def RESULT__extractSpace(json_meetup_result):
     print('LOG: RESULT__extractSpace(json_meetup_result)')
     from hackerspace.models import Space
-    from hackerspace.YOUR_HACKERSPACE import EVENTS_SPACES_OVERWRITE, EVENTS_SPACE_DEFAULT
+    from getConfig import get_config
 
     if 'how_to_find_us' in json_meetup_result:
         spaces = Space.objects.all()
@@ -40,17 +40,20 @@ def RESULT__extractSpace(json_meetup_result):
                 return space
 
     # else...
+    EVENTS_SPACES_OVERWRITE = get_config('EVENTS.EVENTS_SPACES_OVERWRITE')
     for field in EVENTS_SPACES_OVERWRITE:
         if field in json_meetup_result['name']:
             return Space.objects.QUERYSET__by_name(EVENTS_SPACES_OVERWRITE[field])
     else:
-        return Space.objects.QUERYSET__by_name(EVENTS_SPACE_DEFAULT)
+        return Space.objects.QUERYSET__by_name(get_config('EVENTS.EVENTS_SPACE_DEFAULT'))
 
 
 def RESULT__extractGuilde(json_meetup_result):
     print('LOG: RESULT__extractGuilde(json_meetup_result)')
-    from hackerspace.YOUR_HACKERSPACE import EVENTS_GUILDES_OVERWRITE
     from hackerspace.models import Guilde
+    from getConfig import get_config
+
+    EVENTS_GUILDES_OVERWRITE = get_config('EVENTS.EVENTS_GUILDES_OVERWRITE')
 
     for str_keyword in EVENTS_GUILDES_OVERWRITE:
         if str_keyword in json_meetup_result['name']:
@@ -84,18 +87,21 @@ def LIST__offsetToTimezone(offset_ms):
 
 def STR__extractTimezone(json_meetup_result):
     print('LOG: STR__extractTimezone(json_meetup_result)')
-    from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
+    from getConfig import get_config
+    TIMEZONE_STRING = get_config('PHYSICAL_SPACE.TIMEZONE_STRING')
 
-    if 'utc_offset' in json_meetup_result and json_meetup_result['utc_offset'] != INT__timezoneToOffset(HACKERSPACE_TIMEZONE_STRING):
+    if 'utc_offset' in json_meetup_result and json_meetup_result['utc_offset'] != INT__timezoneToOffset(TIMEZONE_STRING):
         return LIST__offsetToTimezone(json_meetup_result['utc_offset'])
 
     print('LOG: --> return STR')
-    return HACKERSPACE_TIMEZONE_STRING
+    return TIMEZONE_STRING
 
 
 def createEvent(event):
     print('LOG: createEvent(event)')
-    from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME, HACKERSPACE_ADDRESS
+    from getConfig import get_config
+    HACKERSPACE_NAME = get_config('BASICS.NAME')
+    HACKERSPACE_ADDRESS = get_config('PHYSICAL_SPACE.ADDRESS')
     str_location_name = event['venue']['name'] if event['venue']['name'] and event[
         'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_NAME
     str_location_street = event['venue']['address_1'] if event['venue']['name'] and event[
@@ -179,10 +185,10 @@ class EventSet(models.QuerySet):
         print('LOG: Event.objects.JSON__overlapping_events(self, new_event_UNIX_time={}, new_event_duration_minutes={}, space={})'.format(new_event_UNIX_time, new_event_duration_minutes, space))
         import pytz
         from datetime import datetime, timedelta
-        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
+        from getConfig import get_config
 
         local_time = datetime.fromtimestamp(
-            new_event_UNIX_time, pytz.timezone(HACKERSPACE_TIMEZONE_STRING))
+            new_event_UNIX_time, pytz.timezone(get_config('PHYSICAL_SPACE.TIMEZONE_STRING')))
 
         hours_before = 1
         hours_event_duration = round(new_event_duration_minutes/60)
@@ -309,10 +315,10 @@ class EventSet(models.QuerySet):
         print('LOG: Event.objects.LIST__in_minutes(self,minutes={},name_only={})'.format(minutes, name_only))
         import pytz
         from datetime import datetime, timedelta
-        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
+        from getConfig import get_config
 
         date_in_x_minutes = datetime.now(pytz.timezone(
-            HACKERSPACE_TIMEZONE_STRING))+timedelta(minutes=minutes)
+            get_config('PHYSICAL_SPACE.TIMEZONE_STRING')))+timedelta(minutes=minutes)
         events_in_x_minutes = []
         self = self.QUERYSET__upcoming()[:3]
         for event in self.all():
@@ -375,10 +381,10 @@ class EventSet(models.QuerySet):
         for event in self.all()[:3]:
             event.announce_via_marry()
 
-    def pull_from_meetup(self, slug=HACKERSPACE_MEETUP_GROUP):
+    def pull_from_meetup(self, slug=get_config('EVENTS.MEETUP_GROUP')):
         print('LOG: Event.objects.pull_from_meetup(self,slug={})'.format(slug))
         import requests
-        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME
+        from getConfig import get_config
 
         json_our_group = requests.get('https://api.meetup.com/'+slug+'/events',
                                       params={
@@ -396,14 +402,23 @@ class EventSet(models.QuerySet):
               ' events from our hackerspace group')
 
         for event in json_our_group:
-            if slug == HACKERSPACE_MEETUP_GROUP or HACKERSPACE_NAME in event['name']:
+            if slug == get_config('EVENTS.MEETUP_GROUP') or get_config('BASICS.NAME') in event['name']:
                 createEvent(event)
 
         print('LOG: --> Done! Saved '+str(len(json_our_group)) + ' events from Meetup')
 
 
 class Event(models.Model):
-    from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME,LAT_LON, ADDRESS_STRING, HACKERSPACE_TIMEZONE_STRING, CROWD_SIZE
+    from getConfig import get_config
+
+    HACKERSPACE_ADDRESS = get_config('PHYSICAL_SPACE.ADDRESS')
+    LAT_LON = get_config('PHYSICAL_SPACE.LAT_LON')
+    CROWD_SIZE = get_config('EVENTS.CROWD_SIZE')
+    
+    ADDRESS_STRING = get_config('BASICS.NAME')+'<br>' + \
+        (HACKERSPACE_ADDRESS['STREET'] if HACKERSPACE_ADDRESS['STREET'] else '')+'<br' + \
+        (HACKERSPACE_ADDRESS['ZIP'] if HACKERSPACE_ADDRESS['ZIP'] else '')+(', '+HACKERSPACE_ADDRESS['CITY'] if HACKERSPACE_ADDRESS['CITY'] else '') + \
+        (', '+HACKERSPACE_ADDRESS['STATE'] if HACKERSPACE_ADDRESS['STATE'] else '')+(', '+HACKERSPACE_ADDRESS['COUNTRYCODE'] if HACKERSPACE_ADDRESS['COUNTRYCODE'] else '')
     SMALL = 'small'
     MEDIUM = 'medium'
     LARGE = 'large'
@@ -477,7 +492,7 @@ class Event(models.Model):
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
     str_timezone = models.CharField(
-        max_length=100, default=HACKERSPACE_TIMEZONE_STRING, blank=True, null=True, verbose_name='Timezone')
+        max_length=100, default=get_config('PHYSICAL_SPACE.TIMEZONE_STRING'), blank=True, null=True, verbose_name='Timezone')
 
     def __str__(self):
         if not self.datetime_range:
@@ -523,10 +538,9 @@ class Event(models.Model):
     
     @property
     def json_data(self):
-        from hackerspace.YOUR_HACKERSPACE import DOMAIN
         return {
                 'str_name':self.str_name,
-                'url_hackerspace_event':'https://'+DOMAIN+'/'+self.str_slug,
+                'url_hackerspace_event':'https://'+get_config('WEBSITE.DOMAIN')+'/'+self.str_slug,
                 'datetime_start':str(self.datetime_start),
                 'datetime_end':str(self.datetime_end),
                 'str_timezone':self.str_timezone,
@@ -744,15 +758,15 @@ class Event(models.Model):
         # API Doc: https://www.meetup.com/meetup_api/docs/:urlname/events/#create
         print('LOG: event.create_meetup_event()')
         import requests
-        from hackerspace.YOUR_HACKERSPACE import HOW_TO_FIND_US
         from getKey import STR__get_key
+        from getConfig import get_config
 
         if not STR__get_key('MEETUP.ACCESS_TOKEN'):
             print('LOG: --> No MEETUP.ACCESS_TOKEN')
             print('LOG: --> return None')
             return None
 
-        response = requests.post('https://api.meetup.com/'+HACKERSPACE_MEETUP_GROUP+'/events',
+        response = requests.post('https://api.meetup.com/'+get_config('EVENTS.MEETUP_GROUP')+'/events',
             params={
                 'access_token': STR__get_key('MEETUP.ACCESS_TOKEN'),
                 'sign': True,
@@ -768,7 +782,7 @@ class Event(models.Model):
                     'refund_policy':None
                 },
                 'guest_limit':2, # from 0 to 2
-                'how_to_find_us':HOW_TO_FIND_US,
+                'how_to_find_us':get_config('PHYSICAL_SPACE.ADDRESS')['HOW_TO_FIND_US'],
                 'lat':self.float_lat,
                 'lon':self.float_lon,
                 'name':self.str_name,
@@ -794,8 +808,8 @@ class Event(models.Model):
             import urllib.parse
             from hackerspace.models.events import RESULT__updateTime
             from hackerspace.models import Space, Person
-            from hackerspace.YOUR_HACKERSPACE import EVENTS_HOSTS_OVERWRITE
             import bleach
+            from getConfig import get_config
 
             print('LOG: --> clean from scripts')
             if self.str_name:
@@ -824,9 +838,9 @@ class Event(models.Model):
             print('LOG: --> Save lat/lon if not exist yet')
             if not self.float_lat:
                 from geopy.geocoders import Nominatim
-                from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME
+                from getConfig import get_config
 
-                geolocator = Nominatim(user_agent=HACKERSPACE_NAME.lower())
+                geolocator = Nominatim(user_agent=get_config('BASICS.NAME').lower())
                 str_location = self.str_location.replace('\n',', ')
                 while self.float_lat==None and len(str_location)>0:
                     try:
@@ -840,6 +854,7 @@ class Event(models.Model):
 
             print('LOG: --> Save hosts')
             if not self.many_hosts.exists():
+                EVENTS_HOSTS_OVERWRITE = get_config('EVENTS.EVENTS_HOSTS_OVERWRITE')
                 # search in predefined event hosts in YOURHACKERSPACE
                 for event_name in EVENTS_HOSTS_OVERWRITE:
                     if event_name in self.str_name:

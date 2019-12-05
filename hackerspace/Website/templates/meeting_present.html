@@ -1,3 +1,4 @@
+{% load config %}
 {% block content %}
 
 {% include "components/head/head.html" with css_files=css_files %}
@@ -9,7 +10,7 @@
     </div>
     
     <div class="notes_embedded" id="notes_embedded">
-        <iframe class="presenter_mode_meeting" src="https://pad.riseup.net/p/{{ HACKERSPACE.RISEUPPAD_MEETING_PATH }}"></iframe>
+        <iframe class="presenter_mode_meeting" src="https://pad.riseup.net/p/{{ 'MEETINGS.RISEUPPAD_MEETING_PATH'|get_config }}"></iframe>
     </div>
     <div class="meeting_presenter_mode_header">
         <div id="current_time_text" class="current_time_text">Currently:</div>
@@ -33,7 +34,7 @@
         <div class="meeting_live_text_span">Live</div>
         <div class="meeting_live_text_span">
             <span class="text-span">
-            {% if HACKERSPACE.DOMAIN in request.META.HTTP_HOST %}https://{% else %}http://{% endif %}</span>
+            {% if 'WEBSITE.DOMAIN'|get_config in request.META.HTTP_HOST %}https://{% else %}http://{% endif %}</span>
             {{ request.META.HTTP_HOST }}/meeting</div>
     </div>
     <a href="#" onclick="showOverlay()" class="button__cta secondary end_meeting">End meeting</a>

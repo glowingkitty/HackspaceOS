@@ -22,10 +22,10 @@ def startChrome(headless, url):
 
 def openMeetingNotes():
     import time
-    from hackerspace.YOUR_HACKERSPACE import RISEUPPAD_MEETING_PATH
+    from getConfig import get_config
 
     browser = startChrome(
-        headless=True, url='https://pad.riseup.net/p/'+RISEUPPAD_MEETING_PATH)
+        headless=True, url='https://pad.riseup.net/p/'+get_config('MEETINGS.RISEUPPAD_MEETING_PATH'))
     time.sleep(5)
     browser.switch_to_frame(0)
     browser.switch_to_frame(0)
@@ -49,7 +49,8 @@ class MeetingNoteSet(models.QuerySet):
 
     def import_all_from_wiki(self):
         import requests
-        from hackerspace.YOUR_HACKERSPACE import WIKI_API_URL
+        from getConfig import get_config
+        WIKI_API_URL = get_config('BASICS.WIKI_API_URL')
 
         response_json = requests.get(WIKI_API_URL +
                                      '?action=query&list=categorymembers&cmtitle=Category:Meeting_Notes&cmlimit=500&format=json').json()
@@ -99,10 +100,11 @@ class MeetingNote(models.Model):
     @property
     def date(self):
         import pytz
-        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_TIMEZONE_STRING
         from datetime import datetime
+        from getConfig import get_config
 
-        local_timezone = pytz.timezone(HACKERSPACE_TIMEZONE_STRING)
+        local_timezone = pytz.timezone(
+            get_config('PHYSICAL_SPACE.TIMEZONE_STRING'))
         local_time = datetime.fromtimestamp(
             self.int_UNIXtime_created, local_timezone)
         return local_time.date()
@@ -135,8 +137,7 @@ class MeetingNote(models.Model):
         from datetime import datetime
         import pytz
         from selenium.webdriver.common.keys import Keys
-        from hackerspace.YOUR_HACKERSPACE import (
-            HACKERSPACE_TIMEZONE_STRING, RISEUPPAD_MEETING_PATH)
+        from getConfig import get_config
 
         browser = openMeetingNotes()
 
@@ -149,12 +150,13 @@ class MeetingNote(models.Model):
         for line in reversed(meeting_template.split('\n')):
             input_field.send_keys(Keys.RETURN)
             line = line.replace('{{ Date }}', str(
-                datetime.now(pytz.timezone(HACKERSPACE_TIMEZONE_STRING)).date()))
+                datetime.now(pytz.timezone(get_config('PHYSICAL_SPACE.TIMEZONE_STRING'))).date()))
             line = line.replace('{{ MeetingNumber }}', str(
                 MeetingNote.objects.count()+1))
             time.sleep(0.3)
             input_field.send_keys(line)
-        print('Done: https://pad.riseup.net/p/'+RISEUPPAD_MEETING_PATH)
+        print('Done: https://pad.riseup.net/p/' +
+              get_config('MEETINGS.RISEUPPAD_MEETING_PATH'))
 
     def end(self):
         # save meeting notes
@@ -247,7 +249,6 @@ class MeetingNote(models.Model):
 
     def import_from_wiki(self, page):
         import requests
-        from hackerspace.YOUR_HACKERSPACE import WIKI_API_URL
 
         self.text_date = page.split('Notes ')[1].replace(' ', '-')
 
@@ -255,8 +256,10 @@ class MeetingNote(models.Model):
         if MeetingNote.objects.filter(text_date=self.text_date).exists() == False:
             # remove all links
             from bs4 import BeautifulSoup
+            from getConfig import get_config
+
             response_json = requests.get(
-                WIKI_API_URL+'?action=parse&page='+page+'&format=json').json()['parse']
+                get_config('BASICS.WIKI_API_URL')+'?action=parse&page='+page+'&format=json').json()['parse']
             soup = BeautifulSoup(str(response_json['text']).replace(
                 "{\'*\': \'", "").replace("'}", "").replace("\\n", "").replace("\\\'", "\'"), 'html.parser')
             for a in soup.findAll('a'):

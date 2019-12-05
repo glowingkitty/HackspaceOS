@@ -1,7 +1,8 @@
+{% load secrets %}
 {% block content %}
 
 <h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
-<div class="subheading">Select the hosts of the event. Your name is missing? Make sure you signed up in <a href="{{ HACKERSPACE.HACKERSPACE_DISCOURSE_URL }}" target="_blank" class="inline_link">our Discourse group</a>.</div>
+<div class="subheading">Select the hosts of the event. Your name is missing? Make sure you signed up in <a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}" target="_blank" class="inline_link">our Discourse group</a>.</div>
 <div class="divider_10"></div>
 
 <div id="hosts_preview_block" style="display: none">

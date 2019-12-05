@@ -1,4 +1,5 @@
 {% load text %}
+{% load config %}
 {% block content %}
 
 <div class="edit_this_page_block">
@@ -9,10 +10,10 @@
     <div class="divider_20"></div>
     {% if page_git_url %}
     <div>Edit this page!</div>
-    <a href="{{ HACKERSPACE.WEBSITE_GIT }}{{ page_git_url }}" target="_blank" class="link">on {{ HACKERSPACE.WEBSITE_GIT_PROVIDER }}</a>
+    <a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ page_git_url }}" target="_blank" class="link">on {{ 'WEBSITE.WEBSITE_GIT_PROVIDER'|get_config }}</a>
     {% else %}
     <div>Edit our website!</div>
-    <a href="{{ HACKERSPACE.WEBSITE_GIT }}" target="_blank" class="link">on {{ HACKERSPACE.WEBSITE_GIT_PROVIDER }}</a>
+    <a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}" target="_blank" class="link">on {{ 'WEBSITE.WEBSITE_GIT_PROVIDER'|get_config }}</a>
     {% endif %}
 </div>
 

@@ -1,4 +1,5 @@
 {% load secrets %}
+{% load config %}
 {% block content %}
 
 <div class="max_540">
@@ -74,11 +75,11 @@
 </div>
 
 <div class="max_540">
-    {% if HACKERSPACE.HACKERSPACE_MEETUP_GROUP and 'MEETUP.ACCESS_TOKEN'|key_exists and 'MEETUP.CLIENT_ID'|key_exists and 'MEETUP.CLIENT_SECRET'|key_exists %}
+    {% if 'EVENTS.MEETUP_GROUP'|get_config and 'MEETUP.ACCESS_TOKEN'|key_exists and 'MEETUP.CLIENT_ID'|key_exists and 'MEETUP.CLIENT_SECRET'|key_exists %}
     {% else %}
     <div style="opacity: 0.5">Server config incomplete. Ask the website admin to setup the secrets for Meetup, to enable posting events to meetup.</div>
     {% endif %}
-    {% if HACKERSPACE.HACKERSPACE_DISCOURSE_URL and 'DISCOURSE.API_KEY'|key_exists and 'DISCOURSE.API_USERNAME'|key_exists %}
+    {% if 'DISCOURSE.DISCOURSE_URL'|key_exists and 'DISCOURSE.API_KEY'|key_exists and 'DISCOURSE.API_USERNAME'|key_exists %}
     {% else %}
     <div style="opacity: 0.5">Server config incomplete. Ask the website admin to setup the secrets for Discourse, to enable posting events to Discourse.</div>
     {% endif %}

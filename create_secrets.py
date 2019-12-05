@@ -17,6 +17,7 @@ SECRETS = {
         }
     },
     'DISCOURSE': {
+        'DISCOURSE_URL': None,
         'API_KEY': None,
         'API_USERNAME': None,
     },

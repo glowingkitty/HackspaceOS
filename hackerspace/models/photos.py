@@ -58,9 +58,9 @@ def save_instagram_photos(browser):
 
 def save_wiki_photo(photo):
     from hackerspace.models.meetingnotes import startChrome
-    from hackerspace.YOUR_HACKERSPACE import WIKI_API_URL, WIKI_PHOTOS_IGNORE_PAGES
     from dateutil.parser import parse
     from datetime import datetime
+    from getConfig import get_config
 
     if boolean_is_image(photo['url']) == True:
         # open url in selenium, test if image is on blocked list, else save low resolution image url
@@ -69,7 +69,7 @@ def save_wiki_photo(photo):
         try:
             pages_with_image = browser.find_element_by_id(
                 'mw-imagepage-section-linkstoimage').text.split('\n', 1)[1]
-            for blocked_page in WIKI_PHOTOS_IGNORE_PAGES:
+            for blocked_page in get_config('BASICS.WIKI_PHOTOS_IGNORE_PAGES'):
                 if blocked_page in pages_with_image:
                     save_image = False
                     break
@@ -137,17 +137,18 @@ class PhotoSet(models.QuerySet):
 
     def import_from_twitter(self):
         print('LOG: import_from_twitter()')
-        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS
         from hackerspace.models.meetingnotes import startChrome
         import time
+        from getConfig import get_config
+
         # check if twitter is saved in social channels
-        for entry in HACKERSPACE_SOCIAL_NETWORKS:
+        for entry in get_config('SOCIAL.SOCIAL_NETWORKS'):
             if 'twitter.com/' in entry['url']:
                 browser = startChrome(True, entry['url']+'/media')
                 break
         else:
             print(
-                'LOG: --> Twitter not found in hackerspace.YOUR_HACKERSPACE.HACKERSPACE_SOCIAL_NETWORKS Please add your Twitter URL first.')
+                'LOG: --> Twitter not found in config.json -> SOCIAL.SOCIAL_NETWORKS - Please add your Twitter URL first.')
             exit()
 
         # get all image blocks
@@ -218,12 +219,14 @@ class PhotoSet(models.QuerySet):
     def import_from_wiki(self):
         # API documentation: https://www.mediawiki.org/wiki/API:Allimages
         print('LOG: import_from_wiki()')
-        from hackerspace.YOUR_HACKERSPACE import WIKI_API_URL
+        from getConfig import get_config
         import requests
+
+        WIKI_API_URL = get_config('BASICS.WIKI_API_URL')
 
         if not WIKI_API_URL or WIKI_API_URL == '':
             print(
-                'LOG: --> WIKI_API_URL not found in hackerspace.YOUR_HACKERSPACE.BASICS Please add your WIKI_API_URL first.')
+                'LOG: --> WIKI_API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
             exit()
 
         parameter = {
@@ -255,18 +258,18 @@ class PhotoSet(models.QuerySet):
 
     def import_from_instagram(self):
         print('LOG: import_from_instagram()')
-        from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS
         from hackerspace.models.meetingnotes import startChrome
         import time
+        from getConfig import get_config
 
         # check if instagram is saved in social channels
-        for entry in HACKERSPACE_SOCIAL_NETWORKS:
+        for entry in get_config('SOCIAL.SOCIAL_NETWORKS'):
             if 'instagram.com/' in entry['url']:
                 browser = startChrome(True, entry['url'])
                 break
         else:
             print(
-                'LOG: --> Instagram not found in HACKERSPACE_SOCIAL_NETWORKS. Please add your Instagram URL first.')
+                'LOG: --> Instagram not found in config.json -> SOCIAL.SOCIAL_NETWORKS - Please add your Instagram URL first.')
             exit()
 
         # open image in overlay
@@ -282,9 +285,11 @@ class PhotoSet(models.QuerySet):
 
     def import_from_instagram_tag(self):
         print('LOG: import_from_instagram_tag()')
-        from hackerspace.YOUR_HACKERSPACE import HASHTAG
         from hackerspace.models.meetingnotes import startChrome
         import time
+        from getConfig import get_config
+
+        HASHTAG = get_config('SOCIAL.HASHTAG')
 
         # check if instagram tag is saved in settings
         if HASHTAG:
@@ -292,7 +297,7 @@ class PhotoSet(models.QuerySet):
                 True, 'https://www.instagram.com/explore/tags/{}/'.format(HASHTAG.split('#')[1]))
         else:
             print(
-                'LOG: --> Instagram tag not found in HACKERSPACE_SOCIAL_NETWORKS. Please add your Instagram tag first.')
+                'LOG: --> HASHTAG not found in config.json -> SOCIAL - Please add your HASHTAG first.')
             exit()
 
         # open image in overlay
@@ -306,11 +311,13 @@ class PhotoSet(models.QuerySet):
 
     def import_from_flickr(self):
         print('LOG: import_from_flickr()')
-        from hackerspace.YOUR_HACKERSPACE import FLICKR_URL
         from hackerspace.models.meetingnotes import startChrome
         import time
         from dateutil.parser import parse
         from datetime import datetime
+        from getConfig import get_config
+
+        FLICKR_URL = get_config('SOCIAL.FLICKR_URL')
 
         # check if instagram tag is saved in settings
         if FLICKR_URL:

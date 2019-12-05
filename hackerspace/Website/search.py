@@ -2,10 +2,11 @@ from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.wiki import wiki_sear
 from hackerspace.APIs.discourse import discourse_search
 from hackerspace.models import Event, MeetingNote, Guilde, Machine, Space, Consensus, Project, Person
 from django.db.models import Q
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_SOCIAL_NETWORKS, HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS
 
 
 def search(query, filter_name):
+    from getConfig import get_config
+
     if not query:
         return []
 
@@ -30,13 +31,13 @@ def search(query, filter_name):
         'icon': x['name'].lower(),
         'name': x['name'],
         'url': x['url'],
-    } for x in HACKERSPACE_SOCIAL_NETWORKS if query.lower()
+    } for x in get_config('SOCIAL.SOCIAL_NETWORKS') if query.lower()
         in x['name'].lower()]
     internchannels = [{
         'icon': x['name'].lower(),
         'name': x['name'],
         'url': x['url'],
-    } for x in HACKERSPACE_INTERNAL_COMMUNICATION_PLATFORMS if query.lower()
+    } for x in get_config('SOCIAL.INTERNAL_COMMUNICATION_PLATFORMS') if query.lower()
         in x['name'].lower()]
 
     meeting_notes = MeetingNote.objects.filter(

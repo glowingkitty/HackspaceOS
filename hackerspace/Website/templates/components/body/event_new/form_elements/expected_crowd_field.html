@@ -1,18 +1,21 @@
+{% load config %}
 {% block content %}
 
 <h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
 <div class="divider_10"></div>
 <select id="event_expected_crowd" onchange="ask_who_welcomes_people(this.value)" class="input_field_enter_name round_square grey_background" style="height: 41px;">
-    <option value="small">{{ HACKERSPACE.CROWD_SIZE.SMALL }}</option>
-    <option value="medium">{{ HACKERSPACE.CROWD_SIZE.MEDIUM }}</option>
-    <option value="large">{{ HACKERSPACE.CROWD_SIZE.LARGE }}</option>
+    {% with CROWD_SIZE='EVENTS.CROWD_SIZE'|get_config %}
+    <option value="small">{{ CROWD_SIZE.SMALL }}</option>
+    <option value="medium">{{ CROWD_SIZE.MEDIUM }}</option>
+    <option value="large">{{ CROWD_SIZE.LARGE }}</option>
+    {% endwith %}
 </select>
 
 <div id="who_welcomes_people" style="display: none">
     <div class="divider_10"></div>
     <div class="subheading" style="width: 90%;">
         For large events:<br>
-        Who will be for the whole time of the event at the door to welcome people to {{ HACKERSPACE.HACKERSPACE_NAME }} and also make it more difficult for thiefs to steal things?<br>
+        Who will be for the whole time of the event at the door to welcome people to {{ 'BASICS.NAME'|get_config }} and also make it more difficult for thiefs to steal things?<br>
         You? a co-organizer? a volunteer? (name of the volunteer?) or a hired door security?
     </div>
     <div class="divider_10"></div>

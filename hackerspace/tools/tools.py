@@ -1,5 +1,4 @@
 import re
-from hackerspace.YOUR_HACKERSPACE import HACKERSPACE_NAME, HACKERSPACE_IS_SENTENCES
 TAG_RE = re.compile(r'<[^>]+>')
 
 
@@ -8,4 +7,6 @@ def remove_tags(text):
 
 
 def make_description_sentence():
-    return HACKERSPACE_NAME+' '+remove_tags(HACKERSPACE_IS_SENTENCES[0])+('.' if not remove_tags(HACKERSPACE_IS_SENTENCES[0]).endswith('.') else '')
+    from getConfig import get_config
+    HACKERSPACE_IS_SENTENCES = get_config('BASICS.HACKERSPACE_IS_SENTENCES')
+    return get_config('BASICS.NAME')+' '+remove_tags(HACKERSPACE_IS_SENTENCES[0])+('.' if not remove_tags(HACKERSPACE_IS_SENTENCES[0]).endswith('.') else '')
