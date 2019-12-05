@@ -9,6 +9,27 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
+def happy_face():
+    print('            ')
+    print(bcolors.OKGREEN+'    ^  ^    '+bcolors.ENDC)
+    print(bcolors.OKGREEN+'    \__/    '+bcolors.ENDC)
+    print('            ')
+
+
+def confused_face():
+    print('            ')
+    print(bcolors.WARNING+'    o  O    '+bcolors.ENDC)
+    print(bcolors.WARNING+'    ----    '+bcolors.ENDC)
+    print('            ')
+
+
+def sad_face():
+    print('            ')
+    print(bcolors.FAIL+'    >  <    '+bcolors.ENDC)
+    print(bcolors.FAIL+'    ----    '+bcolors.ENDC)
+    print('            ')
+
+
 def show_message(text):
     # split up string so it fits into lines (27 character per lines)
     words = text.split(' ')
@@ -36,10 +57,13 @@ def show_message(text):
     print(bcolors.HEADER+'  \       /-----------------------/   '+bcolors.ENDC)
     print(bcolors.HEADER+'   \     /   '+bcolors.ENDC)
     print(bcolors.HEADER+'    \---/   '+bcolors.ENDC)
-    print('            ')
-    print(bcolors.OKGREEN+'    ^  ^    '+bcolors.ENDC)
-    print(bcolors.OKGREEN+'    \__/    '+bcolors.ENDC)
-    print('            ')
+
+    if text.startswith('WARNING:'):
+        confused_face()
+    elif text.startswith('ERROR:'):
+        sad_face()
+    else:
+        happy_face()
 
 
 def show_messages(list_messages):
