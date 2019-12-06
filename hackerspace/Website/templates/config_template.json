@@ -37,7 +37,18 @@
     },
 
     "MODULES": [
-
+        "Values",
+        "Photos",
+        "Events|View",
+        "Events|Create",
+        "Projects",
+        "Spaces",
+        "Machines",
+        "Meetings|View",
+        "Meetings|Create",
+        "Consensus",
+        "Guildes",
+        "Search"
     ],
 
     "CONSENSUS_ITEMS": {

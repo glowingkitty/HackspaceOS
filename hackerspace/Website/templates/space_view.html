@@ -1,6 +1,9 @@
 {% load array %}
 {% load text %}
+{% load config %}
 {% block content %}
+
+{% with MODULES='MODULES'|get_config %}
 
 <div class="header_block sub_page">
     <div class="header_separator"></div>
@@ -32,7 +35,7 @@
 
     <div class="divider_100"></div>
     <div class="max_540">
-        {% if selected.machines %}
+        {% if selected.machines and 'Machines' in MODULES %}
         <div class="blocks_inline_50_percent">
             <h2 class="h2 large">Machines</h2>
             {% for result in selected.machines|upto:3 %}
@@ -46,7 +49,7 @@
             <div onclick="showOverlay('donate')" class="button__cta secondary">Donate hardware</div>
         </div>
         {% endif %}
-        {% if selected.events %}
+        {% if selected.events and 'Events|View' in MODULES %}
         <div class="blocks_inline_50_percent">
             <h2 class="h2 large">Events</h2>
             {% for result in selected.events|upto:3 %}
@@ -62,7 +65,7 @@
     </div>
     <div class="divider_100"></div>
     <div class="max_540">
-        {% if selected.one_guilde %}
+        {% if selected.one_guilde and 'Guildes' in MODULES %}
         <div class="blocks_inline_50_percent">
             <h2 class="h2 large">Guilde</h2>
             {% include "components/body/result_preview_block.html" with change_contrast=True result=selected.one_guilde %}
@@ -70,6 +73,8 @@
         {% endif %}
     </div>
 </div>
+
+{% endwith %}
 
 {% include "components/body/edit_this_page.html" %}
 

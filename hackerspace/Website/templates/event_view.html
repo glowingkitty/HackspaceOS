@@ -3,6 +3,8 @@
 {% load config %}
 {% block content %}
 
+{% with MODULES='MODULES'|get_config %}
+
 <div class="header_block sub_page">
     <div class="header_separator"></div>
     <div class="header_image" {% if selected.url_featured_photo %} style="
@@ -21,7 +23,7 @@
         Want to have the event published earlier? Ask someone at {{ 'BASICS.NAME'|get_config }} with a user account for this website to confirm the event or to create a user account for you.
     </div>
     {% endif %}
-    <div class="sub_heading text_semitransparent">{% if selected.str_relative_time %}{{ selected.str_relative_time }}, {% endif %}{{ selected.datetime_range }}{% if selected.one_space %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name }}</a>{% endif %}</div>
+    <div class="sub_heading text_semitransparent">{% if selected.str_relative_time %}{{ selected.str_relative_time }}, {% endif %}{{ selected.datetime_range }}{% if selected.one_space and 'Spaces' in MODULES %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name }}</a>{% endif %}</div>
     <h2 class="h2 large">{{ selected.str_name|TEXT_replaceLinkCSS|safe }}</h2>
     {% if selected.url_meetup_event %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
@@ -83,13 +85,13 @@
 <div class="max_540">
     {% endif %}
     
-    {% if selected.one_space %}
+    {% if selected.one_space and 'Spaces' in MODULES %}
     <div class="blocks_inline_50_percent">
         <h2 class="h2 large">Space</h2>
         {% include "components/body/result_preview_block.html" with result=selected.one_space %}
     </div>
     {% endif %}
-    {% if selected.one_guilde %}
+    {% if selected.one_guilde and 'Guildes' in MODULES %}
     <div class="blocks_inline_50_percent">
         <h2 class="h2 large">Guilde</h2>
         {% include "components/body/result_preview_block.html" with result=selected.one_guilde %}
@@ -122,6 +124,8 @@
     </div>
     <div class="divider_100"></div>
 </div>
+
+{% endwith %}
 
 {% include "components/body/edit_this_page.html" %}
 

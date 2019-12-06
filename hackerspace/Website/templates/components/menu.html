@@ -1,32 +1,64 @@
 {% load config %}
 {% block content %}
 
+{% with MODULES='MODULES'|get_config %}
+
 <div id="side_menu" class="side_menu">
   <noscript>
   This website requires javascript.
   </noscript>
   <div class="logo"></div>
+  
+  {% if 'Search' in MODULES %}
   <div id="search_bar" class="search_bar">
     <input id="search_input" class="search_input" placeholder="Search ..." oninput="search(this.value)"></input>
     <div id="search_results"></div>
   </div>
+  {% endif %}
+
   <a href="/" id="menu_h_landingpage" onclick="event.preventDefault();getPage('/','menu_h_landingpage')" class="menu_heading{% if slug == '/' %} selected{% endif %}">Landingpage</a>
   
-  <a href="/values" onclick="event.preventDefault();getPage('/values','menu_h_values')" class="menu_heading">About</a>
+  {% if 'Values' in MODULES or 'Photos' in MODULES or 'BASICS.HACKERSPACE_MANUAL'|get_config %}
+  <a href="
+      {% if 'Values' in MODULES %}/values
+      {% elif 'Photos' in MODULES %}/photos
+      {% else %}{{ 'BASICS.HACKERSPACE_MANUAL'|get_config}}
+      {% endif %}" onclick="event.preventDefault();{% if 'Values' in MODULES %}
+      getPage('/values','menu_h_values'){% elif 'Photos' in MODULES %}
+      getPage('/photos','menu_h_photos'){% endif %}" class="menu_heading">About</a>
+  {% if 'Values' in MODULES %}
   <a href="/values" id="menu_h_values" onclick="event.preventDefault();getPage('/values','menu_h_values')" class="menu_heading{% if slug == '/values' %} selected{% endif %} sub_heading">Values</a>
+  {% endif %}
+  {% if 'Photos' in MODULES %}
   <a href="/photos" id="menu_h_photos" onclick="event.preventDefault();getPage('/photos','menu_h_photos')" class="menu_heading{% if slug == '/photos' %} selected{% endif %} sub_heading">Photos</a>
+  {% endif %}
   {% if 'BASICS.HACKERSPACE_MANUAL'|get_config %}
   <a href="{{ 'BASICS.HACKERSPACE_MANUAL'|get_config }}" target="_blank" class="menu_heading sub_heading">Manual</a>
   {% endif %}
+  {% endif %}
 
   <a href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="menu_heading">Participate</a>
+  {% if 'Events|View' in MODULES %}
   <a href="/events" id="menu_h_events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="menu_heading sub_heading{% if slug == '/events' or 'event/' in slug %} selected{% endif %}">Events</a>
+  {% endif %}
+  {% if 'Projects' in MODULES %}
   <a href="/projects" id="menu_h_projects" onclick="event.preventDefault();getPage('/projects','menu_h_projects')" class="menu_heading sub_heading{% if slug == '/projects' or 'project/' in slug %} selected{% endif %}">Projects</a>
+  {% endif %}
+  {% if 'Spaces' in MODULES %}
   <a href="/spaces" id="menu_h_spaces" onclick="event.preventDefault();getPage('/spaces','menu_h_spaces')" class="menu_heading sub_heading{% if slug == '/spaces' or 'space/' in slug %} selected{% endif %}">Spaces</a>
+  {% endif %}
+  {% if 'Machines' in MODULES %}
   <a href="/machines" id="menu_h_machines" onclick="event.preventDefault();getPage('/machines','menu_h_machines')" class="menu_heading sub_heading{% if slug == '/machines' or 'machine/' in slug %} selected{% endif %}">Machines</a>
+  {% endif %}
+  {% if 'Meetings|View' in MODULES %}
   <a href="/meetings" id="menu_h_meetings" onclick="event.preventDefault();getPage('/meetings','menu_h_meetings')" class="menu_heading sub_heading{% if slug == '/meetings' %} selected{% endif %}">Meetings</a>
+  {% endif %}
+  {% if 'Consensus' in MODULES %}
   <a href="/consensus" id="menu_h_consensus" onclick="event.preventDefault();getPage('/consensus','menu_h_consensus')" class="menu_heading sub_heading{% if slug == '/consensus' or 'consensus/' in slug %} selected{% endif %}">Consensus</a>
+  {% endif %}
+  {% if 'Guildes' in MODULES %}
   <a href="/guildes" id="menu_h_guildes" onclick="event.preventDefault();getPage('/guildes','menu_h_guildes')" class="menu_heading sub_heading{% if slug == '/guildes' or 'guilde/' in slug %} selected{% endif %}">Guildes</a>
+  {% endif %}
   {% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
   <div onclick="showOverlay('donate')" class="menu_heading sub_heading" style="cursor: pointer">Donate</div>
   {% endif %}
@@ -36,5 +68,7 @@
   <a href="#" onclick="getPage('/books')" class="menu_heading sub_heading">Books</a>
   <a href="#" onclick="getPage('/books')" class="menu_heading sub_heading">Games</a> {% endcomment %}
 </div>
+
+{% endwith %}
 
 {% endblock %}

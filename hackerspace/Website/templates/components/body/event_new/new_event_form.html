@@ -2,6 +2,8 @@
 {% load config %}
 {% block content %}
 
+{% with MODULES='MODULES'|get_config %}
+
 <div class="max_540">
     {% include "components/body/event_new/form_elements/input_field.html" with input_id="event_name" field_heading="Name" field_placeholder="Enter a name ..." field_width="90%" field_subheading="Tipp: Keep it short & clear." %}
 </div>
@@ -19,9 +21,11 @@
     <div class="blocks_inline_50_percent">
         {% include "components/body/event_new/form_elements/input_field.html" with field_heading="Duration" input_id="event_duration" oninput="checkForOverlappingEvents()" field_placeholder="HH:MM" %}
     </div>
+    {% if 'Spaces' in MODULES %}
     <div class="blocks_inline_50_percent">
         {% include "components/body/event_new/form_elements/dropdown_field.html" with field_heading="Space" input_id="event_space" onchange="checkForOverlappingEvents()" all_entries=all_spaces default_selected_value=default_space.str_name default_selected_name=default_space.str_name %}
     </div>
+    {% endif %}
 </div>
 
 <div id="overlapping_events_section" style="display: none;margin-top: 40px" class="visually_separated_content">
@@ -51,9 +55,11 @@
     <div class="blocks_inline_50_percent">
         {% include "components/body/event_new/form_elements/location_field.html" with field_heading="Location" input_id="event_location" %}
     </div>
+    {% if 'Guildes' in MODULES %}
     <div class="blocks_inline_50_percent">
         {% include "components/body/event_new/form_elements/dropdown_field.html" with field_heading="Guilde" input_id="event_guilde" all_entries=all_guildes default_selected_value='' default_selected_name='-' %}
     </div>
+    {% endif %}
 </div>
 
 <div class="max_540">
@@ -90,5 +96,7 @@
     <div onclick="publish_event(this)" class="button__cta">Publish event</div>
 </div>
 <div class="divider_100"></div>
+
+{% endwith %}
 
 {% endblock %}

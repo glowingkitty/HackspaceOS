@@ -105,15 +105,19 @@ function search_hosts(query) {
 }
 
 function enterSearch(text) {
-    document.getElementById('search_input').value = text
-    search(search_input.value)
+    if (document.getElementById('search_input')) {
+        document.getElementById('search_input').value = text
+        search(search_input.value)
+    }
 }
 
 function clearSearch() {
-    document.getElementById('search_input').value = ''
-    document.getElementById('search_results').innerHTML = ''
+    if (document.getElementById('search_input')) {
+        document.getElementById('search_input').value = ''
+        document.getElementById('search_results').innerHTML = ''
 
-    if (document.getElementById('search_bar').className == 'search_bar active') {
-        document.getElementById('search_bar').classList.remove('active')
+        if (document.getElementById('search_bar').className == 'search_bar active') {
+            document.getElementById('search_bar').classList.remove('active')
+        }
     }
 }
