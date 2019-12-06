@@ -1,11 +1,11 @@
 {
     "BASICS": {
         "__info__0": "What is the name of your hackerspace?",
-        "NAME": "Noisebridge",
+        "NAME": null,
 
         "__info__1": "The sentences in HACKERSPACE_IS_SENTENCES show up on the landingpage in the header.",
         "HACKERSPACE_IS_SENTENCES": [
-            "is a hackerspace in San Francisco",
+            "is a hackerspace in {{ CITY }}",
             "is a community",
             "is a maker & learning space",
             "is a do-ocracy",
@@ -13,28 +13,27 @@
         ],
 
         "WIKI": {
-            "API_URL": "https://www.noisebridge.net/api.php",
+            "API_URL": null,
             "__info__": "When scraping your wiki for photos, photos appearing on the following pages will be ignored",
-            "PHOTOS_IGNORE_PAGES": ["86"]
+            "PHOTOS_IGNORE_PAGES": []
         },
 
         "DONATION_URLs": {
-            "MONEY": "https://donate.noisebridge.net/",
-            "HARDWARE": "https://www.noisebridge.net/Donations",
-            "ORGANIZE_EVENT": "https://www.meetup.com/noisebridge/",
-            "VOLUNTEER": "https://www.meetup.com/noisebridge/"
+            "MONEY": null,
+            "HARDWARE": null,
+            "ORGANIZE_EVENT": null,
+            "VOLUNTEER": null
         },
 
-        "EMBEDDED_MAP_URL": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.178154041456!2d-122.42143928490898!3d37.762420679761654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e23baa2b1df%3A0x81b913a252fb8d04!2sNoisebridge!5e0!3m2!1sen!2sus!4v1572324947963!5m2!1sen!2sus"
+        "EMBEDDED_MAP_URL": null
     },
 
     "WEBSITE": {
         "__info__0": "What is your primary domain where you will host your website?",
-        "DOMAIN": "noisebridge.net",
+        "DOMAIN": null,
 
         "__info__1": "Where is your GIT repo hosted? So others can suggest changes to your code.",
-        "WEBSITE_GIT": "https://github.com/marcoEDU/HackerspaceTemplatePackage/tree/master/hackerspace",
-        "WEBSITE_GIT_PROVIDER": "GitHub"
+        "WEBSITE_GIT": null
     },
 
     "CSS": {
@@ -46,53 +45,33 @@
 
     "EVENTS": {
         "__info__0": "Please enter your slug, not the full URL: https://www.meetup.com/{{ MEETUP_GROUP }}/",
-        "MEETUP_GROUP": "noisebridge",
+        "MEETUP_GROUP": null,
 
         "__info__1": "Which additional meetup groups organize events at your hackerspace? https://www.meetup.com/{{ group_name }}/",
-        "EXTRA_MEETUP_GROUPS": ["Free-Code-Camp-SF", "StartupSchool-SF"],
+        "EXTRA_MEETUP_GROUPS": [],
         "__info__2": "What is the default space/room for events in your hackerspace?",
         "EVENTS_SPACE_DEFAULT": "Hackatorium",
 
         "__info__3": "Are there repeating events in your space which happen always in the same space/room? List them here as default values.",
         "__info__3__example": {
-            "Weekly Python Co-Learning": "Hackatorium"
+            "Weekly Python Co-Learning": "Hackatorium",
+            "Queer Game Developers Meetup": "Church"
         },
-        "EVENTS_SPACES_OVERWRITE": {
-            "Whiteboarding & Algorithms Workshop": "Church",
-            "Noisebridge Python Class": "Church",
-            "Gamebridge Unityversity": "Church",
-            "Queer Game Developers Meetup": "Church",
-            "Laser Cutter Safety Training": "SparkleForge"
-        },
+        "EVENTS_SPACES_OVERWRITE": {},
 
         "__info__4": "Are there repeating events in your space with typically the same organizer? List the event names here as default values, together with the Discourse usernames of the organizers.",
         "__info__4__example": {
-            "Free Code Camp": ["lucy"]
+            "Free Code Camp": ["lucy"],
+            "Sewing Project Night": ["Martin"]
         },
-        "EVENTS_HOSTS_OVERWRITE": {
-            "Free Code Camp": ["tymeart"],
-            "Noisebridge Sewing Project Night": ["tymeart"],
-            "Laser Cutter Safety Training": ["ruthgrace"],
-            "Noisebridge Extended Tour": ["pyconaut"],
-            "Whiteboarding & Algorithms Workshop - Weekend Edition": ["Bernice"],
-            "Circuit Hacking Mondays": ["spacegreens"],
-            "BUIDL Night": ["kinnard"],
-            "Startup School SF Meetup": ["kinnard"],
-            "Gamebridge Unityversity C# Unity Game Dev - Art And Etcetera": ["Bernice", "Mark"],
-            "Gamebridge Unityversity Unity C# Game Development": ["Mark"],
-            "Noisebridge Python Class": ["Jared"]
-        },
+        "EVENTS_HOSTS_OVERWRITE": {},
 
         "__info__5": "Do you have guildes in your hackerspace? Groups which take care of different parts of the space? Add keywords and the name of the guilde here, to automatically connect them to new events.",
         "__info__5__example": {
-            "Laser": "Laser Guilde"
-        },
-        "EVENTS_GUILDES_OVERWRITE": {
             "Laser": "Laser Guilde",
-            "Gamebridge": "Gamebridge Guilde",
-            "Electronics": "Electronics Guilde",
-            "Sewing": "Sewing Guilde"
+            "Gamebridge": "Gamebridge Guilde"
         },
+        "EVENTS_GUILDES_OVERWRITE": {},
 
         "__info__6": "If someone wants to organize an event at your hackerspace and expects a LARGE CROWD_SIZE, they have to define who takes responsibility to stay at the door, to welcome people and make theft more difficult.",
         "CROWD_SIZE": {
@@ -104,7 +83,7 @@
 
     "MEETINGS": {
         "__info__0": "Do you use RiseUpPad? A pretty useful real time text editor for groups. Like Google Docs, but without Google and simpler. Enter your RiseUpPad meeting note path here, so we can automatically create new meeting notes for you and save them when you are done. https://pad.riseup.net/p/{{ PATH }}",
-        "RISEUPPAD_MEETING_PATH": "nbmeeting",
+        "RISEUPPAD_MEETING_PATH": null,
 
         "IMPORTANT_URLS": {
             "END_MEETING": "/models/meetingnotes.py#L132",
@@ -114,20 +93,20 @@
 
     "PHYSICAL_SPACE": {
         "__info__0": "How do you call people in your hackerspace? Hackers? Noisebutts?",
-        "PEOPLE_NAME": "Noisebutts",
+        "PEOPLE_NAME": null,
 
         "ADDRESS": {
-            "STREET": "2169 Mission St",
-            "ZIP": "94110",
-            "CITY": "San Francisco",
-            "STATE": "CA",
-            "COUNTRYCODE": "US",
-            "HOW_TO_FIND_US": "Entrance next to the supermarket, all the way up."
+            "STREET": null,
+            "ZIP": null,
+            "CITY": null,
+            "STATE": null,
+            "COUNTRYCODE": null,
+            "HOW_TO_FIND_US": null
         },
 
-        "LAT_LON": [37.762389, -122.4191587],
+        "LAT_LON": [],
 
-        "TIMEZONE_STRING": "America/Los_Angeles",
+        "TIMEZONE_STRING": null,
 
         "OPENING_HOURS_SUMMARY": "Mon-Sun, 11AM - 10PM",
 
@@ -191,74 +170,23 @@
             "name": "Patreon",
             "url": "https://patreon.com/Noisebridge"
         },
-        "SOCIAL_NETWORKS": [{
-                "name": "GitHub",
-                "url": "https://github.com/noisebridge"
-            },
-            {
-                "name": "Patreon",
-                "url": "https://patreon.com/Noisebridge"
-            },
-            {
-                "name": "YouTube",
-                "url": "https://www.youtube.com/user/noisebridge"
-            },
-            {
-                "name": "Instagram",
-                "url": "https://www.instagram.com/noisebridgehackerspace/"
-            },
-            {
-                "name": "Facebook",
-                "url": "https://www.facebook.com/noisebridge"
-            },
-            {
-                "name": "Twitter",
-                "url": "https://www.twitter.com/noisebridge"
-            },
-            {
-                "name": "Twitch",
-                "url": "https://www.twitch.tv/noisebridge"
-            },
-            {
-                "name": "Mailinglists",
-                "url": "https://lists.noisebridge.net/listinfo"
-            },
-            {
-                "name": "Flickr",
-                "url": "https://www.flickr.com/groups/noisebridge"
-            },
-            {
-                "name": "Foursquare",
-                "url": "https://foursquare.com/v/noisebridge/4a8b745ff964a5207e0c20e3"
-            },
-            {
-                "name": "Meetup",
-                "url": "https://www.meetup.com/noisebridge/"
-            },
-            {
-                "name": "IRC",
-                "url": "irc://chat.freenode.net/#noisebridge"
-            },
-            {
-                "name": "Blog",
-                "url": "https://blog.noisebridge.net/"
-            }
-        ],
+        "SOCIAL_NETWORKS": [],
 
         "__info__1": "Where can we find images on Flickr about your hackerspace? We automatically save the photo URLs to your Photo database (not the actual photos).",
-        "FLICKR_URL": "https://flickr.com/search/?text=Noisebridge&view_all=1",
+        "FLICKR_URL": null,
 
         "__info__2": "What hashtag do people use on Twitter and Instagram when they talk about your hackerspace? We automatically save the posts & photo URLs to your Photo database (not the actual photos).",
-        "HASHTAG": "#noisebridge",
+        "HASHTAG": null,
 
         "__info__3": "How do you communicate online in your community? Via Discourse? Or Slack? Or someting else?",
-        "INTERNAL_COMMUNICATION_PLATFORMS": [{
+        "__info__3__example": {
             "name": "Discuss",
             "url": "https://discuss.noisebridge.info/"
-        }]
+        },
+        "INTERNAL_COMMUNICATION_PLATFORMS": []
     },
 
     "EXTRAS": {
-        "SAYHELLO": "Greetings by the person at the computer next to the entrance. Hello fellow Noisebutts. Be excellent to each other and have an excellent day"
+        "SAYHELLO": null
     }
 }

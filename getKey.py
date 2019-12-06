@@ -1,8 +1,11 @@
 def STR__get_key(name):
     try:
         import json
+        import os
+        from hackerspace.settings import BASE_DIR
+        file_path = os.path.join(BASE_DIR, 'secrets.json')
 
-        with open('secrets.json') as json_file:
+        with open(file_path) as json_file:
             selected = json.load(json_file)
 
         path = name.split('.')

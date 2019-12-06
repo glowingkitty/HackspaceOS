@@ -96,6 +96,36 @@ def STR__extractTimezone(json_meetup_result):
     print('LOG: --> return STR')
     return TIMEZONE_STRING
 
+def get_lat_lon_and_location(str_location):
+    from geopy.geocoders import Nominatim
+    from geopy.exc import GeocoderTimedOut
+    from getConfig import get_config
+
+    geolocator = Nominatim(user_agent=get_config('BASICS.NAME').lower())
+    str_location = str_location.replace('\n',', ')
+    float_lat = None
+    float_lon = None
+    while float_lat==None and len(str_location)>0:
+        try:
+            location = geolocator.geocode(str_location)
+
+            float_lat, float_lon = location.latitude, location.longitude
+        except GeocoderTimedOut:
+            print('GeocoderTimedOut! This might be solved by turning off your VPN.')
+            break
+        except:
+            str_location=','.join(str_location.split(',')[:-1])
+    
+    return str_location, float_lat, float_lon
+
+def STR__get_timezone_from_lat_lon(lat,lon):
+    import requests
+    url="https://api.teleport.org/api/locations/"+str(lat)+","+str(lon)+"/?embed=location:nearest-cities/location:nearest-city/"
+    response = requests.get(url).json()
+    try:
+        return response['_embedded']['location:nearest-cities'][0]['_embedded']['location:nearest-city']['_links']['city:timezone']['name']
+    except:
+        return None
 
 def createEvent(event):
     print('LOG: createEvent(event)')
@@ -837,18 +867,7 @@ class Event(models.Model):
 
             print('LOG: --> Save lat/lon if not exist yet')
             if not self.float_lat:
-                from geopy.geocoders import Nominatim
-                from getConfig import get_config
-
-                geolocator = Nominatim(user_agent=get_config('BASICS.NAME').lower())
-                str_location = self.str_location.replace('\n',', ')
-                while self.float_lat==None and len(str_location)>0:
-                    try:
-                        location = geolocator.geocode(str_location)
-
-                        self.float_lat, self.float_lon = location.latitude, location.longitude
-                    except:
-                        str_location=','.join(str_location.split(',')[:-1])
+                self.str_location, self.float_lat, self.float_lon = get_lat_lon_and_location(self.str_location)
 
             super(Event, self).save(*args, **kwargs)
 

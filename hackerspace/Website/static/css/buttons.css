@@ -51,7 +51,6 @@
 
 @media (prefers-color-scheme: dark) {
     .button__cta {
-        background-color: #bf0006;
         -webkit-animation: LEDsStrong 8s infinite;
         /* Safari 4.0 - 8.0 */
         animation: LEDsStrong 8s infinite;

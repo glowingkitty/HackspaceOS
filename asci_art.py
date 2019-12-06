@@ -58,7 +58,7 @@ def show_message(text):
     print(bcolors.HEADER+'   \     /   '+bcolors.ENDC)
     print(bcolors.HEADER+'    \---/   '+bcolors.ENDC)
 
-    if text.startswith('WARNING:'):
+    if text.startswith('WARNING:') or text.startswith('Guess later then'):
         confused_face()
     elif text.startswith('ERROR:'):
         sad_face()
@@ -72,7 +72,39 @@ def show_messages(list_messages):
         input(bcolors.WARNING+"Press Enter to continue..."+bcolors.ENDC)
 
 
-def set_secrets(json_secrets, str_set_what):
+def set_secret(json_secrets, later_then_message, message, str_level_0, str_level_1=None, str_level_2=None, str_level_3=None):
+    if str_level_3:
+        show_message(message)
+        json_secrets[str_level_0][str_level_1][str_level_2][str_level_3] = input()
+        if not json_secrets[str_level_0][str_level_1][str_level_2][str_level_3]:
+            json_secrets[str_level_0][str_level_1][str_level_2][str_level_3] = None
+            show_message(later_then_message)
+
+    elif str_level_2:
+        show_message(message)
+        json_secrets[str_level_0][str_level_1][str_level_2] = input()
+        if not json_secrets[str_level_0][str_level_1][str_level_2]:
+            json_secrets[str_level_0][str_level_1][str_level_2] = None
+            show_message(later_then_message)
+
+    elif str_level_1:
+        show_message(message)
+        json_secrets[str_level_0][str_level_1] = input()
+        if not json_secrets[str_level_0][str_level_1]:
+            json_secrets[str_level_0][str_level_1] = None
+            show_message(later_then_message)
+
+    elif str_level_0:
+        show_message(message)
+        json_secrets[str_level_0] = input()
+        if not json_secrets[str_level_0]:
+            json_secrets[str_level_0] = None
+            show_message(later_then_message)
+
+    return json_secrets
+
+
+def set_secrets(json_secrets, later_then_message, str_set_what):
     location = str_set_what.upper()
     for parameter in json_secrets[location]:
         if json_secrets[location][parameter] == None:
@@ -81,7 +113,7 @@ def set_secrets(json_secrets, str_set_what):
             json_secrets[location][parameter] = input()
             if not json_secrets[location][parameter]:
                 json_secrets[location][parameter] = None
-                show_message('Guess later then...')
+                show_message(later_then_message)
                 break
 
         elif json_secrets[location][parameter] != None:
@@ -91,7 +123,7 @@ def set_secrets(json_secrets, str_set_what):
                 json_secrets[location][parameter][sub_paramter] = input()
                 if not json_secrets[location][parameter][sub_paramter]:
                     json_secrets[location][parameter][sub_paramter] = None
-                    show_message('Guess later then...')
+                    show_message(later_then_message)
                     break
 
     return json_secrets
