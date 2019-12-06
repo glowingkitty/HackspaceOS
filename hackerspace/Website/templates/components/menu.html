@@ -1,16 +1,19 @@
 {% load config %}
+{% load css %}
 {% block content %}
 
 {% with MODULES='MODULES'|get_config %}
 
-<div id="side_menu" class="side_menu">
+<div id="side_menu" class="side_menu"{% if 'logo.svg'|image_exists == False %} style="padding-top: 65px;"{% endif %}>
   <noscript>
   This website requires javascript.
   </noscript>
+  {% if 'logo.svg'|image_exists %}
   <div class="logo"></div>
+  {% endif %}
   
   {% if 'Search' in MODULES %}
-  <div id="search_bar" class="search_bar">
+  <div id="search_bar" class="search_bar"{% if 'logo.svg'|image_exists == False %} style="top: 20px;"{% endif %}>
     <input id="search_input" class="search_input" placeholder="Search ..." oninput="search(this.value)"></input>
     <div id="search_results"></div>
   </div>

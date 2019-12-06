@@ -1,11 +1,12 @@
 {% load config %}
 {% load text %}
+{% load css %}
 
 {% block content %}
 
 <div class="header_block">
     <div class="header_center">
-        <div class="header_logo">{{ 'BASICS.NAME'|get_config }}</div>
+        <div {% if 'header_logo.jpg'|image_exists %}class="header_logo"{% endif %}>{{ 'BASICS.NAME'|get_config }}</div>
         <div class="header_text">
         <span
             class="txt-rotate"

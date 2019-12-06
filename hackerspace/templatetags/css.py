@@ -16,3 +16,8 @@ def getCSSfiles(placeholder):
 @register.filter
 def getCSSpath(filename):
     return 'css/'+filename+'.css'
+
+
+@register.filter
+def image_exists(filename):
+    return isfile(join(sys.path[0], 'hackerspace/Website/static/images/'+filename))
