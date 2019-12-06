@@ -114,17 +114,21 @@ git clone git@github.com:marcoEDU/HackerspaceTemplatePackage.git
 
 **Step 2:** Create & activate a Python virtual environment
 
-**Step 3:** Via the main folder of this code - execute in your terminal: 
+**Step 3:** To add your own logo: Add the following files to [hackerspace/Website/static/images/](./hackerspace/Website/static/images/): logo.svg, header_logo.jpg
+
+**Step 3.1:** To add your own favicons: Add the following files to [hackerspace/Website/static/images/favicons/](./hackerspace/Website/static/images/favicons/): favicon.ico, favicon-32x32.png, favicon-16x16.png, apple-touch-icon.png
+
+**Step 3.2:** Add your default background image as "header_banner.jpg" to [hackerspace/Website/static/images/](./hackerspace/Website/static/images/)
+
+**Step 4:** Via the main folder of this code - execute in your terminal: 
 
 ```
-pip install -r requirements.txt;python create_secrets.py;python manage.py makemigrations;python manage.py migrate
+pip install -r requirements.txt;python create_secrets.py;python manage.py makemigrations;python manage.py migrate;python create_config.py;python manage.py update_database
 ```
 
-**Step 4:** Open [secrets.json](./secrets.json) and add your missing API keys
+**Step 5:** Customize the settings in [config.json](./config.json) to your hackerspace
 
-**Step 5:** Replace [this SVG logo](./hackerspace/Website/static/images/logo.svg) and [this PNG logo](./hackerspace/Website/static/images/logo.png) with your own
-
-**Step 6:** Customize the settings in [config.json](./config.json) to your hackerspace
+**Step 6:** Setup the cronjobs from cronjobs.txt - to keep the database updated
 
 **Step 7:** Test your website
 
