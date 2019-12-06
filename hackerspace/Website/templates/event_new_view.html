@@ -1,3 +1,4 @@
+{% load config %}
 {% block content %}
 
 <div class="header_block sub_page">
@@ -24,7 +25,7 @@
 
         <div class="max_540" id="existing_events_block" style="display: none">
             Also consider:<br>
-            Maybe a similar at Noisebridge could need your help!
+            Maybe a similar event at {{ 'BASICS.NAME'|get_config }} could need your help!
             <div class="divider_20"></div>
             <h2 id="existing_events_headline" class="h2 large">Similar events</h2>
             <div id="existing_events">

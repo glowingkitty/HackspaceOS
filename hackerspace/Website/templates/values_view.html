@@ -1,4 +1,7 @@
+{% load config %}
 {% block content %}
+
+{% with NAME='BASICS.NAME'|get_config %}
 
 <div class="header_block sub_page">
     <div class="header_separator"></div>
@@ -10,8 +13,7 @@
 <div class="max_540">
     <h2 class="h2 large">We have ONE rule:<br>Be excellent to each other!</h2>
     <p class="paragraph">
-    Noisebridge is an anarchist hackerspace, where you can come and do everything you would like to - as long as you follow our one rule: Be excellent to others & yourself.<br>
-    What does it mean to be excellent? Join us at our next weekly meeting to find out and discuss with others. 
+    {{ NAME }} is an anarchist hackerspace, where you can come and do everything you would like to - as long as you follow our one rule: Be excellent to others & yourself.
     </p>
 </div>
 
@@ -20,18 +22,16 @@
 <div class="max_540">
     <h2 class="h2 large">How to participate?</h2>
     <p class="paragraph">
-    Most of what happens at Noisebridge is done via do-ocracy - if you want to see something happening, make it happen - as long as you are excellent to others and yourself. If you like to participate (which is super excellent!), you can do it in many ways, for example:<br> 
+    Most of what happens at {{ NAME }} is done via do-ocracy - if you want to see something happening, make it happen - as long as you are excellent to others and yourself. If you like to participate (which is super excellent!), you can do it in many ways, for example:<br> 
     <ul>
-    <li>work on cool things you care about & have a great time at Noisebridge</li>
+    <li>work on cool things you care about & have a great time at {{ NAME }}</li>
     <li><span onclick="showOverlay('donate')" class="inline_link">donate money or hardware</span></li>
     <li>get in conversations with others and ask what they work on & if you can help in any way</li>
-    <li><a class="inline_link">organize an event or support existing ones</a></li>
-    <li>help <a class="inline_link">cleaning up the space</a></li>
-    <li>give welcoming <a class="inline_link">tours to new people</a> in the space</li>
+    <li><a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="inline_link">organize an event or support existing ones</a></li>
+    <li>help cleaning up the space</li>
+    <li>give welcoming tours to new people in the space</li>
     <li>& much more.</li>
     </ul>
-    <br>
-    Come to the next <a class="inline_link">weekly General Meeting</a> and join the conversation of how participation can look like at Noisebridge!
     </p>
 </div>
 
@@ -41,27 +41,28 @@
 <div class="max_540">
     <h2 class="h2 large">Safespace/Bravespace</h2>
     <p class="paragraph">
-    All the <a class="inline_link">excellent</a> people coming to Noisebridge should be able to feel comfortable at the space. That means if anyone is harassing you /  makes you feel unsafe, it’s perfectly excellent to ask that person to leave and take a break.<br>
+    All the excellent people coming to {{ NAME }} should be able to feel comfortable at the space. That means if anyone is harassing you /  makes you feel unsafe, it’s perfectly excellent to ask that person to leave and take a break.<br>
     <br>
-    However, that doesn’t mean you aren’t able to discuss controversal topics at Noisebridge. But be mindful about having a rational, respectful, mature discussion with others, even if you strongly disagree with them.<br>
+    However, that doesn’t mean you aren’t able to discuss controversal topics at {{ NAME }}. But be mindful about having a rational, respectful, mature discussion with others, even if you strongly disagree with them.<br>
     <br>
-    If you feel a situation surpresses aspects of your speech and your speech wasn’t intended to be hurtful, the <a class="inline_link">#bravespace</a> channel on Slack and talking with people in the space in person are the right places to talk about it.
+    If you feel a situation surpresses aspects of your speech and your speech wasn’t intended to be hurtful, talk with people in the space in person about it.
     </p>
 </div>
+
+{% if 'BASICS.ABOUT.HISTORY_HTML'|get_config %}
 
 <div class="divider_20"></div>
-
 <div class="max_540">
-    <h2 class="h2 large">Noisebridge's history:<br>The Up's, Down's & Learnings</h2>
+    <h2 class="h2 large">{{ NAME }}'s history:<br>The Up's, Down's & Learnings</h2>
     <p class="paragraph">
-    Like every community also Noisebridge had Up’s and Down’s -and we learned from it.
-    All the way from our first down, <a class="inline_link" href="https://www.noisebridge.net/wiki/Reboot" target="_blank">followed by our Reboot</a>, the most active time of Noisebridge ever in 2016-2017, 
-    followed by another down in 2018/early 2019 and since then a new up, 
-    with a lot of new people in the space and more and more people starting to get actively involved in making Noisebridge a wonderful place for all the excellent people coming here and rebuilding the cultural imune system.
+    {{ 'BASICS.ABOUT.HISTORY_HTML'|get_config }}
     </p>
 </div>
+{% endif %}
 
 <div class="divider_100"></div>
+
+{% endwith %}
 
 {% include "components/body/edit_this_page.html" %}
 

@@ -1,3 +1,4 @@
+{% load config %}
 {% block content %}
 
 {% include "components/header/landingpage.html" %}
@@ -8,7 +9,9 @@
 {% include "components/body/landing_do_i_belong.html" %}
 <div class="divider_20"></div>
 {% include "components/body/landing_visit_us.html" %}
+{% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
 {% include "components/body/landing_please_donate.html" %}
+{% endif %}
 
 {% include "components/body/edit_this_page.html" %}
 

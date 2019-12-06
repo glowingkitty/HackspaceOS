@@ -5,15 +5,27 @@
 <div id="donate_overlay" class="overlay_block" onclick="event.stopPropagation()">
     <a href="#" class="button__close_overlay" onclick="closeOverlays()"></a>
 
+    {% with NAME='BASICS.NAME'|get_config %}
     <h2 class="h2 large">Donate</h2>
-    <div>Noisebridge is funded by donations. So please help us keeping Noisebridge alive! With money, hardware or your time!</div>
+    <div>{{ NAME }} is funded by donations. So please help us keeping {{ NAME }} alive! With money, hardware or your time!</div>
+    {% if 'BASICS.DONATIONS_TAX_DEDUCTIBLE'|get_config == True %}
     <div class="text_semitransparent">Donations are tax deductible.</div>
+    {% endif %}
     <div class="divider_20"></div>
-    {% with DONATION_URLs='DONATION_URLs'|get_config %}
+    {% endwith %}
+    {% with DONATION_URLs='BASICS.DONATION_URLs'|get_config %}
+    {% if DONATION_URLs.MONEY %}
     <a class="button__cube money" href="{{ DONATION_URLs.MONEY }}" target="_blank">Donate<br>money</a>
+    {% endif %}
+    {% if DONATION_URLs.HARDWARE %}
     <a class="button__cube hardware" href="{{ DONATION_URLs.HARDWARE }}" target="_blank">Donate<br>hardware</a>
+    {% endif %}
+    {% if DONATION_URLs.ORGANIZE_EVENT %}
     <a class="button__cube organize_event" href="{{ DONATION_URLs.ORGANIZE_EVENT }}" target="_blank">Organize<br>an event</a>
+    {% endif %}
+    {% if DONATION_URLs.VOLUNTEER %}
     <a class="button__cube volunteer" href="{{ DONATION_URLs.VOLUNTEER }}" target="_blank">Volunteer<br>at an event</a>
+    {% endif %}
     {% endwith %}
     {% comment %} <div class="divider_20"></div>
     <div class="divider_20"></div> {% endcomment %}

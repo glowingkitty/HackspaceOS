@@ -1,3 +1,4 @@
+{% load config %}
 {% block content %}
 
 {% include "components/head/head.html" with css_files=css_files %}
@@ -6,10 +7,14 @@
   {% include "components/menu.html" %}
   <div class="page_content" style="overflow: hidden;">
     <div id="dark_overlay" class="dark_overlay" onclick="clearSearch();closeOverlays()">
+      {% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
       {% include "components/overlays/donate.html" %}
+      {% endif %}
     </div>
     <div onclick="openMenu()" class="menu_icon"></div>
+    {% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
     <div onclick="showOverlay('donate')" class="button__donate">Donate</div>
+    {% endif %}
     <div id="page_content">
       {% if all_results %}
       {% include "results_list.html" %}

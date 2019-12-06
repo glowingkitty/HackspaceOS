@@ -62,6 +62,10 @@ def save_wiki_photo(photo):
     from datetime import datetime
     from getConfig import get_config
 
+    if not get_config('BASICS.WIKI.API_URL'):
+        print('LOG: --> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+        return
+
     if boolean_is_image(photo['url']) == True:
         # open url in selenium, test if image is on blocked list, else save low resolution image url
         browser = startChrome(True, photo['descriptionurl'])
@@ -69,7 +73,7 @@ def save_wiki_photo(photo):
         try:
             pages_with_image = browser.find_element_by_id(
                 'mw-imagepage-section-linkstoimage').text.split('\n', 1)[1]
-            for blocked_page in get_config('BASICS.WIKI_PHOTOS_IGNORE_PAGES'):
+            for blocked_page in get_config('BASICS.WIKI.PHOTOS_IGNORE_PAGES'):
                 if blocked_page in pages_with_image:
                     save_image = False
                     break
@@ -78,7 +82,7 @@ def save_wiki_photo(photo):
                 'LOG: --> mw-imagepage-section-linkstoimage not found - coudlnt check if image url is blocked')
 
         if save_image == False:
-            print('LOG: --> Skipped photo. URL on WIKI_PHOTOS_IGNORE_PAGES list')
+            print('LOG: --> Skipped photo. URL on WIKI.PHOTOS_IGNORE_PAGES list')
 
         elif Photo.objects.filter(url_post=photo['descriptionurl']).exists() == True:
             print('LOG: --> Skipped photo. Already exists.')
@@ -222,12 +226,12 @@ class PhotoSet(models.QuerySet):
         from getConfig import get_config
         import requests
 
-        WIKI_API_URL = get_config('BASICS.WIKI_API_URL')
+        WIKI_API_URL = get_config('BASICS.WIKI.API_URL')
 
         if not WIKI_API_URL or WIKI_API_URL == '':
             print(
-                'LOG: --> WIKI_API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
-            exit()
+                'LOG: --> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+            return
 
         parameter = {
             'action': 'query',

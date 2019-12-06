@@ -18,6 +18,8 @@
             "PHOTOS_IGNORE_PAGES": []
         },
 
+        "HACKERSPACE_MANUAL": null,
+
         "DONATION_URLs": {
             "MONEY": null,
             "HARDWARE": null,
@@ -25,7 +27,23 @@
             "VOLUNTEER": null
         },
 
-        "EMBEDDED_MAP_URL": null
+        "DONATIONS_TAX_DEDUCTIBLE": true,
+
+        "EMBEDDED_MAP_URL": null,
+
+        "ABOUT": {
+            "HISTORY_HTML": null
+        }
+    },
+
+    "MODULES": [
+
+    ],
+
+    "CONSENSUS_ITEMS": {
+        "CONSENSUS_PROCESS_WIKIPAGE": null,
+        "__info__": "If you use Discourse for creating & discussing consensus items (recommended), enter here the category URL.",
+        "CONSENSUS_DISCOURSE_CATEGORY_URL": null
     },
 
     "WEBSITE": {
@@ -93,7 +111,7 @@
 
     "PHYSICAL_SPACE": {
         "__info__0": "How do you call people in your hackerspace? Hackers? Noisebutts?",
-        "PEOPLE_NAME": null,
+        "PEOPLE_NAME": "hackers",
 
         "ADDRESS": {
             "STREET": null,

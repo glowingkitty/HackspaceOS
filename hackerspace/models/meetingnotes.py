@@ -50,7 +50,10 @@ class MeetingNoteSet(models.QuerySet):
     def import_all_from_wiki(self):
         import requests
         from getConfig import get_config
-        WIKI_API_URL = get_config('BASICS.WIKI_API_URL')
+        WIKI_API_URL = get_config('BASICS.WIKI.API_URL')
+        if not WIKI_API_URL:
+            print('LOG: --> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+            return
 
         response_json = requests.get(WIKI_API_URL +
                                      '?action=query&list=categorymembers&cmtitle=Category:Meeting_Notes&cmlimit=500&format=json').json()
@@ -250,6 +253,10 @@ class MeetingNote(models.Model):
     def import_from_wiki(self, page):
         import requests
 
+        if not get_config('BASICS.WIKI.API_URL'):
+            print('LOG: --> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+            return
+
         self.text_date = page.split('Notes ')[1].replace(' ', '-')
 
         # see if notes already exist, else, create
@@ -259,7 +266,7 @@ class MeetingNote(models.Model):
             from getConfig import get_config
 
             response_json = requests.get(
-                get_config('BASICS.WIKI_API_URL')+'?action=parse&page='+page+'&format=json').json()['parse']
+                get_config('BASICS.WIKI.API_URL')+'?action=parse&page='+page+'&format=json').json()['parse']
             soup = BeautifulSoup(str(response_json['text']).replace(
                 "{\'*\': \'", "").replace("'}", "").replace("\\n", "").replace("\\\'", "\'"), 'html.parser')
             for a in soup.findAll('a'):

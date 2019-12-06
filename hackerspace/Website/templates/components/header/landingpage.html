@@ -21,9 +21,11 @@
         {% else %}
         <a href="#visit_us" class="button__cta">
             <div>Visit us!</div>
+            {% if 'PHYSICAL_SPACE.OPENING_HOURS'|get_config %}
             <div id="open_status" class="cta_extra_info">
                 {{ is_open_status|safe }}
             </div>
+            {% endif %}
         </a>
         {% endif %}
     </div>

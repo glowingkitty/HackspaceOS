@@ -3,22 +3,34 @@
 
 <div id="visit_us" class="max_540">
     <h2 class="h2 large">Visit us!</h2>
+    {% if 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY'|get_config %}
     <div class="table">
       <div class="visit_us_text_left">When?</div>
       <div class="visit_us_text_right">{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY'|get_config }}</div>
     </div>
     <div class="divider_10"></div>
+    {% endif %}
     <div class="table">
       <div class="visit_us_text_left">Where?</div>
       {% with HACKERSPACE_ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
-      <div class="visit_us_text_right">{{ HACKERSPACE_ADDRESS.STREET }}<br>{{ HACKERSPACE_ADDRESS.CITY }}<br>{{ HACKERSPACE_ADDRESS.STATE }} {{ HACKERSPACE_ADDRESS.ZIP }}<br>{{ HACKERSPACE_ADDRESS.HOW_TO_FIND_US }}</div>
-      {% endwith %}
+      <div class="visit_us_text_right">
+        {% if HACKERSPACE_ADDRESS.STREET %}{{ HACKERSPACE_ADDRESS.STREET }}<br>{% endif %}
+        {% if HACKERSPACE_ADDRESS.CITY %}{{ HACKERSPACE_ADDRESS.CITY }}<br>{% endif %}
+        {% if HACKERSPACE_ADDRESS.STATE %}{{ HACKERSPACE_ADDRESS.STATE }} {% endif %}{% if HACKERSPACE_ADDRESS.ZIP %}{{ HACKERSPACE_ADDRESS.ZIP }}{% endif %}{% if HACKERSPACE_ADDRESS.STATE or HACKERSPACE_ADDRESS.ZIP %}<br>{% endif %}
+        {% if HACKERSPACE_ADDRESS.HOW_TO_FIND_US %}{{ HACKERSPACE_ADDRESS.HOW_TO_FIND_US }}</div>{% endif %}
     </div>
+    {% if 'BASICS.EMBEDDED_MAP_URL'|get_config %}
     <div class="divider_20"></div>
     <iframe class="map_preview" src="{{ 'BASICS.EMBEDDED_MAP_URL'|get_config }}" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
     <div class="align_center move_up">
-      <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ 'BASICS.NAME'|get_config }},{{ HACKERSPACE.HACKERSPACE_ADDRESS.CITY }}" class="button__cta secondary inline">Navigate</a>
+      <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ 'BASICS.NAME'|get_config }},{{ HACKERSPACE_ADDRESS.CITY }}" class="button__cta secondary inline">Navigate</a>
     </div>
+    {% else %}
+    <div class="align_center">
+      <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ 'BASICS.NAME'|get_config }},{{ HACKERSPACE_ADDRESS.CITY }}" class="button__cta secondary inline">Navigate</a>
+    </div>
+    {% endif %}
+    {% endwith %}
     <div class="divider_20"></div>
     <div class="divider_20"></div>
 </div>

@@ -13,12 +13,20 @@
     <br>
     <br>
     <div>
-        Most things at {{ 'BASICS.NAME'|get_config }} at done via do-ocracy or small-c-consensus. But if you want to realize something that would change how Noisebridge operates in a drastical way - or if Noisebridge should spend a lot of money on something - add a big-c consensus item. In the next 2 weeks we then discuss that item during the Weekly General Meeting, before it gets approved - if no member objects.<br>
+        {% with NAME='BASICS.NAME'|get_config %}
+        Most things at {{ NAME }} at done via do-ocracy or small-c-consensus. But if you want to realize something that would change how {{ NAME }} operates in a drastical way - or if {{ NAME }} should spend a lot of money on something - add a big-c consensus item. In the next 2 weeks we then discuss that item during the Weekly General Meeting, before it gets approved - if no member objects.<br>
+        {% endwith %}
+
+        {% if 'CONSENSUS_ITEMS.CONSENSUS_PROCESS_WIKIPAGE'|get_config %}
         <br>
-        <a class="inline_link" href="https://www.noisebridge.net/wiki/Consensus_Process" target="_blank">Learn more on our wiki</a>
+        <a class="inline_link" href="{{ 'CONSENSUS_ITEMS.CONSENSUS_PROCESS_WIKIPAGE'|get_config }}" target="_blank">Learn more on our wiki</a>
+        {% endif %}
+
+        {% if 'DISCOURSE.CONSENSUS_DISCOURSE_CATEGORY_URL'|get_key %}
         <br>
         <br>
-        <a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}c/consensus-items" target="_blank" class="button__cta inline">Add a consensus item</a>
+        <a href="{{ 'CONSENSUS_ITEMS.CONSENSUS_DISCOURSE_CATEGORY_URL'|get_key }}" target="_blank" class="button__cta inline">Add a consensus item</a>
+        {% endif %}
     </div>
     <div class="divider_20"></div>
     <div class="divider_20"></div>

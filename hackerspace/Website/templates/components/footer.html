@@ -5,15 +5,19 @@
 {% block content %}
 
 <div class="footer">
+    {% if 'SOCIAL.INTERNAL_COMMUNICATION_PLATFORMS'|get_config %}
     <div class="divider_20"></div>
-    <div>Talk with your fellow {{ 'PHYSICAL_SPACE.PEOPLE_NAME'|get_config }}!</div>
+    <div>Talk with your fellow {% if 'PHYSICAL_SPACE.PEOPLE_NAME'|get_config %}{{ 'PHYSICAL_SPACE.PEOPLE_NAME'|get_config }}{% else %}hackers{% endif %}!</div>
     {% for platform in 'SOCIAL.INTERNAL_COMMUNICATION_PLATFORMS'|get_config %}
     <a href="{{ platform.url }}" target="_blank" class="link dark_back">on {{ platform.name }}</a>
     {% endfor %}
     <div class="divider_20"></div>
+    {% endif %}
+
+    {% with SOCIAL_NETWORKS='SOCIAL.SOCIAL_NETWORKS'|get_config %}
+    {% if SOCIAL_NETWORKS %}
     <div>And join us online!</div>
     <div class="divider_10"></div>
-    {% with SOCIAL_NETWORKS='SOCIAL.SOCIAL_NETWORKS'|get_config %}
     {% for network in SOCIAL_NETWORKS|upto:5 %}
         {% if network.name|lower != 'twitter' %}
         <a href="{{ network.url }}" target="_blank" class="social_icon {{ network.name|lower }}"></a>
@@ -21,6 +25,7 @@
     {% endfor %}
     <div class="divider_20"></div>
     <div class="divider_20"></div>
+    {% endif %}
     <div>
         {% if SOCIAL_NETWORKS|exists:'Twitter' %}
         <div class="footer_half_block" style="float: left">
