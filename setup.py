@@ -356,6 +356,11 @@ class Setup():
                 selected_num = int(selected_folder)-1
                 folder_name = folders[selected_num]
 
+                # first delete existing files
+                for file_path in self.backup_files:
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+
                 # copy files into folder
                 for file_path in self.backup_files:
                     copy_file_from_backup(file_path, folder_name)
