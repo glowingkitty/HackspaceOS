@@ -26,20 +26,38 @@ class ConsensusSet(models.QuerySet):
         from hackerspace.models import Person
         from dateutil import parser
         from getKey import STR__get_key
+        import time
+        import requests
+        from asci_art import show_message
 
-        consensus_items = get_category_posts(
-            category='consensus-items', all_pages=True)
-        print('process {} consensus-items'.format(len(consensus_items)))
-        for consensus_item in consensus_items:
-            if consensus_item['title'] != 'About the Consensus Items category':
-                Consensus().create(json_content={
-                    'str_name': consensus_item['title'],
-                    'url_discourse': STR__get_key('DISCOURSE.DISCOURSE_URL') + 't/'+consensus_item['slug'],
-                    'text_description': consensus_item['excerpt'],
-                    'int_UNIXtime_created': round(datetime.timestamp(parser.parse(consensus_item['created_at']))),
-                    'one_creator': Person.objects.get_discourse_creator(consensus_item['slug']),
-                }
-                )
+        DISCOURSE_URL = STR__get_key('DISCOURSE.DISCOURSE_URL')
+        if DISCOURSE_URL:
+            show_message(
+                '✅ Found DISCOURSE.DISCOURSE_URL - start importing Consensus Items from Discourse.')
+            time.sleep(2)
+
+            if requests.get(DISCOURSE_URL+'/c/consensus-items').status_code == 200:
+                consensus_items = get_category_posts(
+                    category='consensus-items', all_pages=True)
+                print('process {} consensus-items'.format(len(consensus_items)))
+                for consensus_item in consensus_items:
+                    if consensus_item['title'] != 'About the Consensus Items category':
+                        Consensus().create(json_content={
+                            'str_name': consensus_item['title'],
+                            'url_discourse': STR__get_key('DISCOURSE.DISCOURSE_URL') + 't/'+consensus_item['slug'],
+                            'text_description': consensus_item['excerpt'],
+                            'int_UNIXtime_created': round(datetime.timestamp(parser.parse(consensus_item['created_at']))),
+                            'one_creator': Person.objects.get_discourse_creator(consensus_item['slug']),
+                        }
+                        )
+            else:
+                show_message(
+                    'WARNING: Can\'t find the "consensus-items" category on your Discourse. Skipped importing Consensus Items from Discourse.')
+                time.sleep(4)
+        else:
+            show_message(
+                'WARNING: Can\'t find the DISCOURSE.DISCOURSE_URL in your secrets.json. Will skip Discourse for now.')
+            time.sleep(4)
 
     def latest(self):
         return self.order_by('-int_UNIXtime_created')

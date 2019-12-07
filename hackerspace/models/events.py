@@ -1,6 +1,7 @@
 from django.core import serializers
 from django.db import models
 from getConfig import get_config
+from asci_art import show_message
 
 def INT__getWeekday(number):
     print('LOG: INT__getWeekday(number={})'.format(number))
@@ -415,28 +416,43 @@ class EventSet(models.QuerySet):
         print('LOG: Event.objects.pull_from_meetup(self,slug={})'.format(slug))
         import requests
         from getConfig import get_config
+        import time
 
-        json_our_group = requests.get('https://api.meetup.com/'+slug+'/events',
-                                      params={
-                                          'fields': [
-                                              'featured_photo',
-                                              'series',
-                                              'simple_html_description',
-                                              'rsvp_sample',
-                                              'description_images',
-                                          ],
-                                          'photo-host': 'public'
-                                      }).json()
+        if slug:
+            show_message(
+                '✅ Start importing existing events from "'+slug+'" on Meetup.')
+            time.sleep(2)
 
-        print('LOG: --> Saving '+str(len(json_our_group)) +
-              ' events from our hackerspace group')
+            if requests.get('https://meetup.com/'+slug).status_code == 200:
+                json_our_group = requests.get('https://api.meetup.com/'+slug+'/events',
+                                            params={
+                                                'fields': [
+                                                    'featured_photo',
+                                                    'series',
+                                                    'simple_html_description',
+                                                    'rsvp_sample',
+                                                    'description_images',
+                                                ],
+                                                'photo-host': 'public'
+                                            }).json()
 
-        for event in json_our_group:
-            if slug == get_config('EVENTS.MEETUP_GROUP') or get_config('BASICS.NAME') in event['name']:
-                createEvent(event)
+                print('LOG: --> Saving '+str(len(json_our_group)) +
+                    ' events from our hackerspace group')
 
-        print('LOG: --> Done! Saved '+str(len(json_our_group)) + ' events from Meetup')
+                for event in json_our_group:
+                    if slug == get_config('EVENTS.MEETUP_GROUP') or get_config('BASICS.NAME') in event['name']:
+                        createEvent(event)
 
+                print('LOG: --> Done! Saved '+str(len(json_our_group)) + ' events from Meetup')
+
+            else:
+                show_message(
+                    'WARNING: I can\'t access the Meetup group. Is the URL correct? Will skip the Meetup group for now.')
+                time.sleep(4)
+        else:
+            show_message(
+                'WARNING: Can\'t find the Meetup group in your config.json. Will skip the Meetup group for now.')
+            time.sleep(4)
 
 class Event(models.Model):
     from getConfig import get_config

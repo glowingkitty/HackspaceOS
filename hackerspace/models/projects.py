@@ -23,20 +23,39 @@ class ProjectSet(models.QuerySet):
         from datetime import datetime
         from dateutil import parser
         from getKey import STR__get_key
+        from asci_art import show_message
+        import time
+        import requests
 
-        projects = get_category_posts(category='projects', all_pages=True)
-        print('process {} projects'.format(len(projects)))
-        for project in projects:
-            if project['title'] != 'About the Projects category':
-                Project().create(json_content={
-                    'str_name': project['title'],
-                    'url_featured_photo': project['image_url'] if project['image_url'] and '/uploads' in project['image_url'] else None,
-                    'url_discourse': STR__get_key('DISCOURSE.DISCOURSE_URL') + 't/'+project['slug'],
-                    'text_description': project['excerpt'],
-                    'one_creator': Person.objects.get_discourse_creator(project['slug']),
-                    'int_UNIXtime_created': round(datetime.timestamp(parser.parse(project['created_at'])))
-                }
-                )
+        DISCOURSE_URL = STR__get_key('DISCOURSE.DISCOURSE_URL')
+        if DISCOURSE_URL:
+            show_message(
+                '✅ Found DISCOURSE.DISCOURSE_URL - start importing projects from Discourse.')
+            time.sleep(2)
+
+            if requests.get(DISCOURSE_URL+'/c/projects').status_code == 200:
+                projects = get_category_posts(
+                    category='projects', all_pages=True)
+                print('LOG: --> process {} projects'.format(len(projects)))
+                for project in projects:
+                    if project['title'] != 'About the Projects category':
+                        Project().create(json_content={
+                            'str_name': project['title'],
+                            'url_featured_photo': project['image_url'] if project['image_url'] and '/uploads' in project['image_url'] else None,
+                            'url_discourse': STR__get_key('DISCOURSE.DISCOURSE_URL') + 't/'+project['slug'],
+                            'text_description': project['excerpt'],
+                            'one_creator': Person.objects.get_discourse_creator(project['slug']),
+                            'int_UNIXtime_created': round(datetime.timestamp(parser.parse(project['created_at'])))
+                        }
+                        )
+            else:
+                show_message(
+                    'WARNING: Can\'t find the "projects" category on your Discourse. Skipped importing Consensus Items from Discourse.')
+                time.sleep(4)
+        else:
+            show_message(
+                'WARNING: Can\'t find the DISCOURSE.DISCOURSE_URL in your secrets.json. Will skip Discourse for now.')
+            time.sleep(4)
 
 
 class Project(models.Model):

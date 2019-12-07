@@ -1,4 +1,5 @@
 from django.db import models
+from asci_art import show_message
 
 
 def boolean_is_image(image_url):
@@ -143,17 +144,28 @@ class PhotoSet(models.QuerySet):
         print('LOG: import_from_twitter()')
         from hackerspace.models.meetingnotes import startChrome
         import time
+        import requests
         from getConfig import get_config
 
         # check if twitter is saved in social channels
         for entry in get_config('SOCIAL.SOCIAL_NETWORKS'):
             if 'twitter.com/' in entry['url']:
-                browser = startChrome(True, entry['url']+'/media')
+                show_message(
+                    '✅ Found Twitter in SOCIAL.SOCIAL_NETWORKS - Start importing photos from your Twitter page ...')
+                time.sleep(2)
+                if requests.get(entry['url']).status_code == 200:
+                    browser = startChrome(True, entry['url']+'/media')
+                else:
+                    show_message(
+                        'WARNING: I can\'t access your Twitter page. Is the URL correct? Will skip importing photos from Twitter for now.')
+                    time.sleep(4)
+                    return
                 break
         else:
-            print(
-                'LOG: --> Twitter not found in config.json -> SOCIAL.SOCIAL_NETWORKS - Please add your Twitter URL first.')
-            exit()
+            show_message(
+                'WARNING: Can\'t find Twitter in SOCIAL.SOCIAL_NETWORKS in your config.json. Will skip importing photos from Twitter for now.')
+            time.sleep(4)
+            return
 
         # get all image blocks
         images_boxes = browser.find_elements_by_css_selector(
@@ -225,12 +237,23 @@ class PhotoSet(models.QuerySet):
         print('LOG: import_from_wiki()')
         from getConfig import get_config
         import requests
+        import time
 
         WIKI_API_URL = get_config('BASICS.WIKI.API_URL')
 
-        if not WIKI_API_URL or WIKI_API_URL == '':
-            print(
-                'LOG: --> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+        if WIKI_API_URL:
+            show_message(
+                '✅ Found BASICS.WIKI.API_URL - Start importing photos from your Wiki ...')
+            time.sleep(2)
+            if requests.get(WIKI_API_URL).status_code != 200:
+                show_message(
+                    'WARNING: I can\'t access your Wiki. Is the API_URL correct? Will skip importing photos from your Wiki for now.')
+                time.sleep(4)
+                return
+        else:
+            show_message(
+                'WARNING: Can\'t find BASICS.WIKI.API_URL in your config.json. Will skip importing photos from your Wiki for now.')
+            time.sleep(4)
             return
 
         parameter = {
@@ -264,17 +287,28 @@ class PhotoSet(models.QuerySet):
         print('LOG: import_from_instagram()')
         from hackerspace.models.meetingnotes import startChrome
         import time
+        import requests
         from getConfig import get_config
 
         # check if instagram is saved in social channels
         for entry in get_config('SOCIAL.SOCIAL_NETWORKS'):
             if 'instagram.com/' in entry['url']:
-                browser = startChrome(True, entry['url'])
+                show_message(
+                    '✅ Found Instagram in SOCIAL.SOCIAL_NETWORKS - Start importing photos from your Instagram page ...')
+                time.sleep(2)
+                if requests.get(entry['url']).status_code == 200:
+                    browser = startChrome(True, entry['url'])
+                else:
+                    show_message(
+                        'WARNING: I can\'t access your Instagram page. Is the URL correct? Will skip importing photos from your Instagram page for now.')
+                    time.sleep(4)
+                    return
                 break
         else:
-            print(
-                'LOG: --> Instagram not found in config.json -> SOCIAL.SOCIAL_NETWORKS - Please add your Instagram URL first.')
-            exit()
+            show_message(
+                'WARNING: Can\'t find Instagram in SOCIAL.SOCIAL_NETWORKS in your config.json. Will skip importing photos from your Instagram page for now.')
+            time.sleep(4)
+            return
 
         # open image in overlay
         browser.execute_script(
@@ -291,18 +325,29 @@ class PhotoSet(models.QuerySet):
         print('LOG: import_from_instagram_tag()')
         from hackerspace.models.meetingnotes import startChrome
         import time
+        import requests
         from getConfig import get_config
 
         HASHTAG = get_config('SOCIAL.HASHTAG')
 
         # check if instagram tag is saved in settings
         if HASHTAG:
-            browser = startChrome(
-                True, 'https://www.instagram.com/explore/tags/{}/'.format(HASHTAG.split('#')[1]))
+            show_message(
+                '✅ Found SOCIAL.HASHTAG - Start importing photos from Instagram with your hashtag ...')
+            time.sleep(2)
+            if requests.get('https://www.instagram.com/explore/tags/{}/'.format(HASHTAG.split('#')[1])).status_code == 200:
+                browser = startChrome(
+                    True, 'https://www.instagram.com/explore/tags/{}/'.format(HASHTAG.split('#')[1]))
+            else:
+                show_message(
+                    'WARNING: I can\'t access your SOCIAL.HASHTAG on Instagram. Is the hashtag correct? Will skip importing photos from Instagram with your hashtag for now.')
+                time.sleep(4)
+                return
         else:
-            print(
-                'LOG: --> HASHTAG not found in config.json -> SOCIAL - Please add your HASHTAG first.')
-            exit()
+            show_message(
+                'WARNING: Can\'t find SOCIAL.HASHTAG in your config.json. Will skip importing photos from Instagram with your hashtag for now.')
+            time.sleep(4)
+            return
 
         # open image in overlay
         browser.execute_script(
@@ -320,16 +365,28 @@ class PhotoSet(models.QuerySet):
         from dateutil.parser import parse
         from datetime import datetime
         from getConfig import get_config
+        import requests
 
         FLICKR_URL = get_config('SOCIAL.FLICKR_URL')
 
         # check if instagram tag is saved in settings
         if FLICKR_URL:
-            browser = startChrome(True, FLICKR_URL)
+            show_message(
+                '✅ Found SOCIAL.FLICKR_URL - Start importing photos from Flickr ...')
+            time.sleep(2)
+
+            if requests.get(FLICKR_URL).status_code == 200:
+                browser = startChrome(True, FLICKR_URL)
+            else:
+                show_message(
+                    'WARNING: I can\'t access your FLICKR_URL. Is the URL correct? Will skip importing photos from Flickr for now.')
+                time.sleep(4)
+                return
         else:
-            print(
-                'LOG: --> no flickr url')
-            exit()
+            show_message(
+                'WARNING: Can\'t find SOCIAL.FLICKR_URL in your config.json. Will skip importing photos from Flickr for now.')
+            time.sleep(4)
+            return
 
         processed_images = 0
 

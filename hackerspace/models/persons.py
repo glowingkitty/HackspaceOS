@@ -19,18 +19,34 @@ class PersonSet(models.QuerySet):
     def pull_from_discourse(self):
         from hackerspace.APIs.discourse import get_users
         from getKey import STR__get_key
-        DISCOURSE_URL = STR__get_key('DISCOURSE.DISCOURSE_URL')
+        import time
+        import requests
+        from asci_art import show_message
 
-        print('pull_from_discourse()')
-        users = get_users()
-        print('process {} users'.format(len(users)))
-        for user in users:
-            Person().create(json_content={
-                'str_name': user['user']['name'] if user['user']['name'] and user['user']['name'] != '' else user['user']['username'],
-                'url_featured_photo': DISCOURSE_URL + user['user']['avatar_template'].replace('{size}', '240'),
-                'url_discourse': DISCOURSE_URL + 'u/'+user['user']['username'],
-                'text_description': user['user']['title'] if user['user']['title'] != '' else None
-            })
+        DISCOURSE_URL = STR__get_key('DISCOURSE.DISCOURSE_URL')
+        if DISCOURSE_URL:
+            show_message(
+                '✅ Found DISCOURSE.DISCOURSE_URL - start importing persons from Discourse.')
+            time.sleep(2)
+
+            if requests.get(DISCOURSE_URL).status_code == 200:
+                users = get_users()
+                print('LOG: --> process {} users'.format(len(users)))
+                for user in users:
+                    Person().create(json_content={
+                        'str_name': user['user']['name'] if user['user']['name'] and user['user']['name'] != '' else user['user']['username'],
+                        'url_featured_photo': DISCOURSE_URL + user['user']['avatar_template'].replace('{size}', '240'),
+                        'url_discourse': DISCOURSE_URL + 'u/'+user['user']['username'],
+                        'text_description': user['user']['title'] if user['user']['title'] != '' else None
+                    })
+            else:
+                show_message(
+                    'WARNING: I can\'t access your Discourse page. Is the URL correct? Will skip Discourse for now.')
+                time.sleep(4)
+        else:
+            show_message(
+                'WARNING: Can\'t find the DISCOURSE.DISCOURSE_URL in your secrets.json. Will skip Discourse for now.')
+            time.sleep(4)
 
     def QUERYSET__by_name(self, name):
         if not name or name == '':
