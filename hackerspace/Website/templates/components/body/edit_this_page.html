@@ -7,6 +7,7 @@
     <div>Edit this database entry!</div>
     <a href="/{{ ADMIN_URL }}/hackerspace/{{ selected|classname }}/{{ selected.id }}/change" target="_blank" class="link">open admin interface</a>
     {% endif %}
+    {% if 'WEBSITE.WEBSITE_GIT'|get_config %}
     <div class="divider_20"></div>
     {% if page_git_url %}
     <div>Edit this page!</div>
@@ -14,6 +15,7 @@
     {% else %}
     <div>Edit our website!</div>
     <a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}" target="_blank" class="link">on our GIT repo!</a>
+    {% endif %}
     {% endif %}
 </div>
 

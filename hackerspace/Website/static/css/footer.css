@@ -60,6 +60,13 @@
     background-image: url('../images/footer/social_media/facebook.svg');
 }
 
+.social_icon.telegram {
+    background-image: url('../images/footer/social_media/telegram.svg');
+}
+
+.social_icon.meetup {
+    background-image: url('../images/footer/social_media/meetup.svg');
+}
 
 
 .footer_half_block {

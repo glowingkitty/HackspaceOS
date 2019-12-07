@@ -43,7 +43,7 @@ class ProjectSet(models.QuerySet):
                             'str_name': project['title'],
                             'url_featured_photo': project['image_url'] if project['image_url'] and '/uploads' in project['image_url'] else None,
                             'url_discourse': STR__get_key('DISCOURSE.DISCOURSE_URL') + 't/'+project['slug'],
-                            'text_description': project['excerpt'],
+                            'text_description': project['excerpt'] if 'excerpt' in project else None,
                             'one_creator': Person.objects.get_discourse_creator(project['slug']),
                             'int_UNIXtime_created': round(datetime.timestamp(parser.parse(project['created_at'])))
                         }
