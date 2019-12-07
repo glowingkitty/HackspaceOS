@@ -29,6 +29,8 @@ This website template has a lot of super useful features for your hackerspace! D
 
 => [🗓Create & see all your events](#events)
 
+=> [🖼All photos in one place](#photos)
+
 => [🛠Show your projects](#projects)
 
 => [🏠List your spaces & machines](#spaces)
@@ -72,7 +74,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - your hackerspace history
 
 
-[<img src="https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif">](https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif)
+
 
 <br/><br/>
 <img alt="🔍Search everything, everywhere" src="./readme_images/heading_search.png" id="search" >
@@ -136,12 +138,17 @@ I mean… do you really need anything else to convince your hackerspace communit
 <img alt="👥Consensus Items" src="./readme_images/heading_consensus.png" id="consensus" >
 
 - auto import consensus items from your [Discourse group](https://discourse.org/)
+- link to the consensus items section of your [Discourse group](https://discourse.org/) to allow people to create new projects
+
 
 [<img src="https://media.giphy.com/media/QYjC6A5guL3dLnWovQ/source.gif">](https://media.giphy.com/media/QYjC6A5guL3dLnWovQ/source.gif)
 
 
 <br/><br/>
 <img alt="💲Tell people how to donate" src="./readme_images/heading_donate.png" id="donate" >
+
+- donation infos accessible from every page
+- links to donate money, hardware or organize or volunteer an event
 
 [<img src="https://media.giphy.com/media/kHqtT44bciusHqgwUf/source.gif">](https://media.giphy.com/media/kHqtT44bciusHqgwUf/source.gif)
 
