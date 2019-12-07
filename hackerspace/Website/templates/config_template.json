@@ -12,6 +12,21 @@
             "is what you make out of it"
         ],
 
+        "THINGS_TO_DO": [
+            "wood",
+            "3D printer",
+            "music",
+            "game dev",
+            "community",
+            "laser cutter",
+            "code",
+            "robot",
+            "electronic",
+            "drawing",
+            "whiteboarding",
+            "sewing"
+        ],
+
         "WIKI": {
             "API_URL": null,
             "__info__": "When scraping your wiki for photos, photos appearing on the following pages will be ignored",

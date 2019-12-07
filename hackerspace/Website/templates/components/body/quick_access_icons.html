@@ -1,34 +1,61 @@
+{% load config %}
 {% load static %}
 
 {% block content %}
 
+{% with THINGS_TO_DO='BASICS.THINGS_TO_DO'|get_config %}
 <div class="centered max_900_width">
+    {% if 'wood' in THINGS_TO_DO %}
     <a onclick="openMenu();enterSearch('wood')" class="landingpage_quick_access_icon wood"></a>
     <div class="landingpage_quick_access_icon divider"></div>
+    {% endif %}
+    {% if '3D printer' in THINGS_TO_DO %}
     <a onclick="openMenu();enterSearch('3D printer')"class="landingpage_quick_access_icon printer3d"></a>
     <div class="landingpage_quick_access_icon divider"></div>
+    {% endif %}
+    {% if 'music' in THINGS_TO_DO %}
     <a onclick="openMenu();enterSearch('music')" class="landingpage_quick_access_icon music"></a>
     <div class="landingpage_quick_access_icon divider"></div>
+    {% endif %}
+    {% if 'game dev' in THINGS_TO_DO %}
     <a onclick="openMenu();enterSearch('game dev')" class="landingpage_quick_access_icon gamedev"></a>
     <div class="landingpage_quick_access_icon divider"></div>
+    {% endif %}
+    {% if 'community' in THINGS_TO_DO %}
     <a onclick="openMenu();enterSearch('community')" class="landingpage_quick_access_icon community"></a>
     <div class="landingpage_quick_access_icon divider"></div>
+    {% endif %}
+    {% if 'laser cutter' in THINGS_TO_DO %}
     <a onclick="openMenu();enterSearch('laser cutter')" class="landingpage_quick_access_icon lasercutter"></a>
     <div class="landingpage_quick_access_icon divider"></div>
+    {% endif %}
 </div>
 <div class="centered max_900_width">
+    {% if 'code' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
     <a onclick="openMenu();enterSearch('code')" class="landingpage_quick_access_icon code"></a>
+    {% endif %}
+    {% if 'robot' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
     <a onclick="openMenu();enterSearch('robot')" class="landingpage_quick_access_icon robot"></a>
+    {% endif %}
+    {% if 'electronic' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
     <a onclick="openMenu();enterSearch('electronic')" class="landingpage_quick_access_icon electronic"></a>
+    {% endif %}
+    {% if 'drawing' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
     <a onclick="openMenu();enterSearch('drawing')" class="landingpage_quick_access_icon drawing"></a>
+    {% endif %}
+    {% if 'whiteboarding' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
     <a onclick="openMenu();enterSearch('whiteboarding')" class="landingpage_quick_access_icon whiteboarding"></a>
+    {% endif %}
+    {% if 'sewing' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
     <a onclick="openMenu();enterSearch('sewing')" class="landingpage_quick_access_icon sewing"></a>
-</div>    
+    {% endif %}
+</div>
+{% endwith %}
 
 {% endblock %}
