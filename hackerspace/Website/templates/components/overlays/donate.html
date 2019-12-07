@@ -20,12 +20,16 @@
     {% if DONATION_URLs.HARDWARE %}
     <a class="button__cube hardware" href="{{ DONATION_URLs.HARDWARE }}" target="_blank">Donate<br>hardware</a>
     {% endif %}
-    {% if DONATION_URLs.ORGANIZE_EVENT %}
-    <a class="button__cube organize_event" href="{{ DONATION_URLs.ORGANIZE_EVENT }}" target="_blank">Organize<br>an event</a>
+
+    {% with MODULES='MODULES'|get_config %}
+    {% if 'Events|Create' in MODULES %}
+    <a class="button__cube organize_event" href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" target="_blank">Organize<br>an event</a>
     {% endif %}
-    {% if DONATION_URLs.VOLUNTEER %}
-    <a class="button__cube volunteer" href="{{ DONATION_URLs.VOLUNTEER }}" target="_blank">Volunteer<br>at an event</a>
+    {% if 'Events|View' in MODULES %}
+    <a class="button__cube volunteer" href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" target="_blank">Volunteer<br>at an event</a>
     {% endif %}
+    {% endwith %}
+
     {% endwith %}
     {% comment %} <div class="divider_20"></div>
     <div class="divider_20"></div> {% endcomment %}

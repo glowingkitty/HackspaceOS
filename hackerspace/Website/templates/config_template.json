@@ -22,9 +22,7 @@
 
         "DONATION_URLs": {
             "MONEY": null,
-            "HARDWARE": null,
-            "ORGANIZE_EVENT": null,
-            "VOLUNTEER": null
+            "HARDWARE": null
         },
 
         "DONATIONS_TAX_DEDUCTIBLE": true,
