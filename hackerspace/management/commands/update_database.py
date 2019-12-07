@@ -12,7 +12,7 @@ class Command(BaseCommand):
         import time
         import requests
 
-        show_message('I will now start to update your database, based on your secrets.json and config.json. Depending on your settings, amount of events & photos & Discourse entries from your hackerspace this can take everything from seconds to hours (?) ...')
+        show_message('I will now start to update your database, based on your secrets.json and config.json. Depending on your settings, amount of events & photos & Discourse entries from your hackerspace this can take everything from seconds to hours (?). But you can already test your website - by opening a new terminal window and run "python manage.py runserver 0.0.0.0:8000" - and open 0.0.0.0:8000 in your web browser.')
         time.sleep(8)
 
         # import data from Discourse

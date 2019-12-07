@@ -2,6 +2,7 @@
 
 <div class="max_540">
     <h2 class="h2 large">Previous meeting notes</h2>
+    {% if past_meetings %}
 
     {% include "components/body/meetings/meetings_list.html" %}
 
@@ -10,6 +11,9 @@
         <a href="#button__show_more" id="button__show_more" onclick="showMore('meeting_notes','')" class="button__cta secondary">Show more</a>
         <div class="divider_100"></div>
     </div>
+    {% else %}
+    No meeting notes yet.
+    {% endif %}
 </div>
 
 {% endblock %}

@@ -494,7 +494,7 @@ class Photo(models.Model):
         elif timestamp >= time.time()-(60*60*24*6):
             days_in_past = int((((time.time()-timestamp)/60)/60)/24)
             print('LOG: --> return STR')
-            return str(days_in_past)+' day'+('s' if hours_in_past > 1 else '')+' ago'
+            return str(days_in_past)+' day'+('s' if days_in_past > 1 else '')+' ago'
 
         # else date string
         else:
