@@ -16,21 +16,21 @@ class Command(BaseCommand):
         time.sleep(8)
 
         # import data from Discourse
-        Person.objects.pull_from_discourse()
-        Consensus.objects.pull_from_discourse()
-        Project.objects.pull_from_discourse()
+        Person.objects.import_from_discourse()
+        Consensus.objects.import_from_discourse()
+        Project.objects.import_from_discourse()
         # TODO Adding Wishlist
-        # Wish.objects.pull_from_discourse()
+        # Wish.objects.import_from_discourse()
 
         # import events from Meetup
-        Event.objects.pull_from_meetup()
+        Event.objects.import_from_meetup()
         extra_groups = get_config('EVENTS.EXTRA_MEETUP_GROUPS')
         if extra_groups:
             show_message(
                 'Import events from additional Meetup groups ...')
             time.sleep(2)
             for group in extra_groups:
-                Event.objects.pull_from_meetup(group)
+                Event.objects.import_from_meetup(group)
 
         # import photos
         show_message('Start importing your existing photos from the web ...')

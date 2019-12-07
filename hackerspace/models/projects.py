@@ -16,8 +16,8 @@ class ProjectSet(models.QuerySet):
     def latest(self):
         return self.order_by('-int_UNIXtime_created')
 
-    def pull_from_discourse(self):
-        print('pull_from_discourse()')
+    def import_from_discourse(self):
+        print('import_from_discourse()')
         from hackerspace.models import Person
         from hackerspace.APIs.discourse import get_category_posts
         from datetime import datetime

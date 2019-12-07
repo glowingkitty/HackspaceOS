@@ -16,7 +16,7 @@ class PersonSet(models.QuerySet):
     def by_url_discourse(self, url):
         return self.filter(url_discourse=url).first()
 
-    def pull_from_discourse(self):
+    def import_from_discourse(self):
         from hackerspace.APIs.discourse import get_users
         from getKey import STR__get_key
         import time

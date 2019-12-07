@@ -412,8 +412,8 @@ class EventSet(models.QuerySet):
         for event in self.all()[:3]:
             event.announce_via_marry()
 
-    def pull_from_meetup(self, slug=get_config('EVENTS.MEETUP_GROUP')):
-        print('LOG: Event.objects.pull_from_meetup(self,slug={})'.format(slug))
+    def import_from_meetup(self, slug=get_config('EVENTS.MEETUP_GROUP')):
+        print('LOG: Event.objects.import_from_meetup(self,slug={})'.format(slug))
         import requests
         from getConfig import get_config
         import time

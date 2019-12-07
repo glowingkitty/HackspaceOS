@@ -21,8 +21,8 @@ class ConsensusSet(models.QuerySet):
             })
         return results_list
 
-    def pull_from_discourse(self):
-        print('pull_from_discourse()')
+    def import_from_discourse(self):
+        print('import_from_discourse()')
         from hackerspace.models import Person
         from dateutil import parser
         from getKey import STR__get_key
