@@ -74,7 +74,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - your hackerspace history
 
 
-
+[<img src="https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif">](https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif)
 
 <br/><br/>
 <img alt="🔍Search everything, everywhere" src="./readme_images/heading_search.png" id="search" >
@@ -166,7 +166,7 @@ git clone git@github.com:marcoEDU/HackerspaceTemplatePackage.git
 **Step 3:** Via the main folder of this code - execute in your terminal: 
 
 ```
-pip install -r requirements.txt;python create_secrets.py;python manage.py makemigrations;python manage.py migrate;python create_config.py;python manage.py update_database
+pip install -r requirements.txt;python setup.py;python manage.py makemigrations;python manage.py migrate;python manage.py update_database
 ```
 
 **Step 4:** Customize the settings in [config.json](./config.json) to your hackerspace (and [make sure it's a valid JSON](https://jsonlint.com/), otherwise the server won't be able to start).
