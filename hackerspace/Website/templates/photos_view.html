@@ -1,8 +1,10 @@
 {% load config %}
+{% load text %}
 {% block content %}
 
-<div class="use_hashtag_cta">{% if 'SOCIAL.HASHTAG'|get_config %}Want to see your photos here? Use {{ 'SOCIAL.HASHTAG'|get_config }} on Twitter, Instagram or Flickr.{% endif %}</div>
-
+{% with HASHTAG='SOCIAL.HASHTAG'|get_config %}
+<div class="use_hashtag_cta">{% if HASHTAG %}Want to see your photos here? Use {{ HASHTAG }} on <a class="inline_link" href="https://twitter.com/hashtag/{{ HASHTAG|STR__remove_hash }}?f=image" target="_blank">Twitter</a> or <a class="inline_link" href="https://www.instagram.com/explore/tags/{{ HASHTAG|STR__remove_hash }}/" target="_blank">Instagram</a>.{% endif %}</div>
+{% endwith %}
 <div id="photos_block" class="photos_block">
     {% include "components/body/photos_list.html" %}
 </div>

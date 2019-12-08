@@ -81,3 +81,8 @@ def TEXT_replaceLinkCSS(text):
 @register.filter
 def STR__first_name(text):
     return text.split(' ')[0]
+
+
+@register.filter
+def STR__remove_hash(text):
+    return text.split('#')[1]

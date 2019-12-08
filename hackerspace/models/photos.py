@@ -57,6 +57,75 @@ def save_instagram_photos(browser):
             'HBoOv.coreSpriteRightPaginationArrow').click()
 
 
+def save_twitter_photos(browser):
+    import time
+
+    # get all image blocks
+    images_boxes = browser.find_elements_by_css_selector(
+        'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
+
+    no_images_found_counter = 0
+
+    while len(images_boxes) > 0 or no_images_found_counter < 5:
+        # if only one tweet remaining, load more via scroll loading
+        while len(images_boxes) == 1 or len(images_boxes) == 0:
+            browser.execute_script(
+                "window.scrollTo(0, 0);")
+            browser.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(3)
+            images_boxes = browser.find_elements_by_css_selector(
+                'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
+
+            if len(images_boxes) == 1 or len(images_boxes) == 0:
+                no_images_found_counter += 1
+
+        # get all children (images)
+        children = images_boxes[0].find_elements_by_css_selector("*")
+        try:
+            int_UNIXtime = int(browser.find_elements_by_class_name(
+                '_timestamp.js-short-timestamp')[0].get_attribute("data-time"))
+        except:
+            int_UNIXtime = None
+
+        try:
+            url_post = browser.find_elements_by_class_name(
+                'tweet-timestamp.js-permalink.js-nav.js-tooltip')[0].get_attribute("href")
+        except:
+            url_post = None
+
+        try:
+            text_tweet = images_boxes[0].find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_class_name(
+                'js-tweet-text-container').text
+        except:
+            text_tweet = None
+        for child in children:
+            url_image = child.get_attribute("src")
+
+            if Photo.objects.filter(url_image=url_image).exists() == False:
+                Photo(
+                    text_description=text_tweet,
+                    url_image=url_image,
+                    url_post=url_post,
+                    str_source='Twitter',
+                    int_UNIXtime_created=int_UNIXtime,
+                ).save()
+                print('LOG: --> New photo saved')
+            else:
+                print('LOG: --> Photo exist. Skipped...')
+
+        # delete tweet from timeline html
+        browser.execute_script("""
+        document.getElementsByClassName(
+            'js-stream-item stream-item stream-item')[0].outerHTML=''
+        """)
+
+        images_boxes = browser.find_elements_by_css_selector(
+            'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
+
+    print('LOG: --> Finished!!')
+
+
 def save_wiki_photo(photo):
     from hackerspace.models.meetingnotes import startChrome
     from dateutil.parser import parse
@@ -167,70 +236,38 @@ class PhotoSet(models.QuerySet):
             time.sleep(4)
             return
 
-        # get all image blocks
-        images_boxes = browser.find_elements_by_css_selector(
-            'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
+        save_twitter_photos(browser)
 
-        no_images_found_counter = 0
+    def import_from_twitter_hashtag(self):
+        print('LOG: import_from_twitter_hashtag()')
+        from hackerspace.models.meetingnotes import startChrome
+        import time
+        import requests
+        from getConfig import get_config
 
-        while len(images_boxes) > 0 or no_images_found_counter < 5:
-            # if only one tweet remaining, load more via scroll loading
-            while len(images_boxes) == 1 or len(images_boxes) == 0:
-                browser.execute_script(
-                    "window.scrollTo(0, 0);")
-                browser.execute_script(
-                    "window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(3)
-                images_boxes = browser.find_elements_by_css_selector(
-                    'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
+        # check if hastag exists
+        HASHTAG = get_config('SOCIAL.HASHTAG')
 
-                if len(images_boxes) == 1 or len(images_boxes) == 0:
-                    no_images_found_counter += 1
+        # check if instagram tag is saved in settings
+        if HASHTAG:
+            show_message(
+                '✅ Found SOCIAL.HASHTAG - Start importing photos from Twitter with your hashtag ...')
+            time.sleep(2)
+            if requests.get('https://twitter.com/hashtag/{}?f=image'.format(HASHTAG.split('#')[1])).status_code == 200:
+                browser = startChrome(
+                    True, 'https://twitter.com/hashtag/{}?f=image'.format(HASHTAG.split('#')[1]))
+            else:
+                show_message(
+                    'WARNING: I can\'t access your SOCIAL.HASHTAG on Twitter. Is the hashtag correct? Will skip importing photos from Twitter with your hashtag for now.')
+                time.sleep(4)
+                return
+        else:
+            show_message(
+                'WARNING: Can\'t find SOCIAL.HASHTAG in your config.json. Will skip importing photos from Twitter with your hashtag for now.')
+            time.sleep(4)
+            return
 
-            # get all children (images)
-            children = images_boxes[0].find_elements_by_css_selector("*")
-            try:
-                int_UNIXtime = int(browser.find_elements_by_class_name(
-                    '_timestamp.js-short-timestamp')[0].get_attribute("data-time"))
-            except:
-                int_UNIXtime = None
-
-            try:
-                url_post = browser.find_elements_by_class_name(
-                    'tweet-timestamp.js-permalink.js-nav.js-tooltip')[0].get_attribute("href")
-            except:
-                url_post = None
-
-            try:
-                text_tweet = images_boxes[0].find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_xpath('..').find_element_by_class_name(
-                    'js-tweet-text-container').text
-            except:
-                text_tweet = None
-            for child in children:
-                url_image = child.get_attribute("src")
-
-                if Photo.objects.filter(url_image=url_image).exists() == False:
-                    Photo(
-                        text_description=text_tweet,
-                        url_image=url_image,
-                        url_post=url_post,
-                        str_source='Twitter',
-                        int_UNIXtime_created=int_UNIXtime,
-                    ).save()
-                    print('LOG: --> New photo saved')
-                else:
-                    print('LOG: --> Photo exist. Skipped...')
-
-            # delete tweet from timeline html
-            browser.execute_script("""
-            document.getElementsByClassName(
-                'js-stream-item stream-item stream-item')[0].outerHTML=''
-            """)
-
-            images_boxes = browser.find_elements_by_css_selector(
-                'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
-
-        print('LOG: --> Finished!!')
+        save_twitter_photos(browser)
 
     def import_from_wiki(self):
         # API documentation: https://www.mediawiki.org/wiki/API:Allimages
