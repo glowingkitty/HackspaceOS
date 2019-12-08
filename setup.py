@@ -41,18 +41,9 @@ def copy_file_from_backup(file_path, folder_name):
         pass
 
 
-def get_size(start_path):
+def get_size(file_path):
     import os
-
-    total_size = 0
-    for dirpath, dirnames, filenames in os.walk(start_path):
-        for f in filenames:
-            fp = os.path.join(dirpath, f)
-            # skip if it is symbolic link
-            if not os.path.islink(fp):
-                total_size += os.path.getsize(fp)
-
-    return str(round(total_size/1000000, 1))+' MB'
+    return str(round(os.path.getsize(file_path)/1000000, 1))+' MB'
 
 
 def get_lat_lon_and_location(str_location):
@@ -138,7 +129,14 @@ class Setup():
             options_string += ', '+str(counter)+' - '+new_option
 
         # if any folders in "backup" folder, show "import backup"
-        if len(os.listdir('setup_backup')) > 0:
+        folders = os.listdir()
+        folder_options = ''
+        backups_counter = 1
+        for file_name in folders:
+            if 'setup_backup__' in file_name:
+                backups_counter += 1
+
+        if backups_counter > 1:
             counter += 1
             new_option = 'Import backup'
             options.append(new_option)
@@ -320,41 +318,49 @@ class Setup():
             show_message('Ok, got it. Maybe another time.')
             exit()
         else:
-            from shutil import copyfile
-
-            # create a folder if folder doesn't exist yet
-            create_folder('setup_backup')
-            create_folder('setup_backup/'+folder_name)
+            from zipfile import ZipFile, ZIP_DEFLATED
 
             # copy files into folder
-            for file_path in self.backup_files:
-                copy_file_to_backup(file_path, folder_name)
+            with ZipFile('setup_backup__'+folder_name+'.zip', 'w', ZIP_DEFLATED) as zip:
+                # writing each file one by one
+                for file in self.backup_files:
+                    try:
+                        zip.write(file)
+                    except:
+                        pass
 
-            show_message('✅Done! Exported "'+folder_name +
-                         '" ('+get_size('setup_backup/'+folder_name)+')')
+                show_message('✅Done! Exported "'+folder_name +
+                             '" ('+get_size('setup_backup__'+folder_name+'.zip')+')')
 
     def _import(self):
         import os
-        if len(os.listdir('setup_backup')) == 0:
-            show_message('No backups found.')
-        else:
-            folders = os.listdir('setup_backup')
-            folder_options = ''
-            counter = 1
-            for folder in folders:
+
+        folders = os.listdir()
+        folder_options = ''
+        counter = 1
+        backups = []
+        for file_name in folders:
+            if 'setup_backup__' in file_name:
+                backups.append(file_name)
                 if counter > 1:
                     folder_options += ', '
-                folder_options += str(counter)+' - '+folder
+                folder_options += str(counter)+' - ' + \
+                    file_name.split('setup_backup__')[1].split('.zip')[0]
                 counter += 1
 
+        if counter == 1:
+            show_message('No backups found.')
+        else:
             show_message(
                 'Which setup would you like to import? '+folder_options)
             selected_folder = input()
 
             # test if folder exist
             try:
+                from zipfile import ZipFile
+
                 selected_num = int(selected_folder)-1
-                folder_name = folders[selected_num]
+                folder_name = backups[selected_num]
 
                 # first delete existing files
                 for file_path in self.backup_files:
@@ -362,11 +368,12 @@ class Setup():
                         os.remove(file_path)
 
                 # copy files into folder
-                for file_path in self.backup_files:
-                    copy_file_from_backup(file_path, folder_name)
+                with ZipFile(folder_name, 'r') as zip:
+                    # extracting all the files
+                    zip.extractall()
 
-                show_message('✅Done! Imported "'+folder_name +
-                             '" ('+get_size('setup_backup/'+folder_name)+')')
+                show_message('✅Done! Imported "'+folder_name.split('setup_backup__')[1].split('.zip')[0] +
+                             '" ('+get_size(folder_name)+')')
 
             except:
                 show_message(
