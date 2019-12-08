@@ -774,6 +774,7 @@ class Event(models.Model):
         while int_UNIX_time < int_UNIX_end:
             print('LOG: --> Create event on UNIX time '+str(int_UNIX_time))
             self.pk = None
+            self.str_slug = None
             self.save()
 
             print('LOG: --> Add many hosts for new instance')
@@ -880,6 +881,11 @@ class Event(models.Model):
             if not self.str_slug:
                 self.str_slug = urllib.parse.quote(
                     'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
+                counter=0
+                while Event.objects.filter(str_slug=self.str_slug).exists()==True:
+                    counter+=1
+                    self.str_slug = urllib.parse.quote(
+                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', '')+str(counter))
 
             print('LOG: --> Save lat/lon if not exist yet')
             if not self.float_lat:
