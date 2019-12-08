@@ -228,7 +228,10 @@ class MeetingNote(models.Model):
             print('Removed keyword - '+keyword)
 
     def __str__(self):
-        return self.text_date
+        if self.text_date:
+            return self.text_date
+        else:
+            return 'New MeetingNote'
 
     def updateCreatedBasedOnName(self):
         import time
@@ -251,6 +254,7 @@ class MeetingNote(models.Model):
         self.save()
 
     def import_from_wiki(self, page):
+        from getConfig import get_config
         import requests
 
         if not get_config('BASICS.WIKI.API_URL'):
@@ -263,7 +267,6 @@ class MeetingNote(models.Model):
         if MeetingNote.objects.filter(text_date=self.text_date).exists() == False:
             # remove all links
             from bs4 import BeautifulSoup
-            from getConfig import get_config
 
             response_json = requests.get(
                 get_config('BASICS.WIKI.API_URL')+'?action=parse&page='+page+'&format=json').json()['parse']

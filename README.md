@@ -64,7 +64,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - address, map & opening hours
 
 <br/><br/>
-[<img src="https://media.giphy.com/media/PhZ4vnwqJSuidLycQH/source.gif">](https://media.giphy.com/media/PhZ4vnwqJSuidLycQH/source.gif)
+<img src="./readme_images/screenshot_landingpage.png" >
 
 <br/><br/>
 <img alt="ℹ️About section, tell your hackerspace’s story" src="./readme_images/heading_about.png" id="about" >
@@ -73,8 +73,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - how to participate
 - your hackerspace history
 
-
-[<img src="https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif">](https://media.giphy.com/media/ejJlMZGeFhQ2kzBtuv/source.gif)
+<img src="./readme_images/screenshot_about.png" >
 
 <br/><br/>
 <img alt="🔍Search everything, everywhere" src="./readme_images/heading_search.png" id="search" >
@@ -88,7 +87,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - spaces
 - social media channels
 
-[<img src="https://media.giphy.com/media/PhZXasQcgHTOLzSrZX/source.gif">](https://media.giphy.com/media/PhZXasQcgHTOLzSrZX/source.gif)
+<img src="./readme_images/screenshot_search.png" >
 
 <br/><br/>
 <img alt="🗓Create & see all your events" src="./readme_images/heading_events.png" id="events" >
@@ -96,7 +95,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - auto import existing events from [Meetup](https://www.meetup.com/) and your [Wiki](https://www.mediawiki.org/wiki/MediaWiki), via [Cronjob](./cronjobs.txt)
 - allow community members to create new events directly via the website (which then get automatically posted to your [Meetup group](https://www.meetup.com/) and [Discourse](https://discourse.org/) as well)
 
-[<img src="https://media.giphy.com/media/hU47h8DA0FY4k0L1DV/source.gif">](https://media.giphy.com/media/hU47h8DA0FY4k0L1DV/source.gif)
+<img src="./readme_images/screenshot_events.png" >
 
 <br/><br/>
 <img alt="🖼All photos in one place" src="./readme_images/heading_photos.png" id="photos" >
@@ -104,7 +103,9 @@ I mean… do you really need anything else to convince your hackerspace communit
 - from [Twitter](https://twitter.com/), [Instagram](https://www.instagram.com/), your [Wiki](https://www.mediawiki.org/wiki/MediaWiki) & [Flickr](https://flickr.com/)
 - including preview of the connected social media posts
 - sort by "Latest", "Oldest" or "Random" - to explore more of your Hackerspace's history!
+- always see the latest photos on the landingpage (automatically updated every minute)
 
+<img src="./readme_images/screenshot_photos.png" >
 
 <br/><br/>
 <img alt="🛠Show your projects" src="./readme_images/heading_projects.png" id="projects" >
@@ -112,7 +113,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - auto import projects from your [Discourse group](https://discourse.org/)
 - link to the project section of your [Discourse group](https://discourse.org/) to allow people to create new projects
 
-[<img src="https://media.giphy.com/media/Urynrna0njBO8aOcHV/source.gif">](https://media.giphy.com/media/Urynrna0njBO8aOcHV/source.gif)
+<img src="./readme_images/screenshot_projects.png" >
 
 
 <br/><br/>
@@ -120,7 +121,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 
 - list all your spaces & most important machines
 
-[<img src="https://media.giphy.com/media/KZ44vfSHmTEbqIuLun/source.gif">](https://media.giphy.com/media/KZ44vfSHmTEbqIuLun/source.gif)
+<img src="./readme_images/screenshot_spaces_machines.png" >
 
 
 <br/><br/>
@@ -131,8 +132,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - presenter/note taker mode - to allow everyone to see what the current topic is (and how long the meeting is already going on)
 - use #hashtags to tag keywords - which get extracted automatically when you finish a meeting
 
-[<img src="https://media.giphy.com/media/gHEtvxEFLcoViOzgTU/source.gif">](https://media.giphy.com/media/gHEtvxEFLcoViOzgTU/source.gif)
-
+<img src="./readme_images/screenshot_meeting_notes.png" >
 
 <br/><br/>
 <img alt="👥Consensus Items" src="./readme_images/heading_consensus.png" id="consensus" >
@@ -140,9 +140,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - auto import consensus items from your [Discourse group](https://discourse.org/)
 - link to the consensus items section of your [Discourse group](https://discourse.org/) to allow people to create new projects
 
-
-[<img src="https://media.giphy.com/media/QYjC6A5guL3dLnWovQ/source.gif">](https://media.giphy.com/media/QYjC6A5guL3dLnWovQ/source.gif)
-
+<img src="./readme_images/screenshot_consensus.png" >
 
 <br/><br/>
 <img alt="💲Tell people how to donate" src="./readme_images/heading_donate.png" id="donate" >
@@ -150,7 +148,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 - donation infos accessible from every page
 - links to donate money, hardware or organize or volunteer an event
 
-[<img src="https://media.giphy.com/media/kHqtT44bciusHqgwUf/source.gif">](https://media.giphy.com/media/kHqtT44bciusHqgwUf/source.gif)
+<img src="./readme_images/screenshot_donate.png" >
 
 
 <br/><br/>
