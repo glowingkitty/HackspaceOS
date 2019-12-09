@@ -101,3 +101,44 @@
         box-shadow: 0 0px 47px 0 rgba(181, 1, 197, 1);
     }
 }
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes CatMoving {
+    0% {
+        right: 0px;
+    }
+
+    33% {
+        right: -45px;
+    }
+
+    66% {
+        right: 0px;
+    }
+
+    100% {
+        right: -20px;
+    }
+}
+
+@keyframes CatMoving {
+    0% {
+        transform: rotate(-25deg);
+        right: -45px;
+    }
+
+    33% {
+        transform: rotate(-45deg);
+        right: 0px;
+    }
+
+    66% {
+        transform: rotate(-30deg);
+        right: -20px;
+    }
+
+    100% {
+        transform: rotate(-25deg);
+        right: -45px;
+    }
+}

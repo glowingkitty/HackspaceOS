@@ -87,6 +87,34 @@
     background-image: url('../images/plus.svg');
 }
 
+.button__donate_cta {
+    cursor: pointer;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: fixed;
+    left: auto;
+    top: 30px;
+    width: 92px;
+    height: 200px;
+    z-index: 100;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.button__donate_cta.cat {
+    background-image: url('../images/donate/cat.png');
+    -webkit-animation: CatMoving 20s infinite;
+    /* Safari 4.0 - 8.0 */
+    animation: CatMoving 20s infinite;
+}
+
+.button__donate_cta:hover {
+    width: 140px;
+    height: 250px;
+}
+
+
 .button__donate {
     cursor: pointer;
     position: fixed;

@@ -40,6 +40,8 @@
             "HARDWARE": null
         },
 
+        "DONATION_CTA": null,
+
         "DONATIONS_TAX_DEDUCTIBLE": true,
 
         "EMBEDDED_MAP_URL": null,

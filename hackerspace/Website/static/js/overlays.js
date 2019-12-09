@@ -24,3 +24,10 @@ function closeOverlays() {
         document.getElementById('dark_overlay').classList.remove('block')
     }, 200)
 }
+
+function hideDonateCTA(button) {
+    button.style.right = '-100px'
+    setTimeout(() => {
+        button.style.display = 'none'
+    }, 200);
+}
