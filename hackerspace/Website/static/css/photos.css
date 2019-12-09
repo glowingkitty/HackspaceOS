@@ -72,6 +72,11 @@
     color: white
 }
 
+.photo_details_overlay.google_photos {
+    background-color: #ffffffc4;
+    color: black
+}
+
 .photo_preview {
     background-position: 50% 50%;
     background-size: cover;
@@ -113,6 +118,10 @@
 
 .photo_source.wiki {
     background-image: url('../images/photo_gallery/wiki.png');
+}
+
+.photo_source.google_photos {
+    background-image: url('../images/photo_gallery/google-photos.svg');
 }
 
 .photo_description {

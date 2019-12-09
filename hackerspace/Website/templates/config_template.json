@@ -217,11 +217,14 @@
         "__info__1": "Where can we find images on Flickr about your hackerspace? We automatically save the photo URLs to your Photo database (not the actual photos).",
         "FLICKR_URL": null,
 
-        "__info__2": "What hashtag do people use on Twitter and Instagram when they talk about your hackerspace? We automatically save the posts & photo URLs to your Photo database (not the actual photos).",
+        "__info__2": "Where can we find images Google Photos about your hackerspace? We automatically save the photo URLs to your Photo database (not the actual photos).",
+        "GOOGLE_PHOTOS_ALBUM_URLS": [],
+
+        "__info__3": "What hashtag do people use on Twitter and Instagram when they talk about your hackerspace? We automatically save the posts & photo URLs to your Photo database (not the actual photos).",
         "HASHTAG": null,
 
-        "__info__3": "How do you communicate online in your community? Via Discourse? Or Slack? Or someting else?",
-        "__info__3__example": {
+        "__info__4": "How do you communicate online in your community? Via Discourse? Or Slack? Or someting else?",
+        "__info__4__example": {
             "name": "Discuss",
             "url": "https://discuss.noisebridge.info/"
         },

@@ -42,6 +42,7 @@ class Command(BaseCommand):
         Photo.objects.import_from_instagram()
         Photo.objects.import_from_instagram_tag()
         Photo.objects.import_from_flickr()
+        Photo.objects.import_from_google_photos()
 
         show_message(
             '✅ Done! I updated the database')

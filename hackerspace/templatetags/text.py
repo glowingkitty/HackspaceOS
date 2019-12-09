@@ -86,3 +86,8 @@ def STR__first_name(text):
 @register.filter
 def STR__remove_hash(text):
     return text.split('#')[1]
+
+
+@register.filter
+def STR__class_name(text):
+    return text.lower().replace(' ', '_')

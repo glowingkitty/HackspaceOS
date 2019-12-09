@@ -11,9 +11,12 @@ def boolean_is_image(image_url):
         return False
 
 
-def boolean_element_exists(browser, class_name):
+def boolean_element_exists(browser, selector):
     try:
-        browser.find_element_by_class_name(class_name)
+        if selector.startswith('//'):
+            browser.find_element_by_xpath(selector)
+        else:
+            browser.find_element_by_class_name(selector)
         return True
     except:
         return False
@@ -208,6 +211,78 @@ class PhotoSet(models.QuerySet):
 
     def oldest(self):
         return self.order_by('int_UNIXtime_created')
+
+    def import_from_google_photos(self):
+        print('LOG: import_from_google_photos()')
+        from hackerspace.models.meetingnotes import startChrome
+        import time
+        import requests
+        from getConfig import get_config
+        from dateutil.parser import parse
+        from datetime import datetime
+        from selenium.webdriver.common.action_chains import ActionChains
+        from selenium.webdriver.common.keys import Keys
+
+        # check if google photos urls exist
+        GOOGLE_URLS = get_config('SOCIAL.GOOGLE_PHOTOS_ALBUM_URLS')
+        if len(GOOGLE_URLS) > 0:
+            show_message(
+                '✅ Found GOOGLE_PHOTOS_ALBUM_URLS - Start importing photos from Google Photos ...')
+            time.sleep(2)
+        else:
+            show_message(
+                'WARNING: Can\'t find GOOGLE_PHOTOS_ALBUM_URLS in your config.json. Will skip importing photos from Google Photos for now.')
+            time.sleep(4)
+            return
+
+        for URL in GOOGLE_URLS:
+            if requests.get(URL).status_code == 200:
+                browser = startChrome(True, URL)
+
+                # open first image
+                browser.find_elements_by_class_name('rtIMgb.fCPuz')[0].click()
+                time.sleep(4)
+
+                # open info window
+                browser.find_element_by_xpath('//*[@title="Info"]').click()
+                time.sleep(4)
+
+                while boolean_element_exists(browser,'//*[@aria-label="View next photo"]')==True:
+
+                    info_window = browser.find_element_by_class_name('Q77Pt.eejsDc')
+                    str_date = info_window.find_element_by_class_name('R9U8ab').get_attribute('innerHTML')
+                    str_time = info_window.find_element_by_class_name('sprMUb').get_attribute('innerHTML').replace('Yesterday, ','').replace('Today, ','')
+
+                    # get image
+                    url_image = browser.find_element_by_xpath('//*[@jsname="uLHQEd"]').get_attribute('src')
+
+                    # get date
+                    image_date = parse(str_date+', '+str_time)
+
+                    if Photo.objects.filter(url_image=url_image).exists() == False:
+                        Photo(
+                            url_image=url_image,
+                            url_post=browser.current_url,
+                            str_source='Google Photos',
+                            int_UNIXtime_created=round(
+                                datetime.timestamp(image_date))
+                        ).save()
+                        print('LOG: --> New photo saved')
+                    else:
+                        print('LOG: --> Photo exist. Skipped...')
+
+                    # next photo
+                    actions = ActionChains(browser)
+                    actions.send_keys(Keys.RIGHT)
+                    actions.perform()
+                    time.sleep(6)
+
+                print('LOG: --> Done! saved all photos.')
+
+            else:
+                show_message(
+                    'WARNING: I can\'t access your Google Album. Is the URL correct? Will skip importing photos from this album for now.')
+                time.sleep(4)
 
     def import_from_twitter(self):
         print('LOG: import_from_twitter()')
