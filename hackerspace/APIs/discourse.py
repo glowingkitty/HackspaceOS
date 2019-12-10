@@ -22,16 +22,36 @@ def discourse_search(query, limit=5):
     return results
 
 
+def BOOLEAN__API_access_works():
+    log('BOOLEAN__API_access_works()')
+    if BOOLEAN__key_exists('DISCOURSE.API_KEY') == False:
+        log('--> Failed: DISCOURSE.API_KEY not set')
+        return None
+
+    response = requests.get(DISCOURSE_URL+'notifications.json',
+                            headers={
+                                'content-type': 'multipart/form-data'
+                            }, params={
+                                'api_key': STR__get_key('DISCOURSE.API_KEY'),
+                                'api_username': STR__get_key('DISCOURSE.API_USERNAME'),
+                            })
+    if response.status_code == 200:
+        return True
+    else:
+        print(response.status_code)
+        print(response.json())
+        return False
+
+
 def create_category(name):
     log('create_category()')
     response_json = requests.post(DISCOURSE_URL+'categories.json', json={
-        "name": name,
+        'name': name,
     }).json()
     print(response_json)
 
 
 def create_post(str_headline, str_text, str_category):
-    # TODO test with API key
     log('create_post()')
     if BOOLEAN__key_exists('DISCOURSE.API_KEY') == False:
         log('--> Failed: DISCOURSE.API_KEY not set')
@@ -41,13 +61,14 @@ def create_post(str_headline, str_text, str_category):
     response = requests.post(DISCOURSE_URL+'posts.json',
                              headers={
                                  'content-type': 'application/json'
-                             }, json={
-                                 "Api-Key": STR__get_key('DISCOURSE.API_KEY'),
-                                 "Api-Username": STR__get_key('DISCOURSE.API_USERNAME'),
-                                 "title": str_headline,
-                                 "topic_id": random.randint(3000, 9000),
-                                 "raw": str_text,
-                                 "category": str_category
+                             }, params={
+                                 'api_key': STR__get_key('DISCOURSE.API_KEY'),
+                                 'api_username': STR__get_key('DISCOURSE.API_USERNAME'),
+                                 'title': str_headline,
+                                 'raw': str_text,
+                                 'category': get_category_id(str_category)
+                                 # TODO add event details
+                                 #  'event': {'start': '2019-12-13T15:00:00+00:00', 'end': '2019-12-13T19:00:00+00:00'}
                              })
     if response.status_code == 200:
         return DISCOURSE_URL+'/t/'+str(response.json()['id'])
@@ -56,11 +77,23 @@ def create_post(str_headline, str_text, str_category):
         print(response.json())
 
 
-def get_categories():
+def get_categories(output='list'):
     log('get_categories()')
-    response_json = requests.get(
-        DISCOURSE_URL+'categories.json', headers={'Accept': 'application/json'}).json()
-    return [x['slug'] for x in response_json['category_list']['categories']]
+    response = requests.get(
+        DISCOURSE_URL+'categories.json', headers={'Accept': 'application/json'})
+    if output == 'list' and response.status_code == 200:
+        return [x['slug'] for x in response.json()['category_list']['categories']]
+    else:
+        return response.json()
+
+
+def get_category_id(str_name):
+    categories = get_categories(output='json')['category_list']['categories']
+    for category in categories:
+        if category['name'] == str_name or category['slug'] == str_name:
+            return category['id']
+    else:
+        return None
 
 
 def get_category_posts(category, all_pages=False):

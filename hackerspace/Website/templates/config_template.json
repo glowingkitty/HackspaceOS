@@ -91,6 +91,10 @@
         "__info__0": "Please enter your slug, not the full URL: https://www.meetup.com/{{ MEETUP_GROUP }}/",
         "MEETUP_GROUP": null,
 
+        "DISCOURSE_EVENTS_CATEGORY": "events",
+
+        "DISCOURSE_AND_MEETUP_EVENT_FOOTER_HTML": null,
+
         "__info__1": "Which additional meetup groups organize events at your hackerspace? https://www.meetup.com/{{ group_name }}/",
         "EXTRA_MEETUP_GROUPS": [],
         "__info__2": "What is the default space/room for events in your hackerspace?",

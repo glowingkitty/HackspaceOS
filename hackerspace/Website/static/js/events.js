@@ -41,13 +41,17 @@ function checkForOverlappingEvents() {
     }
 
     // check event space
-    let event_space = document.getElementById('event_space').value
-    if (!event_space) {
-        return
+    if (document.getElementById('event_space')) {
+        var event_space = document.getElementById('event_space').value
+        if (!event_space) {
+            return
+        }
+    } else {
+        var event_space = null
     }
 
     // make server request and check if overlapping events exist
-    axios.get('/get/?what=event_overlap&date=' + event_date + '&time=' + event_time + '&duration=' + event_duration + '&space=' + event_space)
+    axios.get('/get/?what=event_overlap&date=' + event_date + '&time=' + event_time + '&duration=' + event_duration + (event_space ? '&space=' + event_space : ''))
         .then(function (response) {
             if (response.data.int_overlapping_events > 0) {
                 document.getElementById('overlapping_events').innerHTML = response.data.html
@@ -138,11 +142,11 @@ function new_event(url_image) {
                 'date': document.getElementById('event_date').value,
                 'time': document.getElementById('event_time').value,
                 'duration': document.getElementById('event_duration').value,
-                'space': document.getElementById('event_space').value,
+                'space': document.getElementById('event_space') ? document.getElementById('event_space').value : null,
                 'photo': url_image,
                 'description': document.getElementById('event_description').value,
                 'location': document.getElementById('event_location').value,
-                'guilde': document.getElementById('event_guilde').value,
+                'guilde': document.getElementById('event_guilde') ? document.getElementById('event_guilde').value : null,
                 'hosts': document.getElementById('added_hosts').value,
                 'repeating': document.getElementById('repeating').value,
                 'repeating_up_to': document.getElementById('upto_date').value,
@@ -177,7 +181,7 @@ function publish_event(button) {
     if (!document.getElementById('event_duration').value) {
         return alert('"Duration" is missing')
     }
-    if (!document.getElementById('event_space').value) {
+    if (document.getElementById('event_space') && !document.getElementById('event_space').value) {
         return alert('"Space" is missing')
     }
     if (!document.getElementById('event_description').value) {
@@ -205,7 +209,7 @@ function publish_event(button) {
         document.getElementById('event_date').value.includes('<script>') ||
         document.getElementById('event_time').value.includes('<script>') ||
         document.getElementById('event_duration').value.includes('<script>') ||
-        document.getElementById('event_space').value.includes('<script>') ||
+        (document.getElementById('event_space') ? document.getElementById('event_space').value.includes('<script>') : false) ||
         document.getElementById('event_description').value.includes('<script>') ||
         document.getElementById('event_location').value.includes('<script>') ||
         document.getElementById('added_hosts').value.includes('<script>') ||

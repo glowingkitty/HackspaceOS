@@ -245,8 +245,19 @@ class Setup():
                                  'Where is your hackerspace GIT repo hosted? So others can suggest changes to your code. (please enter the full URL)', 'WEBSITE', 'WEBSITE_GIT')
         self.config = set_secret(self.config, later_then_config,
                                  'What domain will you use for your new hackerspace website? (Just the domain. Example: "noisebridge.net")', 'WEBSITE', 'DOMAIN')
-        # try to auto find the wiki api url, else ask for it
+
         show_message('One second...')
+        # auto generate the event footer for discourse and meetup
+        if self.config['WEBSITE']['DOMAIN'] and self.config['BASICS']['NAME']:
+            self.config['EVENTS']['DISCOURSE_AND_MEETUP_EVENT_FOOTER_HTML'] =\
+                '<br>------------------<br>'\
+                '<br>'+self.config['BASICS']['NAME']+' is funded by YOUR donations. '\
+                'So if you want to support '+self.config['BASICS']['NAME']+' - donations are always welcomed - '\
+                'money, hardware or time (by organizing or volunteering an event). '\
+                'Visit https://' + \
+                self.config['WEBSITE']['DOMAIN']+' for more details.'
+
+        # try to auto find the wiki api url, else ask for it
         if self.config['WEBSITE']['DOMAIN'] and requests.get('https://'+self.config['WEBSITE']['DOMAIN']+'/api.php').status_code == 200:
             self.config['BASICS']['WIKI']['API_URL'] = 'https://' + \
                 self.config['WEBSITE']['DOMAIN']+'/api.php'

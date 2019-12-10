@@ -725,7 +725,7 @@ class Event(models.Model):
     def publish(self):
         log('event.publish()')
         self.boolean_approved=True
-        self.save()
+        super(Event, self).save()
 
         self.create_discourse_event()
         self.create_meetup_event()
@@ -797,7 +797,12 @@ class Event(models.Model):
     def create_discourse_event(self):
         log('event.create_discourse_event()')
         from hackerspace.APIs.discourse import create_post
-        self.url_discourse_event = create_post(self.str_name,self.text_description,'classes')
+        from getConfig import get_config
+        footer_html = get_config('EVENTS.DISCOURSE_AND_MEETUP_EVENT_FOOTER_HTML')
+        self.url_discourse_event = create_post(
+            str(self),
+            self.text_description+(footer_html if footer_html else ''),
+            get_config('EVENTS.DISCOURSE_EVENTS_CATEGORY'))
         super(Event, self).save()
         log('--> return event')
         return self

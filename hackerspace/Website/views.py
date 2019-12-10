@@ -436,8 +436,7 @@ def get_view(request):
         str_date = request.GET.get('date', None)
         str_time = request.GET.get('time', None)
         str_duration = request.GET.get('duration', None)
-        str_space = request.GET.get('space', None)
-        if str_date and str_time and str_duration and str_space:
+        if str_date and str_time and str_duration:
             from hackerspace.Website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
             
             overlapping_events = Event.objects.JSON__overlapping_events(
