@@ -8,6 +8,7 @@ from hackerspace.tools.tools import make_description_sentence
 from hackerspace.Website.search import search
 from getKey import STR__get_key,BOOLEAN__key_exists
 from getConfig import get_config
+from hackerspace.log import log
 
 def get_view_response(request, page, sub_page, hashname):
     context = {
@@ -246,7 +247,7 @@ def get_view_response(request, page, sub_page, hashname):
 
 
 def get_page_response(request, page, sub_page=None):
-    print('LOG: get_page_response(request,page={},sub_page={})'.format(page,sub_page))
+    log('get_page_response(request,page={},sub_page={})'.format(page,sub_page))
     page = page
     hash_name = request.build_absolute_uri().split(
         '#')[1] if '#' in request.build_absolute_uri() else None
@@ -258,29 +259,29 @@ def get_page_response(request, page, sub_page=None):
 
 
 def landingpage_view(request):
-    print('LOG: landingpage_view(request)')
+    log('landingpage_view(request)')
     return get_page_response(request, 'landingpage')
 
 
 def values_view(request):
-    print('LOG: values_view(request)')
+    log('values_view(request)')
     return get_page_response(request, 'values')
 
 
 def meetings_view(request):
-    print('LOG: meetings_view(request)')
+    log('meetings_view(request)')
     return get_page_response(request, 'meetings')
 
 
 def meeting_present_view(request):
-    print('LOG: meeting_present_view(request)')
+    log('meeting_present_view(request)')
     if not MeetingNote.objects.current():
         return HttpResponseRedirect('/meetings')
     return get_page_response(request, 'meeting_present')
 
 
 def meeting_view(request, sub_page):
-    print('LOG: meeting_view(request,sub_page={})'.format(sub_page))
+    log('meeting_view(request,sub_page={})'.format(sub_page))
     # if meeting not found, redirect to all meetings page
     if not MeetingNote.objects.filter(text_date=sub_page).exists():
         return HttpResponseRedirect('/meetings')
@@ -288,7 +289,7 @@ def meeting_view(request, sub_page):
 
 
 def meeting_end_view(request):
-    print('LOG: meeting_end_view(request)')
+    log('meeting_end_view(request)')
     current_meeting = MeetingNote.objects.current()
     if current_meeting:
         current_meeting.end()
@@ -303,12 +304,12 @@ def meeting_end_view(request):
 
 
 def guildes_view(request):
-    print('LOG: guildes_view(request)')
+    log('guildes_view(request)')
     return get_page_response(request, 'guildes')
 
 
 def guilde_view(request, sub_page):
-    print('LOG: guilde_view(request, {})'.format(sub_page))
+    log('guilde_view(request, {})'.format(sub_page))
     sub_page = 'guilde/'+sub_page
     # if guilde not found, redirect to all guildes page
     if not Guilde.objects.filter(str_slug=sub_page).exists():
@@ -317,12 +318,12 @@ def guilde_view(request, sub_page):
 
 
 def spaces_view(request):
-    print('LOG: spaces_view(request)')
+    log('spaces_view(request)')
     return get_page_response(request, 'spaces')
 
 
 def space_view(request, sub_page):
-    print('LOG: space_view(request, {})'.format(sub_page))
+    log('space_view(request, {})'.format(sub_page))
     sub_page = 'space/'+sub_page
     # if space not found, redirect to all spaces page
     if not Space.objects.filter(str_slug=sub_page).exists():
@@ -331,12 +332,12 @@ def space_view(request, sub_page):
 
 
 def machines_view(request):
-    print('LOG: machines_view(request)')
+    log('machines_view(request)')
     return get_page_response(request, 'machines')
 
 
 def machine_view(request, sub_page):
-    print('LOG: machine_view(request, {})'.format(sub_page))
+    log('machine_view(request, {})'.format(sub_page))
     sub_page = 'machine/'+sub_page
     # if space not found, redirect to all spaces page
     if not Machine.objects.filter(str_slug=sub_page).exists():
@@ -345,12 +346,12 @@ def machine_view(request, sub_page):
 
 
 def projects_view(request):
-    print('LOG: projects_view(request)')
+    log('projects_view(request)')
     return get_page_response(request, 'projects')
 
 
 def project_view(request, sub_page):
-    print('LOG: project_view(request, {})'.format(sub_page))
+    log('project_view(request, {})'.format(sub_page))
     sub_page = 'project/'+sub_page
     # if space not found, redirect to all spaces page
     if not Project.objects.filter(str_slug=sub_page).exists():
@@ -359,31 +360,31 @@ def project_view(request, sub_page):
 
 
 def consensus_view(request):
-    print('LOG: consensus_view(request)')
+    log('consensus_view(request)')
     return get_page_response(request, 'consensus')
 
 def photos_view(request):
-    print('LOG: photos_view(request)')
+    log('photos_view(request)')
     return get_page_response(request, 'photos')
 
 def events_view(request):
-    print('LOG: events_view(request)')
+    log('events_view(request)')
     return get_page_response(request, 'events')
 
 def events_json_view(request):
-    print('LOG: events_json_view(request)')
+    log('events_json_view(request)')
     return Event.objects.QUERYSET__upcoming().RESPONSE__JSON()
 
 def event_new_view(request):
-    print('LOG: event_new_view(request)')
+    log('event_new_view(request)')
     return get_page_response(request, 'event_new')
 
 
 def event_view(request, sub_page):
-    print('LOG: event_view(request, {})'.format(sub_page))
+    log('event_view(request, {})'.format(sub_page))
     return_json = False
     if sub_page.endswith('.json'):
-        print('LOG: --> detected .json at end of URL')
+        log('--> detected .json at end of URL')
         sub_page = sub_page.replace('.json','')
         return_json = True
         
@@ -394,7 +395,7 @@ def event_view(request, sub_page):
     
     # if .json at end of url, return json, else page
     if return_json==True:
-        print('LOG: --> return JsonResponse')
+        log('--> return JsonResponse')
         return JsonResponse(Event.objects.filter(str_slug=sub_page).first().json_data)
 
     else:
@@ -402,7 +403,7 @@ def event_view(request, sub_page):
 
 
 def get_view(request):
-    print('LOG: get_view(request)')
+    log('get_view(request)')
     in_space = request.COOKIES.get('in_space')
     marry_messages = []
     response = None
@@ -498,12 +499,12 @@ def get_view(request):
         response = JsonResponse({'error': 'no "what" defined'})
         response.status_code = 404
 
-    print('LOG: --> return response')
+    log('--> return response')
     return response
 
 
 def load_more_view(request):
-    print('LOG: load_more_view(request)')
+    log('load_more_view(request)')
     from hackerspace.Website.views_helper_functions import JSON_RESPONSE_more_results,JSON_RESPONSE_more_photos
 
     if request.GET.get('what', None) and request.GET.get('from', None):
@@ -534,12 +535,12 @@ def load_more_view(request):
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404
 
-    print('LOG: --> return response')
+    log('--> return response')
     return response
 
 
 def save_view(request):
-    print('LOG: save_view(request)')
+    log('save_view(request)')
     if request.GET.get('keyword', None) and request.GET.get('origin', None) and MeetingNote.objects.filter(text_date=request.GET.get('origin', None).split('/')[1]).exists():
         meeting = MeetingNote.objects.filter(
             text_date=request.GET.get('origin', None).split('/')[1]).first()
@@ -550,12 +551,12 @@ def save_view(request):
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404
 
-    print('LOG: --> return response')
+    log('--> return response')
     return response
 
 
 def remove_view(request):
-    print('LOG: remove_view(request)')
+    log('remove_view(request)')
     if request.GET.get('keyword', None) and request.GET.get('origin', None) and MeetingNote.objects.filter(text_date=request.GET.get('origin', None).split('/')[1]).exists():
         meeting = MeetingNote.objects.filter(
             text_date=request.GET.get('origin', None).split('/')[1]).first()
@@ -566,12 +567,12 @@ def remove_view(request):
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404
 
-    print('LOG: --> return response')
+    log('--> return response')
     return response
 
 
 def search_view(request):
-    print('LOG: search_view(request)')
+    log('search_view(request)')
     search_results = search(request.GET.get('q', None),
                             request.GET.get('filter', None))
     response = JsonResponse(
@@ -588,11 +589,11 @@ def search_view(request):
         }
     )
 
-    print('LOG: --> return response')
+    log('--> return response')
     return response
 
 def new_view(request):
-    print('LOG: new_view(request)')
+    log('new_view(request)')
 
     if request.GET.get('what', None) == 'meeting':
         new_meeting = MeetingNote()
@@ -677,7 +678,7 @@ def new_view(request):
                 'https://'+DOMAIN+'/'+new_event.str_slug
                 )
         else:
-            print('LOG: --> Request not sent via hackerspace domain. Skipped notifying via Slack.')
+            log('--> Request not sent via hackerspace domain. Skipped notifying via Slack.')
 
         # if user is signed in and event autoapproved - direct to event page, else show info
         response = JsonResponse(
@@ -686,13 +687,13 @@ def new_view(request):
             }
         )
 
-    print('LOG: --> return response')
+    log('--> return response')
     return response
 
 
 
 def upload_view(request,what):
-    print('LOG: upload_view(request,what={})'.format(what))
+    log('upload_view(request,what={})'.format(what))
 
     if what == 'event-image':
         if request.FILES['images[0]'].content_type!='image/jpeg' and request.FILES['images[0]'].content_type!='image/png':
@@ -721,22 +722,22 @@ def upload_view(request,what):
                 s3.Bucket(STR__get_key('AWS.S3.BUCKET_NAME')).put_object(Key=image.name, Body=image,ACL='public-read')
                 response = JsonResponse({'url_image': 'https://'+AWS_S3_URL+'/'+image.name})
             else:
-                print('LOG: --> AWS secrets are missing. Couldnt upload image.')
+                log('--> AWS secrets are missing. Couldnt upload image.')
                 response = JsonResponse({'url_image': None})
 
-    print('LOG: --> return response')
+    log('--> return response')
     return response
 
 
 def approve_event_view(request):
-    print('LOG: approve_event_view(request)')
+    log('approve_event_view(request)')
 
     if request.user.is_authenticated()==False:
-        print('LOG: --> Failed: User not logged in')
+        log('--> Failed: User not logged in')
         response = JsonResponse({'success': False})
         response.status_code = 403
     elif not request.GET.get('str_slug', None) or Event.objects.filter(boolean_approved=False,str_slug=request.GET.get('str_slug', None)).exists()==False:
-        print('LOG: --> Failed: Result not found')
+        log('--> Failed: Result not found')
         response = JsonResponse({'success': False})
         response.status_code = 404
     else:
@@ -747,7 +748,7 @@ def approve_event_view(request):
         event = Event.objects.filter(boolean_approved=False,str_slug=request.GET.get('str_slug', None)).first()
 
         upcoming_events = Event.objects.filter(boolean_approved=False,str_name=event.str_name).all()
-        print('LOG: --> Approve all upcoming events')
+        log('--> Approve all upcoming events')
         for event in upcoming_events:
             event.boolean_approved=True
             event.save()
@@ -759,15 +760,15 @@ def approve_event_view(request):
         response = JsonResponse({'success': True})
         response.status_code = 200
 
-    print('LOG: --> return response')
+    log('--> return response')
     return response
 
 
 def delete_event_view(request):
-    print('LOG: delete_event_view(request)')
+    log('delete_event_view(request)')
 
     if not request.GET.get('str_slug', None) or Event.objects.filter(str_slug=request.GET.get('str_slug', None)).exists()==False:
-        print('LOG: --> Failed: Result not found')
+        log('--> Failed: Result not found')
         response = JsonResponse({'success': False})
         response.status_code = 404
     else:
@@ -776,7 +777,7 @@ def delete_event_view(request):
         # approve event and all upcoming ones
         event = Event.objects.filter(str_slug=request.GET.get('str_slug', None)).first()
 
-        print('LOG: --> Delete all upcoming events')
+        log('--> Delete all upcoming events')
         Event.objects.filter(str_name=event.str_name).delete()
 
         # notify via slack that event was deleted and by who
@@ -786,5 +787,5 @@ def delete_event_view(request):
         response = JsonResponse({'success': True})
         response.status_code = 200
 
-    print('LOG: --> return response')
+    log('--> return response')
     return response

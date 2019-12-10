@@ -1,5 +1,8 @@
+from hackerspace.log import log
+
+
 def JSON_RESPONSE_more_results(request, template_path, queryset):
-    print('LOG: JSON_RESPONSE_more_results(request, template_path, queryset)')
+    log('JSON_RESPONSE_more_results(request, template_path, queryset)')
     from django.http import JsonResponse
     from django.template.loader import get_template
 
@@ -15,7 +18,7 @@ def JSON_RESPONSE_more_results(request, template_path, queryset):
     start_from = int(request.GET.get('from', None))
     upt_to = int(start_from+10)
 
-    print('LOG: --> return JsonResponse')
+    log('--> return JsonResponse')
     return JsonResponse({
         'html': get_template('components/body/'+template_path).render({
             'all_results': queryset[start_from:upt_to],
@@ -27,7 +30,7 @@ def JSON_RESPONSE_more_results(request, template_path, queryset):
 
 
 def JSON_RESPONSE_more_photos(request):
-    print('LOG: JSON_RESPONSE_more_photos(request)')
+    log('JSON_RESPONSE_more_photos(request)')
     from django.http import JsonResponse
     from django.template.loader import get_template
     from hackerspace.models import Photo
@@ -43,7 +46,7 @@ def JSON_RESPONSE_more_photos(request):
     elif request.GET.get('type', None) == 'random':
         queryset = Photo.objects.random()
 
-    print('LOG: --> return JsonResponse')
+    log('--> return JsonResponse')
     return JsonResponse({
         'html': get_template('components/body/photos_list.html').render({
             'photos': queryset[start_from:upt_to] if request.GET.get('type', None) != 'random' else queryset,
@@ -65,27 +68,27 @@ def DATETIME__from_date_and_time_STR(str__date, str__time):
     else:
         datetime_input = pytz.timezone(TIMEZONE_STRING).localize(
             datetime.strptime(str(str__date+' '+str__time.replace(' ', '')), "%Y-%m-%d %H:%M"))
-    print('LOG: --> return DATETIME')
+    log('--> return DATETIME')
     return datetime_input
 
 
 def INT__UNIX_from_date_and_time_STR(str__date, str__time):
-    print('LOG: INT__UNIX_from_date_and_time_STR(str__date={},str__time={})'.format(
+    log('INT__UNIX_from_date_and_time_STR(str__date={},str__time={})'.format(
         str__date, str__time))
     from datetime import datetime
 
-    print('LOG: --> get datetime from string')
+    log('--> get datetime from string')
     datetime_input = DATETIME__from_date_and_time_STR(str__date, str__time)
 
-    print('LOG: --> datetime to UNIX time')
+    log('--> datetime to UNIX time')
     int_timestamp = round(datetime.timestamp(datetime_input))
 
-    print('LOG: --> return INT')
+    log('--> return INT')
     return int_timestamp
 
 
 def INT__duration_minutes(str_duration):
     hours = int(str_duration.split(':')[0])
     minutes = int(str_duration.split(':')[1])
-    print('LOG: --> return INT')
+    log('--> return INT')
     return (hours*60)+minutes

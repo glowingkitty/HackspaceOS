@@ -2,9 +2,10 @@ from django.core import serializers
 from django.db import models
 from getConfig import get_config
 from asci_art import show_message
+from hackerspace.log import log
 
 def INT__getWeekday(number):
-    print('LOG: INT__getWeekday(number={})'.format(number))
+    log('INT__getWeekday(number={})'.format(number))
     days = {
         0: 'Mon',
         1: 'Tue',
@@ -18,7 +19,7 @@ def INT__getWeekday(number):
 
 
 def RESULT__updateTime(result):
-    print('LOG: RESULT__updateTime(result={})'.format(result))
+    log('RESULT__updateTime(result={})'.format(result))
     import time
 
     # update time
@@ -29,7 +30,7 @@ def RESULT__updateTime(result):
 
 
 def RESULT__extractSpace(json_meetup_result):
-    print('LOG: RESULT__extractSpace(json_meetup_result)')
+    log('RESULT__extractSpace(json_meetup_result)')
     from hackerspace.models import Space
     from getConfig import get_config
 
@@ -50,7 +51,7 @@ def RESULT__extractSpace(json_meetup_result):
 
 
 def RESULT__extractGuilde(json_meetup_result):
-    print('LOG: RESULT__extractGuilde(json_meetup_result)')
+    log('RESULT__extractGuilde(json_meetup_result)')
     from hackerspace.models import Guilde
     from getConfig import get_config
 
@@ -58,43 +59,43 @@ def RESULT__extractGuilde(json_meetup_result):
 
     for str_keyword in EVENTS_GUILDES_OVERWRITE:
         if str_keyword in json_meetup_result['name']:
-            print('LOG: --> {} found in result.name'.format(str_keyword))
-            print('LOG: --> return guilde')
+            log('--> {} found in result.name'.format(str_keyword))
+            log('--> return guilde')
             return Guilde.objects.filter(str_name=EVENTS_GUILDES_OVERWRITE[str_keyword]).first()
     else:
-        print('LOG: --> return None')
+        log('--> return None')
         return None
 
 
 def INT__timezoneToOffset(timezone_name):
-    print('LOG: INT__timezoneToOffset(timezone_name={})'.format(timezone_name))
+    log('INT__timezoneToOffset(timezone_name={})'.format(timezone_name))
     from datetime import datetime
     import pytz
 
-    print('LOG: --> return INT')
+    log('--> return INT')
     return int(datetime.now(pytz.timezone(timezone_name)).utcoffset().total_seconds()*1000)
 
 
 def LIST__offsetToTimezone(offset_ms):
-    print('LOG: LIST__offsetToTimezone(offset_ms={})'.format(offset_ms))
+    log('LIST__offsetToTimezone(offset_ms={})'.format(offset_ms))
     from datetime import datetime
     import pytz
 
     now = datetime.now(pytz.utc)  # current time
-    print('LOG: --> return LIST')
+    log('--> return LIST')
     return [tz.zone for tz in map(pytz.timezone, pytz.all_timezones_set)
             if now.astimezone(tz).utcoffset().total_seconds()*1000 == offset_ms][0]
 
 
 def STR__extractTimezone(json_meetup_result):
-    print('LOG: STR__extractTimezone(json_meetup_result)')
+    log('STR__extractTimezone(json_meetup_result)')
     from getConfig import get_config
     TIMEZONE_STRING = get_config('PHYSICAL_SPACE.TIMEZONE_STRING')
 
     if 'utc_offset' in json_meetup_result and json_meetup_result['utc_offset'] != INT__timezoneToOffset(TIMEZONE_STRING):
         return LIST__offsetToTimezone(json_meetup_result['utc_offset'])
 
-    print('LOG: --> return STR')
+    log('--> return STR')
     return TIMEZONE_STRING
 
 def get_lat_lon_and_location(str_location):
@@ -129,7 +130,7 @@ def STR__get_timezone_from_lat_lon(lat,lon):
         return None
 
 def createEvent(event):
-    print('LOG: createEvent(event)')
+    log('createEvent(event)')
     from getConfig import get_config
     HACKERSPACE_NAME = get_config('BASICS.NAME')
     HACKERSPACE_ADDRESS = get_config('PHYSICAL_SPACE.ADDRESS')
@@ -172,14 +173,14 @@ def createEvent(event):
 
 class EventSet(models.QuerySet):
     def QUERYSET__next_meeting(self):
-        print('LOG: Event.objects.QUERYSET__next_meeting(self)')
+        log('Event.objects.QUERYSET__next_meeting(self)')
         import time
 
-        print('LOG: --> return QUERYSET')
+        log('--> return QUERYSET')
         return self.filter(str_name='Noisebridge General Meeting', int_UNIXtime_event_start__gt=time.time()).order_by('int_UNIXtime_event_start').first()
 
     def QUERYSET__in_timeframe(self, from_UNIX_time, to_UNIX_time, str_space_name=None):
-        print('LOG: Event.objects.QUERYSET__in_timeframe(self, from_UNIX_time={}, to_UNIX_time={}, str_space_name={})'.format(from_UNIX_time,to_UNIX_time,str_space_name))
+        log('Event.objects.QUERYSET__in_timeframe(self, from_UNIX_time={}, to_UNIX_time={}, str_space_name={})'.format(from_UNIX_time,to_UNIX_time,str_space_name))
         from django.db.models import Q
         from hackerspace.models import Space
         if str_space_name:
@@ -209,11 +210,11 @@ class EventSet(models.QuerySet):
         ).exclude(
             boolean_approved=False
         )
-        print('LOG: --> return QUERYSET ({} results)'.format(output.count()))
+        log('--> return QUERYSET ({} results)'.format(output.count()))
         return output
 
     def JSON__overlapping_events(self, new_event_UNIX_time, new_event_duration_minutes, space):
-        print('LOG: Event.objects.JSON__overlapping_events(self, new_event_UNIX_time={}, new_event_duration_minutes={}, space={})'.format(new_event_UNIX_time, new_event_duration_minutes, space))
+        log('Event.objects.JSON__overlapping_events(self, new_event_UNIX_time={}, new_event_duration_minutes={}, space={})'.format(new_event_UNIX_time, new_event_duration_minutes, space))
         import pytz
         from datetime import datetime, timedelta
         from getConfig import get_config
@@ -271,7 +272,7 @@ class EventSet(models.QuerySet):
 
         your_event_minutes_distance = (
             (new_event_UNIX_time - times[0]['int_UNIX_time'])/60)+60
-        print('LOG: --> return JSON ({} overlapping events)'.format(len(list_overlapping_events)))
+        log('--> return JSON ({} overlapping events)'.format(len(list_overlapping_events)))
         return {
             'times': times,
             'your_event': {
@@ -282,68 +283,68 @@ class EventSet(models.QuerySet):
         }
 
     def QUERYSET__in_space(self, one_space=None, str_space=None):
-        print('LOG: Event.objects.QUERYSET__in_space(self, one_space={}, str_space={})'.format(one_space, str_space))
+        log('Event.objects.QUERYSET__in_space(self, one_space={}, str_space={})'.format(one_space, str_space))
         if one_space:
-            print('LOG: --> return QUERYSET')
+            log('--> return QUERYSET')
             return self.filter(one_space=one_space)
         elif str_space:
-            print('LOG: --> return QUERYSET')
+            log('--> return QUERYSET')
             return self.filter(one_space__str_name=str_space)
         else:
             return []
 
     def QUERYSET__by_host(self, one_host=None, str_host=None):
-        print('LOG: Event.objects.QUERYSET__by_host(self, one_host={}, str_host={})'.format(one_host, str_host))
+        log('Event.objects.QUERYSET__by_host(self, one_host={}, str_host={})'.format(one_host, str_host))
         if one_host:
-            print('LOG: --> return QUERYSET')
+            log('--> return QUERYSET')
             return self.filter(many_hosts=one_host)
         elif str_host:
-            print('LOG: --> return QUERYSET')
+            log('--> return QUERYSET')
             return self.filter(many_hosts__str_name__contains=str_host)
         else:
             return []
 
     def QUERYSET__by_guilde(self, one_guilde=None, str_guilde=None):
-        print('LOG: Event.objects.QUERYSET__by_guilde(self, one_guilde={}, str_guilde={})'.format(one_guilde, str_guilde))
+        log('Event.objects.QUERYSET__by_guilde(self, one_guilde={}, str_guilde={})'.format(one_guilde, str_guilde))
         if one_guilde:
-            print('LOG: --> return QUERYSET')
+            log('--> return QUERYSET')
             return self.filter(one_guilde=one_guilde)
         elif str_guilde:
-            print('LOG: --> return QUERYSET')
+            log('--> return QUERYSET')
             return self.filter(one_guilde__str_name__contains=str_guilde)
         else:
             return []
 
     def as_list(self):
-        print('LOG: Event.objects.as_list(self)')
+        log('Event.objects.as_list(self)')
         for event in self.all():
             print(event)
 
     def publish(self):
-        print('LOG: Event.objects.publish(self)')
+        log('Event.objects.publish(self)')
         for event in self.all():
             event.publish()
 
     def QUERYSET__not_approved(self):
-        print('LOG: Event.objects.QUERYSET__not_approved(self)')
-        print('LOG: --> return QUERYSET')
+        log('Event.objects.QUERYSET__not_approved(self)')
+        log('--> return QUERYSET')
         return self.filter(boolean_approved=False)
         
     def QUERYSET__older_then_24h(self):
         import time
-        print('LOG: Event.objects.QUERYSET__older_then_24h(self)')
-        print('LOG: --> return QUERYSET')
+        log('Event.objects.QUERYSET__older_then_24h(self)')
+        log('--> return QUERYSET')
         return self.filter(int_UNIXtime_created__lte=time.time()-(24*60*60))
 
     def QUERYSET__upcoming(self,boolean_approved=False):
-        print('LOG: Event.objects.QUERYSET__upcoming(self,boolean_approved={})'.format(boolean_approved))
+        log('Event.objects.QUERYSET__upcoming(self,boolean_approved={})'.format(boolean_approved))
         import time
 
-        print('LOG: --> return QUERYSET')
+        log('--> return QUERYSET')
         return self.filter(int_UNIXtime_event_end__gt=time.time()).exclude(boolean_approved=boolean_approved).order_by('int_UNIXtime_event_start')
 
     def LIST__in_minutes(self, minutes, name_only=False):
-        print('LOG: Event.objects.LIST__in_minutes(self,minutes={},name_only={})'.format(minutes, name_only))
+        log('Event.objects.LIST__in_minutes(self,minutes={},name_only={})'.format(minutes, name_only))
         import pytz
         from datetime import datetime, timedelta
         from getConfig import get_config
@@ -361,14 +362,14 @@ class EventSet(models.QuerySet):
                 events_in_x_minutes.append(event)
 
         if name_only == True:
-            print('LOG: --> return LIST')
+            log('--> return LIST')
             return [x.str_name.replace('&', 'and').replace('@', 'at').replace('|', '').replace('#', 'sharp') for x in events_in_x_minutes]
 
-        print('LOG: --> return LIST')
+        log('--> return LIST')
         return events_in_x_minutes
 
     def LIST__search_results(self):
-        print('LOG: Event.objects.LIST__search_results(self)')
+        log('Event.objects.LIST__search_results(self)')
         results_list = []
         added = []
         results = self.all()
@@ -382,7 +383,7 @@ class EventSet(models.QuerySet):
                     'menu_heading': 'menu_h_events'
                 })
                 added.append(result.str_name)
-        print('LOG: --> return LIST')
+        log('--> return LIST')
         return results_list
 
     def RESPONSE__JSON(self):
@@ -398,22 +399,22 @@ class EventSet(models.QuerySet):
         )
 
     def announce(self):
-        print('LOG: Event.objects.announce(self)')
+        log('Event.objects.announce(self)')
         self.announce_via_marry()
         self.announce_via_flaschentaschen()
 
     def announce_via_flaschentaschen(self):
-        print('LOG: Event.objects.announce_via_flaschentaschen(self)')
+        log('Event.objects.announce_via_flaschentaschen(self)')
         for event in self.all()[:3]:
             event.announce_via_flaschentaschen()
 
     def announce_via_marry(self):
-        print('LOG: Event.objects.announce_via_marry(self)')
+        log('Event.objects.announce_via_marry(self)')
         for event in self.all()[:3]:
             event.announce_via_marry()
 
     def import_from_meetup(self, slug=get_config('EVENTS.MEETUP_GROUP')):
-        print('LOG: Event.objects.import_from_meetup(self,slug={})'.format(slug))
+        log('Event.objects.import_from_meetup(self,slug={})'.format(slug))
         import requests
         from getConfig import get_config
         import time
@@ -436,14 +437,14 @@ class EventSet(models.QuerySet):
                                                 'photo-host': 'public'
                                             }).json()
 
-                print('LOG: --> Saving '+str(len(json_our_group)) +
+                log('--> Saving '+str(len(json_our_group)) +
                     ' events from our hackerspace group')
 
                 for event in json_our_group:
                     if slug == get_config('EVENTS.MEETUP_GROUP') or get_config('BASICS.NAME') in event['name']:
                         createEvent(event)
 
-                print('LOG: --> Done! Saved '+str(len(json_our_group)) + ' events from Meetup')
+                log('--> Done! Saved '+str(len(json_our_group)) + ' events from Meetup')
 
             else:
                 show_message(
@@ -546,25 +547,25 @@ class Event(models.Model):
         return self.str_name+' | '+self.datetime_range
 
     def RESULT__next_event(self):
-        print('LOG: event.RESULT__next_event()')
-        print('LOG: --> return QUERYSET')
+        log('event.RESULT__next_event()')
+        log('--> return QUERYSET')
         return Event.objects.QUERYSET__upcoming().filter(str_name=self.str_name).exclude(str_slug=self.str_slug).first()
 
     # TODO: figure out based on what (keywords?) similar events should be filtered
     def similar_events(self):
-        print('LOG: event.similar_events()')
-        print('LOG: --> return None')
+        log('event.similar_events()')
+        log('--> return None')
         return None
 
     @property
     def str_menu_heading(self):
-        print('LOG: event.str_menu_heading')
-        print('LOG: --> return STR')
+        log('event.str_menu_heading')
+        log('--> return STR')
         return 'menu_h_events'
 
     @property
     def str_series(self):
-        print('LOG: event.str_series')
+        log('event.str_series')
         import json
 
         if not self.text_series_timing:
@@ -575,11 +576,11 @@ class Event(models.Model):
         json_series_timing = json.loads('{'+text_series_timing+'}')
         if 'weekly' in json_series_timing:
             weekday_num = json_series_timing['weekly']['days_of_week'][0]
-            print('LOG: --> return STR')
+            log('--> return STR')
             return 'every '+(json_series_timing['weekly']['interval']+'nd' if json_series_timing['weekly']['interval'] > 1 else '')+INT__getWeekday(weekday_num)
 
         if 'monthly' in json_series_timing:
-            print('LOG: --> return STR')
+            log('--> return STR')
             return 'every month'
     
     @property
@@ -615,36 +616,36 @@ class Event(models.Model):
 
     @property
     def str_relative_time(self):
-        print('LOG: event.str_relative_time')
+        log('event.str_relative_time')
         import time
 
         timestamp = self.int_UNIXtime_event_start
 
         # if date within next 5 minutes
         if timestamp < time.time() and self.int_UNIXtime_event_end > time.time():
-            print('LOG: --> return STR')
+            log('--> return STR')
             return 'Now'
 
         # in next 60 minutes
         elif timestamp <= time.time()+(60*60):
             minutes_in_future = int((timestamp - time.time())/60)
-            print('LOG: --> return STR')
+            log('--> return STR')
             return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
 
         # in next 12 hours
         elif timestamp <= time.time()+(60*60*12):
             hours_in_future = int(((timestamp - time.time())/60)/60)
-            print('LOG: --> return STR')
+            log('--> return STR')
             return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
 
         # else if in next 6 days, return name of day
         elif timestamp <= time.time()+(60*60*24*6):
             name_of_weekday = self.datetime_start.strftime("%A")
-            print('LOG: --> return STR')
+            log('--> return STR')
             return name_of_weekday
 
         else:
-            print('LOG: --> return None')
+            log('--> return None')
             return None
 
     @property
@@ -656,47 +657,47 @@ class Event(models.Model):
         # in next 60 minutes
         if int_UNIX_published_in <= time.time()+(60*60):
             minutes_in_future = int((int_UNIX_published_in - time.time())/60)
-            print('LOG: --> return STR')
+            log('--> return STR')
             return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
 
         # in next 24 hours
         elif int_UNIX_published_in <= time.time()+(24*60*60):
             hours_in_future = int(((int_UNIX_published_in - time.time())/60)/60)
-            print('LOG: --> return STR')
+            log('--> return STR')
             return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
 
     @property
     def datetime_start(self):
-        print('LOG: event.datetime_start')
+        log('event.datetime_start')
         import pytz
         from datetime import datetime
 
         if not self.int_UNIXtime_event_start:
-            print('LOG: --> return None')
+            log('--> return None')
             return None
         local_timezone = pytz.timezone(self.str_timezone)
         local_time = datetime.fromtimestamp(
             self.int_UNIXtime_event_start, local_timezone)
-        print('LOG: --> return DATETIME')
+        log('--> return DATETIME')
         return local_time
 
     @property
     def datetime_end(self):
-        print('LOG: event.datetime_end')
+        log('event.datetime_end')
         from datetime import timedelta
 
         if not self.datetime_start:
-            print('LOG: --> return None')
+            log('--> return None')
             return None
 
-        print('LOG: --> return DATETIME')
+        log('--> return DATETIME')
         return self.datetime_start+timedelta(minutes=self.int_minutes_duration)
 
     @property
     def datetime_range(self):
-        print('LOG: event.datetime_range')
+        log('event.datetime_range')
         if not (self.datetime_start and self.datetime_end):
-            print('LOG: --> return None')
+            log('--> return None')
             return None
 
         datetime_start = self.datetime_start
@@ -718,11 +719,11 @@ class Event(models.Model):
             end_time = end_time[1:]
 
         # if runtime > 24 hours, show num of days instead
-        print('LOG: --> return STR')
+        log('--> return STR')
         return month+' '+day_num+' | '+start_time+(' - ' + end_time if self.int_minutes_duration < (24*60) else ' | '+str(round(self.int_minutes_duration/60/24))+' days')
 
     def publish(self):
-        print('LOG: event.publish()')
+        log('event.publish()')
         self.boolean_approved=True
         self.save()
 
@@ -731,21 +732,21 @@ class Event(models.Model):
         self.create_volunteer_wish()
 
     def create_volunteer_wish(self):
-        print('LOG: event.create_volunteer_wish()')
+        log('event.create_volunteer_wish()')
         from hackerspace.APIs.discourse import create_post
         self.url_discourse_wish = create_post('Volunteers for "'+self.str_name+'"',self.text_description,'classes')
         super(Event, self).save()
-        print('LOG: --> return event')
+        log('--> return event')
         return self
 
     def create_upcoming_instances(self):
-        print('LOG: event.create_upcoming_instances()')
+        log('event.create_upcoming_instances()')
         import time
         if not self.str_series_repeat_how_often:
-            print('LOG: --> return')
+            log('--> return')
             return self
         
-        print('LOG: --> Define days_increase')
+        log('--> Define days_increase')
         if self.str_series_repeat_how_often=='weekly':
             days_increase = 7
 
@@ -755,7 +756,7 @@ class Event(models.Model):
         elif self.str_series_repeat_how_often=='monthly':
             days_increase = 30
         
-        print('LOG: --> Define start & end time of while statement')
+        log('--> Define start & end time of while statement')
         original_pk = self.pk
         original_slug = self.str_slug
         original_event_start = self.int_UNIXtime_event_start
@@ -772,12 +773,12 @@ class Event(models.Model):
             int_UNIX_end = self.int_series_endUNIX
 
         while int_UNIX_time < int_UNIX_end:
-            print('LOG: --> Create event on UNIX time '+str(int_UNIX_time))
+            log('--> Create event on UNIX time '+str(int_UNIX_time))
             self.pk = None
             self.str_slug = None
             self.save()
 
-            print('LOG: --> Add many hosts for new instance')
+            log('--> Add many hosts for new instance')
             for host in hosts:
                 self.many_hosts.add(host)
 
@@ -786,7 +787,7 @@ class Event(models.Model):
             self.int_UNIXtime_event_end += (days_increase*24*60*60)
         
 
-        print('LOG: --> Back to original values of first event')
+        log('--> Back to original values of first event')
         self.pk = original_pk
         self.str_slug = original_slug
         self.int_UNIXtime_event_start = original_event_start
@@ -794,23 +795,23 @@ class Event(models.Model):
         return self
 
     def create_discourse_event(self):
-        print('LOG: event.create_discourse_event()')
+        log('event.create_discourse_event()')
         from hackerspace.APIs.discourse import create_post
         self.url_discourse_event = create_post(self.str_name,self.text_description,'classes')
         super(Event, self).save()
-        print('LOG: --> return event')
+        log('--> return event')
         return self
     
     def create_meetup_event(self):
         # API Doc: https://www.meetup.com/meetup_api/docs/:urlname/events/#create
-        print('LOG: event.create_meetup_event()')
+        log('event.create_meetup_event()')
         import requests
         from getKey import STR__get_key
         from getConfig import get_config
 
         if not STR__get_key('MEETUP.ACCESS_TOKEN'):
-            print('LOG: --> No MEETUP.ACCESS_TOKEN')
-            print('LOG: --> return None')
+            log('--> No MEETUP.ACCESS_TOKEN')
+            log('--> return None')
             return None
 
         response = requests.post('https://api.meetup.com/'+get_config('EVENTS.MEETUP_GROUP')+'/events',
@@ -843,22 +844,22 @@ class Event(models.Model):
         if response.status_code==200:
             self.url_meetup_event = response.json()['link']
             self.save()
-            print('LOG: --> return event')
+            log('--> return event')
             return self
         else:
-            print('LOG: --> '+str(response.status_code)+' response: '+str(response.json()))
+            log('--> '+str(response.status_code)+' response: '+str(response.json()))
 
 
     def save(self, *args, **kwargs):
         try:
-            print('LOG: event.save()')
+            log('event.save()')
             import urllib.parse
             from hackerspace.models.events import RESULT__updateTime
             from hackerspace.models import Space, Person
             import bleach
             from getConfig import get_config
 
-            print('LOG: --> clean from scripts')
+            log('--> clean from scripts')
             if self.str_name:
                 self.str_name = bleach.clean(self.str_name)
             if self.text_description:
@@ -887,13 +888,13 @@ class Event(models.Model):
                     self.str_slug = urllib.parse.quote(
                     'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', '')+str(counter))
 
-            print('LOG: --> Save lat/lon if not exist yet')
+            log('--> Save lat/lon if not exist yet')
             if not self.float_lat:
                 self.str_location, self.float_lat, self.float_lon = get_lat_lon_and_location(self.str_location)
 
             super(Event, self).save(*args, **kwargs)
 
-            print('LOG: --> Save hosts')
+            log('--> Save hosts')
             if not self.many_hosts.exists():
                 EVENTS_HOSTS_OVERWRITE = get_config('EVENTS.EVENTS_HOSTS_OVERWRITE')
                 # search in predefined event hosts in YOURHACKERSPACE
@@ -904,12 +905,12 @@ class Event(models.Model):
                             if host:
                                 self.many_hosts.add(host)
         except:
-            print('LOG: --> ERROR: coudlnt save event - '+str(self))
+            log('--> ERROR: coudlnt save event - '+str(self))
 
 
 
     def create(self, json_content):
-        print('LOG: event.create(json_content)')
+        log('event.create(json_content)')
         try:
             obj = Event.objects.get(
                 str_name=json_content['str_name'],
@@ -918,16 +919,16 @@ class Event(models.Model):
             for key, value in json_content.items():
                 setattr(obj, key, value)
             super(Event, obj).save()
-            print('LOG: --> Updated "'+obj.str_name+' | ' + obj.datetime_range+'"')
+            log('--> Updated "'+obj.str_name+' | ' + obj.datetime_range+'"')
 
         except Event.DoesNotExist:
             obj = Event(**json_content)
             obj.save()
-            print('LOG: --> Created "'+obj.str_name+' | ' + obj.datetime_range+'"')
+            log('--> Created "'+obj.str_name+' | ' + obj.datetime_range+'"')
 
     # Noisebridge specific
     def announce_via_marry(self):
-        print('LOG: event.announce_via_marry()')
+        log('event.announce_via_marry()')
         import time
         from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.marry import speak
 
@@ -939,6 +940,6 @@ class Event(models.Model):
             speak(str(self.str_name)+' starts at '+start_time, None)
 
     def announce_via_flaschentaschen(self):
-        print('LOG: event.announce_via_flaschentaschen()')
+        log('event.announce_via_flaschentaschen()')
         from hackerspace.hackerspace_specific.noisebridge_sf_ca_us.flaschentaschen import showText
         showText(self)

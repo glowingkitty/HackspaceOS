@@ -1,4 +1,5 @@
 from django.db import models
+from hackerspace.log import log
 
 
 class ProjectSet(models.QuerySet):
@@ -36,7 +37,7 @@ class ProjectSet(models.QuerySet):
             if requests.get(DISCOURSE_URL+'/c/projects').status_code == 200:
                 projects = get_category_posts(
                     category='projects', all_pages=True)
-                print('LOG: --> process {} projects'.format(len(projects)))
+                log('--> process {} projects'.format(len(projects)))
                 for project in projects:
                     if project['title'] != 'About the Projects category':
                         Project().create(json_content={

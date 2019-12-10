@@ -1,6 +1,6 @@
 from django.db import models
 from asci_art import show_message
-
+from hackerspace.log import log
 
 def boolean_is_image(image_url):
     image_url = image_url.lower()
@@ -50,10 +50,10 @@ def save_instagram_photos(browser):
                 int_UNIXtime_created=round(datetime.timestamp(parse(browser.find_elements_by_class_name(
                     '_1o9PC.Nzb55')[0].get_attribute("datetime"))))
             ).save()
-            print('LOG: --> New photo saved')
+            log('--> New photo saved')
         else:
             # end script, since photos aren't new
-            print('LOG: --> Photo exists. Skipped...')
+            log('--> Photo exists. Skipped...')
 
         # go to next photo
         browser.find_element_by_class_name(
@@ -113,9 +113,9 @@ def save_twitter_photos(browser):
                     str_source='Twitter',
                     int_UNIXtime_created=int_UNIXtime,
                 ).save()
-                print('LOG: --> New photo saved')
+                log('--> New photo saved')
             else:
-                print('LOG: --> Photo exist. Skipped...')
+                log('--> Photo exist. Skipped...')
 
         # delete tweet from timeline html
         browser.execute_script("""
@@ -126,7 +126,7 @@ def save_twitter_photos(browser):
         images_boxes = browser.find_elements_by_css_selector(
             'div.AdaptiveMedia-photoContainer.js-adaptive-photo')
 
-    print('LOG: --> Finished!!')
+    log('--> Finished!!')
 
 
 def save_wiki_photo(photo):
@@ -136,7 +136,7 @@ def save_wiki_photo(photo):
     from getConfig import get_config
 
     if not get_config('BASICS.WIKI.API_URL'):
-        print('LOG: --> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+        log('--> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
         return
 
     if boolean_is_image(photo['url']) == True:
@@ -155,10 +155,10 @@ def save_wiki_photo(photo):
                 'LOG: --> mw-imagepage-section-linkstoimage not found - coudlnt check if image url is blocked')
 
         if save_image == False:
-            print('LOG: --> Skipped photo. URL on WIKI.PHOTOS_IGNORE_PAGES list')
+            log('--> Skipped photo. URL on WIKI.PHOTOS_IGNORE_PAGES list')
 
         elif Photo.objects.filter(url_post=photo['descriptionurl']).exists() == True:
-            print('LOG: --> Skipped photo. Already exists.')
+            log('--> Skipped photo. Already exists.')
         else:
             try:
                 url_image = browser.find_element_by_class_name(
@@ -174,7 +174,7 @@ def save_wiki_photo(photo):
                 int_UNIXtime_created=round(
                     datetime.timestamp(parse(photo['timestamp']))),
             ).save()
-            print('LOG: --> New photo saved')
+            log('--> New photo saved')
 
         browser.close()
 
@@ -213,7 +213,7 @@ class PhotoSet(models.QuerySet):
         return self.order_by('int_UNIXtime_created')
 
     def import_from_google_photos(self):
-        print('LOG: import_from_google_photos()')
+        log('import_from_google_photos()')
         from hackerspace.models.meetingnotes import startChrome
         import time
         import requests
@@ -267,9 +267,9 @@ class PhotoSet(models.QuerySet):
                             int_UNIXtime_created=round(
                                 datetime.timestamp(image_date))
                         ).save()
-                        print('LOG: --> New photo saved')
+                        log('--> New photo saved')
                     else:
-                        print('LOG: --> Photo exist. Skipped...')
+                        log('--> Photo exist. Skipped...')
 
                     # next photo
                     actions = ActionChains(browser)
@@ -277,7 +277,7 @@ class PhotoSet(models.QuerySet):
                     actions.perform()
                     time.sleep(6)
 
-                print('LOG: --> Done! saved all photos.')
+                log('--> Done! saved all photos.')
 
             else:
                 show_message(
@@ -285,7 +285,7 @@ class PhotoSet(models.QuerySet):
                 time.sleep(4)
 
     def import_from_twitter(self):
-        print('LOG: import_from_twitter()')
+        log('import_from_twitter()')
         from hackerspace.models.meetingnotes import startChrome
         import time
         import requests
@@ -314,7 +314,7 @@ class PhotoSet(models.QuerySet):
         save_twitter_photos(browser)
 
     def import_from_twitter_hashtag(self):
-        print('LOG: import_from_twitter_hashtag()')
+        log('import_from_twitter_hashtag()')
         from hackerspace.models.meetingnotes import startChrome
         import time
         import requests
@@ -346,7 +346,7 @@ class PhotoSet(models.QuerySet):
 
     def import_from_wiki(self):
         # API documentation: https://www.mediawiki.org/wiki/API:Allimages
-        print('LOG: import_from_wiki()')
+        log('import_from_wiki()')
         from getConfig import get_config
         import requests
         import time
@@ -392,11 +392,11 @@ class PhotoSet(models.QuerySet):
             for photo in response_json['query']['allimages']:
                 save_wiki_photo(photo)
 
-        print('LOG: Complete! All photos processed! Now {} photos'.format(
+        log('Complete! All photos processed! Now {} photos'.format(
             Photo.objects.count()))
 
     def import_from_instagram(self):
-        print('LOG: import_from_instagram()')
+        log('import_from_instagram()')
         from hackerspace.models.meetingnotes import startChrome
         import time
         import requests
@@ -431,10 +431,10 @@ class PhotoSet(models.QuerySet):
         # save photos
         save_instagram_photos(browser)
 
-        print('LOG: --> Finished!!')
+        log('--> Finished!!')
 
     def import_from_instagram_tag(self):
-        print('LOG: import_from_instagram_tag()')
+        log('import_from_instagram_tag()')
         from hackerspace.models.meetingnotes import startChrome
         import time
         import requests
@@ -471,7 +471,7 @@ class PhotoSet(models.QuerySet):
         save_instagram_photos(browser)
 
     def import_from_flickr(self):
-        print('LOG: import_from_flickr()')
+        log('import_from_flickr()')
         from hackerspace.models.meetingnotes import startChrome
         import time
         from dateutil.parser import parse
@@ -522,7 +522,7 @@ class PhotoSet(models.QuerySet):
 
                     no_images_found_counter += 1
                     if no_images_found_counter == 5:
-                        print('LOG: --> No more images left. Exit code.')
+                        log('--> No more images left. Exit code.')
                         exit()
 
             # get the first image
@@ -552,9 +552,9 @@ class PhotoSet(models.QuerySet):
                     str_source='Flickr',
                     int_UNIXtime_created=int_UNIXtime,
                 ).save()
-                print('LOG: --> New photo saved')
+                log('--> New photo saved')
             else:
-                print('LOG: --> Photo exist. Skipped...')
+                log('--> Photo exist. Skipped...')
 
             # delete image from feed and go to next one
             browser.execute_script("""
@@ -563,7 +563,7 @@ class PhotoSet(models.QuerySet):
             """)
 
             processed_images += 1
-            print('LOG: -> processed_images: '+str(processed_images))
+            log('-> processed_images: '+str(processed_images))
 
 
 class Photo(models.Model):
@@ -584,7 +584,7 @@ class Photo(models.Model):
 
     @property
     def str_relative_time(self):
-        print('LOG: photo.str_relative_time')
+        log('photo.str_relative_time')
         import time
         from datetime import datetime
 
@@ -593,22 +593,22 @@ class Photo(models.Model):
         # in last 60 minutes
         if timestamp >= time.time()-(60*60):
             minutes_in_past = int((time.time()-timestamp)/60)
-            print('LOG: --> return STR')
+            log('--> return STR')
             return str(minutes_in_past)+' minute'+('s' if minutes_in_past > 1 else '')+' ago'
 
         # in last 24 hours
         elif timestamp >= time.time()-(60*60*24):
             hours_in_past = int(((time.time()-timestamp)/60)/60)
-            print('LOG: --> return STR')
+            log('--> return STR')
             return str(hours_in_past)+' hour'+('s' if hours_in_past > 1 else '')+' ago'
 
         # else if in last 6 days, return number of days ago
         elif timestamp >= time.time()-(60*60*24*6):
             days_in_past = int((((time.time()-timestamp)/60)/60)/24)
-            print('LOG: --> return STR')
+            log('--> return STR')
             return str(days_in_past)+' day'+('s' if days_in_past > 1 else '')+' ago'
 
         # else date string
         else:
-            print('LOG: --> return STR')
+            log('--> return STR')
             return datetime.utcfromtimestamp(timestamp).strftime('%b %d, %Y')

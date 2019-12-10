@@ -1,12 +1,13 @@
 import requests
 from getKey import STR__get_key, BOOLEAN__key_exists
+from hackerspace.log import log
 # see Discourse API - https://docs.discourse.org/
 
 DISCOURSE_URL = STR__get_key('DISCOURSE.DISCOURSE_URL')
 
 
 def discourse_search(query, limit=5):
-    print('LOG: discourse_search()')
+    log('discourse_search()')
     results = []
     response_json = requests.get(
         DISCOURSE_URL+'/search/query.json?term='+query).json()
@@ -22,7 +23,7 @@ def discourse_search(query, limit=5):
 
 
 def create_category(name):
-    print('LOG: create_category()')
+    log('create_category()')
     response_json = requests.post(DISCOURSE_URL+'categories.json', json={
         "name": name,
     }).json()
@@ -31,9 +32,9 @@ def create_category(name):
 
 def create_post(str_headline, str_text, str_category):
     # TODO test with API key
-    print('LOG: create_post()')
+    log('create_post()')
     if BOOLEAN__key_exists('DISCOURSE.API_KEY') == False:
-        print('LOG: --> Failed: DISCOURSE.API_KEY not set')
+        log('--> Failed: DISCOURSE.API_KEY not set')
         return None
 
     import random
@@ -56,14 +57,14 @@ def create_post(str_headline, str_text, str_category):
 
 
 def get_categories():
-    print('LOG: get_categories()')
+    log('get_categories()')
     response_json = requests.get(
         DISCOURSE_URL+'categories.json', headers={'Accept': 'application/json'}).json()
     return [x['slug'] for x in response_json['category_list']['categories']]
 
 
 def get_category_posts(category, all_pages=False):
-    print('LOG: get_category_posts()')
+    log('get_category_posts()')
     response_json = requests.get(
         DISCOURSE_URL+'c/'+category+'.json', headers={'Accept': 'application/json'}).json()
     if all_pages == True:
@@ -82,14 +83,14 @@ def get_category_posts(category, all_pages=False):
 
 
 def get_post_details(slug):
-    print('LOG: get_post_details()')
+    log('get_post_details()')
     response_json = requests.get(
         DISCOURSE_URL+'t/'+slug+'.json', headers={'Accept': 'application/json'})
     return response_json.json()['post_stream']['posts'][0]
 
 
 def get_users(sort='days_visited'):
-    print('LOG: get_users()')
+    log('get_users()')
     results = []
     response_json = requests.get(
         DISCOURSE_URL+'/directory_items.json?period={}&order={}'.format('all', sort), headers={'Accept': 'application/json'}).json()

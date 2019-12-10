@@ -1,8 +1,9 @@
 from django.db import models
+from hackerspace.log import log
 
 
 def startChrome(headless, url):
-    print('LOG: startChrome(headless={}, url={})'.format(headless, url))
+    log('startChrome(headless={}, url={})'.format(headless, url))
     import os
     import sys
     from selenium import webdriver
@@ -52,7 +53,7 @@ class MeetingNoteSet(models.QuerySet):
         from getConfig import get_config
         WIKI_API_URL = get_config('BASICS.WIKI.API_URL')
         if not WIKI_API_URL:
-            print('LOG: --> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+            log('--> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
             return
 
         response_json = requests.get(WIKI_API_URL +
@@ -258,7 +259,7 @@ class MeetingNote(models.Model):
         import requests
 
         if not get_config('BASICS.WIKI.API_URL'):
-            print('LOG: --> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+            log('--> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
             return
 
         self.text_date = page.split('Notes ')[1].replace(' ', '-')

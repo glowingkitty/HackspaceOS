@@ -1,4 +1,5 @@
 from django.db import models
+from hackerspace.log import log
 
 
 class PersonSet(models.QuerySet):
@@ -31,7 +32,7 @@ class PersonSet(models.QuerySet):
 
             if requests.get(DISCOURSE_URL).status_code == 200:
                 users = get_users()
-                print('LOG: --> process {} users'.format(len(users)))
+                log('--> process {} users'.format(len(users)))
                 for user in users:
                     Person().create(json_content={
                         'str_name': user['user']['name'] if user['user']['name'] and user['user']['name'] != '' else user['user']['username'],
