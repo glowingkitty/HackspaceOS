@@ -7,9 +7,9 @@
 
 <div class="header_block sub_page">
     <div class="header_separator"></div>
-    <div class="header_image" {% if selected.url_featured_photo %} style="
-    background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, 0.5)), to(hsla(0, 0%, 100%, 0.5))), url('{{ selected.url_featured_photo }}');
-    background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 100%, 0.5)), url('{{ selected.url_featured_photo }}');
+    <div class="header_image" {% if selected.url_featured_photo or selected.image_featured_photo %} style="
+    background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, 0.5)), to(hsla(0, 0%, 100%, 0.5))), url('{% if selected.url_featured_photo %}{{ selected.url_featured_photo }}{% elif selected.image_featured_photo %}{{ selected.image_featured_photo.url }}{% endif %}');
+    background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 100%, 0.5)), url('{% if selected.url_featured_photo %}{{ selected.url_featured_photo }}{% elif selected.image_featured_photo %}{{ selected.image_featured_photo.url }}{% endif %}');
     " {% endif %}></div>
 </div>
 
@@ -23,8 +23,8 @@
         Want to have the event published earlier? Ask someone at {{ 'BASICS.NAME'|get_config }} with a user account for this website to confirm the event or to create a user account for you.
     </div>
     {% endif %}
-    <div class="sub_heading text_semitransparent">{% if selected.str_relative_time %}{{ selected.str_relative_time }}, {% endif %}{{ selected.datetime_range }}{% if selected.one_space and 'Spaces' in MODULES %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name }}</a>{% endif %}</div>
-    <h2 class="h2 large">{{ selected.str_name|TEXT_replaceLinkCSS|safe }}</h2>
+    <div class="sub_heading text_semitransparent">{% if selected.str_relative_time %}{{ selected.str_relative_time }}, {% endif %}{{ selected.datetime_range }}{% if selected.one_space and 'Spaces' in MODULES %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name_en_US }}</a>{% endif %}</div>
+    <h2 class="h2 large">{{ selected.str_name_en_US|TEXT_replaceLinkCSS|safe }}</h2>
     {% if selected.url_meetup_event %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
     {% endif %}
@@ -36,18 +36,18 @@
     <br>
     <br>
     {% endif %}
-    {% if selected.url_discourse_wish %}
-    <a href="{{ selected.url_discourse_wish }}" target="_blank" class="button__cta secondary inline">Voolunteer</a>
+    {% if selected.url_discourse_event and selected.boolean_looking_for_volunteers == True %}
+    <a href="{{ selected.url_discourse_event }}" target="_blank" class="button__cta secondary inline">Volunteer</a>
     {% endif %}
-    {% if selected.url_meetup_event or selected.url_discourse_wish %}
+    {% if selected.url_meetup_event or selected.boolean_looking_for_volunteers == True %}
     <br>
     <br>
     {% endif %}
-    {% if selected.text_description|length > 350 %}
-    <div id="event_description" class="text_box_max_height">{{ selected.text_description|TEXT_replaceLinkCSS|safe }}</div>
+    {% if selected.text_description_en_US|length > 350 %}
+    <div id="event_description" class="text_box_max_height">{{ selected.text_description_en_US|TEXT_replaceLinkCSS|safe }}</div>
     <div class="inline_link" onclick="showFullDescription('event_description',this)">Show full description</div>
     {% else %}
-    <div>{{ selected.text_description|TEXT_replaceLinkCSS|safe }}</div>
+    <div>{{ selected.text_description_en_US|TEXT_replaceLinkCSS|safe }}</div>
     {% endif %}
 </div>
 
@@ -74,7 +74,7 @@
         {% for host in selected.many_hosts.all %}
         <a class="host_link" href="{{ host.url_discourse }}" target="_blank">
             <div class="host_preview_image" style="background-image: url('{{ host.url_featured_photo }}')"></div>
-            <div>{{ host.str_name|STR__first_name }}</div>
+            <div>{{ host.str_name_en_US|STR__first_name }}</div>
         </a>
         {% endfor %}
     </div>

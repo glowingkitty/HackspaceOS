@@ -18,6 +18,8 @@ from django.urls import path
 from hackerspace.Website import views
 from django.views.generic.base import RedirectView
 from getKey import STR__get_key
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path(STR__get_key('DJANGO.ADMIN_URL')+'/', admin.site.urls),
@@ -82,4 +84,4 @@ urlpatterns = [
 
     path('approve-event', views.approve_event_view, name='approve-event'),
     path('delete-event', views.delete_event_view, name='delete-event')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

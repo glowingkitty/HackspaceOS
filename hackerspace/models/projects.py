@@ -9,7 +9,7 @@ class ProjectSet(models.QuerySet):
         for result in results:
             results_list.append({
                 'icon': 'project',
-                'name': result.str_name,
+                'name': result.str_name_en_US,
                 'url': result.url_discourse
             })
         return results_list
@@ -41,10 +41,10 @@ class ProjectSet(models.QuerySet):
                 for project in projects:
                     if project['title'] != 'About the Projects category':
                         Project().create(json_content={
-                            'str_name': project['title'],
+                            'str_name_en_US': project['title'],
                             'url_featured_photo': project['image_url'] if project['image_url'] and '/uploads' in project['image_url'] else None,
                             'url_discourse': STR__get_key('DISCOURSE.DISCOURSE_URL') + 't/'+project['slug'],
-                            'text_description': project['excerpt'] if 'excerpt' in project else None,
+                            'text_description_en_US': project['excerpt'] if 'excerpt' in project else None,
                             'one_creator': Person.objects.get_discourse_creator(project['slug']),
                             'int_UNIXtime_created': round(datetime.timestamp(parser.parse(project['created_at'])))
                         }
@@ -61,21 +61,23 @@ class ProjectSet(models.QuerySet):
 
 class Project(models.Model):
     objects = ProjectSet.as_manager()
-    str_name = models.CharField(
+    str_name_en_US = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
     url_featured_photo = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Photo URL')
     url_discourse = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Discourse URL')
-    text_description = models.TextField(
-        blank=True, null=True, verbose_name='Description')
+    text_description_en_US = models.TextField(
+        blank=True, null=True, verbose_name='Description en-US')
+    text_description_he_IL = models.TextField(
+        blank=True, null=True, verbose_name='Description he-IL')
     one_creator = models.ForeignKey(
         'Person', related_name="o_project_creator", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Creator')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.str_name
+        return self.str_name_en_US
 
     @property
     def str_menu_heading(self):
@@ -89,11 +91,11 @@ class Project(models.Model):
             for key, value in json_content.items():
                 setattr(obj, key, value)
             obj.save()
-            print('Updated "'+obj.str_name+'"')
+            print('Updated "'+obj.str_name_en_US+'"')
         except Project.DoesNotExist:
             obj = Project(**json_content)
             obj.save()
-            print('Created "'+obj.str_name+'"')
+            print('Created "'+obj.str_name_en_US+'"')
 
     def save(self, *args, **kwargs):
         from hackerspace.models.events import RESULT__updateTime

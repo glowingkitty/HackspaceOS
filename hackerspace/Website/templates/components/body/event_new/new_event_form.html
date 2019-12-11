@@ -23,7 +23,7 @@
     </div>
     {% if 'Spaces' in MODULES %}
     <div class="blocks_inline_50_percent">
-        {% include "components/body/event_new/form_elements/dropdown_field.html" with field_heading="Space" input_id="event_space" onchange="checkForOverlappingEvents()" all_entries=all_spaces default_selected_value=default_space.str_name default_selected_name=default_space.str_name %}
+        {% include "components/body/event_new/form_elements/dropdown_field.html" with field_heading="Space" input_id="event_space" onchange="checkForOverlappingEvents()" all_entries=all_spaces default_selected_value=default_space.str_name_en_US default_selected_name=default_space.str_name_en_US %}
     </div>
     {% endif %}
 </div>
@@ -93,7 +93,7 @@
 <div class="divider_20"></div>
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
 <div class="max_540">
-    <div onclick="publish_event(this)" class="button__cta">Publish event</div>
+    <div onclick="publish_event(this,{% if 'AWS.ACCESS_KEYID'|key_exists %}true{% else %}false{% endif %})" class="button__cta">Publish event</div>
 </div>
 <div class="divider_100"></div>
 

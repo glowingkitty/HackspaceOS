@@ -19,18 +19,18 @@ def getErrorName(error_log):
     lines_length = len(lines)
 
     # go over the last rows and see if Error is in line, if true, save as name
-    str_name = None
+    str_name_en_US = None
     counter = 1
-    while str_name == None and counter < lines_length:
+    while str_name_en_US == None and counter < lines_length:
         last_line = lines_length-counter
         counter += 1
         if 'Error:' in lines[last_line]:
-            str_name = lines[last_line]
+            str_name_en_US = lines[last_line]
             break
-    if not str_name:
-        str_name = 'New Error'
+    if not str_name_en_US:
+        str_name_en_US = 'New Error'
 
-    return str_name
+    return str_name_en_US
 
 
 def clearFromNumbers(message):
@@ -60,7 +60,7 @@ def getErrorDetails(error_log=None, exc_type=None, exc_value=None, tb=None):
         output = prev.tb_frame.f_locals
         error = {
             'text_log': error_log,
-            'str_name': output['exc_value'] if 'exc_value' in output else getErrorName(error_log),
+            'str_name_en_US': output['exc_value'] if 'exc_value' in output else getErrorName(error_log),
             'json_variables': {}
         }
         ignore = ['self', 'options', 'sys', 'traceback',
@@ -81,9 +81,9 @@ class Error(models.Model):
     objects = ErrorSet.as_manager()
     str_error_code = models.CharField(
         max_length=250, unique=True, blank=True, null=True)
-    str_name = models.CharField(max_length=250, blank=True, null=True)
+    str_name_en_US = models.CharField(max_length=250, blank=True, null=True)
     int_count = models.IntegerField(default=0)
-    text_description = models.TextField(blank=True, null=True)
+    text_description_en_US = models.TextField(blank=True, null=True)
     text_description_no_numbers = models.TextField(blank=True, null=True)
     text_context = models.TextField(blank=True, null=True)
     boolean_fixed = models.BooleanField(default=False)
@@ -94,10 +94,10 @@ class Error(models.Model):
     date_updated = models.DateTimeField('last_updated', auto_now=True)
 
     def __str__(self):
-        if self.str_name:
-            return self.str_name
-        elif self.text_description:
-            return self.text_description
+        if self.str_name_en_US:
+            return self.str_name_en_US
+        elif self.text_description_en_US:
+            return self.text_description_en_US_en_US
         else:
             return 'New Error'
 
@@ -123,7 +123,7 @@ class Error(models.Model):
 
         # check if error already exists
         found_error = Error.objects.filter(
-            str_name=new_error_details['str_name']).first()
+            str_name_en_US=new_error_details['str_name_en_US']).first()
 
         # if found_error, update it
         if found_error:
@@ -134,7 +134,7 @@ class Error(models.Model):
                     ','+found_error.text_origins
 
             # overwrite error message
-            found_error.text_description = new_error_details['text_log']
+            found_error.text_description_en_US = new_error_details['text_log']
 
             # add the 5 most recent contexts as examples
             found_error.text_context.insert(0, context)
@@ -150,27 +150,27 @@ class Error(models.Model):
                 notify(json_context={
                     'str_what': 'error_repeated_10',
                     'str_error_code': self.str_error_code,
-                    'str_name': self.str_name
+                    'str_name_en_US': self.str_name
                 })
             elif len(found_error.text_dateUNIXtimes.split(',')) == 100:
                 notify(json_context={
                     'str_what': 'error_repeated_100',
                     'str_error_code': self.str_error_code,
-                    'str_name': self.str_name
+                    'str_name_en_US': self.str_name
                 })
             elif len(found_error.text_dateUNIXtimes.split(',')) == 1000:
                 notify(json_context={
                     'str_what': 'error_repeated_1000',
                     'str_error_code': self.str_error_code,
-                    'str_name': self.str_name
+                    'str_name_en_US': self.str_name
                 })
 
             return found_error
 
         # else create a new entry
         else:
-            self.str_name = new_error_details['str_name']
-            self.text_description = new_error_details['text_log']
+            self.str_name_en_US = new_error_details['str_name_en_US']
+            self.text_description_en_US = new_error_details['text_log']
             self.text_origins = json_context['origin']
             self.text_dateUNIXtimes = str(time.time())
             self.text_context = str(context)
@@ -195,7 +195,7 @@ class Error(models.Model):
             notify(json_context={
                 'str_what': 'error_new',
                 'str_error_code': self.str_error_code,
-                'str_name': self.str_name
+                'str_name_en_US': self.str_name
             })
 
             return self
@@ -203,7 +203,7 @@ class Error(models.Model):
     def save(self, *args, **kwargs):
         self.int_count = len(self.text_dateUNIXtimes.split(','))
 
-        if not self.str_name:
+        if not self.str_name_en_US:
             self = self.create_or_update()
 
         super(Error, self).save(*args, **kwargs)

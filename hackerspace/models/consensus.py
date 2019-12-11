@@ -16,7 +16,7 @@ class ConsensusSet(models.QuerySet):
         for result in results:
             results_list.append({
                 'icon': 'consensus',
-                'name': result.str_name,
+                'name': result.str_name_en_US,
                 'url': result.url_discourse
             })
         return results_list
@@ -43,9 +43,9 @@ class ConsensusSet(models.QuerySet):
                 for consensus_item in consensus_items:
                     if consensus_item['title'] != 'About the Consensus Items category':
                         Consensus().create(json_content={
-                            'str_name': consensus_item['title'],
+                            'str_name_en_US': consensus_item['title'],
                             'url_discourse': STR__get_key('DISCOURSE.DISCOURSE_URL') + 't/'+consensus_item['slug'],
-                            'text_description': consensus_item['excerpt'],
+                            'text_description_en_US': consensus_item['excerpt'],
                             'int_UNIXtime_created': round(datetime.timestamp(parser.parse(consensus_item['created_at']))),
                             'one_creator': Person.objects.get_discourse_creator(consensus_item['slug']),
                         }
@@ -80,10 +80,12 @@ STATUS_CHOICES = (
 
 class Consensus(models.Model):
     objects = ConsensusSet.as_manager()
-    str_name = models.CharField(
+    str_name_en_US = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
-    text_description = models.TextField(
-        blank=True, null=True, verbose_name='Description')
+    text_description_en_US = models.TextField(
+        blank=True, null=True, verbose_name='Description en-US')
+    text_description_he_IL = models.TextField(
+        blank=True, null=True, verbose_name='Description he-IL')
     url_discourse = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Discourse URL')
     one_creator = models.ForeignKey(
@@ -94,7 +96,7 @@ class Consensus(models.Model):
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.str_name
+        return self.str_name_en_US
 
     @property
     def str_menu_heading(self):
@@ -103,18 +105,18 @@ class Consensus(models.Model):
     def create(self, json_content):
         try:
             obj = Consensus.objects.get(
-                str_name=json_content['str_name']
+                str_name_en_US=json_content['str_name_en_US']
             )
             for key, value in json_content.items():
                 setattr(obj, key, value)
             obj = RESULT__updateTime(obj)
             obj.save()
-            print('Updated "'+obj.str_name+'"')
+            print('Updated "'+obj.str_name_en_US+'"')
         except Consensus.DoesNotExist:
             obj = Consensus(**json_content)
             obj = RESULT__updateTime(obj)
             obj.save()
-            print('Created "'+obj.str_name+'"')
+            print('Created "'+obj.str_name_en_US+'"')
 
     def save(self, *args, **kwargs):
         self = RESULT__updateTime(self)

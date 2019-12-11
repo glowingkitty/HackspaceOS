@@ -7,8 +7,8 @@
     {% if overlays != False %}
     <div class="photo_details_overlay {{ photo.str_source|STR__class_name }}">
         <div class="photo_source {{ photo.str_source|STR__class_name }}">{{ photo.str_source }}</div>
-        {% if photo.text_description %}
-        <div class="photo_description">{{ photo.text_description }}</div>
+        {% if photo.text_description_en_US %}
+        <div class="photo_description">{{ photo.text_description_en_US }}</div>
         {% endif %}
         <div class="photo_time">{{ photo.str_relative_time }}</div>
     </div>

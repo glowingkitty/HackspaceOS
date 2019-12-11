@@ -38,7 +38,7 @@ def RESULT__extractSpace(json_meetup_result):
         spaces = Space.objects.all()
 
         for space in spaces.iterator():
-            if space.str_name.lower() in json_meetup_result['how_to_find_us'].lower():
+            if space.str_name_en_US.lower() in json_meetup_result['how_to_find_us'].lower():
                 return space
 
     # else...
@@ -61,7 +61,7 @@ def RESULT__extractGuilde(json_meetup_result):
         if str_keyword in json_meetup_result['name']:
             log('--> {} found in result.name'.format(str_keyword))
             log('--> return guilde')
-            return Guilde.objects.filter(str_name=EVENTS_GUILDES_OVERWRITE[str_keyword]).first()
+            return Guilde.objects.filter(str_name_en_US=EVENTS_GUILDES_OVERWRITE[str_keyword]).first()
     else:
         log('--> return None')
         return None
@@ -146,12 +146,12 @@ def createEvent(event):
         'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['COUNTRYCODE']
 
     Event().create(json_content={
-        'str_name': event['name'],
+        'str_name_en_US': event['name'],
         'int_UNIXtime_event_start': round(event['time']/1000),
         'int_UNIXtime_event_end': round(event['time']/1000)+(event['duration']/1000),
         'int_minutes_duration': ((event['duration']/1000)/60),
         'url_featured_photo': event['featured_photo']['photo_link'] if 'featured_photo' in event else None,
-        'text_description': event['description'],
+        'text_description_en_US': event['description'],
         'str_location': str_location_name+'\n'+str_location_street+'\n'+str_location_zip+', '+str_location_city+', '+str_location_countrycode,
         'one_space': RESULT__extractSpace(event),
         'one_guilde': RESULT__extractGuilde(event),
@@ -177,7 +177,7 @@ class EventSet(models.QuerySet):
         import time
 
         log('--> return QUERYSET')
-        return self.filter(str_name='Noisebridge General Meeting', int_UNIXtime_event_start__gt=time.time()).order_by('int_UNIXtime_event_start').first()
+        return self.filter(str_name_en_US='Noisebridge General Meeting', int_UNIXtime_event_start__gt=time.time()).order_by('int_UNIXtime_event_start').first()
 
     def QUERYSET__in_timeframe(self, from_UNIX_time, to_UNIX_time, str_space_name=None):
         log('Event.objects.QUERYSET__in_timeframe(self, from_UNIX_time={}, to_UNIX_time={}, str_space_name={})'.format(from_UNIX_time,to_UNIX_time,str_space_name))
@@ -264,7 +264,7 @@ class EventSet(models.QuerySet):
                 event.int_UNIXtime_event_start - times[0]['int_UNIX_time'])/60)+60
 
             list_overlapping_events.append({
-                'str_name': event.str_name,
+                'str_name_en_US': event.str_name_en_US,
                 'str_slug': event.str_slug,
                 'int_percent_top_distance': str(round((minutes_distance/(len(times)*60))*100))+'%',
                 'int_percent_height': str(round(event.int_minutes_duration/(len(times)*60)*100))+'%'
@@ -289,7 +289,7 @@ class EventSet(models.QuerySet):
             return self.filter(one_space=one_space)
         elif str_space:
             log('--> return QUERYSET')
-            return self.filter(one_space__str_name=str_space)
+            return self.filter(one_space__str_name_en_US=str_space)
         else:
             return []
 
@@ -300,7 +300,7 @@ class EventSet(models.QuerySet):
             return self.filter(many_hosts=one_host)
         elif str_host:
             log('--> return QUERYSET')
-            return self.filter(many_hosts__str_name__contains=str_host)
+            return self.filter(many_hosts__str_name_en_US__contains=str_host)
         else:
             return []
 
@@ -311,7 +311,7 @@ class EventSet(models.QuerySet):
             return self.filter(one_guilde=one_guilde)
         elif str_guilde:
             log('--> return QUERYSET')
-            return self.filter(one_guilde__str_name__contains=str_guilde)
+            return self.filter(one_guilde__str_name_en_US__contains=str_guilde)
         else:
             return []
 
@@ -363,7 +363,7 @@ class EventSet(models.QuerySet):
 
         if name_only == True:
             log('--> return LIST')
-            return [x.str_name.replace('&', 'and').replace('@', 'at').replace('|', '').replace('#', 'sharp') for x in events_in_x_minutes]
+            return [x.str_name_en_US.replace('&', 'and').replace('@', 'at').replace('|', '').replace('#', 'sharp') for x in events_in_x_minutes]
 
         log('--> return LIST')
         return events_in_x_minutes
@@ -374,15 +374,15 @@ class EventSet(models.QuerySet):
         added = []
         results = self.all()
         for result in results:
-            if not result.str_name in added:
+            if not result.str_name_en_US in added:
                 relative_time = result.str_relative_time
                 results_list.append({
                     'icon': 'event',
-                    'name': result.str_name+'<br>=> '+(relative_time if relative_time else str(result.datetime_start.date())),
+                    'name': result.str_name_en_US+'<br>=> '+(relative_time if relative_time else str(result.datetime_start.date())),
                     'url': '/'+result.str_slug,
                     'menu_heading': 'menu_h_events'
                 })
-                added.append(result.str_name)
+                added.append(result.str_name_en_US)
         log('--> return LIST')
         return results_list
 
@@ -485,7 +485,7 @@ class Event(models.Model):
     )
 
     objects = EventSet.as_manager()
-    str_name = models.CharField(
+    str_name_en_US = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
     str_slug = models.CharField(max_length=250, unique=True, blank=True, null=True)
     boolean_approved = models.BooleanField(default=True)
@@ -498,8 +498,11 @@ class Event(models.Model):
 
     url_featured_photo = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Photo URL')
-    text_description = models.TextField(
-        blank=True, null=True, verbose_name='Description')
+    image_featured_photo = models.ImageField(upload_to ='event_images',blank=True, null=True, verbose_name='Photo')
+    text_description_en_US = models.TextField(
+        blank=True, null=True, verbose_name='Description en-US')
+    text_description_he_IL = models.TextField(
+        blank=True, null=True, verbose_name='Description he-IL')
 
     str_location = models.CharField(
         max_length=250, default=ADDRESS_STRING, verbose_name='Location')
@@ -512,6 +515,8 @@ class Event(models.Model):
         'Guilde', related_name="o_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Guilde')
     many_hosts = models.ManyToManyField(
         'Person', related_name="m_persons", blank=True, verbose_name='Hosts')
+
+    boolean_looking_for_volunteers = models.BooleanField(default=False)
 
     str_series_id = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Series ID')
@@ -543,13 +548,13 @@ class Event(models.Model):
 
     def __str__(self):
         if not self.datetime_range:
-            return self.str_name
-        return self.str_name+' | '+self.datetime_range
+            return self.str_name_en_US
+        return self.str_name_en_US+' | '+self.datetime_range
 
     def RESULT__next_event(self):
         log('event.RESULT__next_event()')
         log('--> return QUERYSET')
-        return Event.objects.QUERYSET__upcoming().filter(str_name=self.str_name).exclude(str_slug=self.str_slug).first()
+        return Event.objects.QUERYSET__upcoming().filter(str_name_en_US=self.str_name_en_US).exclude(str_slug=self.str_slug).first()
 
     # TODO: figure out based on what (keywords?) similar events should be filtered
     def similar_events(self):
@@ -586,7 +591,7 @@ class Event(models.Model):
     @property
     def json_data(self):
         return {
-                'str_name':self.str_name,
+                'str_name_en_US':self.str_name_en_US,
                 'url_hackerspace_event':'https://'+get_config('WEBSITE.DOMAIN')+'/'+self.str_slug,
                 'datetime_start':str(self.datetime_start),
                 'datetime_end':str(self.datetime_end),
@@ -595,12 +600,12 @@ class Event(models.Model):
                 'int_minutes_duration':self.int_minutes_duration,
                 'int_UNIXtime_event_end':self.int_UNIXtime_event_end,
                 'url_featured_photo':self.url_featured_photo,
-                'text_description':self.text_description,
+                'text_description_en_US':self.text_description_en_US,
                 'str_location':self.str_location,
                 'float_lat':self.float_lat,
                 'float_lon':self.float_lon,
-                'str_space':self.one_space.str_name if self.one_space else None,
-                'str_guilde':self.one_guilde.str_name if self.one_guilde else None,
+                'str_space':self.one_space.str_name_en_US if self.one_space else None,
+                'str_guilde':self.one_guilde.str_name_en_US if self.one_guilde else None,
                 'list_hosts':[x.str_name_shortened for x in self.many_hosts.all()],
                 'int_series_startUNIX':self.int_series_startUNIX,
                 'int_series_endUNIX':self.int_series_endUNIX,
@@ -728,16 +733,8 @@ class Event(models.Model):
         super(Event, self).save()
 
         self.create_discourse_event()
-        self.create_meetup_event()
-        self.create_volunteer_wish()
+        # self.create_meetup_event()
 
-    def create_volunteer_wish(self):
-        log('event.create_volunteer_wish()')
-        from hackerspace.APIs.discourse import create_post
-        self.url_discourse_wish = create_post('Volunteers for "'+self.str_name+'"',self.text_description,'classes')
-        super(Event, self).save()
-        log('--> return event')
-        return self
 
     def create_upcoming_instances(self):
         log('event.create_upcoming_instances()')
@@ -797,15 +794,72 @@ class Event(models.Model):
     def create_discourse_event(self):
         log('event.create_discourse_event()')
         from hackerspace.APIs.discourse import create_post
-        from getConfig import get_config
-        footer_html = get_config('EVENTS.DISCOURSE_AND_MEETUP_EVENT_FOOTER_HTML')
+        from django.template.loader import get_template
+
         self.url_discourse_event = create_post(
             str(self),
-            self.text_description+(footer_html if footer_html else ''),
+            get_template('components/discourse/event_post.html').render({
+                'result': self
+            }),
             get_config('EVENTS.DISCOURSE_EVENTS_CATEGORY'))
         super(Event, self).save()
         log('--> return event')
         return self
+
+    def delete_discourse_event(self):
+        log('event.delete_discourse_event()')
+        from hackerspace.APIs.discourse import delete_post
+        if self.url_discourse_event:
+            deleted = delete_post(self.url_discourse_event)
+            if deleted==True:
+                self.url_discourse_event=None
+            super(Event, self).save()
+        log('--> return event')
+        return self
+
+    def delete_discourse_wish(self):
+        log('event.delete_discourse_wish()')
+        from hackerspace.APIs.discourse import delete_post
+        if self.url_discourse_wish:
+            deleted = delete_post(self.url_discourse_wish)
+            if deleted==True:
+                self.url_discourse_wish=None
+            super(Event, self).save()
+        log('--> return event')
+        return self
+
+    def delete_photo(self):
+        log('event.delete_photo()')
+        import boto3
+        from getKey import STR__get_key
+        # if url_featured_photo - delete on AWS
+        if self.url_featured_photo:
+            session = boto3.Session(
+                        aws_access_key_id=STR__get_key('AWS.ACCESS_KEYID'),
+                        aws_secret_access_key=STR__get_key('AWS.SECRET_ACCESS_KEY'),
+                    )
+            s3 = session.resource('s3')
+            s3.delete_object(Bucket=STR__get_key('AWS.S3.BUCKET_NAME'), Key=self.url_featured_photo.split('amazonaws.com/')[1])
+            self.url_featured_photo = None
+            super(Event, self).save()
+            return self
+            
+        # else delete in local folder
+        elif self.image_featured_photo:
+            print('TODO...')
+
+
+    def delete(self):
+        log('event.delete()')
+        # delete discourse posts
+        self.delete_discourse_wish()
+        self.delete_discourse_event()
+
+        # delete uploaded photo
+        self.delete_photo()
+
+        # delete in database
+        super(Event, self).delete()
     
     def create_meetup_event(self):
         # API Doc: https://www.meetup.com/meetup_api/docs/:urlname/events/#create
@@ -825,7 +879,7 @@ class Event(models.Model):
                 'sign': True,
                 'announce': False,
                 'publish_status':'draft',
-                'description': self.text_description,
+                'description': self.text_description_en_US,
                 'duration':self.int_minutes_duration*60*1000,
                 'event_hosts':None,# TODO figure out meetup user IDs and how to add them here
                 'fee':{
@@ -838,7 +892,7 @@ class Event(models.Model):
                 'how_to_find_us':get_config('PHYSICAL_SPACE.ADDRESS')['HOW_TO_FIND_US'],
                 'lat':self.float_lat,
                 'lon':self.float_lon,
-                'name':self.str_name,
+                'name':self.str_name_en_US,
                 'self_rsvp':False,
                 'time': self.int_UNIXtime_event_start,
                 'venue_id':None, #TODO figure out how to get venue id
@@ -865,11 +919,13 @@ class Event(models.Model):
             from getConfig import get_config
 
             log('--> clean from scripts')
-            if self.str_name:
-                self.str_name = bleach.clean(self.str_name)
-            if self.text_description:
+            if self.str_name_en_US:
+                self.str_name_en_US = bleach.clean(self.str_name_en_US)
+            if self.text_description_en_US:
                 if not self.url_meetup_event:
-                    self.text_description = bleach.clean(self.text_description)
+                    self.text_description_en_US = bleach.clean(self.text_description_en_US)
+            if self.text_description_he_IL:
+                self.text_description_he_IL = bleach.clean(self.text_description_he_IL)
             if self.str_location:
                 self.str_location = bleach.clean(self.str_location)
             if self.str_series_repeat_how_often:
@@ -886,12 +942,12 @@ class Event(models.Model):
             self = RESULT__updateTime(self)
             if not self.str_slug:
                 self.str_slug = urllib.parse.quote(
-                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
+                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name_en_US.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
                 counter=0
                 while Event.objects.filter(str_slug=self.str_slug).exists()==True:
                     counter+=1
                     self.str_slug = urllib.parse.quote(
-                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', '')+str(counter))
+                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name_en_US.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', '')+str(counter))
 
             log('--> Save lat/lon if not exist yet')
             if not self.float_lat:
@@ -904,7 +960,7 @@ class Event(models.Model):
                 EVENTS_HOSTS_OVERWRITE = get_config('EVENTS.EVENTS_HOSTS_OVERWRITE')
                 # search in predefined event hosts in YOURHACKERSPACE
                 for event_name in EVENTS_HOSTS_OVERWRITE:
-                    if event_name in self.str_name:
+                    if event_name in self.str_name_en_US:
                         for host_name in EVENTS_HOSTS_OVERWRITE[event_name]:
                             host = Person.objects.QUERYSET__by_name(host_name)
                             if host:
@@ -918,18 +974,18 @@ class Event(models.Model):
         log('event.create(json_content)')
         try:
             obj = Event.objects.get(
-                str_name=json_content['str_name'],
+                str_name_en_US=json_content['str_name_en_US'],
                 int_UNIXtime_event_start=json_content['int_UNIXtime_event_start']
             )
             for key, value in json_content.items():
                 setattr(obj, key, value)
             super(Event, obj).save()
-            log('--> Updated "'+obj.str_name+' | ' + obj.datetime_range+'"')
+            log('--> Updated "'+obj.str_name_en_US+' | ' + obj.datetime_range+'"')
 
         except Event.DoesNotExist:
             obj = Event(**json_content)
             obj.save()
-            log('--> Created "'+obj.str_name+' | ' + obj.datetime_range+'"')
+            log('--> Created "'+obj.str_name_en_US+' | ' + obj.datetime_range+'"')
 
     # Noisebridge specific
     def announce_via_marry(self):
@@ -940,9 +996,9 @@ class Event(models.Model):
         start_time = self.str_relative_time if self.int_UNIXtime_event_start < time.time(
         )+(60*60) else self.datetime_start.strftime('%I %p')
         if start_time == 'Now':
-            speak(str(self.str_name)+' is happening now', None)
+            speak(str(self.str_name_en_US)+' is happening now', None)
         else:
-            speak(str(self.str_name)+' starts at '+start_time, None)
+            speak(str(self.str_name_en_US)+' starts at '+start_time, None)
 
     def announce_via_flaschentaschen(self):
         log('event.announce_via_flaschentaschen()')

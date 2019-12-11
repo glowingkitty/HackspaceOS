@@ -8,7 +8,7 @@ class MachineSet(models.QuerySet):
         for result in results:
             results_list.append({
                 'icon': 'machine',
-                'name': result.str_name,
+                'name': result.str_name_en_US,
                 'url': '/'+result.str_slug,
                 'menu_heading': 'menu_h_machines'
             })
@@ -18,7 +18,7 @@ class MachineSet(models.QuerySet):
 class Machine(models.Model):
     objects = MachineSet.as_manager()
     str_slug = models.CharField(max_length=250, blank=True, null=True)
-    str_name = models.CharField(
+    str_name_en_US = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
     one_guilde = models.ForeignKey(
         'Guilde', related_name="o_machine_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Guilde')
@@ -28,13 +28,15 @@ class Machine(models.Model):
         max_length=200, blank=True, null=True, verbose_name='Photo URL')
     url_wiki = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Wiki URL')
-    text_description = models.TextField(
-        blank=True, null=True, verbose_name='Description')
+    text_description_en_US = models.TextField(
+        blank=True, null=True, verbose_name='Description en-US')
+    text_description_he_IL = models.TextField(
+        blank=True, null=True, verbose_name='Description he-IL')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.str_name
+        return self.str_name_en_US
 
     @property
     def events(self):
@@ -51,5 +53,5 @@ class Machine(models.Model):
         import urllib.parse
         self = RESULT__updateTime(self)
         self.str_slug = urllib.parse.quote(
-            'machine/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
+            'machine/'+self.str_name_en_US.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Machine, self).save(*args, **kwargs)

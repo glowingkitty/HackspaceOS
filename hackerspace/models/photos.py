@@ -43,7 +43,7 @@ def save_instagram_photos(browser):
             except:
                 text_post = None
             Photo(
-                text_description=text_post,
+                text_description_en_US=text_post,
                 url_image=url_image,
                 url_post=browser.current_url,
                 str_source='Instagram',
@@ -107,7 +107,7 @@ def save_twitter_photos(browser):
 
             if Photo.objects.filter(url_image=url_image).exists() == False:
                 Photo(
-                    text_description=text_tweet,
+                    text_description_en_US=text_tweet,
                     url_image=url_image,
                     url_post=url_post,
                     str_source='Twitter',
@@ -167,7 +167,7 @@ def save_wiki_photo(photo):
                 url_image = photo['url']
 
             Photo(
-                text_description=photo['canonicaltitle'] if 'canonicaltitle' in photo else None,
+                text_description_en_US=photo['canonicaltitle'] if 'canonicaltitle' in photo else None,
                 url_image=url_image,
                 url_post=photo['descriptionurl'],
                 str_source='Wiki',
@@ -546,7 +546,7 @@ class PhotoSet(models.QuerySet):
 
                 # save photo
                 Photo(
-                    text_description=url_post,
+                    text_description_en_US=url_post,
                     url_image=url_image,
                     url_post=url_post,
                     str_source='Flickr',
@@ -568,8 +568,10 @@ class PhotoSet(models.QuerySet):
 
 class Photo(models.Model):
     objects = PhotoSet.as_manager()
-    text_description = models.TextField(
-        blank=True, null=True, verbose_name='Description')
+    text_description_en_US = models.TextField(
+        blank=True, null=True, verbose_name='Description en-US')
+    text_description_he_IL = models.TextField(
+        blank=True, null=True, verbose_name='Description he-IL')
     url_image = models.URLField(
         max_length=250, blank=True, null=True, verbose_name='Image URL')
     url_post = models.URLField(

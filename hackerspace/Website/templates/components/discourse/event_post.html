@@ -1,0 +1,54 @@
+{% load config %}
+
+{% block content %}
+
+**When?**<br>
+{{ result.datetime_range }}<br>
+<br>
+**Where?**<br>
+{{ result.str_location|safe }}<br>
+<br>
+{% with ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
+{% if ADDRESS.STREET in result.str_location %}
+**How to find us?**<br>
+{{ ADDRESS.HOW_TO_FIND_US }}<br>
+{% endwith %}
+<br>
+{% endif %}
+**Price?**<br>
+Free<br>
+<br>
+**Organizers?**<br>
+{% for host in result.many_hosts.all %}[{{ host.str_name_en_US }}]({{ host.url_discourse }})<br>{% endfor %}
+<br>
+**Looking for volunteers?**<br>
+{% if result.boolean_looking_for_volunteers==True %}
+YES!! Please reply to this event post if you are interested in helping!
+{% else %}
+No.
+{% endif %}
+<br>
+***
+{% if result.url_featured_photo or 'WEBSITE.DOMAIN'|get_config in result.image_featured_photo.url %}
+<img src="{% if result.url_featured_photo %}{{ result.url_featured_photo }}{% else %}{{ result.image_featured_photo.url }}{% endif %}" alt="image" width="400"/>
+{% endif %}
+
+{% if result.text_description_en_US %}
+<br>
+[English]
+{{ result.text_description_en_US }}<br>
+<br>
+{% endif %}
+
+{% if result.text_description_he_IL %}
+***
+<br>
+[Hebrew]
+{{ result.text_description_he_IL }}<br>
+<br>
+{% endif %}
+
+***
+{{ 'EVENTS.DISCOURSE_AND_MEETUP_EVENT_FOOTER_HTML'|get_config|safe }}
+
+{% endblock %}

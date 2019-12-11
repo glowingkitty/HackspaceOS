@@ -5,7 +5,7 @@ class SpaceSet(models.QuerySet):
     def QUERYSET__by_name(self, name):
         if not name or name == '':
             return None
-        return self.filter(str_name__icontains=name).first()
+        return self.filter(str_name_en_US__icontains=name).first()
 
     def LIST__search_results(self):
         results_list = []
@@ -13,7 +13,7 @@ class SpaceSet(models.QuerySet):
         for result in results:
             results_list.append({
                 'icon': 'space',
-                'name': result.str_name,
+                'name': result.str_name_en_US,
                 'url': '/'+result.str_slug,
                 'menu_heading': 'menu_h_spaces'
             })
@@ -23,7 +23,7 @@ class SpaceSet(models.QuerySet):
 class Space(models.Model):
     objects = SpaceSet.as_manager()
     str_slug = models.CharField(max_length=250, blank=True, null=True)
-    str_name = models.CharField(
+    str_name_en_US = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
     url_featured_photo = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Photo URL')
@@ -31,13 +31,15 @@ class Space(models.Model):
         max_length=200, blank=True, null=True, verbose_name='Wiki URL')
     one_guilde = models.ForeignKey(
         'Guilde', related_name="o_spaces_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Guilde')
-    text_description = models.TextField(
-        blank=True, null=True, verbose_name='Description')
+    text_description_en_US = models.TextField(
+        blank=True, null=True, verbose_name='Description en-US')
+    text_description_he_IL = models.TextField(
+        blank=True, null=True, verbose_name='Description he-IL')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.str_name
+        return self.str_name_en_US
 
     @property
     def events(self):
@@ -60,5 +62,5 @@ class Space(models.Model):
 
         self = RESULT__updateTime(self)
         self.str_slug = urllib.parse.quote(
-            'space/'+self.str_name.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
+            'space/'+self.str_name_en_US.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Space, self).save(*args, **kwargs)

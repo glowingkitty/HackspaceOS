@@ -91,7 +91,7 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/guilde/'+sub_page,
             'page_git_url': '/Website/templates/guilde_view.html',
-            'page_name': get_config('BASICS.NAME')+' | Guilde | '+selected.str_name,
+            'page_name': get_config('BASICS.NAME')+' | Guilde | '+selected.str_name_en_US,
             'page_description': 'Join our weekly meetings!',
             'selected': selected
         }}
@@ -119,8 +119,8 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/space/'+sub_page,
             'page_git_url': '/Website/templates/space_view.html',
-            'page_name': get_config('BASICS.NAME')+' | Space | '+selected.str_name,
-            'page_description': selected.text_description,
+            'page_name': get_config('BASICS.NAME')+' | Space | '+selected.str_name_en_US,
+            'page_description': selected.text_description_en_US,
             'selected': selected
         }}
 
@@ -147,8 +147,8 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/machine/'+sub_page,
             'page_git_url': '/Website/templates/machine_view.html',
-            'page_name': get_config('BASICS.NAME')+' | Machine | '+selected.str_name,
-            'page_description': selected.text_description,
+            'page_name': get_config('BASICS.NAME')+' | Machine | '+selected.str_name_en_US,
+            'page_description': selected.text_description_en_US,
             'selected': selected
         }}
 
@@ -175,8 +175,8 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/project/'+sub_page,
             'page_git_url': '/Website/templates/project_view.html',
-            'page_name': get_config('BASICS.NAME')+' | Project | '+selected.str_name,
-            'page_description': selected.text_description,
+            'page_name': get_config('BASICS.NAME')+' | Project | '+selected.str_name_en_US,
+            'page_description': selected.text_description_en_US,
             'selected': selected
         }}
 
@@ -225,8 +225,8 @@ def get_view_response(request, page, sub_page, hashname):
         return {**context, **{
             'slug': '/event/'+sub_page,
             'page_git_url': '/Website/templates/event_view.html',
-            'page_name': get_config('BASICS.NAME')+' | Event | '+selected.str_name,
-            'page_description': selected.text_description,
+            'page_name': get_config('BASICS.NAME')+' | Event | '+selected.str_name_en_US,
+            'page_description': selected.text_description_en_US,
             'selected': selected,
             'photos':Photo.objects.latest()[:33]
         }}
@@ -239,8 +239,8 @@ def get_view_response(request, page, sub_page, hashname):
             'page_name': get_config('BASICS.NAME')+' | New event',
             'page_description': 'Organize an event at '+get_config('BASICS.NAME'),
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:4],
-            'default_space': Space.objects.filter(str_name=EVENTS_SPACE_DEFAULT).first(),
-            'all_spaces': Space.objects.exclude(str_name=EVENTS_SPACE_DEFAULT),
+            'default_space': Space.objects.filter(str_name_en_US=EVENTS_SPACE_DEFAULT).first(),
+            'all_spaces': Space.objects.exclude(str_name_en_US=EVENTS_SPACE_DEFAULT),
             'all_guildes':Guilde.objects.all(),
             'csrf_token': get_token(request)
         }}
@@ -594,7 +594,7 @@ def search_view(request):
 def new_view(request):
     log('new_view(request)')
 
-    if request.GET.get('what', None) == 'meeting':
+    if request.method == 'GET' and request.GET.get('what', None) == 'meeting':
         new_meeting = MeetingNote()
         new_meeting.save()
 
@@ -607,51 +607,57 @@ def new_view(request):
             }
         )
 
-    elif request.GET.get('what', None) == 'event':
+    elif request.method == 'POST' and request.POST.get('what', None) == 'event':
         from hackerspace.APIs.slack import send_message
         from hackerspace.Website.views_helper_functions import INT__UNIX_from_date_and_time_STR,INT__duration_minutes
         
         DOMAIN = get_config('WEBSITE.DOMAIN')
         
-        int_UNIXtime_event_start = INT__UNIX_from_date_and_time_STR(request.GET.get('date',None),request.GET.get('time',None))
-        int_minutes_duration = INT__duration_minutes(request.GET.get('duration',None))
+        int_UNIXtime_event_start = INT__UNIX_from_date_and_time_STR(request.POST.get('date',None),request.POST.get('time',None))
+        int_minutes_duration = INT__duration_minutes(request.POST.get('duration',None))
+
+        try:
+            if request.FILES['images[0]'].content_type=='image/jpeg' or request.FILES['images[0]'].content_type=='image/png':
+                image = request.FILES['images[0]']
+            else:
+                image = None
+        except:
+            image= None
+        
         
         new_event = Event(
             boolean_approved=request.user.is_authenticated,
-            str_name=request.GET.get('name',None),
+            str_name_en_US=request.POST.get('name',None),
             int_UNIXtime_event_start=int_UNIXtime_event_start,
             int_minutes_duration=int_minutes_duration,
             int_UNIXtime_event_end=int_UNIXtime_event_start+(60*int_minutes_duration),
-            url_featured_photo=request.GET.get('photo',None),
-            text_description=request.GET.get('description',None),
-            one_space=Space.objects.QUERYSET__by_name(request.GET.get('space',None)),
-            one_guilde=Guilde.objects.QUERYSET__by_name(request.GET.get('guilde',None)),
-            str_crowd_size=request.GET.get('expected_crowd',None),
-            str_welcomer=request.GET.get('event_welcomer',None)
+            url_featured_photo=request.POST.get('photo',None),
+            image_featured_photo=image,
+            text_description_en_US=request.POST.get('description',None),
+            one_space=Space.objects.QUERYSET__by_name(request.POST.get('space',None)),
+            one_guilde=Guilde.objects.QUERYSET__by_name(request.POST.get('guilde',None)),
+            str_crowd_size=request.POST.get('expected_crowd',None),
+            str_welcomer=request.POST.get('event_welcomer',None),
+            boolean_looking_for_volunteers=True if request.POST.get('volunteers',None)=='yes' else False
         )
-        if request.GET.get('location',None):
-            if request.GET.get('location',None)!=get_config('BASICS.NAME'):
-                new_event.str_location = request.GET.get('location',None)
-        if request.GET.get('repeating',None):
+        if request.POST.get('location',None):
+            if request.POST.get('location',None)!=get_config('BASICS.NAME'):
+                new_event.str_location = request.POST.get('location',None)
+        if request.POST.get('repeating',None):
             # if repeating, mark as such and auto generate new upcoming events with "update_database" command
-            str_repeating_how_often = request.GET.get('repeating',None)
-            str_repeating_up_to = request.GET.get('repeating_up_to',None)
+            str_repeating_how_often = request.POST.get('repeating',None)
+            str_repeating_up_to = request.POST.get('repeating_up_to',None)
             
             if str_repeating_how_often and str_repeating_how_often!='':
                 new_event.int_series_startUNIX = new_event.int_UNIXtime_event_start
                 new_event.str_series_repeat_how_often = str_repeating_how_often
             
             if str_repeating_up_to and str_repeating_up_to!='':
-                new_event.int_series_endUNIX = INT__UNIX_from_date_and_time_STR(str_repeating_up_to,request.GET.get('time',None))
-
-
-        if request.GET.get('volunteers',None)=='yes' and request.user.is_authenticated:
-            # create wish entry and save URL
-            new_event = new_event.create_volunteer_wish()
+                new_event.int_series_endUNIX = INT__UNIX_from_date_and_time_STR(str_repeating_up_to,request.POST.get('time',None))
 
         new_event.save()
 
-        hosts = request.GET.get('hosts',None)
+        hosts = request.POST.get('hosts',None)
         if hosts:
             if hosts.startswith(','):
                 hosts = hosts[1:]
@@ -731,7 +737,7 @@ def upload_view(request,what):
 def approve_event_view(request):
     log('approve_event_view(request)')
 
-    if request.user.is_authenticated()==False:
+    if request.user.is_authenticated==False:
         log('--> Failed: User not logged in')
         response = JsonResponse({'success': False})
         response.status_code = 403
@@ -746,15 +752,14 @@ def approve_event_view(request):
         # approve event and all upcoming ones
         event = Event.objects.filter(boolean_approved=False,str_slug=request.GET.get('str_slug', None)).first()
 
-        upcoming_events = Event.objects.filter(boolean_approved=False,str_name=event.str_name).all()
+        upcoming_events = Event.objects.filter(boolean_approved=False,str_name_en_US=event.str_name_en_US).all()
         log('--> Approve all upcoming events')
         for event in upcoming_events:
-            event.boolean_approved=True
-            event.save()
+            event.publish()
 
         # notify via slack that event was approved and by who
         if 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==DOMAIN:
-            send_message('✅'+str(request.user)+' approved the event "'+event.str_name+'":\nhttps://'+DOMAIN+'/'+event.str_slug)
+            send_message('✅'+str(request.user)+' approved the event "'+event.str_name_en_US+'":\nhttps://'+DOMAIN+'/'+event.str_slug)
 
         response = JsonResponse({'success': True})
         response.status_code = 200
@@ -777,11 +782,11 @@ def delete_event_view(request):
         event = Event.objects.filter(str_slug=request.GET.get('str_slug', None)).first()
 
         log('--> Delete all upcoming events')
-        Event.objects.filter(str_name=event.str_name).delete()
+        Event.objects.filter(str_name_en_US=event.str_name_en_US).delete()
 
         # notify via slack that event was deleted and by who
         if 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==get_config('WEBSITE.DOMAIN'):
-            send_message('🚫'+str(request.user)+' deleted the event "'+event.str_name+'"')
+            send_message('🚫'+str(request.user)+' deleted the event "'+event.str_name_en_US+'"')
 
         response = JsonResponse({'success': True})
         response.status_code = 200

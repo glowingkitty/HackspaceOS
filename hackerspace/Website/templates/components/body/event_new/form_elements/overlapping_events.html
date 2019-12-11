@@ -21,7 +21,7 @@
     {% for event in overlapping_events.overlapping_events %}
     <div class="event_slot">
         <a target="_blank" href="/{{ event.str_slug }}" class="event_slot_entry entry_link" style="top:{{ event.int_percent_top_distance }};height:{{ event.int_percent_height }}">
-            <span class="event_slot_headline">{{ event.str_name }}</span>
+            <span class="event_slot_headline">{{ event.str_name_en_US }}</span>
         </a>
     </div>
     {% endfor %}

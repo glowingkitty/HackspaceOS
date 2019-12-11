@@ -7,7 +7,7 @@ def notify(list_where=['Slack'], json_context={}):
 
     if json_context['str_what'] == 'error_new':
         speak('Please listen. A new error occured on the Noisebridge website. Please take a look at the Noisebridge infrastructure Github repo. The error code is ' +
-              json_context['str_error_code']+'. And the message is "'+json_context['str_name'])
+              json_context['str_error_code']+'. And the message is "'+json_context['str_name_en_US'])
 
     elif json_context['str_what'] == 'error_repeated_10':
         speak('Please listen. The Noisebridge website is still broken and the error with the code ' +

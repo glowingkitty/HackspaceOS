@@ -132,29 +132,50 @@ function checkFileTooLarge(file) {
 
 function new_event(url_image) {
 
+    let input = document.getElementById('event_photo')
+    if (input && input.files && input.files[0]) {
+        var files = input.files
+
+        if (isFileImage(files[0]) == false) {
+            return alert('Please upload an JPG or PNG file')
+        }
+
+        if (checkFileTooLarge(files[0]) == true) {
+            return alert('Maximum image size is 2MB')
+        }
+    }
+
+    // upload image
+    let data = new FormData();
+
+    if (input && input.files && input.files[0]) {
+        for (var i = 0; i < files.length; i++) {
+            let file = files.item(i);
+            data.append('images[' + i + ']', file, file.name);
+        }
+    }
+
+    data.append('what', 'event');
+    data.append('name', document.getElementById('event_name').value);
+    data.append('date', document.getElementById('event_date').value);
+    data.append('time', document.getElementById('event_time').value);
+    data.append('duration', document.getElementById('event_duration').value);
+    data.append('space', document.getElementById('event_space') ? document.getElementById('event_space').value : null);
+    data.append('photo', url_image);
+    data.append('description', document.getElementById('event_description').value);
+    data.append('location', document.getElementById('event_location').value);
+    data.append('guilde', document.getElementById('event_guilde') ? document.getElementById('event_guilde').value : null);
+    data.append('hosts', document.getElementById('added_hosts').value);
+    data.append('repeating', document.getElementById('repeating').value);
+    data.append('repeating_up_to', document.getElementById('upto_date').value);
+    data.append('volunteers', document.getElementById('event_volunteers').value);
+    data.append('expected_crowd', document.getElementById('event_expected_crowd').value);
+    data.append('event_welcomer', document.getElementById('event_welcomer').value);
+
     // create event
     axios.defaults.xsrfCookieName = 'csrftoken';
     axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-    axios.get("/new", {
-            params: {
-                'what': 'event',
-                'name': document.getElementById('event_name').value,
-                'date': document.getElementById('event_date').value,
-                'time': document.getElementById('event_time').value,
-                'duration': document.getElementById('event_duration').value,
-                'space': document.getElementById('event_space') ? document.getElementById('event_space').value : null,
-                'photo': url_image,
-                'description': document.getElementById('event_description').value,
-                'location': document.getElementById('event_location').value,
-                'guilde': document.getElementById('event_guilde') ? document.getElementById('event_guilde').value : null,
-                'hosts': document.getElementById('added_hosts').value,
-                'repeating': document.getElementById('repeating').value,
-                'repeating_up_to': document.getElementById('upto_date').value,
-                'volunteers': document.getElementById('event_volunteers').value,
-                'expected_crowd': document.getElementById('event_expected_crowd').value,
-                'event_welcomer': document.getElementById('event_welcomer').value,
-            }
-        })
+    axios.post("/new", data)
         .then(function (response) {
             getPage(response.data.url_next, 'menu_h_events')
         })
@@ -167,7 +188,7 @@ function new_event(url_image) {
 
 }
 
-function publish_event(button) {
+function publish_event(button, upload_image_to_AWS) {
     // check if fields are missing
     if (!document.getElementById('event_name').value) {
         return alert('"Name" is missing')
@@ -238,7 +259,7 @@ function publish_event(button) {
     button.outerHTML = '<div>Submitting...</div>'
 
     // upload image
-    if (input && input.files && input.files[0]) {
+    if (input && input.files && input.files[0] && upload_image_to_AWS == true) {
 
         let data = new FormData();
 

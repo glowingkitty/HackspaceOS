@@ -11,13 +11,14 @@ def search(query, filter_name):
         return []
 
     if filter_name and filter_name == 'hosts':
-        return Person.objects.filter(Q(str_name__icontains=query) | Q(url_discourse__icontains=query))
+        return Person.objects.filter(Q(str_name_en_US__icontains=query) | Q(url_discourse__icontains=query))
 
     # search in database
     events = Event.objects.filter(
         Q(boolean_approved=True) &
         (
-            Q(str_name__icontains=query) | Q(text_description__icontains=query)
+            Q(str_name_en_US__icontains=query) | Q(
+                text_description_en_US__icontains=query)
         )
     ).QUERYSET__upcoming()
 
@@ -45,23 +46,28 @@ def search(query, filter_name):
     ).past().LIST__search_results()[:5]
 
     guildes = Guilde.objects.filter(
-        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+        Q(str_name_en_US__icontains=query) | Q(
+            text_description_en_US__icontains=query)
     ).LIST__search_results()[:5]
 
     machines = Machine.objects.filter(
-        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+        Q(str_name_en_US__icontains=query) | Q(
+            text_description_en_US__icontains=query)
     ).LIST__search_results()[:5]
 
     spaces = Space.objects.filter(
-        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+        Q(str_name_en_US__icontains=query) | Q(
+            text_description_en_US__icontains=query)
     ).LIST__search_results()[:5]
 
     consensus_items = Consensus.objects.filter(
-        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+        Q(str_name_en_US__icontains=query) | Q(
+            text_description_en_US__icontains=query)
     ).LIST__search_results()[:5]
 
     projects = Project.objects.filter(
-        Q(str_name__icontains=query) | Q(text_description__icontains=query)
+        Q(str_name_en_US__icontains=query) | Q(
+            text_description_en_US__icontains=query)
     ).LIST__search_results()[:5]
 
     # search in wiki

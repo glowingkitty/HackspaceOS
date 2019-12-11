@@ -57,7 +57,6 @@ def create_post(str_headline, str_text, str_category):
         log('--> Failed: DISCOURSE.API_KEY not set')
         return None
 
-    import random
     response = requests.post(DISCOURSE_URL+'posts.json',
                              headers={
                                  'content-type': 'application/json'
@@ -77,6 +76,29 @@ def create_post(str_headline, str_text, str_category):
         print(response.json())
 
 
+def delete_post(post_url):
+    log('delete_post()')
+    if BOOLEAN__key_exists('DISCOURSE.API_KEY') == False:
+        log('--> Failed: DISCOURSE.API_KEY not set')
+        return None
+
+    response = requests.delete(post_url+'.json',
+                               headers={
+                                   'content-type': 'application/json'
+                               }, params={
+                                   'api_key': STR__get_key('DISCOURSE.API_KEY'),
+                                   'api_username': STR__get_key('DISCOURSE.API_USERNAME')
+                               })
+    if response.status_code == 200:
+        print('Deleted')
+        return True
+    else:
+        print('Not deleted')
+        print(response.status_code)
+        print(response.json())
+        return False
+
+
 def get_categories(output='list'):
     log('get_categories()')
     response = requests.get(
@@ -87,10 +109,10 @@ def get_categories(output='list'):
         return response.json()
 
 
-def get_category_id(str_name):
+def get_category_id(str_name_en_US):
     categories = get_categories(output='json')['category_list']['categories']
     for category in categories:
-        if category['name'] == str_name or category['slug'] == str_name:
+        if category['name'] == str_name_en_US or category['slug'] == str_name_en_US:
             return category['id']
     else:
         return None

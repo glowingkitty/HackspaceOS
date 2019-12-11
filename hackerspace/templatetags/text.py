@@ -75,6 +75,8 @@ def findSearches(text):
 
 @register.filter
 def TEXT_replaceLinkCSS(text):
+    if not text:
+        return None
     return text.replace('class="linkified"', 'target="_blank" class="inline_link"')
 
 

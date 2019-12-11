@@ -10,7 +10,7 @@ class PersonSet(models.QuerySet):
         print('get_discourse_creator()')
         try:
             details = get_post_details(slug)
-            return self.filter(Q(str_name=details['name']) | Q(str_name=details['username'])).first()
+            return self.filter(Q(str_name_en_US=details['name']) | Q(str_name_en_US=details['username'])).first()
         except:
             return None
 
@@ -35,10 +35,10 @@ class PersonSet(models.QuerySet):
                 log('--> process {} users'.format(len(users)))
                 for user in users:
                     Person().create(json_content={
-                        'str_name': user['user']['name'] if user['user']['name'] and user['user']['name'] != '' else user['user']['username'],
+                        'str_name_en_US': user['user']['name'] if user['user']['name'] and user['user']['name'] != '' else user['user']['username'],
                         'url_featured_photo': DISCOURSE_URL + user['user']['avatar_template'].replace('{size}', '240'),
                         'url_discourse': DISCOURSE_URL + 'u/'+user['user']['username'],
-                        'text_description': user['user']['title'] if user['user']['title'] != '' else None
+                        'text_description_en_US': user['user']['title'] if user['user']['title'] != '' else None
                     })
             else:
                 show_message(
@@ -55,30 +55,32 @@ class PersonSet(models.QuerySet):
         from django.db.models import Q
         from getKey import STR__get_key
 
-        return self.filter(Q(url_discourse=STR__get_key('DISCOURSE.DISCOURSE_URL') + 'u/'+name) | Q(str_name__icontains=name)).first()
+        return self.filter(Q(url_discourse=STR__get_key('DISCOURSE.DISCOURSE_URL') + 'u/'+name) | Q(str_name_en_US__icontains=name)).first()
 
 
 class Person(models.Model):
     objects = PersonSet.as_manager()
-    str_name = models.CharField(
+    str_name_en_US = models.CharField(
         max_length=250, blank=True, null=True, verbose_name='Name')
     url_featured_photo = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Photo URL')
     url_discourse = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Discourse URL')
-    text_description = models.TextField(
-        blank=True, null=True, verbose_name='Description')
+    text_description_en_US = models.TextField(
+        blank=True, null=True, verbose_name='Description en-US')
+    text_description_he_IL = models.TextField(
+        blank=True, null=True, verbose_name='Description he-IL')
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.str_name
+        return self.str_name_en_US
 
     @property
     def str_name_shortened(self):
-        if not ' ' in self.str_name:
-            return self.str_name
-        return self.str_name.split(' ')[0]+' '+self.str_name.split(' ')[1][:1]
+        if not ' ' in self.str_name_en_US:
+            return self.str_name_en_US
+        return self.str_name_en_US.split(' ')[0]+' '+self.str_name_en_US.split(' ')[1][:1]
 
     def create(self, json_content):
         try:
@@ -88,11 +90,11 @@ class Person(models.Model):
             for key, value in json_content.items():
                 setattr(obj, key, value)
             obj.save()
-            print('Updated "'+obj.str_name+'"')
+            print('Updated "'+obj.str_name_en_US+'"')
         except Person.DoesNotExist:
             obj = Person(**json_content)
             obj.save()
-            print('Created "'+obj.str_name+'"')
+            print('Created "'+obj.str_name_en_US+'"')
 
     @property
     def events(self):
