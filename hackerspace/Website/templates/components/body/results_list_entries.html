@@ -1,8 +1,10 @@
 {% block content %}
 
+{% if all_results != True %}
 {% for result in all_results %}
 {% include "components/body/result_preview_block.html" with change_contrast=True %}
 {% endfor %}
 <div id="next_results{{ specific_selector }}"></div>
+{% endif %}
 
 {% endblock %}

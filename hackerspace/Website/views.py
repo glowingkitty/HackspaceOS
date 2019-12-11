@@ -69,6 +69,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'guildes':
+        all_results = Guilde.objects.all()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -80,7 +81,7 @@ def get_view_response(request, page, sub_page, hashname):
             'add_new_requires_user': True,
             'addnew_url': '/{}/hackerspace/guilde/add/'.format(STR__get_key('DJANGO.ADMIN_URL')),
             'addnew_text': 'Add guilde',
-            'all_results': Guilde.objects.all()[:10],
+            'all_results': all_results if all_results else True,
             'results_count': Guilde.objects.count(),
             'show_more': page
         }}
@@ -97,6 +98,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'spaces':
+        all_results = Space.objects.all()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -108,7 +110,7 @@ def get_view_response(request, page, sub_page, hashname):
             'add_new_requires_user': True,
             'addnew_url': '/{}/hackerspace/space/add/'.format(STR__get_key('DJANGO.ADMIN_URL')),
             'addnew_text': 'Add space',
-            'all_results': Space.objects.all()[:10],
+            'all_results': all_results if all_results else True,
             'results_count': Space.objects.count(),
             'show_more': page
         }}
@@ -125,6 +127,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'machines':
+        all_results = Machine.objects.all()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -136,7 +139,7 @@ def get_view_response(request, page, sub_page, hashname):
             'add_new_requires_user': True,
             'addnew_url': '/{}/hackerspace/machine/add/'.format(STR__get_key('DJANGO.ADMIN_URL')),
             'addnew_text': 'Add machine',
-            'all_results': Machine.objects.all()[:10],
+            'all_results': all_results if all_results else True,
             'results_count': Machine.objects.count(),
             'show_more': page
         }}
@@ -153,6 +156,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'projects':
+        all_results = Project.objects.latest()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -164,7 +168,7 @@ def get_view_response(request, page, sub_page, hashname):
             'add_new_requires_user': False,
             'addnew_url': '{}c/projects/'.format(STR__get_key('DISCOURSE.DISCOURSE_URL')),
             'addnew_text': 'Add project',
-            'all_results': Project.objects.latest()[:10],
+            'all_results': all_results if all_results else True,
             'results_count': Project.objects.count(),
             'show_more': page
         }}
@@ -202,6 +206,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'events':
+        all_results = Event.objects.QUERYSET__upcoming()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -214,7 +219,7 @@ def get_view_response(request, page, sub_page, hashname):
             'addnew_text': 'Organize an event',
             'addnew_target': 'same_tab',
             'addnew_menu_selected': 'menu_h_events',
-            'all_results': Event.objects.QUERYSET__upcoming()[:10],
+            'all_results': all_results if all_results else True,
             'results_count': Event.objects.count(),
             'show_more': page
         }}
