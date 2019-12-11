@@ -834,11 +834,7 @@ class Event(models.Model):
         from getKey import STR__get_key
         # if url_featured_photo - delete on AWS
         if self.url_featured_photo:
-            session = boto3.Session(
-                        aws_access_key_id=STR__get_key('AWS.ACCESS_KEYID'),
-                        aws_secret_access_key=STR__get_key('AWS.SECRET_ACCESS_KEY'),
-                    )
-            s3 = session.resource('s3')
+            s3 = boto3.client('s3')
             s3.delete_object(Bucket=STR__get_key('AWS.S3.BUCKET_NAME'), Key=self.url_featured_photo.split('amazonaws.com/')[1])
             self.url_featured_photo = None
             super(Event, self).save()
@@ -846,7 +842,8 @@ class Event(models.Model):
             
         # else delete in local folder
         elif self.image_featured_photo:
-            print('TODO...')
+            self.image_featured_photo.delete(save=True)
+            return self
 
 
     def delete(self):

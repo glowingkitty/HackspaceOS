@@ -82,7 +82,14 @@ def delete_post(post_url):
         log('--> Failed: DISCOURSE.API_KEY not set')
         return None
 
-    response = requests.delete(post_url+'.json',
+    # get ID of post
+    response = requests.get(post_url)
+    if response.status_code != 200:
+        log('--> Couldn\'t find post on Discourse. Skipped deleting.')
+        return False
+    topic_id = response.url.split('/')[-1]
+
+    response = requests.delete(DISCOURSE_URL+'/t/'+topic_id+'.json',
                                headers={
                                    'content-type': 'application/json'
                                }, params={
@@ -90,10 +97,10 @@ def delete_post(post_url):
                                    'api_username': STR__get_key('DISCOURSE.API_USERNAME')
                                })
     if response.status_code == 200:
-        print('Deleted')
+        log('--> Deleted')
         return True
     else:
-        print('Not deleted')
+        log('--> Not deleted')
         print(response.status_code)
         print(response.json())
         return False
