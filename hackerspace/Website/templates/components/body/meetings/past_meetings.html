@@ -1,7 +1,7 @@
 {% block content %}
 
 <div class="max_540">
-    <h2 class="h2 large">Previous meeting notes</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Previous meeting notes</h2>
     {% if past_meetings %}
 
     {% include "components/body/meetings/meetings_list.html" %}

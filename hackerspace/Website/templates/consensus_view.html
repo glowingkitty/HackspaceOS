@@ -8,7 +8,7 @@
 </div>
 
 <div class="max_540">
-    <h2 class="h2 large">Big-C consensus items</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Big-C consensus items</h2>
     <a href="#bottom_content" class="inline_link">{% if all_current_items %}{{ all_current_items.count }}{% else %}0{% endif %} current item{% if all_current_items.count > 1 or all_current_items.count == 0 %}s{% endif %}</a>
     <br>
     <br>

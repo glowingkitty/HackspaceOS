@@ -6,7 +6,7 @@
 </div>
 
 <div class="max_540">
-    <h2 class="h2 large">{{ headline }}</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ headline }}</h2>
     <div>
         {{ description }}
         <br>

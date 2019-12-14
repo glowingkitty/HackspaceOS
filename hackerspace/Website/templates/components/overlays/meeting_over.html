@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="meeting_block overlay" onclick="event.stopPropagation()" id="meeting_over">
-    <h2 id="meeting_over_heading" class="h2 large">Is the meeting over?</h2>
+    <h2 id="meeting_over_heading" class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Is the meeting over?</h2>
     {% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
     <div id="meeting_over_text">If you click yes, <a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.END_MEETING }}" target="_blank">this script will end the meeting</a> and save it to <a class="inline_link" href="/meetings" target="_blank">our archive</a>.</div>
     {% endwith %}

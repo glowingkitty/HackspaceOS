@@ -3,31 +3,31 @@
 {% load translate %}
 {% block content %}
 
-<div id="donate_overlay" class="overlay_block" onclick="event.stopPropagation()">
-    <a href="#" class="button__close_overlay" onclick="closeOverlays()"></a>
+<div id="donate_overlay" class="overlay_block{% if language == 'hebrew' %} rtl{% endif %}" onclick="event.stopPropagation()">
+    <a href="#" class="button__close_overlay{% if language == 'hebrew' %} rtl{% endif %}" onclick="closeOverlays()"></a>
 
     {% with NAME='BASICS.NAME'|get_config %}
-    <h2 class="h2 large"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Donate'|text:language }}</h2>
-    <div>{{ NAME }} is funded by donations. So please help us keeping {{ NAME }} alive! With money, hardware or your time!</div>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Donate'|text:language }}</h2>
+    <div{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'SPACE is funded by donations. ...'|text:language }}</div>
     {% if 'BASICS.DONATIONS_TAX_DEDUCTIBLE'|get_config == True %}
-    <div class="text_semitransparent">Donations are tax deductible.</div>
+    <div class="text_semitransparent"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Donations are tax deductible.'|text:language }}</div>
     {% endif %}
     <div class="divider_20"></div>
     {% endwith %}
     {% with DONATION_URLs='BASICS.DONATION_URLs'|get_config %}
     {% if DONATION_URLs.MONEY %}
-    <a class="button__cube money" href="{{ DONATION_URLs.MONEY }}" target="_blank">Donate<br>money</a>
+    <a class="button__cube money" href="{{ DONATION_URLs.MONEY }}" target="_blank"{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'Donate money'|text:language|safe }}</a>
     {% endif %}
     {% if DONATION_URLs.HARDWARE %}
-    <a class="button__cube hardware" href="{{ DONATION_URLs.HARDWARE }}" target="_blank">Donate<br>hardware</a>
+    <a class="button__cube hardware" href="{{ DONATION_URLs.HARDWARE }}" target="_blank"{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'Donate hardware'|text:language|safe }}</a>
     {% endif %}
 
     {% with MODULES='MODULES'|get_config %}
     {% if 'Events|Create' in MODULES %}
-    <a class="button__cube organize_event" href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" target="_blank">Organize<br>an event</a>
+    <a class="button__cube organize_event" href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" target="_blank"{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'Organize an event'|text:language|safe }}</a>
     {% endif %}
     {% if 'Events|View' in MODULES %}
-    <a class="button__cube volunteer" href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" target="_blank">Volunteer<br>at an event</a>
+    <a class="button__cube volunteer" href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" target="_blank"{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'Volunteer at an event'|text:language|safe }}</a>
     {% endif %}
     {% endwith %}
 
@@ -35,7 +35,7 @@
     {% comment %} <div class="divider_20"></div>
     <div class="divider_20"></div> {% endcomment %}
 
-    {% comment %} <h2 class="h2 large">Or help realizing a community wishes</h2> {% endcomment %}
+    {% comment %} <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Or help realizing a community wishes</h2> {% endcomment %}
 
 </div>
 

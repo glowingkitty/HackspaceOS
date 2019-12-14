@@ -41,7 +41,7 @@ TxtRotate.prototype.tick = function () {
     }, delta);
 };
 
-function changeText() {
+function changeText(language) {
     let elements = document.getElementsByClassName('txt-rotate');
     for (let i = 0; i < elements.length; i++) {
         let toRotate = elements[i].getAttribute('data-rotate');
@@ -53,6 +53,11 @@ function changeText() {
     // INJECT CSS
     let css = document.createElement("style");
     css.type = "text/css";
-    css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+    if (language == 'hebrew') {
+        css.innerHTML = ".txt-rotate > .wrap { border-left: 0.08em solid #666 }";
+    } else {
+        css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+    }
+
     document.body.appendChild(css);
 };

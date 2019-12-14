@@ -4,7 +4,7 @@
 <a class="block__consensus_item_preview" href="{{ result.url_discourse }}" target="_blank">
     <div class="consensus_item_by__image" style="background-image: url('{{ result.one_creator.url_featured_photo }}')"></div>
     <div class="consensus_item_by">by {{ result.one_creator.str_name_en_US|STR__first_name }}</div>
-    <div class="h2 large">{{ result.str_name_en_US }}</div>
+    <div class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ result.str_name_en_US }}</div>
     <div class="consensus_item_by__description">{{ result.text_description_en_US|cleanhtml|safe }}</div>
     <div class="block__consensus_status">
         <div class="text__consensus_status{% if result.str_status == 'new' %} active{% endif %}">New</div>

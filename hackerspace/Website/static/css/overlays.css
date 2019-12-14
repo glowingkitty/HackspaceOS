@@ -35,6 +35,10 @@
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
 }
 
+.overlay_block.rtl {
+    text-align: right;
+}
+
 @media (max-width: 520px) {
     .overlay_block {
         width: 80%;

@@ -22,7 +22,7 @@
         {% comment %} Remove hash {% endcomment %}
         history.pushState("", document.title, window.location.pathname);
         if (page=='/'){
-            changeText();
+            changeText('{{ language }}');
             setInterval(function () {
                 // every minute call those functions to update landingpage
                 request_html('what=events_slider', 'events_slider', 'outer')

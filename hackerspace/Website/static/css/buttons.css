@@ -289,6 +289,11 @@
     border-radius: 200px;
 }
 
+.button__close_overlay.rtl {
+    right: inherit;
+    left: -5px;
+}
+
 .button__close_overlay:hover {
     box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.25);
 }
