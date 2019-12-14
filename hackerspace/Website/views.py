@@ -671,7 +671,7 @@ def new_view(request):
             image= None
 
         uploaded_photo_url = request.POST.get('photo',None)
-        
+
         new_event = Event(
             boolean_approved=request.user.is_authenticated,
             str_name_en_US=request.POST.get('name_english',None),
