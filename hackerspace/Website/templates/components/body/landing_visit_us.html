@@ -7,7 +7,11 @@
     {% if 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY'|get_config %}
     <div class="table">
       <div class="visit_us_text_left{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'When?'|text:language }}</div>
-      <div class="visit_us_text_right{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY'|get_config }}</div>
+      {% if language == 'hebrew' %}
+      <div class="visit_us_text_right rtl" lang="he" dir="rtl" align="right">{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY.hebrew'|get_config }}</div>
+      {% else %}
+      <div class="visit_us_text_right">{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY.english'|get_config }}</div>
+      {% endif %}
     </div>
     <div class="divider_10"></div>
     {% endif %}
@@ -18,7 +22,13 @@
         {% if HACKERSPACE_ADDRESS.STREET %}{{ HACKERSPACE_ADDRESS.STREET }}<br>{% endif %}
         {% if HACKERSPACE_ADDRESS.CITY %}{{ HACKERSPACE_ADDRESS.CITY }}<br>{% endif %}
         {% if HACKERSPACE_ADDRESS.STATE %}{{ HACKERSPACE_ADDRESS.STATE }} {% endif %}{% if HACKERSPACE_ADDRESS.ZIP %}{{ HACKERSPACE_ADDRESS.ZIP }}{% endif %}{% if HACKERSPACE_ADDRESS.STATE or HACKERSPACE_ADDRESS.ZIP %}<br>{% endif %}
-        {% if HACKERSPACE_ADDRESS.HOW_TO_FIND_US %}{{ HACKERSPACE_ADDRESS.HOW_TO_FIND_US }}</div>{% endif %}
+        
+        {% if language == 'hebrew' %}
+        {% if HACKERSPACE_ADDRESS.HOW_TO_FIND_US__hebrew %}{{ HACKERSPACE_ADDRESS.HOW_TO_FIND_US__hebrew }}</div>{% endif %}
+        {% else %}
+        {% if HACKERSPACE_ADDRESS.HOW_TO_FIND_US__english %}{{ HACKERSPACE_ADDRESS.HOW_TO_FIND_US__english }}</div>{% endif %}
+        {% endif %}
+        <br>
     </div>
     {% if 'BASICS.EMBEDDED_MAP_URL'|get_config %}
     <div class="divider_20"></div>

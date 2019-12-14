@@ -197,6 +197,10 @@
     border-radius: 20px;
 }
 
+.status_code_icon.rtl {
+    margin-left: 3px;
+}
+
 .status_code_icon.green {
     background-color: #00c52b;
 }

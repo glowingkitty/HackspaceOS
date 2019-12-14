@@ -16,7 +16,7 @@
 {% with ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
 {% if ADDRESS.STREET in result.str_location %}
 **How to find us?**
-{{ ADDRESS.HOW_TO_FIND_US }}<br>
+{{ ADDRESS.HOW_TO_FIND_US__english }}<br>
 {% endif %}
 {% endwith %}
 

@@ -26,7 +26,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_git_url': '/Website/templates/landingpage_view.html',
             'page_name': get_config('BASICS.NAME'),
             'page_description': make_description_sentence(),
-            'is_open_status': getOpenNowStatus(),
+            'is_open_status': getOpenNowStatus(context['language']),
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:5],
             'photos':Photo.objects.latest()[:33]
         }}
@@ -411,6 +411,7 @@ def event_view(request, sub_page):
 def get_view(request):
     log('get_view(request)')
     in_space = request.COOKIES.get('in_space')
+    language='hebrew'
     marry_messages = []
     response = None
     if request.GET.get('what', None) == 'events_slider':
@@ -430,13 +431,14 @@ def get_view(request):
             {
                 'html': get_template(
                     'components/body/events_slider.html').render({
+                        'language':language,
                         'upcoming_events': Event.objects.QUERYSET__upcoming()[:5]
                     }),
                 'marryspeak': marry_messages
             }
         )
     elif request.GET.get('what', None) == 'open_status':
-        response = JsonResponse({'html': getOpenNowStatus()})
+        response = JsonResponse({'html': getOpenNowStatus(language)})
 
     elif request.GET.get('what', None) == 'event_overlap':
         str_date = request.GET.get('date', None)
@@ -455,6 +457,7 @@ def get_view(request):
                 'int_overlapping_events':len(overlapping_events['overlapping_events']),
                 'html': get_template(
                 'components/body/event_new/form_elements/overlapping_events.html').render({
+                    'language':'hebrew',
                     'overlapping_events': overlapping_events
                 })})
 

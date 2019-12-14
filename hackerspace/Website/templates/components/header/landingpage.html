@@ -12,9 +12,20 @@
         <span
             class="txt-rotate"
             data-period="2000"
-            {% with HACKERSPACE_IS_SENTENCES='BASICS.HACKERSPACE_IS_SENTENCES'|get_config %}
+            {% if language == 'hebrew' %}
+            lang="he" dir="rtl" align="right"
+
+            {% with HACKERSPACE_IS_SENTENCES='BASICS.HACKERSPACE_IS_SENTENCES.hebrew'|get_config %}
             data-rotate='[ {{ HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'>{{ HACKERSPACE_IS_SENTENCES.0 }}</span>
             {% endwith %}
+
+            {% else %}
+
+            {% with HACKERSPACE_IS_SENTENCES='BASICS.HACKERSPACE_IS_SENTENCES.english'|get_config %}
+            data-rotate='[ {{ HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'>{{ HACKERSPACE_IS_SENTENCES.0 }}</span>
+            {% endwith %}
+
+            {% endif %}
         </div>
         {% if in_space %}
         <a href="#" onclick="marryspeak('{{ 'EXTRAS.SAYHELLO'|get_config }}');this.style.display='none'" class="button__cta">

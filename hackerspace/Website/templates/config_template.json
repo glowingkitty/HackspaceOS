@@ -4,14 +4,22 @@
         "NAME": null,
 
         "__info__1": "The sentences in HACKERSPACE_IS_SENTENCES show up on the landingpage in the header.",
-        "HACKERSPACE_IS_SENTENCES": [
-            "is a hackerspace in {{ CITY }}",
-            "is a community",
-            "is a maker & learning space",
-            "is a do-ocracy",
-            "is what you make out of it"
-        ],
-
+        "HACKERSPACE_IS_SENTENCES": {
+            "english": [
+                "is a hackerspace in {{ CITY }}",
+                "is a community",
+                "is a maker & learning space",
+                "is a do-ocracy",
+                "is what you make out of it"
+            ],
+            "hebrew": [
+                "הוא מרחב האקרים בשנת {{ CITY }}",
+                "היא קהילה",
+                "הוא יצרנית ומרחב למידה",
+                "הוא דו-אוקקרטיה",
+                "זה מה שאתה עושה מזה"
+            ]
+        },
         "THINGS_TO_DO": [
             "wood",
             "3D printer",
@@ -152,14 +160,17 @@
             "CITY": null,
             "STATE": null,
             "COUNTRYCODE": null,
-            "HOW_TO_FIND_US": null
+            "HOW_TO_FIND_US__english": null,
+            "HOW_TO_FIND_US__hebrew": null
         },
 
         "LAT_LON": [],
 
         "TIMEZONE_STRING": null,
 
-        "OPENING_HOURS_SUMMARY": "Mon-Sun, 11AM - 10PM",
+        "OPENING_HOURS_SUMMARY": {
+            "english": "Mon-Sun, 11AM - 10PM"
+        },
 
         "__info__1": "When is your hackerspace open? (based on a 24 hour cycle) The status will be visible on your landingpage in the header.",
         "OPENING_HOURS": {

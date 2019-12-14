@@ -178,6 +178,8 @@ class Setup():
         import secrets
         import json
         from asci_art import show_messages, set_secret, set_secrets, show_message
+        from googletrans import Translator
+        translator = Translator()
 
         show_messages([
             'Let\'s setup your new hackerspace website!'
@@ -202,8 +204,12 @@ class Setup():
         self.config = set_secret(self.config, later_then_config,
                                  'Ok, great. And in what city is your hackerspace? (Just the city name itself)', 'PHYSICAL_SPACE', 'ADDRESS', 'CITY')
         if self.config['PHYSICAL_SPACE']['ADDRESS']['CITY']:
-            self.config['BASICS']['HACKERSPACE_IS_SENTENCES'][0] = self.config['BASICS']['HACKERSPACE_IS_SENTENCES'][0].replace(
+            self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['english'][0] = self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['english'][0].replace(
                 '{{ CITY }}', self.config['PHYSICAL_SPACE']['ADDRESS']['CITY'])
+            self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['hebrew'][0] = self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['hebrew'][0].replace(
+                '{{ CITY }}', translator.translate(
+                    text=self.config['PHYSICAL_SPACE']['ADDRESS']['CITY'],
+                    dest='he').text)
 
         self.config = set_secret(self.config, later_then_config,
                                  'Enter your hackerspace street & house number.', 'PHYSICAL_SPACE', 'ADDRESS', 'STREET')
@@ -214,7 +220,7 @@ class Setup():
         self.config = set_secret(self.config, later_then_config,
                                  'Enter your hackerspace country code (US or DE for example)', 'PHYSICAL_SPACE', 'ADDRESS', 'COUNTRYCODE')
         self.config = set_secret(self.config, later_then_config,
-                                 'Anything else people have to know to find your hackerspace?', 'PHYSICAL_SPACE', 'ADDRESS', 'HOW_TO_FIND_US')
+                                 'Anything else people have to know to find your hackerspace?', 'PHYSICAL_SPACE', 'ADDRESS', 'HOW_TO_FIND_US__english')
         self.config = set_secret(self.config, later_then_config,
                                  'Please enter the URL of your embedded map, to show people where your hackerspace is. My suggestion: go to https://www.google.com/maps - select your hackerspace, press the "Share" button -> "Embed a map" and enter here the "scr" URL of the iframe code.', 'BASICS', 'EMBEDDED_MAP_URL')
 

@@ -1,44 +1,4 @@
 {
-    "is a hackerspace in CITY": {
-        "english": "0SPACE0 is a hackerspace in 0CITY0",
-        "german": "0SPACE0 ist ein Raum, in 0CITY0",
-        "spanish": "El espacio es un hackerspace en la ciudad",
-        "japanese": "0SPACE0\u306f0CITY0\u5185\u306e\u30b9\u30da\u30fc\u30b9\u3067\u3059",
-        "french": "L'espace est un espace 0CITY0",
-        "hebrew": "\u05e4\u05d5\u05e0\u05e7\u05e6\u05d9\u05d5\u05ea 0SPACE0 \u05d5\u05dc\u05d4\u05e9\u05ea\u05ea\u05e3 0CITY0"
-    },
-    "is a community": {
-        "english": "0SPACE0 is a community",
-        "hebrew": "0SPACE0 \u05d4\u05d9\u05d0 \u05e7\u05d4\u05d9\u05dc\u05d4",
-        "german": "0SPACE0 ist eine Gemeinschaft",
-        "spanish": "El espacio es una comunidad",
-        "japanese": "0SPACE0\u306f\u30b3\u30df\u30e5\u30cb\u30c6\u30a3\u3067\u3059",
-        "french": "L'espace est une communaut\u00e9"
-    },
-    "is a maker & learning space": {
-        "english": "0SPACE0 is a maker & learning space",
-        "german": "0SPACE0 ist ein Hersteller und Lernraum",
-        "spanish": "El espacio es un espacio fabricante y el aprendizaje",
-        "japanese": "0SPACE0\u306f\u3001\u30e1\u30fc\u30ab\u30fc\uff06\u5b66\u7fd2\u30b9\u30da\u30fc\u30b9\u3067\u3059\u3002",
-        "french": "L'espace est un espace fabricant et apprentissage",
-        "hebrew": "0SPACE0 \u05d4\u05d5\u05d0 \u05d7\u05dc\u05dc \u05d9\u05e6\u05e8\u05e0\u05d9\u05ea & \u05dc\u05de\u05d9\u05d3\u05d4"
-    },
-    "is a do-ocracy": {
-        "english": "0SPACE0 is a do-ocracy",
-        "german": "0SPACE0 ist ein Do-ocracy",
-        "spanish": "El espacio es un do-ocracia",
-        "japanese": "0SPACE0\u304cdo-ocracy\u3067\u3059",
-        "french": "L'espace est un do-ocracy",
-        "hebrew": "0SPACE0 \u05d4\u05d5\u05d0-ocracy \u05de\u05d8\u05dc\u05d5\u05ea"
-    },
-    "is what you make out of it": {
-        "english": "0SPACE0 is what you make out of it",
-        "german": "0SPACE0 ist das, was man daraus macht aus",
-        "spanish": "El espacio es lo que hacen de ella",
-        "japanese": "0SPACE0\u306f\u3001\u3042\u306a\u305f\u304c\u305d\u308c\u3092\u4f5c\u308b\u3082\u306e\u3067\u3059",
-        "french": "E0SPACE0 est ce que vous faites sortir",
-        "hebrew": "0SPACE0 \u05d4\u05d5\u05d0 \u05de\u05d4 \u05e9\u05d0\u05ea\u05d4 \u05e2\u05d5\u05e9\u05d4 \u05de\u05de\u05e0\u05d5"
-    },
     "Probably open": {
         "english": "Probably open",
         "hebrew": "\u05db\u05e0\u05e8\u05d0\u05d4 \u05e4\u05ea\u05d5\u05d7",
