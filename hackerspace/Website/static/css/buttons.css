@@ -96,13 +96,18 @@
     background-image: url('../images/plus.svg');
 }
 
+.button__cta.secondary.with_icon.plus_icon.rtl {
+    padding-left: inherit;
+    padding-right: 44px;
+    background-position: 95% 50%;
+}
+
 .button__donate_cta {
     cursor: pointer;
     background-position: 50% 50%;
     background-size: contain;
     background-repeat: no-repeat;
     position: fixed;
-    left: auto;
     top: 30px;
     width: 92px;
     height: 200px;
@@ -116,6 +121,13 @@
     -webkit-animation: CatMoving 20s infinite;
     /* Safari 4.0 - 8.0 */
     animation: CatMoving 20s infinite;
+}
+
+.button__donate_cta.cat_rtl {
+    background-image: url('../images/donate/cat.png');
+    -webkit-animation: CatMovingRTL 20s infinite;
+    /* Safari 4.0 - 8.0 */
+    animation: CatMovingRTL 20s infinite;
 }
 
 .button__donate_cta:hover {
@@ -145,6 +157,13 @@
     font-size: 16px;
     line-height: 40px;
     text-decoration: none;
+}
+
+.button__donate.rtl {
+    left: 0%;
+    right: inherit;
+    margin-right: inherit;
+    margin-left: 10px;
 }
 
 .button__donate:hover {

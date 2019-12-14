@@ -1,0 +1,322 @@
+{
+    "is a hackerspace in CITY": {
+        "english": "0SPACE0 is a hackerspace in 0CITY0",
+        "german": "0SPACE0 ist ein Raum, in 0CITY0",
+        "spanish": "El espacio es un hackerspace en la ciudad",
+        "japanese": "0SPACE0\u306f0CITY0\u5185\u306e\u30b9\u30da\u30fc\u30b9\u3067\u3059",
+        "french": "L'espace est un espace 0CITY0",
+        "hebrew": "\u05e4\u05d5\u05e0\u05e7\u05e6\u05d9\u05d5\u05ea 0SPACE0 \u05d5\u05dc\u05d4\u05e9\u05ea\u05ea\u05e3 0CITY0"
+    },
+    "is a community": {
+        "english": "0SPACE0 is a community",
+        "hebrew": "0SPACE0 \u05d4\u05d9\u05d0 \u05e7\u05d4\u05d9\u05dc\u05d4",
+        "german": "0SPACE0 ist eine Gemeinschaft",
+        "spanish": "El espacio es una comunidad",
+        "japanese": "0SPACE0\u306f\u30b3\u30df\u30e5\u30cb\u30c6\u30a3\u3067\u3059",
+        "french": "L'espace est une communaut\u00e9"
+    },
+    "is a maker & learning space": {
+        "english": "0SPACE0 is a maker & learning space",
+        "german": "0SPACE0 ist ein Hersteller und Lernraum",
+        "spanish": "El espacio es un espacio fabricante y el aprendizaje",
+        "japanese": "0SPACE0\u306f\u3001\u30e1\u30fc\u30ab\u30fc\uff06\u5b66\u7fd2\u30b9\u30da\u30fc\u30b9\u3067\u3059\u3002",
+        "french": "L'espace est un espace fabricant et apprentissage",
+        "hebrew": "0SPACE0 \u05d4\u05d5\u05d0 \u05d7\u05dc\u05dc \u05d9\u05e6\u05e8\u05e0\u05d9\u05ea & \u05dc\u05de\u05d9\u05d3\u05d4"
+    },
+    "is a do-ocracy": {
+        "english": "0SPACE0 is a do-ocracy",
+        "german": "0SPACE0 ist ein Do-ocracy",
+        "spanish": "El espacio es un do-ocracia",
+        "japanese": "0SPACE0\u304cdo-ocracy\u3067\u3059",
+        "french": "L'espace est un do-ocracy",
+        "hebrew": "0SPACE0 \u05d4\u05d5\u05d0-ocracy \u05de\u05d8\u05dc\u05d5\u05ea"
+    },
+    "is what you make out of it": {
+        "english": "0SPACE0 is what you make out of it",
+        "german": "0SPACE0 ist das, was man daraus macht aus",
+        "spanish": "El espacio es lo que hacen de ella",
+        "japanese": "0SPACE0\u306f\u3001\u3042\u306a\u305f\u304c\u305d\u308c\u3092\u4f5c\u308b\u3082\u306e\u3067\u3059",
+        "french": "E0SPACE0 est ce que vous faites sortir",
+        "hebrew": "0SPACE0 \u05d4\u05d5\u05d0 \u05de\u05d4 \u05e9\u05d0\u05ea\u05d4 \u05e2\u05d5\u05e9\u05d4 \u05de\u05de\u05e0\u05d5"
+    },
+    "Probably open": {
+        "english": "Probably open",
+        "hebrew": "\u05db\u05e0\u05e8\u05d0\u05d4 \u05e4\u05ea\u05d5\u05d7",
+        "german": "wahrscheinlich offen",
+        "spanish": "probablemente abierto",
+        "japanese": "\u304a\u305d\u3089\u304f\u30aa\u30fc\u30d7\u30f3",
+        "french": "probablement ouvert"
+    },
+    "Probably closed": {
+        "english": "Probably closed",
+        "hebrew": "\u05db\u05e0\u05e8\u05d0\u05d4 \u05e0\u05e1\u05d2\u05e8",
+        "german": "wahrscheinlich geschlossen",
+        "spanish": "probablemente cerrada",
+        "japanese": "\u304a\u305d\u3089\u304f\u9589\u3058",
+        "french": "probablement ferm\u00e9"
+    },
+    "Open now": {
+        "english": "Open now",
+        "hebrew": "\u05e4\u05ea\u05d5\u05d7 \u05e2\u05db\u05e9\u05d9\u05d5",
+        "german": "Jetzt ge\u00f6ffnet",
+        "spanish": "Abierto ahora",
+        "japanese": "\u55b6\u696d\u4e2d",
+        "french": "Ouvrez maintenant"
+    },
+    "Visit us!": {
+        "english": "Visit us!",
+        "hebrew": "\u05d1\u05e7\u05e8 \u05d0\u05d5\u05ea\u05e0\u05d5!",
+        "german": "Besuchen Sie uns!",
+        "spanish": "\u00a1Vis\u00edtanos!",
+        "japanese": "\u79c1\u305f\u3061\u3092\u3054\u89a7\u304f\u3060\u3055\u3044\uff01",
+        "french": "Venez nous rendre visite!"
+    },
+    "Create an event": {
+        "english": "Create an event",
+        "hebrew": "\u05e6\u05d5\u05e8 \u05d0\u05d9\u05e8\u05d5\u05e2",
+        "german": "Erstellen Sie ein Ereignis",
+        "spanish": "Crear un evento",
+        "japanese": "\u30a4\u30d9\u30f3\u30c8\u3092\u4f5c\u6210\u3057\u307e\u3059\u3002",
+        "french": "Cr\u00e9er un \u00e9v\u00e9nement"
+    },
+    "Show all": {
+        "english": "Show all",
+        "hebrew": "\u05d4\u05e6\u05d2 \u05d4\u05db\u05d5\u05dc",
+        "german": "Zeige alles",
+        "spanish": "Mostrar todo",
+        "japanese": "\u3059\u3079\u3066\u8868\u793a\u3059\u308b",
+        "french": "Montre tout"
+    },
+    "Do I belong at SPACE?": {
+        "english": "Do I belong at 0SPACE0?",
+        "german": "Geh\u00f6re ich bei 0SPACE0?",
+        "spanish": "\u00bfPertenezco al espacio?",
+        "japanese": "\u79c1\u306f0SPACE0\u306b\u5c5e\u3057\u3066\u3044\u308b\u306e\u3067\u3059\u304b\uff1f",
+        "french": "Est-ce que j'appartiens \u00e0 0SPACE0?",
+        "hebrew": "\u05d4\u05d0\u05dd \u05d0\u05e0\u05d9 \u05e9\u05d9\u05d9\u05da \u05dc\u05e2\u05d1\u05e8 0SPACE0?"
+    },
+    "YES you do as long...": {
+        "english": "YES YOU DO! As long as you follow our one rule. At 0SPACE0 you can meet friendly people doing all kinds of cool things - from software & electronics up to playing music, reading books and having great conversations with your fellow hackers.",
+        "german": "JA SIE TUN! Solange Sie unsere eine Regel folgen. Bei 0SPACE0 k\u00f6nnen Sie freundliche Menschen dabei alle Arten von coolen Dingen erf\u00fcllen - von Software und Elektronik bis zu Musik zu spielen, B\u00fccher und mit gro\u00dfen Gespr\u00e4chen mit den anderen Hackern zu lesen.",
+        "spanish": "\u00a1SI TU PUEDES! Como siempre y cuando siga nuestra una regla. En ESPACIO puedes conocer gente amable haciendo todo tipo de cosas interesantes - desde el software y la electr\u00f3nica hasta la reproducci\u00f3n de m\u00fasica, leer libros y tener grandes conversaciones con sus compa\u00f1eros de los piratas inform\u00e1ticos.",
+        "japanese": "\u305d\u3046\u3067\u3059\uff01\u9650\u308a\u3001\u3042\u306a\u305f\u306f\u79c1\u305f\u3061\u306e\u4e00\u3064\u306e\u30eb\u30fc\u30eb\u306b\u5f93\u3046\u3088\u3046\u3002 \u3001\u97f3\u697d\u3092\u6f14\u594f\u3059\u308b\u672c\u3092\u8aad\u3093\u3067\u3001\u3042\u306a\u305f\u306e\u4ef2\u9593\u306e\u30cf\u30c3\u30ab\u30fc\u3068\u306e\u5049\u5927\u306a\u4f1a\u8a71\u3092\u6301\u3064\u3053\u3068\u306b\u30bd\u30d5\u30c8\u30a6\u30a7\u30a2\uff06\u30a8\u30ec\u30af\u30c8\u30ed\u30cb\u30af\u30b9\u30a2\u30c3\u30d7\u304b\u3089 -  0SPACE0\u3067\u3001\u3042\u306a\u305f\u306f\u30af\u30fc\u30eb\u306a\u3082\u306e\u306e\u3059\u3079\u3066\u306e\u7a2e\u985e\u3092\u3084\u3063\u3066\u512a\u3057\u3044\u4eba\u306b\u4f1a\u3046\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002",
+        "french": "OUI VOUS! Tant que vous suivez notre seule r\u00e8gle. 0SPACE0 vous pouvez rencontrer des gens sympathiques qui font toutes sortes de choses cool - de logiciels et l'\u00e9lectronique jusqu'\u00e0 jouer de la musique, la lecture de livres et d'avoir des conversations avec vos coll\u00e8gues pirates.",
+        "hebrew": "\u05db\u05df \u05d0\u05ea\u05d4 \u05db\u05df! \u05db\u05dc \u05e2\u05d5\u05d3 \u05d0\u05ea\u05dd \u05e2\u05d5\u05e7\u05d1\u05d9\u05dd \u05db\u05dc\u05dc \u05d0\u05d7\u05d3 \u05e9\u05dc\u05e0\u05d5. \u05d1\u05e9\u05e2\u05ea 0SPACE0 \u05d0\u05ea\u05d4 \u05d9\u05db\u05d5\u05dc \u05dc\u05e4\u05d2\u05d5\u05e9 \u05d0\u05e0\u05e9\u05d9\u05dd \u05e0\u05d7\u05de\u05d3\u05d9\u05dd \u05e2\u05d5\u05e9\u05d9\u05dd \u05db\u05dc \u05de\u05d9\u05e0\u05d9 \u05d3\u05d1\u05e8\u05d9\u05dd \u05de\u05d2\u05e0\u05d9\u05d1\u05d9\u05dd - \u05de\u05ea\u05d5\u05db\u05e0\u05d4 \u05d5\u05d0\u05dc\u05e7\u05d8\u05e8\u05d5\u05e0\u05d9\u05e7\u05d4 \u05e2\u05d3 \u05d4\u05e9\u05de\u05e2\u05ea \u05de\u05d5\u05d6\u05d9\u05e7\u05d4, \u05e7\u05e8\u05d9\u05d0\u05ea \u05e1\u05e4\u05e8\u05d9 \u05e9\u05d9\u05d7\u05d5\u05ea \u05e0\u05d4\u05d3\u05e8\u05d5\u05ea \u05e2\u05dd \u05d4\u05d0\u05e7\u05e8 \u05d4\u05d1\u05d7\u05d5\u05e8 \u05e9\u05dc\u05da."
+    },
+    "When?": {
+        "english": "When?",
+        "hebrew": "\u05de\u05ea\u05d9?",
+        "german": "Wann?",
+        "spanish": "\u00bfCuando?",
+        "japanese": "\u3044\u3064\uff1f",
+        "french": "Quand?"
+    },
+    "Where?": {
+        "english": "Where?",
+        "hebrew": "\u05d0\u05d9\u05e4\u05d4?",
+        "german": "Woher?",
+        "spanish": "\u00bfD\u00f3nde?",
+        "japanese": "\u3069\u3053\u3067\uff1f",
+        "french": "O\u00f9?"
+    },
+    "Navigate": {
+        "english": "Navigate",
+        "hebrew": "\u05e0\u05d5\u05d5\u05d8",
+        "german": "Navigieren",
+        "spanish": "Navegar",
+        "japanese": "\u79fb\u52d5",
+        "french": "Naviguer"
+    },
+    "SPACE wouldnt exist without your support!": {
+        "english": "0SPACE0 wouldn't exist without your support!",
+        "hebrew": "0SPACE0 \u05dc\u05d0 \u05d4\u05d9\u05d4 \u05e7\u05d9\u05d9\u05dd \u05d1\u05dc\u05d9 \u05ea\u05de\u05d9\u05db\u05ea\u05db\u05dd!",
+        "german": "0SPACE0 w\u00fcrde nicht ohne Ihre Unterst\u00fctzung existieren!",
+        "spanish": "El espacio no existir\u00eda sin su apoyo!",
+        "japanese": "0SPACE0\u306f\u3001\u3042\u306a\u305f\u306e\u30b5\u30dd\u30fc\u30c8\u306a\u3057\u3067\u306f\u5b58\u5728\u3057\u306a\u3044\u3060\u308d\u3046\uff01",
+        "french": "0SPACE0 n'existerait pas sans votre soutien!"
+    },
+    "Donate": {
+        "english": "Donate",
+        "hebrew": "\u05ea\u05e8\u05d5\u05dd",
+        "german": "Spenden",
+        "spanish": "Donar",
+        "japanese": "\u5bc4\u4ed8\u3057\u307e\u3059",
+        "french": "Faire un don"
+    },
+    "Talk with your fellow HACKERS!": {
+        "english": "Talk with your fellow 0HACKERS0!",
+        "hebrew": "\u05d3\u05d1\u05e8 \u05e2\u05dd \u05d4\u05d0\u05e7\u05e8 \u05d4\u05d1\u05d7\u05d5\u05e8 \u05e9\u05dc\u05da!",
+        "german": "Sprechen Sie mit Ihren Kollegen 0HACKERS0!",
+        "spanish": "Hablar con sus compa\u00f1eros de 0HACKERS0!",
+        "japanese": "\u3042\u306a\u305f\u306e\u4ef2\u9593\u306e\u30cf\u30c3\u30ab\u30fc\u3068\u306e\u30c8\u30fc\u30af\uff01",
+        "french": "Discutez avec vos coll\u00e8gues 0HACKERS0!"
+    },
+    "on": {
+        "english": "on",
+        "hebrew": "\u05e2\u05dc",
+        "german": "auf",
+        "spanish": "en",
+        "japanese": "\u306b",
+        "french": "sur"
+    },
+    "And join us online!": {
+        "english": "And join us online!",
+        "hebrew": "\u05d5\u05d4\u05e6\u05d8\u05e8\u05e4\u05d5 \u05d0\u05dc\u05d9\u05e0\u05d5 \u05d1\u05d0\u05d9\u05e0\u05d8\u05e8\u05e0\u05d8!",
+        "german": "Und besuchen Sie uns online!",
+        "spanish": "Y unirse a nosotros en l\u00ednea!",
+        "japanese": "\u305d\u3057\u3066\u30aa\u30f3\u30e9\u30a4\u30f3\u79c1\u305f\u3061\u306b\u53c2\u52a0\uff01",
+        "french": "Et rejoignez-nous en ligne!"
+    },
+    "Did you know? Hackerspaces exist all over the world!": {
+        "english": "Did you know?<br>Hackerspaces exist all over the world!",
+        "hebrew": "\u05d4\u05d0\u05dd \u05d9\u05d3\u05e2\u05ea?<br>Hackerspaces \u05e7\u05d9\u05d9\u05dd \u05d1\u05db\u05dc \u05e8\u05d7\u05d1\u05d9 \u05d4\u05e2\u05d5\u05dc\u05dd!",
+        "german": "Wusstest du schon?<br>Hackerspaces gibt es \u00fcberall auf der Welt!",
+        "spanish": "\u00bfSab\u00edas?<br>Hackerspaces existen en todo el mundo!",
+        "japanese": "\u77e5\u3063\u3066\u307e\u3059\u304b\uff1f<br>\u30cf\u30c3\u30ab\u30fc\u30b9\u30da\u30fc\u30b9\u306f\u3001\u4e16\u754c\u4e2d\u306b\u5b58\u5728\u3057\u307e\u3059\uff01",
+        "french": "Le saviez-vous?<br>Hackerspaces existent partout dans le monde!"
+    },
+    "Website based on": {
+        "english": "Website based on",
+        "hebrew": "\u05d0\u05ea\u05e8 \u05d4\u05de\u05d1\u05d5\u05e1\u05e1 \u05e2\u05dc",
+        "german": "Webseite basiert auf",
+        "spanish": "Sitio web basado en",
+        "japanese": "\u30a6\u30a7\u30d6\u30b5\u30a4\u30c8\u4e0a\u306e\u30d9\u30fc\u30b9",
+        "french": "Site Web bas\u00e9 sur"
+    },
+    "SPACE is funded by donations. So please help us keeping SPACE alive! With money, hardware or your time!": {
+        "english": "0SPACE0 is funded by donations. So please help us keeping 0SPACE0 alive! With money, hardware or your time!",
+        "hebrew": "0SPACE0 \u05de\u05de\u05d5\u05de\u05e0\u05ea \u05de\u05ea\u05e8\u05d5\u05de\u05d5\u05ea. \u05d0\u05d6 \u05e2\u05d6\u05e8\u05d4 \u05d1\u05d1\u05e7\u05e9\u05d4 \u05dc\u05e0\u05d5 \u05dc\u05e9\u05de\u05d5\u05e8 \u05e2\u05dc \u05de\u05e8\u05d7\u05e7 \u05d1\u05d7\u05d9\u05d9\u05dd! \u05e2\u05dd \u05db\u05e1\u05e3, \u05d7\u05d5\u05de\u05e8\u05d4 \u05d0\u05d5 \u05d4\u05d6\u05de\u05df \u05e9\u05dc\u05da!",
+        "german": "0SPACE0 wird durch Spenden finanziert. Also bitte Hilfe halten uns 0SPACE0 am Leben! Mit dem Geld, Hardware oder Ihrer Zeit!",
+        "spanish": "ESPACIO es financiado por donaciones. As\u00ed que por favor ayuda dejando un espacio vivo! Con el dinero, hardware o su tiempo!",
+        "japanese": "0SPACE0\u306f\u3001\u5bc4\u4ed8\u306b\u3088\u3063\u3066\u904b\u55b6\u3055\u308c\u3066\u3044\u307e\u3059\u3002\u3060\u304b\u3089\u3001\u52a9\u3051\u3001\u79c1\u305f\u3061\u304c\u751f\u304d\u30660SPACE0\u3092\u7dad\u6301\u3057\u3066\u304f\u3060\u3055\u3044\uff01\u304a\u91d1\u3001\u30cf\u30fc\u30c9\u30a6\u30a7\u30a2\u307e\u305f\u306f\u3042\u306a\u305f\u306e\u6642\u9593\u3067\uff01",
+        "french": "0SPACE0 est financ\u00e9 par des dons. Alors aide s'il vous pla\u00eet nous garder en vie E0SPACE0! Avec de l'argent, du mat\u00e9riel ou votre temps!"
+    },
+    "Donations are tax deductible.": {
+        "english": "Donations are tax deductible.",
+        "hebrew": "\u05ea\u05e8\u05d5\u05de\u05d5\u05ea \u05e4\u05d8\u05d5\u05e8\u05d5\u05ea \u05de\u05de\u05e1.",
+        "german": "Spenden sind steuerlich absetzbar.",
+        "spanish": "Las donaciones son deducibles de impuestos.",
+        "japanese": "\u5bc4\u4ed8\u306f\u7a0e\u63a7\u9664\u306e\u5bfe\u8c61\u3068\u306a\u308a\u307e\u3059\u3002",
+        "french": "Les dons sont d\u00e9ductibles d'imp\u00f4t."
+    },
+    "Donate money": {
+        "english": "Donate money",
+        "hebrew": "\u05ea\u05e8\u05d5\u05dd \u05db\u05e1\u05e3",
+        "german": "Geld spenden",
+        "spanish": "Donar dinero",
+        "japanese": "\u304a\u91d1\u3092\u5bc4\u4ed8\u3059\u308b",
+        "french": "Faites un don"
+    },
+    "Donate hardware": {
+        "english": "Donate hardware",
+        "hebrew": "\u05ea\u05e8\u05d5\u05dd \u05d7\u05d5\u05de\u05e8\u05d4",
+        "german": "Spenden Hardware",
+        "spanish": "donaci\u00f3n de equipos",
+        "japanese": "\u30cf\u30fc\u30c9\u30a6\u30a7\u30a2\u3092\u5bc4\u4ed8",
+        "french": "Faites un don mat\u00e9riel"
+    },
+    "Organize an event": {
+        "english": "Organize an event",
+        "hebrew": "\u05dc\u05d0\u05e8\u05d2\u05df \u05d0\u05d9\u05e8\u05d5\u05e2",
+        "german": "Organisieren Sie eine Veranstaltung",
+        "spanish": "Organizar un evento",
+        "japanese": "\u30a4\u30d9\u30f3\u30c8\u3092\u6574\u7406\u3057\u307e\u3059",
+        "french": "Organiser un \u00e9v\u00e9nement"
+    },
+    "Volunteer at an event": {
+        "english": "Volunteer at an event",
+        "hebrew": "\u05d4\u05ea\u05e0\u05d3\u05d1\u05d5\u05ea \u05d1\u05d0\u05d9\u05e8\u05d5\u05e2",
+        "german": "Freiwillige bei einer Veranstaltung",
+        "spanish": "Voluntario en un evento",
+        "japanese": "\u30a4\u30d9\u30f3\u30c8\u3067\u30dc\u30e9\u30f3\u30c6\u30a3\u30a2",
+        "french": "B\u00e9n\u00e9vole lors d'un \u00e9v\u00e9nement"
+    },
+    "Landingpage": {
+        "english": "Landingpage",
+        "hebrew": "\u05d3\u05e3 \u05e0\u05d7\u05d9\u05ea\u05d4",
+        "german": "Landingpage",
+        "spanish": "P\u00e1gina de destino",
+        "japanese": "\u30e9\u30f3\u30c7\u30a3\u30f3\u30b0\u30da\u30fc\u30b8",
+        "french": "Landingpage"
+    },
+    "About": {
+        "english": "About",
+        "hebrew": "\u05e2\u05dc \u05d0\u05d5\u05d3\u05d5\u05ea",
+        "german": "\u00dcber",
+        "spanish": "Acerca de",
+        "japanese": "\u7d04",
+        "french": "Sur"
+    },
+    "Values": {
+        "english": "Values",
+        "hebrew": "\u05e2\u05e8\u05db\u05d9\u05dd",
+        "german": "Werte",
+        "spanish": "Valores",
+        "japanese": "\u5024",
+        "french": "Valeurs"
+    },
+    "Photos": {
+        "english": "Photos",
+        "hebrew": "\u05ea\u05de\u05d5\u05e0\u05d5\u05ea",
+        "german": "Fotos",
+        "spanish": "fotos",
+        "japanese": "\u5199\u771f",
+        "french": "Photos"
+    },
+    "Participate": {
+        "english": "Participate",
+        "hebrew": "\u05d4\u05e9\u05ea\u05ea\u05e4\u05ea\u05d9",
+        "german": "Sich beteiligen",
+        "spanish": "Participar",
+        "japanese": "\u53c2\u52a0\u3057\u307e\u3059",
+        "french": "Participer"
+    },
+    "Events": {
+        "english": "Events",
+        "hebrew": "\u05d0\u05d9\u05e8\u05d5\u05e2\u05d9\u05dd",
+        "german": "Veranstaltungen",
+        "spanish": "Eventos",
+        "japanese": "\u30a4\u30d9\u30f3\u30c8",
+        "french": "\u00c9v\u00e9nements"
+    },
+    "Projects": {
+        "english": "Projects",
+        "hebrew": "\u05e4\u05e8\u05d5\u05d9\u05e7\u05d8\u05d9\u05dd",
+        "german": "Projekte",
+        "spanish": "proyectos",
+        "japanese": "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8",
+        "french": "Projets"
+    },
+    "Meetings": {
+        "english": "Meetings",
+        "hebrew": "\u05de\u05e4\u05d2\u05e9\u05d9\u05dd",
+        "german": "Treffen",
+        "spanish": "reuniones",
+        "japanese": "\u30df\u30fc\u30c6\u30a3\u30f3\u30b0",
+        "french": "r\u00e9unions"
+    },
+    "Spaces": {
+        "english": "Spaces",
+        "hebrew": "Spaces",
+        "german": "Spaces",
+        "spanish": "espacios",
+        "japanese": "\u30b9\u30da\u30fc\u30b9",
+        "french": "Les espaces"
+    },
+    "Search ...": {
+        "english": "Search ...",
+        "hebrew": "\u05dc\u05d7\u05e4\u05e9 ...",
+        "german": "Suche ...",
+        "spanish": "Buscar ...",
+        "japanese": "\u691c\u7d22...",
+        "french": "Chercher ..."
+    },
+    "Searching ...": {
+        "english": "Searching ...",
+        "hebrew": "\u05d7\u05d9\u05e4\u05d5\u05e9 ...",
+        "german": "Am suchen ...",
+        "spanish": "Buscando ...",
+        "japanese": "\u691c\u7d22\u4e2d...",
+        "french": "Recherche en cours ..."
+    }
+}

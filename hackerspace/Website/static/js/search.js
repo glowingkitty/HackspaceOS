@@ -1,4 +1,4 @@
-function search(query) {
+function search(query, while_waiting_string, rtl) {
     source.cancel()
 
     CancelToken = axios.CancelToken;
@@ -8,11 +8,16 @@ function search(query) {
         showOverlay()
 
         // show search bar active
-        if (document.getElementById('search_bar').className == 'search_bar') {
+        if (document.getElementById('search_bar').className == 'search_bar' || document.getElementById('search_bar').className == 'search_bar rtl') {
             document.getElementById('search_bar').classList.add('active')
         }
 
-        document.getElementById('search_results').innerHTML = 'Searching ...'
+        if (rtl == true) {
+            document.getElementById('search_results').innerHTML = '<div dir="rtl" align="right">' + while_waiting_string + '</div>'
+        } else {
+            document.getElementById('search_results').innerHTML = '<div>' + while_waiting_string + '</div>'
+        }
+
 
         axios.get("/search?q=" + query, {
                 cancelToken: new CancelToken(function executor(c) {
@@ -21,9 +26,10 @@ function search(query) {
                 })
             })
             .then(function (response) {
-                // show results
-                document.getElementById('search_results').innerHTML = response.data.html
-
+                if (document.getElementById('search_input').value) {
+                    // show results
+                    document.getElementById('search_results').innerHTML = response.data.html
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -35,7 +41,7 @@ function search(query) {
     } else {
         document.getElementById('search_results').innerHTML = ''
 
-        if (document.getElementById('search_bar').className == 'search_bar active') {
+        if (document.getElementById('search_bar').className == 'search_bar active' || document.getElementById('search_bar').className == 'search_bar rtl active') {
             document.getElementById('search_bar').classList.remove('active')
         }
 
@@ -104,10 +110,10 @@ function search_hosts(query) {
         });
 }
 
-function enterSearch(text) {
+function enterSearch(text, while_waiting_string, rtl) {
     if (document.getElementById('search_input')) {
         document.getElementById('search_input').value = text
-        search(search_input.value)
+        search(document.getElementById('search_input').value, while_waiting_string, rtl)
     }
 }
 
@@ -116,7 +122,7 @@ function clearSearch() {
         document.getElementById('search_input').value = ''
         document.getElementById('search_results').innerHTML = ''
 
-        if (document.getElementById('search_bar').className == 'search_bar active') {
+        if (document.getElementById('search_bar').className == 'search_bar active' || document.getElementById('search_bar').className == 'search_bar rtl active') {
             document.getElementById('search_bar').classList.remove('active')
         }
     }

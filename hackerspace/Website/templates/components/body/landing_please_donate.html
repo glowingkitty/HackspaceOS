@@ -1,11 +1,12 @@
 {% load config %}
+{% load translate %}
 {% block content %}
 
 <div class="donation_hint_block">
     <div class="header_center">
-      <h2 class="h2 large">{{ 'BASICS.NAME'|get_config }} wouldn&#x27;t exist without your support!</h2>
+      <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'SPACE wouldnt exist without your support!'|text:language }}</h2>
       <div class="divider_20"></div>
-      <div onclick="showOverlay('donate')" class="button__cta w-inline-block">Donate</div>
+      <div onclick="showOverlay('donate')" class="button__cta w-inline-block" {% if language == 'hebrew' %}lang="he" dir="rtl" align="right"{% endif %}>{{ 'Donate'|text:language }}</div>
     </div>
     <div class="header_separator upside"></div>
     <div class="header_image donation_footer"></div>

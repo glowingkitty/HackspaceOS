@@ -1,12 +1,13 @@
 {% load static %}
 {% load config %}
+{% load translate %}
 {% block content %}
 
 <div id="donate_overlay" class="overlay_block" onclick="event.stopPropagation()">
     <a href="#" class="button__close_overlay" onclick="closeOverlays()"></a>
 
     {% with NAME='BASICS.NAME'|get_config %}
-    <h2 class="h2 large">Donate</h2>
+    <h2 class="h2 large"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Donate'|text:language }}</h2>
     <div>{{ NAME }} is funded by donations. So please help us keeping {{ NAME }} alive! With money, hardware or your time!</div>
     {% if 'BASICS.DONATIONS_TAX_DEDUCTIBLE'|get_config == True %}
     <div class="text_semitransparent">Donations are tax deductible.</div>

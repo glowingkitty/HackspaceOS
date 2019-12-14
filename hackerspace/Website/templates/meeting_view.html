@@ -1,4 +1,5 @@
 {% load text %}
+{% load translate %}
 
 {% block content %}
 
@@ -10,13 +11,13 @@
         <div id="keywords" style="display: inline-block">
             {% if selected.text_keywords%}
                 {% for keyword in selected.text_keywords|split:',' %}
-                    <a href="#" onclick="enterSearch(this.innerText)" onhover="" class="keyword">{{ keyword }}<span class="button__remove_keyword" onclick="removeKeyword(event,this)"></span></a>
+                    <a href="#" onclick="enterSearch(this.innerText,'{{ 'Searching ...'|text:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" onhover="" class="keyword">{{ keyword }}<span class="button__remove_keyword" onclick="removeKeyword(event,this)"></span></a>
                 {% endfor %}
             {% endif %}
         </div>
         <a href="#" id="keyword_add" onclick="showAddKeyword()" class="keyword add_button">Add</a>
         <input id="keyword_input" class="keyword input" style="display: none" ></input>
-        <a href="#" id="keyword_save" onclick="saveKeyword()" style="display: none" class="keyword save_button">Save</a>
+        <a href="#" id="keyword_save" onclick="saveKeyword('{{ 'Searching ...'|text:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" style="display: none" class="keyword save_button">Save</a>
     </div>
     {% if '<div ' in selected.text_notes %}
     {{ selected.text_notes|safe }}

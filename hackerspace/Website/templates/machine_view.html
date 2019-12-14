@@ -1,5 +1,6 @@
 {% load array %}
 {% load text %}
+{% load translate %}
 {% block content %}
 
 <div class="header_block sub_page">
@@ -15,7 +16,7 @@
     <h2 class="h2 large">{{ selected.str_name_en_US }}</h2>
     <div>
         {% if selected.text_description_en_US %}
-        {{ selected.text_description_en_US|findSearches|safe }}<br>
+        {{ selected.text_description_en_US|findSearches:'Searching ...'|text:language|safe }}<br>
         <br>
         {% endif %}
         {% if selected.url_wiki %}

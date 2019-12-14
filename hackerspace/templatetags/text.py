@@ -60,7 +60,7 @@ def cleanhtml(raw_html):
 
 
 @register.filter
-def findSearches(text):
+def findSearches(text, while_searching_str):
     if not text:
         return text
 
@@ -68,7 +68,7 @@ def findSearches(text):
     searches = re.findall(r'\{([^{}]*)\}\|search', text)
     for search_query in searches:
         text = text.replace('{'+search_query+'}|search', '<a class="inline_link" onclick="openMenu();enterSearch(\'' +
-                            search_query+'\')" href="#">'+search_query+'</a>')
+                            search_query+'\',\''+while_searching_str+'\')" href="#">'+search_query+'</a>')
 
     return text
 

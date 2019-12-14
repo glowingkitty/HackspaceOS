@@ -16,7 +16,8 @@ def get_view_response(request, page, sub_page, hashname):
         'in_space': True if request.COOKIES.get('in_space') else None,
         'hash': hashname,
         'ADMIN_URL': STR__get_key('DJANGO.ADMIN_URL'),
-        'user': request.user
+        'user': request.user,
+        'language':'hebrew'
     }
 
     if page == 'landingpage':
@@ -508,16 +509,13 @@ def get_view(request):
 
 def translate_view(request):
     log('translate_view(request)')
+    import json
     import bleach
     from googletrans import Translator
     translator = Translator()
-    language_codes = {
-        'english': 'en',
-        'hebrew': 'iw',
-        'german': 'de',
-        'spanish': 'es',
-    }
 
+    with open('hackerspace/Website/templates/languages.json') as json_file:
+        language_codes = json.load(json_file)
 
     if request.GET.get('q', None) and request.GET.get('language', None):
         text = bleach.clean(request.GET.get('q',None)).encode('ascii', 'ignore').decode('ascii')
@@ -625,6 +623,7 @@ def search_view(request):
             'num_results': len(search_results),
             'html': get_template(
                 'components/search/search_results.html').render({
+                    'language':'hebrew',
                     'search_results': search_results
                 }) if not request.GET.get('filter', None) else get_template('components/body/event_new/hosts_search_results.html').render({
                     'all_hosts': search_results[:4],

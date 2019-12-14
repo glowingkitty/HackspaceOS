@@ -29,6 +29,13 @@
     overflow: hidden;
 }
 
+.h2.rtl {
+    padding-left: inherit;
+    border-left: inherit;
+    padding-right: 5px;
+    border-right: 5px solid var(--PRIMARY_COLOR);
+}
+
 .h2.in_result_preview_block {
     margin-left: 10px;
     margin-top: 20px;
@@ -95,10 +102,18 @@
     font-size: 16px;
 }
 
+.visit_us_text_left.rtl {
+    float: right;
+}
+
 .visit_us_text_right {
     width: 70%;
     float: left;
     color: #818181;
+}
+
+.visit_us_text_right.rtl {
+    float: right;
 }
 
 

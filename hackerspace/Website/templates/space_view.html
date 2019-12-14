@@ -1,6 +1,7 @@
 {% load array %}
 {% load text %}
 {% load config %}
+{% load translate %}
 {% block content %}
 
 {% with MODULES='MODULES'|get_config %}
@@ -18,7 +19,7 @@
     <h2 class="h2 large">{{ selected.str_name_en_US }}</h2>
     <div>
         {% if selected.text_description_en_US %}
-        {{ selected.text_description_en_US|findSearches|safe }}<br>
+        {{ selected.text_description_en_US|findSearches:'Searching ...'|text:language|safe }}<br>
         <br>
         {% endif %}
         {% if selected.url_wiki %}
