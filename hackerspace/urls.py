@@ -75,6 +75,7 @@ urlpatterns = [
     path('consensus', views.consensus_view, name='consensus'),
 
     path('get/', views.get_view, name='get'),
+    path('translate', views.translate_view, name='translate'),
     path('load_more', views.load_more_view, name='load_more'),
     path('save', views.save_view, name='save'),
     path('remove', views.remove_view, name='remove'),

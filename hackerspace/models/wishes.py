@@ -18,7 +18,9 @@ class WishesSet(models.QuerySet):
 class Wish(models.Model):
     objects = WishesSet.as_manager()
     str_name_en_US = models.CharField(
-        max_length=250, blank=True, null=True, verbose_name='Name')
+        max_length=250, blank=True, null=True, verbose_name='Name en-US')
+    str_name_he_IL = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='Name he-IL')
     one_person = models.ForeignKey(
         'Person', related_name="o_wishes_person", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Guilde')
     text_description_en_US = models.TextField(

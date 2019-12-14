@@ -23,7 +23,12 @@
         Want to have the event published earlier? Ask someone at {{ 'BASICS.NAME'|get_config }} with a user account for this website to confirm the event or to create a user account for you.
     </div>
     {% endif %}
-    <div class="sub_heading text_semitransparent">{% if selected.str_relative_time %}{{ selected.str_relative_time }}, {% endif %}{{ selected.datetime_range }}{% if selected.one_space and 'Spaces' in MODULES %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name_en_US }}</a>{% endif %}</div>
+    <div class="sub_heading text_semitransparent">
+        {% if selected.str_relative_time %}{{ selected.str_relative_time }}, {% endif %}{{ selected.datetime_range }}
+        {% if selected.str_series_repeat_how_often %} | 🗓{{ selected.repeating }}{% endif %}
+        {% if selected.one_space and 'Spaces' in MODULES %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name_en_US }}</a>{% endif %}
+    </div>
+    
     <h2 class="h2 large">{{ selected.str_name_en_US|TEXT_replaceLinkCSS|safe }}</h2>
     {% if selected.url_meetup_event %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
@@ -43,6 +48,7 @@
     <br>
     <br>
     {% endif %}
+
     {% if selected.text_description_en_US|length > 350 %}
     <div id="event_description" class="text_box_max_height">{{ selected.text_description_en_US|TEXT_replaceLinkCSS|safe }}</div>
     <div class="inline_link" onclick="showFullDescription('event_description',this)">Show full description</div>

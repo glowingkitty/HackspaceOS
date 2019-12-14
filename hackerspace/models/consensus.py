@@ -81,7 +81,9 @@ STATUS_CHOICES = (
 class Consensus(models.Model):
     objects = ConsensusSet.as_manager()
     str_name_en_US = models.CharField(
-        max_length=250, blank=True, null=True, verbose_name='Name')
+        max_length=250, blank=True, null=True, verbose_name='Name en-US')
+    str_name_he_IL = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='Name he-IL')
     text_description_en_US = models.TextField(
         blank=True, null=True, verbose_name='Description en-US')
     text_description_he_IL = models.TextField(

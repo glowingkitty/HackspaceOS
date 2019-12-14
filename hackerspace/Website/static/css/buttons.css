@@ -48,6 +48,15 @@
     color: var(--PRIMARY_COLOR);
 }
 
+.button__cta.secondary.auto_translate {
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    float: right;
+}
+
 
 @media (prefers-color-scheme: dark) {
     .button__cta {

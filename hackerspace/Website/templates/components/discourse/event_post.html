@@ -2,50 +2,52 @@
 
 {% block content %}
 
-**When?**<br>
+{% if result.str_series_repeat_how_often %}
+**When?**
+🗓{{ result.repeating }} | {{ result.time_range }}
+{% else %}
+**When?**
 {{ result.datetime_range }}<br>
-<br>
-**Where?**<br>
+{% endif %}
+
+**Where?**
 {{ result.str_location|safe }}<br>
-<br>
+
 {% with ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
 {% if ADDRESS.STREET in result.str_location %}
-**How to find us?**<br>
+**How to find us?**
 {{ ADDRESS.HOW_TO_FIND_US }}<br>
-{% endwith %}
-<br>
 {% endif %}
-**Price?**<br>
+{% endwith %}
+
+**Price?**
 Free<br>
-<br>
-**Organizers?**<br>
+
+**Organizers?**
 {% for host in result.many_hosts.all %}[{{ host.str_name_en_US }}]({{ host.url_discourse }})<br>{% endfor %}
-<br>
-**Looking for volunteers?**<br>
-{% if result.boolean_looking_for_volunteers==True %}
+
+{% if result.boolean_looking_for_volunteers == True %}
+**Looking for volunteers?**
 YES!! Please reply to this event post if you are interested in helping!
 {% else %}
+**Looking for volunteers?**
 No.
 {% endif %}
-<br>
+
 ***
 {% if result.url_featured_photo or 'WEBSITE.DOMAIN'|get_config in result.image_featured_photo.url %}
+<br>
 <img src="{% if result.url_featured_photo %}{{ result.url_featured_photo }}{% else %}{{ result.image_featured_photo.url }}{% endif %}" alt="image" width="400"/>
 {% endif %}
 
 {% if result.text_description_en_US %}
-<br>
-[English]
+**Description (english)**
 {{ result.text_description_en_US }}<br>
-<br>
 {% endif %}
 
 {% if result.text_description_he_IL %}
-***
-<br>
-[Hebrew]
+**Description (hebrew)**
 {{ result.text_description_he_IL }}<br>
-<br>
 {% endif %}
 
 ***

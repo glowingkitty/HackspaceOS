@@ -486,7 +486,9 @@ class Event(models.Model):
 
     objects = EventSet.as_manager()
     str_name_en_US = models.CharField(
-        max_length=250, blank=True, null=True, verbose_name='Name')
+        max_length=250, blank=True, null=True, verbose_name='Name en-US')
+    str_name_he_IL = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='Name he-IL')
     str_slug = models.CharField(max_length=250, unique=True, blank=True, null=True)
     boolean_approved = models.BooleanField(default=True)
     int_UNIXtime_event_start = models.IntegerField(
@@ -538,8 +540,6 @@ class Event(models.Model):
         max_length=250, blank=True, null=True, verbose_name='Meetup URL')
     url_discourse_event = models.URLField(
         max_length=250, blank=True, null=True, verbose_name='discourse URL')
-    url_discourse_wish = models.URLField(
-        max_length=250, blank=True, null=True, verbose_name='discourse wish URL')
 
     int_UNIXtime_created = models.IntegerField(blank=True, null=True)
     int_UNIXtime_updated = models.IntegerField(blank=True, null=True)
@@ -564,13 +564,10 @@ class Event(models.Model):
 
     @property
     def str_menu_heading(self):
-        log('event.str_menu_heading')
-        log('--> return STR')
         return 'menu_h_events'
 
     @property
     def str_series(self):
-        log('event.str_series')
         import json
 
         if not self.text_series_timing:
@@ -581,11 +578,9 @@ class Event(models.Model):
         json_series_timing = json.loads('{'+text_series_timing+'}')
         if 'weekly' in json_series_timing:
             weekday_num = json_series_timing['weekly']['days_of_week'][0]
-            log('--> return STR')
             return 'every '+(json_series_timing['weekly']['interval']+'nd' if json_series_timing['weekly']['interval'] > 1 else '')+INT__getWeekday(weekday_num)
 
         if 'monthly' in json_series_timing:
-            log('--> return STR')
             return 'every month'
     
     @property
@@ -614,43 +609,36 @@ class Event(models.Model):
                 'str_welcomer':self.str_welcomer,
                 'url_meetup_event':self.url_meetup_event,
                 'url_discourse_event':self.url_discourse_event,
-                'url_discourse_wish':self.url_discourse_wish,
                 'int_UNIXtime_created':self.int_UNIXtime_created,
                 'int_UNIXtime_updated':self.int_UNIXtime_updated,
             }
 
     @property
     def str_relative_time(self):
-        log('event.str_relative_time')
         import time
 
         timestamp = self.int_UNIXtime_event_start
 
         # if date within next 5 minutes
         if timestamp < time.time() and self.int_UNIXtime_event_end > time.time():
-            log('--> return STR')
             return 'Now'
 
         # in next 60 minutes
         elif timestamp <= time.time()+(60*60):
             minutes_in_future = int((timestamp - time.time())/60)
-            log('--> return STR')
             return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
 
         # in next 12 hours
         elif timestamp <= time.time()+(60*60*12):
             hours_in_future = int(((timestamp - time.time())/60)/60)
-            log('--> return STR')
             return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
 
         # else if in next 6 days, return name of day
         elif timestamp <= time.time()+(60*60*24*6):
             name_of_weekday = self.datetime_start.strftime("%A")
-            log('--> return STR')
             return name_of_weekday
 
         else:
-            log('--> return None')
             return None
 
     @property
@@ -662,60 +650,45 @@ class Event(models.Model):
         # in next 60 minutes
         if int_UNIX_published_in <= time.time()+(60*60):
             minutes_in_future = int((int_UNIX_published_in - time.time())/60)
-            log('--> return STR')
             return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
 
         # in next 24 hours
         elif int_UNIX_published_in <= time.time()+(24*60*60):
             hours_in_future = int(((int_UNIX_published_in - time.time())/60)/60)
-            log('--> return STR')
             return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
 
     @property
     def datetime_start(self):
-        log('event.datetime_start')
         import pytz
         from datetime import datetime
 
         if not self.int_UNIXtime_event_start:
-            log('--> return None')
             return None
         local_timezone = pytz.timezone(self.str_timezone)
         local_time = datetime.fromtimestamp(
             self.int_UNIXtime_event_start, local_timezone)
-        log('--> return DATETIME')
         return local_time
 
     @property
     def datetime_end(self):
-        log('event.datetime_end')
         from datetime import timedelta
 
         if not self.datetime_start:
-            log('--> return None')
             return None
 
-        log('--> return DATETIME')
         return self.datetime_start+timedelta(minutes=self.int_minutes_duration)
 
     @property
-    def datetime_range(self):
-        log('event.datetime_range')
+    def time_range(self):
         if not (self.datetime_start and self.datetime_end):
-            log('--> return None')
             return None
 
-        datetime_start = self.datetime_start
-        datetime_end = self.datetime_end
-
-        month = datetime_start.strftime('%b')
-        day_num = str(datetime_start.day)
-        start_time = datetime_start.strftime(
-            '%I:%M %p') if datetime_start.minute > 0 else datetime_start.strftime('%I %p')
-        if datetime_start.strftime('%p') == datetime_end.strftime('%p'):
+        start_time = self.datetime_start.strftime(
+            '%I:%M %p') if self.datetime_start.minute > 0 else self.datetime_start.strftime('%I %p')
+        if self.datetime_start.strftime('%p') == self.datetime_end.strftime('%p'):
             start_time = start_time[:-3]
-        end_time = datetime_end.strftime(
-            '%I:%M %p') if datetime_end.minute > 0 else datetime_end.strftime('%I %p')
+        end_time = self.datetime_end.strftime(
+            '%I:%M %p') if self.datetime_end.minute > 0 else self.datetime_end.strftime('%I %p')
 
         # remove zeros to shorten text
         if start_time.startswith('0'):
@@ -724,8 +697,47 @@ class Event(models.Model):
             end_time = end_time[1:]
 
         # if runtime > 24 hours, show num of days instead
-        log('--> return STR')
-        return month+' '+day_num+' | '+start_time+(' - ' + end_time if self.int_minutes_duration < (24*60) else ' | '+str(round(self.int_minutes_duration/60/24))+' days')
+        return '⏰'+start_time+(' - ' + end_time if self.int_minutes_duration < (24*60) else ' | '+str(round(self.int_minutes_duration/60/24))+' days')
+
+    @property
+    def datetime_range(self):
+        if not (self.datetime_start and self.datetime_end):
+            return None
+
+        month = self.datetime_start.strftime('%b')
+        day_num = str(self.datetime_start.day)
+
+        # if runtime > 24 hours, show num of days instead
+        return '🗓'+month+' '+day_num+' | '+self.time_range
+
+    @property
+    def repeating(self):
+        import calendar
+
+        if not self.str_series_repeat_how_often:
+            return False
+
+        if self.str_series_repeat_how_often=='weekly':
+            day_of_week = calendar.day_name[self.datetime_start.weekday()]
+            how_often = 'Every '+day_of_week
+
+        elif self.str_series_repeat_how_often=='biweekly':
+            day_of_week = calendar.day_name[self.datetime_start.weekday()]
+            how_often = 'Every 2nd '+day_of_week
+        
+        elif self.str_series_repeat_how_often=='monthly':
+            date_of_month = self.datetime_start.day
+            if date_of_month==1:
+                date_of_month=str(date_of_month)+'st'
+            elif date_of_month==2:
+                date_of_month=str(date_of_month)+'nd'
+            elif date_of_month==3:
+                date_of_month=str(date_of_month)+'rd'
+            else:
+                date_of_month=str(date_of_month)+'th'
+            how_often = 'Every month on the '+date_of_month
+        return how_often
+        
 
     def publish(self):
         log('event.publish()')
@@ -797,7 +809,7 @@ class Event(models.Model):
         from django.template.loader import get_template
 
         self.url_discourse_event = create_post(
-            str(self),
+            (self.str_name_en_US+' | 🗓'+self.repeating +' | '+self.time_range).encode('ascii', 'ignore').decode('ascii') if self.str_series_repeat_how_often else str(self),
             get_template('components/discourse/event_post.html').render({
                 'result': self
             }),
@@ -817,23 +829,12 @@ class Event(models.Model):
         log('--> return event')
         return self
 
-    def delete_discourse_wish(self):
-        log('event.delete_discourse_wish()')
-        from hackerspace.APIs.discourse import delete_post
-        if self.url_discourse_wish:
-            deleted = delete_post(self.url_discourse_wish)
-            if deleted==True:
-                self.url_discourse_wish=None
-            super(Event, self).save()
-        log('--> return event')
-        return self
-
     def delete_photo(self):
         log('event.delete_photo()')
         import boto3
         from getKey import STR__get_key
         # if url_featured_photo - delete on AWS
-        if self.url_featured_photo:
+        if self.url_featured_photo and 'amazonaws.com' in self.url_featured_photo:
             s3 = boto3.client('s3')
             s3.delete_object(Bucket=STR__get_key('AWS.S3.BUCKET_NAME'), Key=self.url_featured_photo.split('amazonaws.com/')[1])
             self.url_featured_photo = None
@@ -849,14 +850,25 @@ class Event(models.Model):
     def delete(self):
         log('event.delete()')
         # delete discourse posts
-        self.delete_discourse_wish()
         self.delete_discourse_event()
 
         # delete uploaded photo
         self.delete_photo()
 
-        # delete in database
         super(Event, self).delete()
+        log('--> Deleted')
+
+
+    def delete_series(self):
+        log('event.delete_series()')
+        # delete in database
+        if self.str_series_repeat_how_often:
+            # if series, delete all in series
+            Event.objects.filter(str_name_en_US=self.str_name_en_US,str_series_repeat_how_often=self.str_series_repeat_how_often).delete()
+            log('--> Deleted')
+        else:
+            log('--> Not a series. Skipped deleting.')
+            
     
     def create_meetup_event(self):
         # API Doc: https://www.meetup.com/meetup_api/docs/:urlname/events/#create
@@ -924,7 +936,7 @@ class Event(models.Model):
             if self.text_description_he_IL:
                 self.text_description_he_IL = bleach.clean(self.text_description_he_IL)
             if self.str_location:
-                self.str_location = bleach.clean(self.str_location)
+                self.str_location = bleach.clean(self.str_location).replace('&lt;br&gt;','<br>')
             if self.str_series_repeat_how_often:
                 self.str_series_repeat_how_often = bleach.clean(self.str_series_repeat_how_often)
             if self.text_series_timing:

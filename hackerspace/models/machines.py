@@ -19,7 +19,9 @@ class Machine(models.Model):
     objects = MachineSet.as_manager()
     str_slug = models.CharField(max_length=250, blank=True, null=True)
     str_name_en_US = models.CharField(
-        max_length=250, blank=True, null=True, verbose_name='Name')
+        max_length=250, blank=True, null=True, verbose_name='Name en-US')
+    str_name_he_IL = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='Name he-IL')
     one_guilde = models.ForeignKey(
         'Guilde', related_name="o_machine_guilde", default=None, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Guilde')
     one_space = models.ForeignKey(

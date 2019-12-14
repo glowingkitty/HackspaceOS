@@ -1,3 +1,4 @@
+{% load config %}
 {% block content %}
 
 <h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
@@ -5,7 +6,27 @@
 <div class="subheading">{{ field_subheading }}</div>
 {% endif %}
 <div class="divider_10"></div>
-<textarea id="{{ input_id }}" rows="5" class="input_field_enter_name round_square grey_background" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%;" placeholder="Describe what your event is all about."></textarea>
+
+{% if multi_language == True %}
+
+{% with LANGUAGES='WEBSITE.LANGUAGES'|get_config %}
+{% for language in LANGUAGES %}
+{% if LANGUAGES|length > 1 %}
+<div class="text_semitransparent inline">{{ language|title }}</div>
+{% if forloop.counter > 1 %}
+<div class="button__cta secondary auto_translate" onclick="translate_description('{{ LANGUAGES.0 }}','{{ language }}')">Auto translate</div>
+{% endif %}
+{% endif %}
+<textarea {% if language == 'hebrew' %}lang="he" dir="rtl" align="right" {% endif %}id="{{ input_id }}_{{ language }}" rows="5" class="input_field_enter_name round_square grey_background" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%;" placeholder="Describe what your event is all about."></textarea>
 <div class="divider_20"></div>
+{% endfor %}
+{% endwith %}
+
+{% else %}
+
+<textarea {% if language == 'hebrew' %}lang="he" dir="rtl" align="right" {% endif %}id="{{ input_id }}" rows="5" class="input_field_enter_name round_square grey_background" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%;" placeholder="Describe what your event is all about."></textarea>
+<div class="divider_20"></div>
+
+{% endif %}
 
 {% endblock %}

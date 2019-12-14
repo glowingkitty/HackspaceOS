@@ -506,6 +506,47 @@ def get_view(request):
     log('--> return response')
     return response
 
+def translate_view(request):
+    log('translate_view(request)')
+    import bleach
+    from googletrans import Translator
+    translator = Translator()
+    language_codes = {
+        'english': 'en',
+        'hebrew': 'iw',
+        'german': 'de',
+        'spanish': 'es',
+    }
+
+
+    if request.GET.get('q', None) and request.GET.get('language', None):
+        text = bleach.clean(request.GET.get('q',None)).encode('ascii', 'ignore').decode('ascii')
+
+        response = JsonResponse({'text': translator.translate(
+            text=text,
+            dest=request.GET.get('language', None)).text
+            })
+
+    elif request.GET.get('q', None):
+        LANGUAGES = get_config('WEBSITE.LANGUAGES')
+        languages = {}
+
+        text = bleach.clean(request.GET.get('q',None)).encode('ascii', 'ignore').decode('ascii')
+        for language in LANGUAGES:
+            if len(LANGUAGES)>1:
+                languages[language]=translator.translate(
+                    text=text,
+                    dest=language_codes[language]).text
+            else:
+                languages[language]=request.GET.get('q', None)
+        
+        response = JsonResponse(languages)
+
+    else:
+        response = JsonResponse({'error': 'fields missing'})
+        response.status_code = 404
+
+    return response
 
 def load_more_view(request):
     log('load_more_view(request)')
@@ -628,17 +669,20 @@ def new_view(request):
                 image = None
         except:
             image= None
-        
+
+        uploaded_photo_url = request.POST.get('photo',None)
         
         new_event = Event(
             boolean_approved=request.user.is_authenticated,
-            str_name_en_US=request.POST.get('name',None),
+            str_name_en_US=request.POST.get('name_english',None),
+            str_name_he_IL=request.POST.get('name_hebrew',None),
             int_UNIXtime_event_start=int_UNIXtime_event_start,
             int_minutes_duration=int_minutes_duration,
             int_UNIXtime_event_end=int_UNIXtime_event_start+(60*int_minutes_duration),
-            url_featured_photo=request.POST.get('photo',None),
+            url_featured_photo=uploaded_photo_url if 'https' in uploaded_photo_url else None,
             image_featured_photo=image,
-            text_description_en_US=request.POST.get('description',None),
+            text_description_en_US=request.POST.get('description_english',None),
+            text_description_he_IL=request.POST.get('description_hebrew',None),
             one_space=Space.objects.QUERYSET__by_name(request.POST.get('space',None)),
             one_guilde=Guilde.objects.QUERYSET__by_name(request.POST.get('guilde',None)),
             str_crowd_size=request.POST.get('expected_crowd',None),
@@ -787,7 +831,7 @@ def delete_event_view(request):
         event = Event.objects.filter(str_slug=request.GET.get('str_slug', None)).first()
 
         log('--> Delete all upcoming events')
-        Event.objects.filter(str_name_en_US=event.str_name_en_US).delete()
+        event.delete_series()
 
         # notify via slack that event was deleted and by who
         if 'HTTP_HOST' in request.META and request.META['HTTP_HOST']==get_config('WEBSITE.DOMAIN'):

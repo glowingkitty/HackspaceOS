@@ -5,7 +5,7 @@
 {% with MODULES='MODULES'|get_config %}
 
 <div class="max_540">
-    {% include "components/body/event_new/form_elements/input_field.html" with input_id="event_name" field_heading="Name" field_placeholder="Enter a name ..." field_width="90%" field_subheading="Tipp: Keep it short & clear." %}
+    {% include "components/body/event_new/form_elements/input_field.html" with input_id="event_name" field_heading="Name" multi_language=True field_placeholder="Enter a name ..." field_width="90%" field_subheading="Tipp: Keep it short & clear." %}
 </div>
 
 <div class="max_540">
@@ -47,7 +47,7 @@
         {% include "components/body/event_new/form_elements/upload_image_field.html" with field_heading="Featured photo" input_id="event_photo" field_subheading="Recommended: 1200x600 or higher" %}
     </div>
     <div class="blocks_inline_50_percent">
-        {% include "components/body/event_new/form_elements/text_field.html" with field_heading="Description" input_id="event_description" field_placeholder="Describe what your event is all about." %}
+        {% include "components/body/event_new/form_elements/text_field.html" with field_heading="Description" multi_language=True input_id="event_description" field_placeholder="Describe what your event is all about." %}
     </div>
 </div>
 
@@ -93,7 +93,7 @@
 <div class="divider_20"></div>
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
 <div class="max_540">
-    <div onclick="publish_event(this,{% if 'AWS.ACCESS_KEYID'|key_exists %}true{% else %}false{% endif %})" class="button__cta">Publish event</div>
+    <div onclick="publish_event(this,{% if 'AWS.ACCESS_KEYID'|key_exists %}true{% else %}false{% endif %},{{ 'WEBSITE.LANGUAGES'|get_config }})" class="button__cta">Publish event</div>
 </div>
 <div class="divider_100"></div>
 

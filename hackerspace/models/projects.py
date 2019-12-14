@@ -62,7 +62,9 @@ class ProjectSet(models.QuerySet):
 class Project(models.Model):
     objects = ProjectSet.as_manager()
     str_name_en_US = models.CharField(
-        max_length=250, blank=True, null=True, verbose_name='Name')
+        max_length=250, blank=True, null=True, verbose_name='Name en-US')
+    str_name_he_IL = models.CharField(
+        max_length=250, blank=True, null=True, verbose_name='Name he-IL')
     url_featured_photo = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Photo URL')
     url_discourse = models.URLField(

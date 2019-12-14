@@ -70,7 +70,14 @@ def create_post(str_headline, str_text, str_category):
                                  #  'event': {'start': '2019-12-13T15:00:00+00:00', 'end': '2019-12-13T19:00:00+00:00'}
                              })
     if response.status_code == 200:
-        return DISCOURSE_URL+'/t/'+str(response.json()['id'])
+        if DISCOURSE_URL.endswith('/'):
+            url = DISCOURSE_URL+'t/'+str(response.json()['topic_id'])
+            log('--> Created Discourse post: '+url)
+            return url
+        else:
+            url = DISCOURSE_URL+'/t/'+str(response.json()['topic_id'])
+            log('--> Created Discourse post: '+url)
+            return url
     else:
         print(response.status_code)
         print(response.json())

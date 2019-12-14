@@ -77,7 +77,10 @@
         "DOMAIN": null,
 
         "__info__1": "Where is your GIT repo hosted? So others can suggest changes to your code.",
-        "WEBSITE_GIT": null
+        "WEBSITE_GIT": null,
+
+        "__info__2": "What languages should your website support? Currently available are: english & hebrew.",
+        "LANGUAGES": ["english"]
     },
 
     "CSS": {

@@ -4,7 +4,8 @@ function showFullDescription(description_name, button) {
 }
 
 function showNewEventForm() {
-    document.getElementById('event_name').value = document.getElementById('input_event_name').value
+    get_name_fields(document.getElementById('input_event_name').value)
+
     document.getElementById('new_event_form').style.display = 'block'
     document.getElementById('what_event_block').style.display = 'none'
     document.getElementById('event_date').focus()
@@ -130,7 +131,7 @@ function checkFileTooLarge(file) {
     }
 }
 
-function new_event(url_image) {
+function new_event(url_image, languages) {
 
     let input = document.getElementById('event_photo')
     if (input && input.files && input.files[0]) {
@@ -156,13 +157,15 @@ function new_event(url_image) {
     }
 
     data.append('what', 'event');
-    data.append('name', document.getElementById('event_name').value);
+    for (language in languages) {
+        data.append('name_' + languages[language], document.getElementById('event_name_' + languages[language]).value);
+        data.append('description_' + languages[language], document.getElementById('event_description_' + languages[language]).value);
+    }
     data.append('date', document.getElementById('event_date').value);
     data.append('time', document.getElementById('event_time').value);
     data.append('duration', document.getElementById('event_duration').value);
     data.append('space', document.getElementById('event_space') ? document.getElementById('event_space').value : null);
-    data.append('photo', url_image);
-    data.append('description', document.getElementById('event_description').value);
+    data.append('photo', url_image ? url_image : null);
     data.append('location', document.getElementById('event_location').value);
     data.append('guilde', document.getElementById('event_guilde') ? document.getElementById('event_guilde').value : null);
     data.append('hosts', document.getElementById('added_hosts').value);
@@ -188,11 +191,23 @@ function new_event(url_image) {
 
 }
 
-function publish_event(button, upload_image_to_AWS) {
+function publish_event(button, upload_image_to_AWS, languages) {
     // check if fields are missing
-    if (!document.getElementById('event_name').value) {
-        return alert('"Name" is missing')
+    for (language in languages) {
+        if (!document.getElementById('event_name_' + languages[language]).value) {
+            return alert('"Name ' + languages[language] + '" is missing')
+        }
+        if (!document.getElementById('event_description_' + languages[language]).value) {
+            return alert('"Description ' + languages[language] + '" is missing')
+        }
+        if (document.getElementById('event_name_' + languages[language]).value.includes('<script>')) {
+            return alert('No JavaScript allowed')
+        }
+        if (document.getElementById('event_description_' + languages[language]).value.includes('<script>')) {
+            return alert('No JavaScript allowed')
+        }
     }
+
     if (!document.getElementById('event_date').value) {
         return alert('"Date" is missing')
     }
@@ -204,9 +219,6 @@ function publish_event(button, upload_image_to_AWS) {
     }
     if (document.getElementById('event_space') && !document.getElementById('event_space').value) {
         return alert('"Space" is missing')
-    }
-    if (!document.getElementById('event_description').value) {
-        return alert('"Description" is missing')
     }
     if (!document.getElementById('event_location').value) {
         return alert('"Location" is missing')
@@ -226,12 +238,10 @@ function publish_event(button, upload_image_to_AWS) {
 
     // check if script in text
     if (
-        document.getElementById('event_name').value.includes('<script>') ||
         document.getElementById('event_date').value.includes('<script>') ||
         document.getElementById('event_time').value.includes('<script>') ||
         document.getElementById('event_duration').value.includes('<script>') ||
         (document.getElementById('event_space') ? document.getElementById('event_space').value.includes('<script>') : false) ||
-        document.getElementById('event_description').value.includes('<script>') ||
         document.getElementById('event_location').value.includes('<script>') ||
         document.getElementById('added_hosts').value.includes('<script>') ||
         document.getElementById('event_volunteers').value.includes('<script>') ||
@@ -278,7 +288,7 @@ function publish_event(button, upload_image_to_AWS) {
             })
             .then(function (response) {
                 url_image = response.data.url_image
-                new_event(url_image)
+                new_event(url_image, languages)
             })
             .catch(function (error) {
                 console.log(error);
@@ -288,7 +298,7 @@ function publish_event(button, upload_image_to_AWS) {
             });
 
     } else {
-        new_event(url_image)
+        new_event(url_image, languages)
     }
 }
 

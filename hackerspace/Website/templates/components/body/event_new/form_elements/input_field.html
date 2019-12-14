@@ -1,3 +1,4 @@
+{% load config %}
 {% block content %}
 
 <h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
@@ -5,7 +6,24 @@
 <div class="subheading">{{ field_subheading }}</div>
 {% endif %}
 <div class="divider_10"></div>
+
+{% if multi_language == True %}
+
+{% with LANGUAGES='WEBSITE.LANGUAGES'|get_config %}
+{% for language in LANGUAGES %}
+{% if LANGUAGES|length > 1 %}
+<div class="text_semitransparent">{{ language|title }}</div>
+{% endif %}
+<input {% if language == 'hebrew' %}lang="he" dir="rtl" align="right" {% endif %}{% if input_id %}id="{{ input_id }}_{{ language }}"{% endif %} {% if oninput %}oninput="{{ oninput }}"{% endif %} {% if input_id == 'event_date' %}type="date" {% elif input_id == 'event_time' %}type="time" {% else %}type="text" {% endif %}class="input_field_enter_name round_square grey_background" style="width: {% if field_width %}{{ field_width }}{% else %}80%{% endif %};" placeholder="{{ field_placeholder }}"></input>
+<div class="divider_20"></div>
+{% endfor %}
+{% endwith %}
+
+{% else %}
+
 <input {% if input_id %}id="{{ input_id }}"{% endif %} {% if oninput %}oninput="{{ oninput }}"{% endif %} {% if input_id == 'event_date' %}type="date" {% elif input_id == 'event_time' %}type="time" {% else %}type="text" {% endif %}class="input_field_enter_name round_square grey_background" style="width: {% if field_width %}{{ field_width }}{% else %}80%{% endif %};" placeholder="{{ field_placeholder }}"></input>
 <div class="divider_20"></div>
+
+{% endif %}
 
 {% endblock %}
