@@ -2,7 +2,7 @@
 {% block content %}
 
 {% for photo in photos %}
-<a class="photo_preview_block" target="_blank" href="{% if photo.url_post %}{{ photo.url_post }}{% else %}{{ photo.url_image }}{% endif %}">
+<a class="photo_preview_block{% if language == 'hebrew' %} rtl{% endif %}" target="_blank" href="{% if photo.url_post %}{{ photo.url_post }}{% else %}{{ photo.url_image }}{% endif %}">
     <div class="photo_preview" style="background-image: url('{{ photo.url_image }}')"></div>
     {% if overlays != False %}
     <div class="photo_details_overlay {{ photo.str_source|STR__class_name }}">

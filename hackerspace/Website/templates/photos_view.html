@@ -1,5 +1,6 @@
 {% load config %}
 {% load text %}
+{% load translate %}
 {% block content %}
 
 {% with HASHTAG='SOCIAL.HASHTAG'|get_config %}
@@ -18,9 +19,9 @@
 </div>
 
 <div class="photo_menu_overlay">
-    <div id="button__photo_latest" onclick="getPhotos(this,'latest')" class="photo_menu_heading active">Latest</div>
-    <div id="button__photo_oldest" onclick="getPhotos(this,'oldest')" class="photo_menu_heading">Oldest</div>
-    <div id="button__photo_random" onclick="getPhotos(this,'random')" class="photo_menu_heading">Random</div>
+    <div id="button__photo_latest" onclick="getPhotos(this,'latest')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %} active"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Latest'|text:language }}</div>
+    <div id="button__photo_oldest" onclick="getPhotos(this,'oldest')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Oldest'|text:language }}</div>
+    <div id="button__photo_random" onclick="getPhotos(this,'random')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Random'|text:language }}</div>
 </div>
 
 <div class="divider_100"></div>
