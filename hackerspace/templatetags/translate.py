@@ -11,7 +11,10 @@ with open('translations.json') as json_file:
 def text(text, language):
     from getConfig import get_config
     try:
-        text = translations[text][language]
+        if language in translations[text]:
+            text = translations[text][language]
+        else:
+            text = translations[text]['english']
         if '0SPACE0' in text:
             text = text.replace('0SPACE0', get_config('BASICS.NAME'))
         if '0CITY0' in text:

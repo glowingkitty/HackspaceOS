@@ -1,4 +1,5 @@
 {% load config %}
+{% load translate %}
 {% block content %}
 
 {% with NAME='BASICS.NAME'|get_config %}
@@ -11,26 +12,24 @@
 <div class="divider_20"></div>
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>We have ONE rule:<br>Be excellent to each other!</h2>
-    <p class="paragraph">
-    {{ NAME }} is an anarchist hackerspace, where you can come and do everything you would like to - as long as you follow our one rule: Be excellent to others & yourself.
-    </p>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'We have ONE rule - be excellent'|text:language }}</h2>
+    <p class="paragraph"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'SPACE is an anarchist hackerspace'|text:language }}</p>
 </div>
 
 <div class="divider_20"></div>
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>How to participate?</h2>
-    <p class="paragraph">
-    Most of what happens at {{ NAME }} is done via do-ocracy - if you want to see something happening, make it happen - as long as you are excellent to others and yourself. If you like to participate (which is super excellent!), you can do it in many ways, for example:<br> 
-    <ul>
-    <li>work on cool things you care about & have a great time at {{ NAME }}</li>
-    <li><span onclick="showOverlay('donate')" class="inline_link">donate money or hardware</span></li>
-    <li>get in conversations with others and ask what they work on & if you can help in any way</li>
-    <li><a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="inline_link">organize an event or support existing ones</a></li>
-    <li>help cleaning up the space</li>
-    <li>give welcoming tours to new people in the space</li>
-    <li>& much more.</li>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'How to participate?'|text:language }}</h2>
+    <p class="paragraph"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>
+    {{ 'Most is done by do-ocracy'|text:language }}<br> 
+    <ul{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>
+    <li>{{ 'work on cool things'|text:language }}</li>
+    <li><span onclick="showOverlay('donate')" class="inline_link">{{ 'donate money or hardware'|text:language }}</span></li>
+    <li>{{ 'get in conversations with others'|text:language }}</li>
+    <li><a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="inline_link">{{ 'organize an event or support existing ones'|text:language }}</a></li>
+    <li>{{ 'help cleaning up the space'|text:language }}</li>
+    <li>{{ 'give welcoming tours to new people in the space'|text:language }}</li>
+    <li>{{ '& much more.'|text:language }}</li>
     </ul>
     </p>
 </div>
@@ -39,14 +38,8 @@
 <div class="divider_20"></div>
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Safespace/Bravespace</h2>
-    <p class="paragraph">
-    All the excellent people coming to {{ NAME }} should be able to feel comfortable at the space. That means if anyone is harassing you /  makes you feel unsafe, it’s perfectly excellent to ask that person to leave and take a break.<br>
-    <br>
-    However, that doesn’t mean you aren’t able to discuss controversal topics at {{ NAME }}. But be mindful about having a rational, respectful, mature discussion with others, even if you strongly disagree with them.<br>
-    <br>
-    If you feel a situation surpresses aspects of your speech and your speech wasn’t intended to be hurtful, talk with people in the space in person about it.
-    </p>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'Safespace/Bravespace'|text:language }}</h2>
+    <p class="paragraph"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Safespace/Bravespace text'|text:language }}</p>
 </div>
 
 {% if 'BASICS.ABOUT.HISTORY_HTML'|get_config %}

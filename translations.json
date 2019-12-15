@@ -278,5 +278,103 @@
         "spanish": "Buscando ...",
         "japanese": "\u691c\u7d22\u4e2d...",
         "french": "Recherche en cours ..."
+    },
+    "We have ONE rule - be excellent": {
+        "english": "We have ONE rule:\nBe excellent to each other!",
+        "hebrew": "\u05d9\u05e9 \u05dc\u05e0\u05d5 \u05db\u05dc\u05dc \u05d0\u05d7\u05d3:\n\u05d4\u05d9\u05d9\u05ea \u05de\u05e6\u05d5\u05d9\u05df \u05d0\u05d7\u05d3 \u05d0\u05ea \u05d4\u05e9\u05e0\u05d9!",
+        "german": "Wir haben eine Regel:\nSeien Sie ausgezeichnete miteinander!",
+        "spanish": "Tenemos una regla:\n\u00a1Sean excelentes los unos con los otros!",
+        "japanese": "\u79c1\u305f\u3061\u306f\u4e00\u3064\u306e\u30eb\u30fc\u30eb\u304c\u3042\u308a\u307e\u3059\u3002\n\u304a\u4e92\u3044\u306b\u512a\u308c\u3066\u3044\u308b\u3053\u3068\uff01",
+        "french": "Nous avons une r\u00e8gle:\nExcellent les uns aux autres!"
+    },
+    "SPACE is an anarchist hackerspace": {
+        "english": "0SPACE0 is an anarchist hackerspace, where you can come and do everything you would like to - as long as you follow our one rule: Be excellent to others & yourself.",
+        "hebrew": "0SPACE0 \u05d4\u05d5\u05d0 hackerspace \u05d4\u05d0\u05e0\u05e8\u05db\u05d9\u05e1\u05d8\u05d9\u05ea, \u05e9\u05d1\u05d5 \u05d0\u05ea\u05d4 \u05d9\u05db\u05d5\u05dc \u05dc\u05d1\u05d5\u05d0 \u05d5\u05dc\u05e2\u05e9\u05d5\u05ea \u05d0\u05ea \u05db\u05dc \u05de\u05d4 \u05e9\u05d0\u05ea\u05d4 \u05e8\u05d5\u05e6\u05d4 - \u05db\u05dc \u05e2\u05d5\u05d3 \u05d0\u05ea\u05dd \u05e2\u05d5\u05e7\u05d1\u05d9\u05dd \u05db\u05dc\u05dc \u05d0\u05d7\u05d3 \u05e9\u05dc\u05e0\u05d5: \u05dc\u05d4\u05d9\u05d5\u05ea \u05de\u05e2\u05d5\u05dc\u05d4 \u05dc\u05d0\u05d7\u05e8\u05d9\u05dd & \u05e2\u05e6\u05de\u05da.",
+        "german": "0SPACE0 ist ein Anarchist Hackerspace, wo Sie kommen und alles tun k\u00f6nnen Sie sich m\u00f6gen - solange Sie unsere einer Regel: ausgezeichnet sein f\u00fcr andere und sich selbst.",
+        "spanish": "0SPACE0 es un hackerspace anarquista, donde se puede venir a hacer todo lo que quisiera - siempre y cuando usted sigue nuestra una regla: ser excelentes a los dem\u00e1s y uno mismo.",
+        "japanese": "\u4ed6\u4eba\u3068\u81ea\u5206\u81ea\u8eab\u306b\u512a\u308c\u3066\u3044\u308b\u3053\u3068\uff1a\u9650\u308a\u3001\u3042\u306a\u305f\u306f\u79c1\u305f\u3061\u306e\u4e00\u3064\u306e\u30eb\u30fc\u30eb\u306b\u5f93\u3046\u3088\u3046 -  0SPACE0\u306f\u3042\u306a\u305f\u304c\u3057\u305f\u3044\u3068\u601d\u3044\u307e\u3059\u6765\u3066\u3001\u3059\u3079\u3066\u3092\u884c\u3046\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u30a2\u30ca\u30ad\u30b9\u30c8\u306e\u30cf\u30c3\u30ab\u30fc\u30b9\u30da\u30fc\u30b9\u3001\u3067\u3059\u3002",
+        "french": "0SPACE0 est un hackerspace anarchiste, o\u00f9 vous pouvez venir et faire tout ce que vous voulez - aussi longtemps que vous suivez notre seule r\u00e8gle: excellent pour les autres et vous-m\u00eame."
+    },
+    "How to participate?": {
+        "english": "How to participate?",
+        "hebrew": "\u05d0\u05d9\u05da \u05de\u05e9\u05ea\u05ea\u05e4\u05d9\u05dd?",
+        "german": "Wie kann man teilnehmen?",
+        "spanish": "\u00bfComo participar?",
+        "japanese": "\u3069\u306e\u3088\u3046\u306b\u53c2\u52a0\u3059\u308b\u306b\u306f\uff1f",
+        "french": "Comment participer?"
+    },
+    "Most is done by do-ocracy": {
+        "english": "Most of what happens at 0SPACE0 is done via do-ocracy - if you want to see something happening, make it happen - as long as you are excellent to others and yourself. If you like to participate (which is super excellent!), you can do it in many ways, for example:",
+        "hebrew": "\u05e8\u05d5\u05d1 \u05de\u05d4 \u05e9\u05e7\u05d5\u05e8\u05d4 \u05d1\u05d1\u05d9\u05ea 0SPACE0 \u05e0\u05e2\u05e9\u05d4 \u05d1\u05d0\u05de\u05e6\u05e2\u05d5\u05ea-ocracy \u05dc\u05e2\u05e9\u05d5\u05ea - \u05d0\u05dd \u05d0\u05ea\u05dd \u05e8\u05d5\u05e6\u05d9\u05dd \u05dc\u05e8\u05d0\u05d5\u05ea \u05de\u05e9\u05d4\u05d5 \u05e7\u05d5\u05e8\u05d4, \u05dc\u05d2\u05e8\u05d5\u05dd \u05dc\u05d6\u05d4 \u05dc\u05e7\u05e8\u05d5\u05ea - \u05db\u05dc \u05e2\u05d5\u05d3 \u05d0\u05ea\u05d4 \u05de\u05e6\u05d5\u05d9\u05df \u05dc\u05d0\u05d7\u05e8\u05d9\u05dd \u05d5\u05dc\u05e2\u05e6\u05de\u05da. \u05d0\u05dd \u05d0\u05ea\u05d4 \u05e8\u05d5\u05e6\u05d4 \u05dc\u05d4\u05e9\u05ea\u05ea\u05e3 (! \u05d5\u05d6\u05d4 \u05de\u05e2\u05d5\u05dc\u05d4 \u05e1\u05d5\u05e4\u05e8), \u05d0\u05ea\u05d4 \u05d9\u05db\u05d5\u05dc \u05dc\u05e2\u05e9\u05d5\u05ea \u05d0\u05ea \u05d6\u05d4 \u05d1\u05d3\u05e8\u05db\u05d9\u05dd \u05e8\u05d1\u05d5\u05ea, \u05dc\u05de\u05e9\u05dc:",
+        "german": "Das meiste, was bei 0SPACE0 geschieht \u00fcber Do-ocracy getan - wenn Sie etwas geschieht sehen wollen, machen es m\u00f6glich - so lange, wie Sie anderen ausgezeichnet sind und sich. Wenn Sie teilnehmen m\u00f6chten (! Die super ausgezeichnet), k\u00f6nnen Sie es in vielerlei Hinsicht tun, zum Beispiel:",
+        "spanish": "La mayor parte de lo que sucede en 0SPACE0 se realiza a trav\u00e9s do-ocracia - si quieres ver algo que sucede, hacer que suceda - siempre y cuando usted es excelente a los dem\u00e1s ya ti mismo. Si te gusta participar (! Que es super excelente), se puede hacer de muchas maneras, por ejemplo:",
+        "japanese": "\u3042\u306a\u305f\u304c\u4f55\u304b\u8d77\u3053\u3063\u3092\u898b\u305f\u3044\u5834\u5408\u306f\u3001\u305d\u308c\u3092\u5b9f\u73fe\u3059\u308b -   -  0SPACE0\u3067\u4f55\u304c\u8d77\u3053\u308b\u304b\u306e\u307b\u3068\u3093\u3069\u304cdo-ocracy\u3092\u4ecb\u3057\u3066\u884c\u308f\u308c\u307e\u3059\u304c\u3001\u4ed6\u306e\u4eba\u3068\u81ea\u5206\u81ea\u8eab\u306b\u512a\u308c\u3066\u3044\u308b\u9650\u308a\u3002\u3042\u306a\u305f\u306f\uff08\uff01\u30b9\u30fc\u30d1\u30fc\u512a\u308c\u3066\u3044\u308b\uff09\u306b\u53c2\u52a0\u3057\u305f\u3044\u5834\u5408\u306f\u3001\u4f8b\u3048\u3070\u3001\u591a\u304f\u306e\u65b9\u6cd5\u3067\u305d\u308c\u3092\u884c\u3046\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002",
+        "french": "La plupart de ce qui se passe au 0SPACE0 se fait via do-ocracy - si vous voulez voir quelque chose qui se passe, Concr\u00e9tisons - aussi longtemps que vous \u00eates un excellent pour les autres et vous-m\u00eame. Si vous souhaitez participer (! Qui est super excellent), vous pouvez le faire de plusieurs fa\u00e7ons, par exemple:"
+    },
+    "work on cool things": {
+        "english": "work on cool things you care about & have a great time at 0SPACE0",
+        "hebrew": "\u05e2\u05d1\u05d5\u05d3\u05d4 \u05e2\u05dc \u05d3\u05d1\u05e8\u05d9\u05dd \u05de\u05d2\u05e0\u05d9\u05d1\u05d9\u05dd \u05e9\u05d0\u05db\u05e4\u05ea \u05dc\u05da \u05d5\u05d9\u05e9 \u05dc\u05d9 \u05d6\u05de\u05df \u05e0\u05d4\u05d3\u05e8 \u05d1 0 SPACE0",
+        "german": "Arbeit an k\u00fchlen Dinge, die Sie k\u00fcmmern uns um und haben eine gro\u00dfartige Zeit bei 0 space0",
+        "spanish": "el trabajo sobre las cosas interesantes que se preocupan y tienen un gran tiempo en 0 espacio0",
+        "japanese": "\u3042\u306a\u305f\u304c\u6c17\u306b\u3057\u30660 SPACE0\u3067\u7d20\u6674\u3089\u3057\u3044\u6642\u9593\u3092\u6301\u3063\u3066\u3044\u308b\u30af\u30fc\u30eb\u306a\u3082\u306e\u306e\u4f5c\u54c1",
+        "french": "travail sur des choses cool que vous aimez et ont un bon moment \u00e0 0 space0"
+    },
+    "donate money or hardware": {
+        "english": "donate money or hardware",
+        "hebrew": "\u05dc\u05ea\u05e8\u05d5\u05dd \u05db\u05e1\u05e3 \u05d0\u05d5 \u05d7\u05d5\u05de\u05e8\u05d4",
+        "german": "Geld spenden oder Hardware",
+        "spanish": "donar dinero o hardware",
+        "japanese": "\u304a\u91d1\u3084\u30cf\u30fc\u30c9\u30a6\u30a7\u30a2\u3092\u5bc4\u4ed8",
+        "french": "donner de l'argent ou du mat\u00e9riel"
+    },
+    "get in conversations with others": {
+        "english": "get in conversations with others and ask what they work on & if you can help in any way",
+        "hebrew": "\u05dc\u05e7\u05d1\u05dc \u05d1\u05e9\u05d9\u05d7\u05d5\u05ea \u05e2\u05dd \u05d0\u05d7\u05e8\u05d9\u05dd \u05d5\u05dc\u05e9\u05d0\u05d5\u05dc \u05d0\u05ea \u05de\u05d4 \u05e9\u05d4\u05dd \u05e2\u05d5\u05d1\u05d3\u05d9\u05dd \u05e2\u05dc & \u05d0\u05dd \u05d0\u05ea\u05d4 \u05d9\u05db\u05d5\u05dc \u05dc\u05e2\u05d6\u05d5\u05e8 \u05d1\u05db\u05dc \u05d3\u05e8\u05da",
+        "german": "erhalten in Gespr\u00e4chen mit anderen und fragen, was sie arbeiten, und wenn Sie in irgendeiner Weise helfen k\u00f6nnen",
+        "spanish": "consiguen en las conversaciones con los dem\u00e1s y pedir lo que trabajan en y si se puede ayudar de cualquier manera",
+        "japanese": "\u4ed6\u306e\u4eba\u3068\u306e\u4f1a\u8a71\u306b\u53d6\u5f97\u3057\u3001\u3042\u306a\u305f\u304c\u3069\u306e\u3088\u3046\u306a\u65b9\u6cd5\u3067\u52a9\u3051\u308b\u3053\u3068\u304c\u3067\u304d\u308b\u5834\u5408\u3001\u5f7c\u3089\u306f\uff06\u4e0a\u3067\u52d5\u4f5c\u3059\u308b\u3082\u306e\u5c0b\u306d\u307e\u3059",
+        "french": "engager la conversation avec les autres et demandent ce qu'ils travaillent sur et si vous pouvez aider de quelque fa\u00e7on"
+    },
+    "organize an event or support existing ones": {
+        "english": "organize an event or support existing ones",
+        "hebrew": "\u05dc\u05d0\u05e8\u05d2\u05df \u05d0\u05d9\u05e8\u05d5\u05e2 \u05d0\u05d5 \u05dc\u05ea\u05de\u05d5\u05da \u05d4\u05e7\u05d9\u05d9\u05de\u05d9\u05dd",
+        "german": "eine Veranstaltung organisieren oder bestehende unterst\u00fctzen",
+        "spanish": "organizar un evento o apoyar a los ya existentes",
+        "japanese": "\u30a4\u30d9\u30f3\u30c8\u3092\u6574\u7406\u3057\u305f\u308a\u3001\u65e2\u5b58\u306e\u3082\u306e\u3092\u30b5\u30dd\u30fc\u30c8",
+        "french": "organiser un \u00e9v\u00e9nement ou d'appuyer ceux qui existent d\u00e9j\u00e0"
+    },
+    "help cleaning up the space": {
+        "english": "organize an event or support existing ones",
+        "hebrew": "\u05dc\u05d0\u05e8\u05d2\u05df \u05d0\u05d9\u05e8\u05d5\u05e2 \u05d0\u05d5 \u05dc\u05ea\u05de\u05d5\u05da \u05d4\u05e7\u05d9\u05d9\u05de\u05d9\u05dd",
+        "german": "eine Veranstaltung organisieren oder bestehende unterst\u00fctzen",
+        "spanish": "organizar un evento o apoyar a los ya existentes",
+        "japanese": "\u30a4\u30d9\u30f3\u30c8\u3092\u6574\u7406\u3057\u305f\u308a\u3001\u65e2\u5b58\u306e\u3082\u306e\u3092\u30b5\u30dd\u30fc\u30c8",
+        "french": "organiser un \u00e9v\u00e9nement ou d'appuyer ceux qui existent d\u00e9j\u00e0"
+    },
+    "give welcoming tours to new people in the space": {
+        "english": "give welcoming tours to new people in the space",
+        "hebrew": "\u05de\u05d0\u05e8\u05d2\u05e0\u05d9 \u05e1\u05d9\u05d5\u05e8\u05d9\u05dd \u05d1\u05d1\u05e8\u05db\u05d4 \u05dc\u05d0\u05e0\u05e9\u05d9\u05dd \u05d7\u05d3\u05e9\u05d9\u05dd \u05d1\u05de\u05e8\u05d7\u05d1",
+        "german": "geben begr\u00fc\u00dfen Touren um neue Leute in dem Raum",
+        "spanish": "dar la bienvenida a excursiones a gente nueva en el espacio",
+        "japanese": "\u7a7a\u9593\u3067\u306e\u65b0\u3057\u3044\u4eba\u3005\u306b\u6b53\u8fce\u306e\u30c4\u30a2\u30fc\u3092\u4e0e\u3048\u307e\u3059",
+        "french": "donner des visites \u00e0 l'accueil de nouvelles personnes dans l'espace"
+    },
+    "& much more.": {
+        "english": "& much more.",
+        "hebrew": "& \u05d4\u05e8\u05d1\u05d4 \u05d9\u05d5\u05ea\u05e8.",
+        "german": "& viel mehr.",
+        "spanish": "& mucho m\u00e1s.",
+        "japanese": "\uff06\u306f\u308b\u304b\u3002",
+        "french": "& beaucoup plus."
+    },
+    "Safespace/Bravespace": {
+        "english": "Safespace/Bravespace",
+        "hebrew": "Safespace/Bravespace",
+        "german": "Safespace/Bravespace"
+    },
+    "Safespace/Bravespace text": {
+        "english": "All the excellent people coming to 0SPACE0 should be able to feel comfortable at the space. That means if anyone is harassing you / makes you feel unsafe, it\u2019s perfectly excellent to ask that person to leave and take a break.\n\nHowever, that doesn\u2019t mean you aren\u2019t able to discuss controversal topics at TAMI. But be mindful about having a rational, respectful, mature discussion with others, even if you strongly disagree with them.\n\nIf you feel a situation surpresses aspects of your speech and your speech wasn\u2019t intended to be hurtful, talk with people in the space in person about it.",
+        "hebrew": "\u05db\u05dc \u05d0\u05e0\u05e9\u05d9\u05dd \u05d4\u05de\u05e2\u05d5\u05dc\u05d9\u05dd \u05de\u05d2\u05d9\u05e2\u05d9\u05dd 0SPACE0 \u05d0\u05de\u05d5\u05e8\u05d9\u05dd \u05dc\u05d4\u05d9\u05d5\u05ea \u05de\u05e1\u05d5\u05d2\u05dc\u05d9\u05dd \u05dc\u05d4\u05e8\u05d2\u05d9\u05e9 \u05d1\u05e0\u05d5\u05d7 \u05d1\u05d7\u05dc\u05dc. \u05db\u05dc\u05d5\u05de\u05e8, \u05d0\u05dd \u05de\u05d9\u05e9\u05d4\u05d5 \u05de\u05d8\u05e8\u05d9\u05d3 \u05d0\u05d5\u05ea\u05da / \u05d2\u05d5\u05e8\u05dd \u05dc\u05da \u05dc\u05d4\u05e8\u05d2\u05d9\u05e9 \u05d1\u05d8\u05d5\u05d7, \u05d6\u05d4 \u05d1\u05d4\u05d7\u05dc\u05d8 \u05de\u05e6\u05d5\u05d9\u05df \u05dc\u05e9\u05d0\u05d5\u05dc \u05d0\u05d5\u05ea\u05d5 \u05d4\u05d0\u05d3\u05dd \u05dc\u05e2\u05d6\u05d5\u05d1 \u05d5\u05dc\u05e7\u05d7\u05ea \u05d4\u05e4\u05e1\u05e7\u05d4.\n\n\u05e2\u05dd \u05d6\u05d0\u05ea, \u05d6\u05d4 \u05dc\u05d0 \u05d0\u05d5\u05de\u05e8 \u05e9\u05d0\u05ea\u05d4 \u05dc\u05d0 \u05de\u05e1\u05d5\u05d2\u05dc \u05dc\u05d3\u05d5\u05df \u05d1\u05e0\u05d5\u05e9\u05d0\u05d9\u05dd controversal \u05d1\u05d1\u05d9\u05ea \u05ea\u05de\u05d9. \u05d0\u05d1\u05dc \u05d9\u05e9 \u05dc\u05d6\u05db\u05d5\u05e8 \u05e9\u05d9\u05e9 \u05e2\u05dc \u05e8\u05e6\u05d9\u05d5\u05e0\u05dc\u05d9\u05d5\u05ea, \u05db\u05d1\u05d5\u05d3, \u05dc\u05d4\u05ea\u05d1\u05d2\u05e8 \u05d3\u05d9\u05d5\u05df \u05e2\u05dd \u05d0\u05e0\u05e9\u05d9\u05dd \u05d0\u05d7\u05e8\u05d9\u05dd, \u05d2\u05dd \u05d0\u05dd \u05d0\u05ea\u05d4 \u05dc\u05d0 \u05de\u05e1\u05db\u05d9\u05dd \u05d0\u05d9\u05ea\u05dd.\n\n\u05d0\u05dd \u05d0\u05ea\u05d4 \u05de\u05e8\u05d2\u05d9\u05e9 \u05d1\u05de\u05e6\u05d1 surpresses \u05d4\u05d9\u05d1\u05d8\u05d9\u05dd \u05e9\u05dc \u05d4\u05e0\u05d0\u05d5\u05dd \u05e9\u05dc\u05da \u05d5\u05d4\u05d3\u05d9\u05d1\u05d5\u05e8 \u05e9\u05dc\u05da \u05dc\u05d0 \u05e0\u05d5\u05e2\u05d3 \u05dc\u05d4\u05d9\u05d5\u05ea \u05e4\u05d5\u05d2\u05e2\u05e0\u05d9\u05d9\u05dd, \u05d3\u05d9\u05d1\u05d5\u05e8\u05d9\u05dd \u05e2\u05dd \u05d0\u05e0\u05e9\u05d9\u05dd \u05d1\u05de\u05e8\u05d7\u05d1 \u05d1\u05d0\u05d5\u05e4\u05df \u05d0\u05d9\u05e9\u05d9 \u05e2\u05dc \u05d6\u05d4.",
+        "german": "Alle ausgezeichneten Menschen 0SPACE0 kommen sollte in der Lage sein, bequem am Platz zu f\u00fchlen. Das hei\u00dft, wenn jemand Sie bel\u00e4stigt / macht Sie sich unsicher f\u00fchlen, ist es perfekt ausgezeichnet ist, diese Person zu bitten, zu gehen und eine Pause zu machen.\n\nDoch das bedeutet nicht, dass Sie nicht in der Lage sind zu controversal Themen bei TAMI zu diskutieren. Aber bewusst sein, um mit einer rationalen, respektvoll, reifer Diskussion mit anderen, auch wenn Sie mit ihnen stark widersprechen.\n\nWenn Sie eine Situation f\u00fchlen Unterdr\u00fcckt Aspekte Ihrer Rede und Ihre Rede wurde nicht in dem Raum mit den Menschen \u00fcber sie in Person sein, verletzend, reden soll."
     }
 }
