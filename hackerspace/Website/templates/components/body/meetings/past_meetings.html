@@ -8,7 +8,7 @@
 
     <div class="cta_center">
         <input type="hidden" id="more_start_from" value="10"></input>
-        <a href="#button__show_more" id="button__show_more" onclick="showMore('meeting_notes','')" class="button__cta secondary">Show more</a>
+        <a href="#button__show_more" id="button__show_more" onclick="showMore('meeting_notes','')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Show more'|text:language }}</a>
         <div class="divider_100"></div>
     </div>
     {% else %}

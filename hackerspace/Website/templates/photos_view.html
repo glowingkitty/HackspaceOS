@@ -4,7 +4,7 @@
 {% block content %}
 
 {% with HASHTAG='SOCIAL.HASHTAG'|get_config %}
-<div class="use_hashtag_cta">{% if HASHTAG %}Want to see your photos here? Use {{ HASHTAG }} on <a class="inline_link" href="https://twitter.com/hashtag/{{ HASHTAG|STR__remove_hash }}?f=image" target="_blank">Twitter</a> or <a class="inline_link" href="https://www.instagram.com/explore/tags/{{ HASHTAG|STR__remove_hash }}/" target="_blank">Instagram</a>.{% endif %}</div>
+<div class="use_hashtag_cta{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{% if HASHTAG %}{{ 'Want to see your photos here?'|text:language }} {{ 'Use'|text:language }} {{ HASHTAG }} {{ 'on'|text:language }} <a class="inline_link" href="https://twitter.com/hashtag/{{ HASHTAG|STR__remove_hash }}?f=image" target="_blank">Twitter</a> {{ 'or'|text:language }} <a class="inline_link" href="https://www.instagram.com/explore/tags/{{ HASHTAG|STR__remove_hash }}/" target="_blank">Instagram</a>.{% endif %}</div>
 {% endwith %}
 <div id="photos_block" class="photos_block">
     {% include "components/body/photos_list.html" %}
@@ -15,7 +15,7 @@
     <input type="hidden" id="more_start_from" value="30"></input>
     <input type="hidden" id="type" value="latest"></input>
     <div class="divider_20"></div>
-    <a href="#button__show_more" id="button__show_more" onclick="showMorePhotos()" class="button__cta secondary inline">Show more</a>
+    <a href="#button__show_more" id="button__show_more" onclick="showMorePhotos()" class="button__cta secondary inline"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Show more'|text:language }}</a>
 </div>
 
 <div class="photo_menu_overlay">

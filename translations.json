@@ -47,6 +47,11 @@
         "japanese": "\u3059\u3079\u3066\u8868\u793a\u3059\u308b",
         "french": "Montre tout"
     },
+    "Show more": {
+        "english": "Show more",
+        "hebrew": "\u05dc\u05d4\u05e8\u05d0\u05d5\u05ea \u05d9\u05d5\u05ea\u05e8",
+        "german": "Zeig mehr"
+    },
     "Do I belong at SPACE?": {
         "english": "Do I belong at 0SPACE0?",
         "german": "Geh\u00f6re ich bei 0SPACE0?",
@@ -118,6 +123,11 @@
         "spanish": "en",
         "japanese": "\u306b",
         "french": "sur"
+    },
+    "or": {
+        "english": "or",
+        "hebrew": "\u05d0\u05d5",
+        "german": "oder"
     },
     "And join us online!": {
         "english": "And join us online!",
@@ -389,7 +399,17 @@
     },
     "Random": {
         "english": "Random",
-        "hebrew": "אקראי",
+        "hebrew": "\u05d0\u05e7\u05e8\u05d0\u05d9",
         "german": "Zuf\u00e4llig"
+    },
+    "Want to see your photos here?": {
+        "english": "Want to see your photos here?",
+        "hebrew": "\u05e8\u05d5\u05e6\u05d4 \u05dc\u05e8\u05d0\u05d5\u05ea \u05d0\u05ea \u05d4\u05ea\u05de\u05d5\u05e0\u05d5\u05ea \u05e9\u05dc\u05da \u05db\u05d0\u05df?",
+        "german": "M\u00f6chten Sie Ihre Fotos hier sehen?"
+    },
+    "Use": {
+        "english": "Use",
+        "hebrew": "\u05dc\u05d4\u05e9\u05ea\u05de\u05e9",
+        "german": "Verwende"
     }
 }

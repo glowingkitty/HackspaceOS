@@ -50,7 +50,7 @@
             <div id="next_results_events"></div>
             {% if selected.events.count > 3 %}
             <input type="hidden" id="more_start_from_events" value="3"></input>
-            <a href="#button__show_more_events" id="button__show_more_events" onclick="showMore('events','_events')" class="button__cta secondary">Show more</a>
+            <a href="#button__show_more_events" id="button__show_more_events" onclick="showMore('events','_events')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Show more'|text:language }}</a>
             {% endif %}
         </div>
         {% endif %}
@@ -63,7 +63,7 @@
             <div id="next_results_projects"></div>
             {% if selected.projects.count > 3 %}
             <input type="hidden" id="more_start_from_projects" value="3"></input>
-            <a href="#button__show_more_projects" id="button__show_more_projects" onclick="showMore('projects','_projects')" class="button__cta secondary">Show more</a>
+            <a href="#button__show_more_projects" id="button__show_more_projects" onclick="showMore('projects','_projects')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Show more'|text:language }}</a>
             {% endif %}
         </div>
         {% endif %}

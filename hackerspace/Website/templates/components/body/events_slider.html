@@ -8,7 +8,7 @@
     {% endfor %}
     <div class="event_slider_extra_options_block">
       {% if upcoming_events %}
-      <a href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="button__cta secondary">Show all</a>
+      <a href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Show all'|text:language }}</a>
       <div class="divider_10"></div>
       {% endif %}
       <a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="button__cta secondary with_icon plus_icon{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'Create an event'|text:language }}</a>

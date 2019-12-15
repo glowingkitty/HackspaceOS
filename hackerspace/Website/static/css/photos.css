@@ -4,6 +4,11 @@
     margin-right: 117px;
 }
 
+.use_hashtag_cta.rtl {
+    margin-right: 40px;
+    margin-left: 117px;
+}
+
 @media (max-width: 991px) {
     .use_hashtag_cta {
         margin-left: 70px;
