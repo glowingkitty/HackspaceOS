@@ -63,3 +63,12 @@ def photos(text, language):
         'word': text,
         'language': language
     }).lstrip().rstrip()
+
+
+@register.filter
+def meetings(text, language):
+    from django.template.loader import get_template
+    return get_template('translations/meetings.html').render({
+        'word': text,
+        'language': language
+    }).lstrip().rstrip()

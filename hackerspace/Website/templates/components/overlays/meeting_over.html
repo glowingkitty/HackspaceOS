@@ -1,14 +1,13 @@
 {% load config %}
+{% load translate %}
 {% block content %}
 
-<div class="meeting_block overlay" onclick="event.stopPropagation()" id="meeting_over">
-    <h2 id="meeting_over_heading" class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Is the meeting over?</h2>
-    {% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
-    <div id="meeting_over_text">If you click yes, <a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.END_MEETING }}" target="_blank">this script will end the meeting</a> and save it to <a class="inline_link" href="/meetings" target="_blank">our archive</a>.</div>
-    {% endwith %}
+<div class="meeting_block overlay" onclick="event.stopPropagation()" id="meeting_over" {% if language == 'hebrew' %} dir="rtl" align="right"{% endif %}>
+    <h2 id="meeting_over_heading" class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Is the meeting over?'|meetings:language|safe }}</h2>
+    <div id="meeting_over_text">{{ 'If yes... meeting will be saved...'|meetings:language|safe }}</div>
     <div class="divider_20"></div>
     <div id="meeting_over_buttons">
-        <a onclick="confirmMeetingOver()" href="#" class="button__cta next_to_secondary">Yes</a><a href="#" onclick="closeOverlays()" class="button__cta secondary next_to_main_cta">Not yet</a>
+        <a onclick="confirmMeetingOver()" href="#" class="button__cta next_to_secondary">{{ 'Yes'|meetings:language }}</a><a href="#" onclick="closeOverlays()" class="button__cta secondary next_to_main_cta">{{ 'Not yet'|meetings:language }}</a>
     </div>
 </div>
 

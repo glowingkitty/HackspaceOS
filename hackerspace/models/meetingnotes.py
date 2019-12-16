@@ -149,10 +149,15 @@ class MeetingNote(models.Model):
         input_field.clear()
 
         # copy template for new meeting into riseup pad
-        meeting_template = open(os.path.join(
-            sys.path[0], 'hackerspace/Website/templates/meeting_notes.txt'), 'r').read()
+        try:
+            meeting_template = open(os.path.join(
+                sys.path[0], 'hackerspace/Website/templates/meeting_notes__'+get_config('BASICS.NAME')+'.txt'), 'r').read()
+        except:
+            meeting_template = ''
+
         for line in reversed(meeting_template.split('\n')):
             input_field.send_keys(Keys.RETURN)
+            line = line.replace('{{ Space }}', get_config('BASICS.NAME'))
             line = line.replace('{{ Date }}', str(
                 datetime.now(pytz.timezone(get_config('PHYSICAL_SPACE.TIMEZONE_STRING'))).date()))
             line = line.replace('{{ MeetingNumber }}', str(
@@ -192,26 +197,29 @@ class MeetingNote(models.Model):
         import os
         import sys
         import re
+        from getConfig import get_config
 
-        # find main topics via heading in note template
-        main_topics = re.findall('(?<==).*', open(os.path.join(
-            sys.path[0], 'hackerspace/Website/templates/meeting_notes.txt'), 'r').read())
-        main_topics = [
-            x.replace('==', '')
-            .replace('= ', '')
-            .replace(' =', '')
-            .replace('=', '')
-            .replace('[[', '')
-            .replace(']]', '')
-            .strip()
-            for x in main_topics if
-            x != ''
-            and 'Meeting Summary' not in x
-            and 'End of Meeting' not in x
-            and 'Discussion Item' not in x
-        ]
-
-        return ','.join(main_topics)
+        try:
+            # find main topics via heading in note template
+            main_topics = re.findall('(?<==).*', open(os.path.join(
+                sys.path[0], 'hackerspace/Website/templates/meeting_notes__'+get_config('BASICS.NAME')+'.txt'), 'r').read())
+            main_topics = [
+                x.replace('==', '')
+                .replace('= ', '')
+                .replace(' =', '')
+                .replace('=', '')
+                .replace('[[', '')
+                .replace(']]', '')
+                .strip()
+                for x in main_topics if
+                x != ''
+                and 'Meeting Summary' not in x
+                and 'End of Meeting' not in x
+                and 'Discussion Item' not in x
+            ]
+            return ','.join(main_topics)
+        except:
+            return ''
 
     def add_keyword(self, keyword):
         if self.text_keywords and keyword != '':

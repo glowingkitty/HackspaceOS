@@ -1,36 +1,32 @@
 {% load config %}
+{% load translate %}
 {% block content %}
 
 <div id="current_meeting_block">
     <div class="max_540">
         {% if current_meeting %}
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Join today&#x27;s meeting!</h2>
-        <p class="subheading">Join us now, live, as a note taker for our current meeting:</p>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Join todays meeting!'|meetings:language }}</h2>
+        <p class="subheading">{{ 'Join us now...'|meetings:language|safe }}</p>
         {% else %}
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Starting new meeting ...</h2>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Starting new meeting ...'|meetings:language|safe }}</h2>
         {% endif %}
     </div>
     <div class="meeting_block">
         {% if current_meeting %}
-        <h3 class="h3">{{ current_meeting.text_date }}</h3>
-        <a href="/meeting/present" target="_blank" class="button__cta secondary present_mode">Presentation mode</a>
+        <h3 class="h3{% if language == 'hebrew' %} rtl{% endif %}">{{ current_meeting.text_date }}</h3>
+        <a href="/meeting/present" target="_blank" class="button__cta secondary present_mode{% if language == 'hebrew' %} rtl{% endif %}">{{ 'Presentation mode'|meetings:language }}</a>
         <div class="html-embed">
             <iframe style="width:100%;height:100%" src="https://pad.riseup.net/p/{{ 'MEETINGS.RISEUPPAD_MEETING_PATH'|get_config }}"></iframe>
         </div>
         {% else %}
         <p class="subheading" style="width: 300px; margin: auto;">
-            {% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
-            Starting a new meeting based on <a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.MEETING_TEMPLATE }}" class="highlight_text_red" target="_blank">our template</a>.<br>
-            Please wait a minute…
-            {% endwith %}
+            {{ 'Starting a new meeting based on...'|meetings:language|safe }}
         </p>
         {% endif %}
     </div>
     <div class="max_540">
         <p class="subheading">
-            Did you know?<br>
-            You can manually add a keyword to the notes by using #.<br>
-            For example: #lasercutter
+            {{ 'Did you know? Keywords?'|meetings:language|safe }}
         </p>
     </div>
 </div>

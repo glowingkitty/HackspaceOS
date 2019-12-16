@@ -5,8 +5,8 @@
 
 <div class="meeting_block full_width">
     <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Meeting Notes | {{ selected.text_date }}</h2>
-    <p class="subheading small_distance_bottom">Keywords:</p>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Meeting Notes'|meetings:language }} | {{ selected.text_date }}</h2>
+    <p class="subheading small_distance_bottom">{{ 'Keywords'|meetings:language }}:</p>
     <div>
         <div id="keywords" style="display: inline-block">
             {% if selected.text_keywords%}

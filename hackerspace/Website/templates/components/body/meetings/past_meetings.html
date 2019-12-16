@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Previous meeting notes</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Previous meeting notes'|meetings:language }}</h2>
     {% if past_meetings %}
 
     {% include "components/body/meetings/meetings_list.html" %}
@@ -13,7 +13,7 @@
         <div class="divider_100"></div>
     </div>
     {% else %}
-    No meeting notes yet.
+    {{ 'No meeting notes yet.'|meetings:language }}
     {% endif %}
 </div>
 

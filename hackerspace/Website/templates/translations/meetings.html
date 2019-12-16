@@ -1,0 +1,173 @@
+{% load config %}
+{% block content %}
+
+{% if word == 'Or join' %}
+{% if language == 'hebrew' %}
+או להצטרף
+{% else %}
+Or join
+{% endif %}
+
+
+{% elif word == 'Join' %}
+{% if language == 'hebrew' %}
+הצטרף
+{% else %}
+Join
+{% endif %}
+
+
+{% elif word == 'our next meeting!' %}
+{% if language == 'hebrew' %}
+הפגישה הבאה שלנו!
+{% else %}
+our next meeting!
+{% endif %}
+
+
+{% elif word == 'Click here to manually start a new meeting' %}
+{% if language == 'hebrew' %}
+לחץ כאן כדי להתחיל פגישה חדשה ידנית
+{% else %}
+Click here to manually start a new meeting
+{% endif %}
+
+
+{% elif word == 'Previous meeting notes' %}
+{% if language == 'hebrew' %}
+הערות פגישה קודמות
+{% else %}
+Previous meeting notes
+{% endif %}
+
+
+{% elif word == 'No meeting notes yet.' %}
+{% if language == 'hebrew' %}
+אין עדיין הערות פגישה.
+{% else %}
+No meeting notes yet.
+{% endif %}
+
+
+{% elif word == 'Join todays meeting!' %}
+{% if language == 'hebrew' %}
+הצטרף לפגישה של היום!
+{% else %}
+Join today's meeting!
+{% endif %}
+
+
+{% elif word == 'Starting new meeting ...' %}
+{% if language == 'hebrew' %}
+מתחיל פגישה חדשה ...
+{% else %}
+Starting new meeting ...
+{% endif %}
+
+
+{% elif word == 'Join us now...' %}
+{% if language == 'hebrew' %}
+הצטרף אלינו עכשיו, בשידור חי, כנושא פתקים לפגישה הנוכחית שלנו:
+{% else %}
+Join us now, live, as a note taker for our current meeting:
+{% endif %}
+
+
+{% elif word == 'Presentation mode' %}
+{% if language == 'hebrew' %}
+מצב מצגת
+{% else %}
+Presentation mode
+{% endif %}
+
+
+{% elif word == 'Starting a new meeting based on...' %}
+{% if language == 'hebrew' %}
+פתיחת פגישה חדשה על בסיס {% if 'WEBSITE.WEBSITE_GIT'|get_config %}<a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ MEETINGS.IMPORTANT_URLS.MEETING_TEMPLATE|get_config }}" class="highlight_text_red" target="_blank">התבנית שלנו</a>{% else %}התבנית שלנו{% endif %}.
+<br>
+אנא המתן רגע ...
+{% else %}
+Starting a new meeting based on {% if 'WEBSITE.WEBSITE_GIT'|get_config %}<a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ MEETINGS.IMPORTANT_URLS.MEETING_TEMPLATE|get_config }}" class="highlight_text_red" target="_blank">our template</a>{% else %}our template{% endif %}.<br>
+Please wait a minute…
+{% endif %}
+
+
+{% elif word == 'Did you know? Keywords?' %}
+{% if language == 'hebrew' %}
+האם ידעת?
+<br>
+אתה יכול להוסיף ידנית מילת מפתח להערות באמצעות #.
+<br>
+לדוגמה: #lasercutter
+{% else %}
+Did you know?<br>
+You can manually add a keyword to the notes by using #.<br>
+For example: #lasercutter
+{% endif %}
+
+
+{% elif word == 'Is the meeting over?' %}
+{% if language == 'hebrew' %}
+האם הפגישה הסתיימה?
+{% else %}
+Is the meeting over?
+{% endif %}
+
+
+{% elif word == 'If yes... meeting will be saved...' %}
+{% if language == 'hebrew' %}
+{% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
+אם תלחץ על כן, <a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.END_MEETING }}" target="_blank">תסריט זה יסיים את הפגישה</a> ושמור אותו ב- <a class="inline_link" href="/meetings" target="_blank">הארכיון שלנו</a>.
+{% endwith %}
+{% else %}
+{% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
+If you click yes, <a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.END_MEETING }}" target="_blank">this script will end the meeting</a> and save it to <a class="inline_link" href="/meetings" target="_blank">our archive</a>.
+{% endwith %}
+{% endif %}
+
+
+{% elif word == 'Yes' %}
+{% if language == 'hebrew' %}
+כן
+{% else %}
+Yes
+{% endif %}
+
+
+{% elif word == 'Not yet' %}
+{% if language == 'hebrew' %}
+עדיין לא
+{% else %}
+Not yet
+{% endif %}
+
+
+{% elif word == 'Keywords' %}
+{% if language == 'hebrew' %}
+מילות מפתח
+{% else %}
+Keywords
+{% endif %}
+
+
+{% elif word == 'Add' %}
+{% if language == 'hebrew' %}
+הוסף
+{% else %}
+Add
+{% endif %}
+
+
+{% elif word == 'Meeting Notes' %}
+{% if language == 'hebrew' %}
+הערות מפגש
+{% else %}
+Meeting Notes
+{% endif %}
+
+
+{% else %}
+{{ word }}
+
+{% endif %}
+{% endblock%}

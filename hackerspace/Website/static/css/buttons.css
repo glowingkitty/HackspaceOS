@@ -193,6 +193,11 @@
     bottom: auto;
 }
 
+.button__cta.secondary.present_mode.rtl {
+    left: 15px;
+    right: auto;
+}
+
 .button__cta.secondary.end_meeting {
     position: absolute;
     left: auto;

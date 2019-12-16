@@ -15,12 +15,12 @@
   
   {% if 'Search' in MODULES %}
   <div id="search_bar" class="search_bar{% if language == 'hebrew' %} rtl{% endif %}"{% if 'logo.svg'|image_exists == False %} style="top: 20px;"{% endif %}>
-    <input id="search_input" class="search_input{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %} placeholder="{{ 'Search ...'|menu:language|safe }}" oninput="search(this.value,'{{ 'Searching ...'|menu:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})"></input>
+    <input id="search_input" class="search_input{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %} placeholder="{{ 'Search ...'|menu:language }}" oninput="search(this.value,'{{ 'Searching ...'|menu:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})"></input>
     <div id="search_results"></div>
   </div>
   {% endif %}
 
-  <a href="/" id="menu_h_landingpage" onclick="event.preventDefault();getPage('/','menu_h_landingpage')" class="menu_heading{% if slug == '/' %} selected{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Landingpage'|menu:language|safe }}</a>
+  <a href="/" id="menu_h_landingpage" onclick="event.preventDefault();getPage('/','menu_h_landingpage')" class="menu_heading{% if slug == '/' %} selected{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Landingpage'|menu:language }}</a>
   
   {% if 'Values' in MODULES or 'Photos' in MODULES or 'BASICS.HACKERSPACE_MANUAL'|get_config %}
   <a href="
@@ -29,42 +29,42 @@
       {% else %}{{ 'BASICS.HACKERSPACE_MANUAL'|get_config}}
       {% endif %}" onclick="event.preventDefault();{% if 'Values' in MODULES %}
       getPage('/values','menu_h_values'){% elif 'Photos' in MODULES %}
-      getPage('/photos','menu_h_photos'){% endif %}" class="menu_heading"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'About'|menu:language|safe }}</a>
+      getPage('/photos','menu_h_photos'){% endif %}" class="menu_heading"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'About'|menu:language }}</a>
   {% if 'Values' in MODULES %}
-  <a href="/values" id="menu_h_values" onclick="event.preventDefault();getPage('/values','menu_h_values')" class="menu_heading{% if slug == '/values' %} selected{% endif %} sub_heading{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Values'|menu:language|safe }}</a>
+  <a href="/values" id="menu_h_values" onclick="event.preventDefault();getPage('/values','menu_h_values')" class="menu_heading{% if slug == '/values' %} selected{% endif %} sub_heading{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Values'|menu:language }}</a>
   {% endif %}
   {% if 'Photos' in MODULES %}
-  <a href="/photos" id="menu_h_photos" onclick="event.preventDefault();getPage('/photos','menu_h_photos')" class="menu_heading{% if slug == '/photos' %} selected{% endif %} sub_heading{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Photos'|menu:language|safe }}</a>
+  <a href="/photos" id="menu_h_photos" onclick="event.preventDefault();getPage('/photos','menu_h_photos')" class="menu_heading{% if slug == '/photos' %} selected{% endif %} sub_heading{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Photos'|menu:language }}</a>
   {% endif %}
   {% if 'BASICS.HACKERSPACE_MANUAL'|get_config %}
-  <a href="{{ 'BASICS.HACKERSPACE_MANUAL'|get_config }}" target="_blank" class="menu_heading sub_heading"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Manual'|menu:language|safe }}</a>
+  <a href="{{ 'BASICS.HACKERSPACE_MANUAL'|get_config }}" target="_blank" class="menu_heading sub_heading"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Manual'|menu:language }}</a>
   {% endif %}
   {% endif %}
 
-  <a href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="menu_heading"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Participate'|menu:language|safe }}</a>
+  <a href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="menu_heading"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Participate'|menu:language }}</a>
   {% if 'Events|View' in MODULES %}
-  <a href="/events" id="menu_h_events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="menu_heading sub_heading{% if slug == '/events' or 'event/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Events'|menu:language|safe }}</a>
+  <a href="/events" id="menu_h_events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="menu_heading sub_heading{% if slug == '/events' or 'event/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Events'|menu:language }}</a>
   {% endif %}
   {% if 'Projects' in MODULES %}
-  <a href="/projects" id="menu_h_projects" onclick="event.preventDefault();getPage('/projects','menu_h_projects')" class="menu_heading sub_heading{% if slug == '/projects' or 'project/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Projects'|menu:language|safe }}</a>
+  <a href="/projects" id="menu_h_projects" onclick="event.preventDefault();getPage('/projects','menu_h_projects')" class="menu_heading sub_heading{% if slug == '/projects' or 'project/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Projects'|menu:language }}</a>
   {% endif %}
   {% if 'Spaces' in MODULES %}
-  <a href="/spaces" id="menu_h_spaces" onclick="event.preventDefault();getPage('/spaces','menu_h_spaces')" class="menu_heading sub_heading{% if slug == '/spaces' or 'space/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Spaces'|menu:language|safe }}</a>
+  <a href="/spaces" id="menu_h_spaces" onclick="event.preventDefault();getPage('/spaces','menu_h_spaces')" class="menu_heading sub_heading{% if slug == '/spaces' or 'space/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Spaces'|menu:language }}</a>
   {% endif %}
   {% if 'Machines' in MODULES %}
-  <a href="/machines" id="menu_h_machines" onclick="event.preventDefault();getPage('/machines','menu_h_machines')" class="menu_heading sub_heading{% if slug == '/machines' or 'machine/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Machines'|menu:language|safe }}</a>
+  <a href="/machines" id="menu_h_machines" onclick="event.preventDefault();getPage('/machines','menu_h_machines')" class="menu_heading sub_heading{% if slug == '/machines' or 'machine/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Machines'|menu:language }}</a>
   {% endif %}
   {% if 'Meetings|View' in MODULES %}
-  <a href="/meetings" id="menu_h_meetings" onclick="event.preventDefault();getPage('/meetings','menu_h_meetings')" class="menu_heading sub_heading{% if slug == '/meetings' %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Meetings'|menu:language|safe }}</a>
+  <a href="/meetings" id="menu_h_meetings" onclick="event.preventDefault();getPage('/meetings','menu_h_meetings')" class="menu_heading sub_heading{% if slug == '/meetings' %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Meetings'|menu:language }}</a>
   {% endif %}
   {% if 'Consensus' in MODULES %}
-  <a href="/consensus" id="menu_h_consensus" onclick="event.preventDefault();getPage('/consensus','menu_h_consensus')" class="menu_heading sub_heading{% if slug == '/consensus' or 'consensus/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Consensus'|menu:language|safe }}</a>
+  <a href="/consensus" id="menu_h_consensus" onclick="event.preventDefault();getPage('/consensus','menu_h_consensus')" class="menu_heading sub_heading{% if slug == '/consensus' or 'consensus/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Consensus'|menu:language }}</a>
   {% endif %}
   {% if 'Guildes' in MODULES %}
-  <a href="/guildes" id="menu_h_guildes" onclick="event.preventDefault();getPage('/guildes','menu_h_guildes')" class="menu_heading sub_heading{% if slug == '/guildes' or 'guilde/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Guildes'|menu:language|safe }}</a>
+  <a href="/guildes" id="menu_h_guildes" onclick="event.preventDefault();getPage('/guildes','menu_h_guildes')" class="menu_heading sub_heading{% if slug == '/guildes' or 'guilde/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Guildes'|menu:language }}</a>
   {% endif %}
   {% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
-  <div onclick="showOverlay('donate')" class="menu_heading sub_heading" style="cursor: pointer"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Donate'|landingpage:language|safe }}</div>
+  <div onclick="showOverlay('donate')" class="menu_heading sub_heading" style="cursor: pointer"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Donate'|landingpage:language }}</div>
   {% endif %}
 
   {% comment %}

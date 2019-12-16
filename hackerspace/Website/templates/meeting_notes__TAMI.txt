@@ -1,0 +1,64 @@
+-
+
+These are the notes from the {{ MeetingNumber }}th Meeting of TAMI.
+
+Date: {{ Date }}
+Note-taker: '''NOTE TAKER NAME'''
+Moderators: '''MODERATOR TAKER NAME'''
+ 
+== Meeting Summary ==
+'''FILL OUT AT END OF MEETING - One or two bullet points of high-level meeting summary.'''
+What happened at the meeting:
+* Announcements:
+* Finances:
+* Consensus Items:
+* Discussion Items:
+ 
+= Introductions =
+'''PREFERRED PRONONON & NAME, 1-2 SENTENCES OF WHAT YOU DO/ARE INTERESTED IN'''
+ 
+ 
+= Short announcements and events =
+'''60-second description per item in bulletpoint.'''
+
+
+= Excellence =
+'''Our One Rule is to Be Excellent to Each Other.'''
+ 
+(What does that mean? How does the Anti-Harassment Policy fit into this?  Are we SURE we know what being Excellent is? Also let's talk about Security in the space? This is an important and fundamental conversation at TAMI, so let's give it like 120 seconds.)
+ 
+ 
+= Participation =
+'''Everyone at TAMI is a participant at TAMI.'''
+ 
+(What does that mean? How do you get a door key? Access to Telegram, Discourse?)
+ 
+ = Financial Report =
+'''Anarchist societies under a capitalist state need money to survive and thrive, yo.'''
+ 
+* Funds in bank:
+* Any other details by those participating in handling our financials
+* The latest financial reports from the treasurer
+
+
+= Consensus =
+'''Consensus is how the TAMI Membership may change how TAMI works.'''
+ 
+(How does Consensus work? What types of things are good for formal Consensus? What is small-c consensus? What is a "block"?)
+ 
+== [[ Consensus Items History | Proposals from last week ]] ==
+''(Add any items which are consensed upon or someone has raised a principle objection for to the [[Consensus Items History]] page.)''
+ 
+== [[ Current Consensus Items | Proposals for next week ]] ==
+''(Add any new items for consensus to the [[Current Consensus Items]] page.)''
+ 
+ 
+
+
+= Discussion =
+ 
+== Discussion Item 1 ==
+ 
+== Discussion Item 2 ==
+ 
+= End of Meeting =
