@@ -1,4 +1,5 @@
 {% load config %}
+{% load translate %}
 {% block content %}
 
 <div class="header_block sub_page">
@@ -10,10 +11,10 @@
 
 <div id="what_event_block">
     <div id="what_event_organize" class="max_540" style="margin-top: 20vh;margin-bottom: 30vh;">
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>What event do you want to organize?</h2>
-        <input id="input_event_name" class="input_field_enter_name grey_background" autofocus="true" oninput="search_events(this.value)" placeholder="Enter a name ..."></input>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'What event do you want to organize?'|events:language|safe }}</h2>
+        <input id="input_event_name" class="input_field_enter_name grey_background" autofocus="true" oninput="search_events(this.value)" placeholder="{{ 'Enter a name ...'|events:language|safe }}"></input>
         <div class="divider_20"></div>
-        <a id="continue_add_event_button" onclick="showNewEventForm()" class="button__cta inline" style="display: none">Continue</a>
+        <a id="continue_add_event_button" onclick="showNewEventForm()" class="button__cta inline" style="display: none">{{ 'Continue'|events:language|safe }}</a>
         <div class="divider_20"></div>
         <div class="divider_20"></div>
     </div>
@@ -24,10 +25,9 @@
         <div class="divider_100"></div>
 
         <div class="max_540" id="existing_events_block" style="display: none">
-            Also consider:<br>
-            Maybe a similar event at {{ 'BASICS.NAME'|get_config }} could need your help!
+            {{ 'Consider helping existing event...'|events:language|safe }}
             <div class="divider_20"></div>
-            <h2 id="existing_events_headline" class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Similar events</h2>
+            <h2 id="existing_events_headline" class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Similar events'|events:language|safe }}</h2>
             <div id="existing_events">
             </div>
         </div>

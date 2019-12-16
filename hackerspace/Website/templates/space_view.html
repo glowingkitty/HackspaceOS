@@ -45,7 +45,7 @@
             <div id="next_results_machines"></div>
             {% if selected.machines.count > 3 %}
             <input type="hidden" id="more_start_from_machines" value="3"></input>
-            <a href="#button__show_more_machines" id="button__show_more_machines" onclick="showMore('machines','_machines')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+            <a href="#button__show_more_machines" id="button__show_more_machines" onclick="showMore('machines','_machines')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language|safe }}</a>
             {% endif %}
             <div onclick="showOverlay('donate')" class="button__cta secondary">Donate hardware</div>
         </div>
@@ -59,7 +59,7 @@
             <div id="next_results_events"></div>
             {% if selected.events.count > 3 %}
             <input type="hidden" id="more_start_from_events" value="3"></input>
-            <a href="#button__show_more_events" id="button__show_more_events" onclick="showMore('events','_events')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+            <a href="#button__show_more_events" id="button__show_more_events" onclick="showMore('events','_events')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language|safe }}</a>
             {% endif %}
         </div>
         {% endif %}

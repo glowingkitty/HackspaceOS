@@ -1,15 +1,16 @@
 {% load config %}
+{% load translate %}
 {% block content %}
 
-<h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
+<h2 class="h2{% if language == 'hebrew' %} rtl{% endif %} large small_distance_bottom">{{ field_heading|events:language|safe }}</h2>
 {% if field_subheading %}
-<div class="subheading">{{ field_subheading }}</div>
+<div class="subheading">{{ field_subheading|events:language|safe }}</div>
 {% endif %}
 <div class="divider_10"></div>
 <a id="location_button_hackerspace" onclick="changeLocation('{{ 'BASICS.NAME'|get_config }}')" class="location_button">{{ 'BASICS.NAME'|get_config }}</a>
-<a id="location_button_other" onclick="changeLocation('other')" class="location_button grey not_active">Other location</a>
+<a id="location_button_other" onclick="changeLocation('other')" class="location_button grey not_active">{{ 'Other location'|events:language|safe }}</a>
 <input type="hidden" id="{{ input_id }}" value="{{ 'BASICS.NAME'|get_config }}"></input>
-<textarea id="location_text" rows="5" class="input_field_enter_name round_square grey_background" oninput="document.getElementById('location').value = this.value" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%; display: none" placeholder="Street Address, ZIP code, State, Country"></textarea>
+<textarea id="location_text" rows="5" class="input_field_enter_name round_square grey_background" oninput="document.getElementById('location').value = this.value" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%; display: none" placeholder="{{ 'Street Address, ZIP code, State, Country'|events:language|safe }}"></textarea>
 <div class="divider_20"></div>
 
 {% endblock %}

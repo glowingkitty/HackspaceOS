@@ -57,6 +57,10 @@
     float: right;
 }
 
+.button__cta.secondary.auto_translate {
+    float: left;
+}
+
 
 @media (prefers-color-scheme: dark) {
     .button__cta {

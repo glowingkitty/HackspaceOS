@@ -30,7 +30,7 @@
         {% if selected.one_space and 'Spaces' in MODULES %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name_en_US }}</a>{% endif %}
     </div>
     
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ selected.str_name_en_US|landingpage_replaceLinkCSS|safe }}</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ selected.str_name_en_US|TEXT_replaceLinkCSS|safe }}</h2>
     {% if selected.url_meetup_event %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
     {% endif %}
@@ -51,10 +51,10 @@
     {% endif %}
 
     {% if selected.text_description_en_US|length > 350 %}
-    <div id="event_description" class="text_box_max_height">{{ selected.text_description_en_US|landingpage_replaceLinkCSS|safe }}</div>
+    <div id="event_description" class="text_box_max_height">{{ selected.text_description_en_US|TEXT_replaceLinkCSS|safe }}</div>
     <div class="inline_link" onclick="showFullDescription('event_description',this)">Show full description</div>
     {% else %}
-    <div>{{ selected.text_description_en_US|landingpage_replaceLinkCSS|safe }}</div>
+    <div>{{ selected.text_description_en_US|TEXT_replaceLinkCSS|safe }}</div>
     {% endif %}
 </div>
 

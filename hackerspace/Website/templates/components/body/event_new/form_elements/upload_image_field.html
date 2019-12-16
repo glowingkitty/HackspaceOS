@@ -1,10 +1,11 @@
+{% load translate %}
 {% load secrets %}
 {% block content %}
 
-<h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
+<h2 class="h2{% if language == 'hebrew' %} rtl{% endif %} large small_distance_bottom">{{ field_heading|events:language|safe }}</h2>
 
 {% if field_subheading %}
-<div class="subheading">{{ field_subheading }}</div>
+<div class="subheading">{{ field_subheading|events:language|safe }}</div>
 {% endif %}
 <div class="divider_10"></div>
 <input {% if input_id %}id="{{ input_id }}"{% endif %} class="input_field_enter_name round_square grey_background" style="width: {% if field_width %}{{ field_width }}{% else %}80%{% endif %};height: 130px;" type="file" accept="image/*"></input>

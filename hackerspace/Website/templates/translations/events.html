@@ -1,0 +1,338 @@
+{% load config %}
+{% load secrets %}
+{% block content %}
+
+{% if word == 'What event do you want to organize?' %}
+{% if language == 'hebrew' %}
+איזה אירוע אתה רוצה לארגן?
+{% else %}
+What event do you want to organize?
+{% endif %}
+
+
+{% elif word == 'Enter a name ...' %}
+{% if language == 'hebrew' %}
+הכנס שם ...
+{% else %}
+Enter a name ...
+{% endif %}
+
+
+{% elif word == 'Continue' %}
+{% if language == 'hebrew' %}
+המשך
+{% else %}
+Continue
+{% endif %}
+
+
+{% elif word == 'Consider helping existing event...' %}
+{% if language == 'hebrew' %}
+שקול גם:
+<br>
+אולי אירוע דומה ב- {{ 'BASICS.NAME'|get_config }} יכול להזדקק לעזרתכם!
+{% else %}
+Also consider:<br>
+Maybe a similar event at {{ 'BASICS.NAME'|get_config }} could need your help!
+{% endif %}
+
+
+{% elif word == 'Similar events' %}
+{% if language == 'hebrew' %}
+אירועים דומים
+{% else %}
+Similar events
+{% endif %}
+
+
+{% elif word == 'Name' %}
+{% if language == 'hebrew' %}
+שם
+{% else %}
+Name
+{% endif %}
+
+
+{% elif word == 'Tipp: Keep it short & clear.' %}
+{% if language == 'hebrew' %}
+שםטיפ: שמור על זה קצר וברור.
+{% else %}
+Tipp: Keep it short & clear.
+{% endif %}
+
+
+{% elif word == 'english' %}
+{% if language == 'hebrew' %}
+אנגלית
+{% else %}
+english
+{% endif %}
+
+
+{% elif word == 'hebrew' %}
+{% if language == 'hebrew' %}
+עברית
+{% else %}
+hebrew
+{% endif %}
+
+
+{% elif word == 'Time' %}
+{% if language == 'hebrew' %}
+זמן
+{% else %}
+Time
+{% endif %}
+
+
+{% elif word == 'Date' %}
+{% if language == 'hebrew' %}
+תאריך
+{% else %}
+Date
+{% endif %}
+
+
+{% elif word == 'Duration' %}
+{% if language == 'hebrew' %}
+משך הזמן
+{% else %}
+Duration
+{% endif %}
+
+
+{% elif word == 'Description' %}
+{% if language == 'hebrew' %}
+תיאור
+{% else %}
+Description
+{% endif %}
+
+
+{% elif word == 'Describe what your event is all about.' %}
+{% if language == 'hebrew' %}
+תאר במה עוסק האירוע שלך.
+{% else %}
+Describe what your event is all about.
+{% endif %}
+
+
+{% elif word == 'Auto translate' %}
+{% if language == 'hebrew' %}
+תרגם אוטומטית
+{% else %}
+Auto translate
+{% endif %}
+
+
+{% elif word == 'Featured photo' %}
+{% if language == 'hebrew' %}
+תמונה מוצגת
+{% else %}
+Featured photo
+{% endif %}
+
+
+{% elif word == 'Recommended: 1200x600 or higher' %}
+{% if language == 'hebrew' %}
+מומלץ: 1200x600 ומעלה
+{% else %}
+Recommended: 1200x600 or higher
+{% endif %}
+
+
+{% elif word == 'Location' %}
+{% if language == 'hebrew' %}
+מקום
+{% else %}
+Location
+{% endif %}
+
+
+{% elif word == 'Other location' %}
+{% if language == 'hebrew' %}
+מיקום אחר
+{% else %}
+Other location
+{% endif %}
+
+
+{% elif word == 'Street Address, ZIP code, State, Country' %}
+{% if language == 'hebrew' %}
+כתובת רחוב, מיקוד, מדינה, מדינה
+{% else %}
+Street Address, ZIP code, State, Country
+{% endif %}
+
+
+{% elif word == 'Repeating' %}
+{% if language == 'hebrew' %}
+חוזר
+{% else %}
+Repeating
+{% endif %}
+
+
+{% elif word == 'Weekly' %}
+{% if language == 'hebrew' %}
+שבועי
+{% else %}
+Weekly
+{% endif %}
+
+
+{% elif word == 'Bi-Weekly' %}
+{% if language == 'hebrew' %}
+דו - שבועי
+{% else %}
+Bi-Weekly
+{% endif %}
+
+
+{% elif word == 'Monthly' %}
+{% if language == 'hebrew' %}
+חודשי
+{% else %}
+Monthly
+{% endif %}
+
+
+{% elif word == 'Hosts' %}
+{% if language == 'hebrew' %}
+מארחים
+{% else %}
+Hosts
+{% endif %}
+
+
+{% elif word == 'Select the host...' %}
+{% if language == 'hebrew' %}
+בחר את מארחי האירוע. השם שלך חסר? ודא שנרשמת <a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}" target="_blank" class="inline_link">קבוצת Discourse שלנו</a>.
+{% else %}
+Select the hosts of the event. Your name is missing? Make sure you signed up in <a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}" target="_blank" class="inline_link">our Discourse group</a>.
+{% endif %}
+
+
+{% elif word == 'Search for name ...' %}
+{% if language == 'hebrew' %}
+חפש שם ...
+{% else %}
+Search for name ...
+{% endif %}
+
+
+{% elif word == 'Expected crowd' %}
+{% if language == 'hebrew' %}
+קהל צפוי
+{% else %}
+Expected crowd
+{% endif %}
+
+
+{% elif word == 'Up to 10 people' %}
+{% if language == 'hebrew' %}
+עד 10 אנשים
+{% else %}
+Up to 10 people
+{% endif %}
+
+
+{% elif word == 'Up to 20 people' %}
+{% if language == 'hebrew' %}
+עד 20 איש
+{% else %}
+Up to 20 people
+{% endif %}
+
+
+{% elif word == 'More than 20 people' %}
+{% if language == 'hebrew' %}
+יותר מעשרים איש
+{% else %}
+More than 20 people
+{% endif %}
+
+
+{% elif word == 'Large events info...' %}
+{% if language == 'hebrew' %}
+לאירועים גדולים:
+<br>
+מי יהיה לאורך כל תקופת האירוע בפתח לקבל את פני האנשים ב- {{ 'BASICS.NAME'|get_config }} וגם יקשה על הגנבים לגנוב דברים?
+<br>
+אתה? מארגן משותף? מתנדב? (שם המתנדב?) או אבטחת דלת שכורה?
+{% else %}
+For large events:<br>
+Who will be for the whole time of the event at the door to welcome people to {{ 'BASICS.NAME'|get_config }} and also make it more difficult for thiefs to steal things?<br>
+You? a co-organizer? a volunteer? (name of the volunteer?) or a hired door security?
+{% endif %}
+
+
+{% elif word == 'Who welcomes people?' %}
+{% if language == 'hebrew' %}
+מי מברך אנשים?
+{% else %}
+Who welcomes people?
+{% endif %}
+
+
+{% elif word == 'Volunteers' %}
+{% if language == 'hebrew' %}
+מתנדבים
+{% else %}
+Volunteers
+{% endif %}
+
+
+{% elif word == 'Can you need volunteers?...' %}
+{% if language == 'hebrew' %}
+האם אתה יכול להזדקק למתנדבים שיעזרו לך באירוע? בונים, מקדמים אותו או כל דבר אחר?
+{% else %}
+Can you need volunteers to help you with the event? Building up, promoting it or anything else?
+{% endif %}
+
+
+{% elif word == 'Yes, ask for help' %}
+{% if language == 'hebrew' %}
+כן, בקש עזרה
+{% else %}
+Yes, ask for help
+{% endif %}
+
+
+{% elif word == 'No help needed' %}
+{% if language == 'hebrew' %}
+אין עזרה
+{% else %}
+No help needed
+{% endif %}
+
+
+{% elif word == 'Server config incomplete... Meetup' %}
+{% if language == 'hebrew' %}
+תצורת השרת לא הושלמה. בקש ממנהל האתר להגדיר את הסודות של Meetup, כדי לאפשר פרסום אירועים להיפגש.
+{% else %}
+Server config incomplete. Ask the website admin to setup the secrets for Meetup, to enable posting events to meetup.
+{% endif %}
+
+
+{% elif word == 'Server config incomplete... Discourse' %}
+{% if language == 'hebrew' %}
+תצורת השרת לא הושלמה. בקש ממנהל האתר להגדיר את הסודות לשנת Discourse, כדי לאפשר פרסום אירועים לשיח.
+{% else %}
+Server config incomplete. Ask the website admin to setup the secrets for Discourse, to enable posting events to Discourse.
+{% endif %}
+
+
+{% elif word == 'Publish event' %}
+{% if language == 'hebrew' %}
+פרסם אירוע
+{% else %}
+Publish event
+{% endif %}
+
+
+{% else %}
+{{ word }}
+
+{% endif %}
+{% endblock%}

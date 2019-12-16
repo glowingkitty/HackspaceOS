@@ -4,7 +4,7 @@
 {% block content %}
 
 {% with HASHTAG='SOCIAL.HASHTAG'|get_config %}
-<div class="use_hashtag_cta{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{% if HASHTAG %}{{ 'Want to see your photos here?'|photos:language }} {{ 'Use'|photos:language }} {{ HASHTAG }} {{ 'on'|landingpage:language }} <a class="inline_link" href="https://twitter.com/hashtag/{{ HASHTAG|STR__remove_hash }}?f=image" target="_blank">Twitter</a> {{ 'or'|landingpage:language }} <a class="inline_link" href="https://www.instagram.com/explore/tags/{{ HASHTAG|STR__remove_hash }}/" target="_blank">Instagram</a>.{% endif %}</div>
+<div class="use_hashtag_cta{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{% if HASHTAG %}{{ 'Want to see your photos here?'|photos:language|safe }} {{ 'Use'|photos:language|safe }} {{ HASHTAG }} {{ 'on'|landingpage:language|safe }} <a class="inline_link" href="https://twitter.com/hashtag/{{ HASHTAG|STR__remove_hash }}?f=image" target="_blank">Twitter</a> {{ 'or'|landingpage:language|safe }} <a class="inline_link" href="https://www.instagram.com/explore/tags/{{ HASHTAG|STR__remove_hash }}/" target="_blank">Instagram</a>.{% endif %}</div>
 {% endwith %}
 <div id="photos_block" class="photos_block">
     {% include "components/body/photos_list.html" %}
@@ -15,13 +15,13 @@
     <input type="hidden" id="more_start_from" value="30"></input>
     <input type="hidden" id="type" value="latest"></input>
     <div class="divider_20"></div>
-    <a href="#button__show_more" id="button__show_more" onclick="showMorePhotos()" class="button__cta secondary inline"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+    <a href="#button__show_more" id="button__show_more" onclick="showMorePhotos()" class="button__cta secondary inline"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language|safe }}</a>
 </div>
 
 <div class="photo_menu_overlay{% if language == 'hebrew' %} rtl{% endif %}">
-    <div id="button__photo_latest" onclick="getPhotos(this,'latest')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %} active"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Latest'|photos:language }}</div>
-    <div id="button__photo_oldest" onclick="getPhotos(this,'oldest')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Oldest'|photos:language }}</div>
-    <div id="button__photo_random" onclick="getPhotos(this,'random')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Random'|photos:language }}</div>
+    <div id="button__photo_latest" onclick="getPhotos(this,'latest')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %} active"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Latest'|photos:language|safe }}</div>
+    <div id="button__photo_oldest" onclick="getPhotos(this,'oldest')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Oldest'|photos:language|safe }}</div>
+    <div id="button__photo_random" onclick="getPhotos(this,'random')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Random'|photos:language|safe }}</div>
 </div>
 
 <div class="divider_100"></div>

@@ -47,7 +47,7 @@
         {% else %}
         {% include "components/body/consensus_items_entries.html" with all_items=all_current_items specific_selector='_current' %}
         {% if all_current_items_count > 10 %}
-        <a href="#button__show_more" id="button__show_more_current" onclick="showMore('{{ show_more }}','_current')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+        <a href="#button__show_more" id="button__show_more_current" onclick="showMore('{{ show_more }}','_current')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language|safe }}</a>
         {% endif %}
         {% endif %}
     </div>
@@ -57,7 +57,7 @@
         {% else %}
         {% include "components/body/consensus_items_entries.html" with all_items=all_archived_items next_results_id_addition='_archive' %}
         {% if all_archived_items_count > 10 %}
-        <a href="#button__show_more" id="button__show_more_archived" onclick="showMore('{{ show_more }}','_archived')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+        <a href="#button__show_more" id="button__show_more_archived" onclick="showMore('{{ show_more }}','_archived')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language|safe }}</a>
         {% endif %}
         {% endif %}
     </div>

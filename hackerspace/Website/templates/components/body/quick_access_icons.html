@@ -7,54 +7,54 @@
 {% with THINGS_TO_DO='BASICS.THINGS_TO_DO'|get_config %}
 <div class="centered max_900_width">
     {% if 'wood' in THINGS_TO_DO %}
-    <a onclick="openMenu();enterSearch('wood','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon wood"></a>
+    <a onclick="openMenu();enterSearch('wood','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon wood"></a>
     <div class="landingpage_quick_access_icon divider"></div>
     {% endif %}
     {% if '3D printer' in THINGS_TO_DO %}
-    <a onclick="openMenu();enterSearch('3D printer','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})"class="landingpage_quick_access_icon printer3d"></a>
+    <a onclick="openMenu();enterSearch('3D printer','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})"class="landingpage_quick_access_icon printer3d"></a>
     <div class="landingpage_quick_access_icon divider"></div>
     {% endif %}
     {% if 'music' in THINGS_TO_DO %}
-    <a onclick="openMenu();enterSearch('music','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon music"></a>
+    <a onclick="openMenu();enterSearch('music','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon music"></a>
     <div class="landingpage_quick_access_icon divider"></div>
     {% endif %}
     {% if 'game dev' in THINGS_TO_DO %}
-    <a onclick="openMenu();enterSearch('game dev','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon gamedev"></a>
+    <a onclick="openMenu();enterSearch('game dev','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon gamedev"></a>
     <div class="landingpage_quick_access_icon divider"></div>
     {% endif %}
     {% if 'community' in THINGS_TO_DO %}
-    <a onclick="openMenu();enterSearch('community','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon community"></a>
+    <a onclick="openMenu();enterSearch('community','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon community"></a>
     <div class="landingpage_quick_access_icon divider"></div>
     {% endif %}
     {% if 'laser cutter' in THINGS_TO_DO %}
-    <a onclick="openMenu();enterSearch('laser cutter','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon lasercutter"></a>
+    <a onclick="openMenu();enterSearch('laser cutter','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon lasercutter"></a>
     <div class="landingpage_quick_access_icon divider"></div>
     {% endif %}
 </div>
 <div class="centered max_900_width">
     {% if 'code' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
-    <a onclick="openMenu();enterSearch('code','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon code"></a>
+    <a onclick="openMenu();enterSearch('code','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon code"></a>
     {% endif %}
     {% if 'robot' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
-    <a onclick="openMenu();enterSearch('robot','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon robot"></a>
+    <a onclick="openMenu();enterSearch('robot','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon robot"></a>
     {% endif %}
     {% if 'electronic' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
-    <a onclick="openMenu();enterSearch('electronic','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon electronic"></a>
+    <a onclick="openMenu();enterSearch('electronic','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon electronic"></a>
     {% endif %}
     {% if 'drawing' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
-    <a onclick="openMenu();enterSearch('drawing','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon drawing"></a>
+    <a onclick="openMenu();enterSearch('drawing','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon drawing"></a>
     {% endif %}
     {% if 'whiteboarding' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
-    <a onclick="openMenu();enterSearch('whiteboarding','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon whiteboarding"></a>
+    <a onclick="openMenu();enterSearch('whiteboarding','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon whiteboarding"></a>
     {% endif %}
     {% if 'sewing' in THINGS_TO_DO %}
     <div class="landingpage_quick_access_icon divider"></div>
-    <a onclick="openMenu();enterSearch('sewing','{{ 'Searching ...'|landingpage:language }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon sewing"></a>
+    <a onclick="openMenu();enterSearch('sewing','{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" class="landingpage_quick_access_icon sewing"></a>
     {% endif %}
 </div>
 {% endwith %}

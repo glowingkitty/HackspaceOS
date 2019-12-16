@@ -7,10 +7,10 @@
     <a href="#" class="button__close_overlay{% if language == 'hebrew' %} rtl{% endif %}" onclick="closeOverlays()"></a>
 
     {% with NAME='BASICS.NAME'|get_config %}
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Donate'|landingpage:language }}</h2>
-    <div{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'SPACE is funded by donations. ...'|donate:language }}</div>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Donate'|landingpage:language|safe }}</h2>
+    <div{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'SPACE is funded by donations. ...'|donate:language|safe }}</div>
     {% if 'BASICS.DONATIONS_TAX_DEDUCTIBLE'|get_config == True %}
-    <div class="text_semitransparent"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Donations are tax deductible.'|donate:language }}</div>
+    <div class="text_semitransparent"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Donations are tax deductible.'|donate:language|safe }}</div>
     {% endif %}
     <div class="divider_20"></div>
     {% endwith %}

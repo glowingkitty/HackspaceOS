@@ -2,8 +2,8 @@
 
 {% for host in all_hosts %}
 <div class="host_entry" onclick="addRemoveHost(this,'{{ host.url_discourse }}')">
-    <div class="host_image" style="background-image: url('{{ host.url_featured_photo }}')"></div>
-    <div class="host_name">{{ host.str_name_shortened }}</div>
+    <div class="host_image{% if language == 'hebrew' %} rtl{% endif %}" style="background-image: url('{{ host.url_featured_photo }}')"></div>
+    <div class="host_name{% if language == 'hebrew' %} rtl{% endif %}">{{ host.str_name_shortened }}</div>
 </div>
 {% endfor %}
 

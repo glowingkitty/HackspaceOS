@@ -14,7 +14,7 @@
     </div>
     <div onclick="openMenu()" class="menu_icon{% if language == 'hebrew' %} rtl{% endif %}"></div>
     {% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
-    <div onclick="showOverlay('donate')" class="button__donate{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Donate'|landingpage:language }}</div>
+    <div onclick="showOverlay('donate')" class="button__donate{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Donate'|landingpage:language|safe }}</div>
     {% if 'BASICS.DONATION_CTA'|get_config %}
     <div onclick="showOverlay('donate');hideDonateCTA(this)" class="button__donate_cta {{ 'BASICS.DONATION_CTA'|get_config }}{% if language == 'hebrew' %}_rtl{% endif %}"></div>
     {% endif %}

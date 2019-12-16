@@ -1,5 +1,6 @@
 {% load secrets %}
 {% load config %}
+{% load translate %}
 {% block content %}
 
 {% with MODULES='MODULES'|get_config %}
@@ -83,17 +84,17 @@
 <div class="max_540">
     {% if 'EVENTS.MEETUP_GROUP'|get_config and 'MEETUP.ACCESS_TOKEN'|key_exists and 'MEETUP.CLIENT_ID'|key_exists and 'MEETUP.CLIENT_SECRET'|key_exists %}
     {% else %}
-    <div style="opacity: 0.5">Server config incomplete. Ask the website admin to setup the secrets for Meetup, to enable posting events to meetup.</div>
+    <div style="opacity: 0.5">{{ 'Server config incomplete... Meetup'|events:language }}</div>
     {% endif %}
     {% if 'DISCOURSE.DISCOURSE_URL'|key_exists and 'DISCOURSE.API_KEY'|key_exists and 'DISCOURSE.API_USERNAME'|key_exists %}
     {% else %}
-    <div style="opacity: 0.5">Server config incomplete. Ask the website admin to setup the secrets for Discourse, to enable posting events to Discourse.</div>
+    <div style="opacity: 0.5">{{ 'Server config incomplete... Discourse'|events:language }}</div>
     {% endif %}
 </div>
 <div class="divider_20"></div>
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
 <div class="max_540">
-    <div onclick="publish_event(this,{% if 'AWS.ACCESS_KEYID'|key_exists %}true{% else %}false{% endif %},{{ 'WEBSITE.LANGUAGES'|get_config }})" class="button__cta">Publish event</div>
+    <div onclick="publish_event(this,{% if 'AWS.ACCESS_KEYID'|key_exists %}true{% else %}false{% endif %},{{ 'WEBSITE.LANGUAGES'|get_config }})" class="button__cta">{{ 'Publish event'|events:language }}</div>
 </div>
 <div class="divider_100"></div>
 

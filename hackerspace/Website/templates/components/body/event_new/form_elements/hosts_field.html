@@ -1,8 +1,9 @@
 {% load secrets %}
+{% load translate %}
 {% block content %}
 
-<h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
-<div class="subheading">Select the hosts of the event. Your name is missing? Make sure you signed up in <a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}" target="_blank" class="inline_link">our Discourse group</a>.</div>
+<h2 class="h2{% if language == 'hebrew' %} rtl{% endif %} large small_distance_bottom">{{ field_heading|events:language|safe }}</h2>
+<div class="subheading">{{ 'Select the host...'|events:language|safe }}</div>
 <div class="divider_10"></div>
 
 <div id="hosts_preview_block" style="display: none">
@@ -12,7 +13,7 @@
 
 <input type="hidden" id="added_hosts" values=""></input>
 
-<input id="search_host_input" class="input_field_enter_name round_square grey_background" style="width: 80%" oninput="search_hosts(this.value)" placeholder="Search for name ..."></input>
+<input id="search_host_input" class="input_field_enter_name round_square grey_background" style="width: 80%" oninput="search_hosts(this.value)" placeholder="{{ 'Search for name ...'|events:language|safe }}"></input>
 <div class="divider_10"></div>
 <div id="hosts_search_results"></div>
 

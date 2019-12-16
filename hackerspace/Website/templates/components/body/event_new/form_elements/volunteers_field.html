@@ -1,15 +1,13 @@
+{% load translate %}
 {% block content %}
 
-<h2 class="h2 large small_distance_bottom">{{ field_heading }}</h2>
-<div class="subheading" style="width: 90%;">Can you need volunteers to help you with the event? Building up, promoting it or anything else?</div>
+<h2 class="h2{% if language == 'hebrew' %} rtl{% endif %} large small_distance_bottom">{{ field_heading|events:language|safe }}</h2>
+<div class="subheading" style="width: 90%;">{{ 'Can you need volunteers?...'|events:language|safe }}</div>
 <div class="divider_10"></div>
 <select id="{{ input_id }}" class="input_field_enter_name round_square grey_background" style="height: 41px;">
-    <option value="yes">Yes, ask for help</option>
-    <option value="no">No help needed</option>
+    <option value="yes">{{ 'Yes, ask for help'|events:language }}</option>
+    <option value="no">{{ 'No help needed'|events:language }}</option>
 </select>
-<div class="divider_10"></div>
-<div class="subheading" style="width: 90%;">If you choose yes, we automatically create a “wish” entry on Discuss, which people can also see on our website and meetup.</div>
-
 
 <div class="divider_20"></div>
 

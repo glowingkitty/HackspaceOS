@@ -7,9 +7,9 @@
 </div>
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ headline|menu:language }}</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ headline|menu:language|safe }}</h2>
     <div{% if language == 'hebrew' %} align="right"{% endif %}>
-        {{ description|results_lists:language }}
+        {{ description|results_lists:language|safe }}
         <br>
         {% if wiki_url %}
         <br>
@@ -18,7 +18,7 @@
         {% endif %}
         <br>
         {% if add_new_requires_user == False or user.is_authenticated %}
-        <a href="{{ addnew_url }}" {% if addnew_target == 'same_tab' %}onclick="event.preventDefault();getPage('{{ addnew_url }}','{{ addnew_menu_selected }}')" {% endif %}target="_blank" class="button__cta inline">{{ addnew_text|results_lists:language }}</a>
+        <a href="{{ addnew_url }}" {% if addnew_target == 'same_tab' %}onclick="event.preventDefault();getPage('{{ addnew_url }}','{{ addnew_menu_selected }}')" {% endif %}target="_blank" class="button__cta inline">{{ addnew_text|results_lists:language|safe }}</a>
         {% endif %}
     </div>
     <div class="divider_20"></div>
@@ -33,7 +33,7 @@
         {% include "components/body/results_list_entries.html" %}
         <input type="hidden" id="more_start_from" value="10"></input>
         {% if results_count > 10 %}
-        <a href="#button__show_more" id="button__show_more" onclick="showMore('{{ show_more }}','')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+        <a href="#button__show_more" id="button__show_more" onclick="showMore('{{ show_more }}','')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language|safe }}</a>
         {% endif %}
     </div>
     <div class="divider_100"></div>

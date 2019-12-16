@@ -120,8 +120,18 @@
     background-repeat: no-repeat;
 }
 
+.host_image.rtl {
+    float: right;
+}
+
 .host_name {
     float: left;
     line-height: 35px;
     margin-left: 10px;
+}
+
+.host_name.rtl {
+    float: right;
+    margin-left: inherit;
+    margin-right: 10px;
 }

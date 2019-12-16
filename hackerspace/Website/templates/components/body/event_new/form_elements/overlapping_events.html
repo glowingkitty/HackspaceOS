@@ -1,6 +1,7 @@
+{% load translate %}
 {% block content %}
 
-<h2 class="h2 large small_distance_bottom">Overlap</h2>
+<h2 class="h2{% if language == 'hebrew' %} rtl{% endif %} large small_distance_bottom">Overlap</h2>
 <div class="subheading">
     Your event seems to overlap with {{ overlapping_events.overlapping_events|length }} existing event{% if overlapping_events.overlapping_events|length > 1 %}s{% endif %}.<br>
     Consider changing the space, date, time or duration.

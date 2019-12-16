@@ -12,9 +12,11 @@ chardet==3.0.4
 Django==3.0
 django-appconf==1.0.3
 docutils==0.15.2
+emoji==0.5.4
 future==0.18.2
 geographiclib==1.50
 geopy==1.20.0
+googletrans==2.4.0
 idna==2.8
 jmespath==0.9.4
 multidict==4.6.1
