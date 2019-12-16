@@ -102,6 +102,15 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         from hackerspace.models.events import RESULT__updateTime
         import urllib.parse
+        from googletrans import Translator
+        translator = Translator()
+
+        if self.str_name_en_US:
+            self.str_name_en_US = translator.translate(
+                self.str_name_en_US, 'en').text
+            if not self.str_name_he_IL:
+                self.str_name_he_IL = translator.translate(
+                    self.str_name_en_US, 'he').text
 
         self = RESULT__updateTime(self)
         super(Project, self).save(*args, **kwargs)

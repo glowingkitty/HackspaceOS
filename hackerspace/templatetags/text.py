@@ -24,7 +24,7 @@ def cleanhtml(raw_html):
 
 @register.filter
 def shorten(text, limit):
-    if len(text) > limit:
+    if text and len(text) > limit:
         return text[:limit]+'...'
     else:
         return text
