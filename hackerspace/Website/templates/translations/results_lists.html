@@ -1,0 +1,87 @@
+{% load config %}
+{% block content %}
+
+{% if word == 'SPACE is a place where people come together ...' %}
+{% if language == 'hebrew' %}
+{{ 'BASICS.NAME'|get_config }} is a place where people come together to learn, share ideas and have an excellent time.<br>
+Nearly all of our events are free - so just come by and join us - or organize your own event at {{ 'BASICS.NAME'|get_config }}!
+{% else %}
+{{ 'BASICS.NAME'|get_config }} is a place where people come together to learn, share ideas and have an excellent time.<br>
+Nearly all of our events are free - so just come by and join us - or organize your own event at {{ 'BASICS.NAME'|get_config }}!
+{% endif %}
+
+
+{% elif word == 'Organize an event' %}
+{% if language == 'hebrew' %}
+Organize an event
+{% else %}
+Organize an event
+{% endif %}
+
+
+{% elif word == 'A guilde is ...' %}
+{% if language == 'hebrew' %}
+A guilde is a group at {{ 'BASICS.NAME'|get_config }} with a common interest area, responsible for specific spaces and machines at {{ 'BASICS.NAME'|get_config }}.
+{% else %}
+A guilde is a group at {{ 'BASICS.NAME'|get_config }} with a common interest area, responsible for specific spaces and machines at {{ 'BASICS.NAME'|get_config }}.
+{% endif %}
+
+
+{% elif word == 'Add guilde' %}
+{% if language == 'hebrew' %}
+Add guilde
+{% else %}
+Add guilde
+{% endif %}
+
+
+{% elif word == 'At SPACE fellow hackers created all kind of awesome spaces...' %}
+{% if language == 'hebrew' %}
+At {{ 'BASICS.NAME'|get_config }} fellow hackers like you created all kinds of awesome spaces. Check them out!
+{% else %}
+At {{ 'BASICS.NAME'|get_config }} fellow hackers like you created all kinds of awesome spaces. Check them out!
+{% endif %}
+
+
+{% elif word == 'Add space' %}
+{% if language == 'hebrew' %}
+Add space
+{% else %}
+Add space
+{% endif %}
+
+
+{% elif word == 'We have many useful machines ...' %}
+{% if language == 'hebrew' %}
+We have many super useful machines at {{ 'BASICS.NAME'|get_config }}, allowing you to build nearly everything you want to build!
+{% else %}
+We have many super useful machines at {{ 'BASICS.NAME'|get_config }}, allowing you to build nearly everything you want to build!
+{% endif %}
+
+
+{% elif word == 'Add machine' %}
+{% if language == 'hebrew' %}
+Add machine
+{% else %}
+Add machine
+{% endif %}
+
+
+{% elif word == 'At SPACE fellow hackers created awesome projects...' %}
+{% if language == 'hebrew' %}
+At {{ 'BASICS.NAME'|get_config }} fellow hackers like you created all kinds of awesome projects - both their own and projects for the space. Check them out - and create your own one!
+{% else %}
+At {{ 'BASICS.NAME'|get_config }} fellow hackers like you created all kinds of awesome projects - both their own and projects for the space. Check them out - and create your own one!
+{% endif %}
+
+
+{% elif word == 'Add project' %}
+{% if language == 'hebrew' %}
+Add project
+{% else %}
+Add project
+{% endif %}
+
+
+{% endif %}
+{% endblock%}

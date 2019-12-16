@@ -1,67 +1,168 @@
 {% load config %}
 {% block content %}
 
+
 {% if word == 'Probably open' %}
+{% if language == 'hebrew' %}
 כנראה פתוח
+{% else %}
+Probably open
+{% endif %}
+
 
 {% elif word == 'Probably closed' %}
+{% if language == 'hebrew' %}
 כנראה סגור
+{% else %}
+Probably closed
+{% endif %}
+
 
 {% elif word == 'Open now' %}
+{% if language == 'hebrew' %}
 פתוח עכשיו
+{% else %}
+Open now
+{% endif %}
+
 
 {% elif word == 'Visit us!' %}
+{% if language == 'hebrew' %}
 בקר אותנו!
+{% else %}
+Visit us!
+{% endif %}
+
 
 {% elif word == 'Create an event' %}
+{% if language == 'hebrew' %}
 צור אירוע
+{% else %}
+Create an event
+{% endif %}
+
 
 {% elif word == 'Show all' %}
+{% if language == 'hebrew' %}
 הצג את כל התוצאות
+{% else %}
+Show all
+{% endif %}
+
 
 {% elif word == 'Show more' %}
+{% if language == 'hebrew' %}
 הצג עוד תוצאות
+{% else %}
+Show more
+{% endif %}
+
 
 {% elif word == 'Do I belong at SPACE?' %}
+{% if language == 'hebrew' %}
 האם מתאים לי להיות ב {{ 'BASICS.NAME'|get_config }}?
+{% else %}
+Do I belong at {{ 'BASICS.NAME'|get_config }}?
+{% endif %}
+
 
 {% elif word == 'YES you do as long...' %}
+{% if language == 'hebrew' %}
 בוודאי שכן! כל עוד את/ה מסכימ/ה עם <a class="inline_link" href="/values" onclick="event.preventDefault();getPage('/values','menu_h_values')">our one rule</a>.<br>
 At {{ 'BASICS.NAME'|get_config }} you can meet friendly people doing all kinds of cool things - from software & electronics up to playing music, reading books and having great conversations with your fellow hackers.
+{% else %}
+YES YOU DO! As long as you follow <a class="inline_link" href="/values" onclick="event.preventDefault();getPage('/values','menu_h_values')">our one rule</a>.<br>
+At {{ 'BASICS.NAME'|get_config }} you can meet friendly people doing all kinds of cool things - from software & electronics up to playing music, reading books and having great conversations with your fellow hackers.
+{% endif %}
+
 
 {% elif word == 'When?' %}
+{% if language == 'hebrew' %}
 מתי?
+{% else %}
+When?
+{% endif %}
+
 
 {% elif word == 'Where?' %}
+{% if language == 'hebrew' %}
 איפה?
+{% else %}
+Where?
+{% endif %}
+
 
 {% elif word == 'Navigate' %}
+{% if language == 'hebrew' %}
 ניווט
+{% else %}
+Navigate
+{% endif %}
+
 
 {% elif word == 'SPACE wouldnt exist without your support!' %}
+{% if language == 'hebrew' %}
 {{ 'BASICS.NAME'|get_config }} מתקיימת בזכות התמיכה שלך! 
+{% else %}
+{{ 'BASICS.NAME'|get_config }} wouldn't exist without your support!
+{% endif %}
+
 
 {% elif word == 'Donate' %}
+{% if language == 'hebrew' %}
 תרומה
+{% else %}
+Donate
+{% endif %}
+
 
 {% elif word == 'Talk with your fellow HACKERS!' %}
+{% if language == 'hebrew' %}
 לדבר עם חבר/ת קהילה {{ 'PHYSICAL_SPACE.PEOPLE_NAME'|get_config }}!
+{% else %}
+Talk with your fellow {{ 'PHYSICAL_SPACE.PEOPLE_NAME'|get_config }}!
+{% endif %}
+
 
 {% elif word == 'on' %}
+{% if language == 'hebrew' %}
 ב
+{% else %}
+on
+{% endif %}
+
 
 {% elif word == 'or' %}
+{% if language == 'hebrew' %}
 או
+{% else %}
+or
+{% endif %}
+
 
 {% elif word == 'And join us online!' %}
+{% if language == 'hebrew' %}
 And join us online!
+{% else %}
+And join us online!
+{% endif %}
+
 
 {% elif word == 'Did you know? Hackerspaces exist all over the world!' %}
+{% if language == 'hebrew' %}
 הידעת? האקרספייסים קיימים בכל העולם!
+{% else %}
 Did you know? Hackerspaces exist all over the world!
+{% endif %}
+
 
 {% elif word == 'Website based on' %}
+{% if language == 'hebrew' %}
 האתר מבוסס על 
+{% else %}
+Website based on
+{% endif %}
+
 
 {% endif %}
 {% endblock%}

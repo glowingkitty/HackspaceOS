@@ -7,9 +7,9 @@
 </div>
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ headline|landingpage:language }}</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ headline|menu:language }}</h2>
     <div{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>
-        {{ description }}
+        {{ description|results_lists:language }}
         <br>
         {% if wiki_url %}
         <br>
@@ -18,7 +18,7 @@
         {% endif %}
         <br>
         {% if add_new_requires_user == False or user.is_authenticated %}
-        <a href="{{ addnew_url }}" {% if addnew_target == 'same_tab' %}onclick="event.preventDefault();getPage('{{ addnew_url }}','{{ addnew_menu_selected }}')" {% endif %}target="_blank" class="button__cta inline">{{ addnew_text }}</a>
+        <a href="{{ addnew_url }}" {% if addnew_target == 'same_tab' %}onclick="event.preventDefault();getPage('{{ addnew_url }}','{{ addnew_menu_selected }}')" {% endif %}target="_blank" class="button__cta inline">{{ addnew_text|results_lists:language }}</a>
         {% endif %}
     </div>
     <div class="divider_20"></div>

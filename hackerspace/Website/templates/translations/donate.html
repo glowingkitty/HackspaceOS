@@ -1,32 +1,64 @@
 {% load config %}
 {% block content %}
 
+
 {% if word == 'SPACE is funded by donations. ...' %}
+{% if language == 'hebrew' %}
 {{ 'BASICS.NAME'|get_config }} is funded by YOUR donations.<br>
 So please help us keeping {{ 'BASICS.NAME'|get_config }} alive & growing! With money, hardware or your time!
+{% else %}
+{{ 'BASICS.NAME'|get_config }} is funded by YOUR donations.<br>
+So please help us keeping {{ 'BASICS.NAME'|get_config }} alive & growing! With money, hardware or your time!
+{% endif %}
+
 
 {% elif word == 'Donations are tax deductible.' %}
+{% if language == 'hebrew' %}
 Donations are tax deductible.
+{% else %}
+Donations are tax deductible.
+{% endif %}
+
 
 {% elif word == 'Donate money' %}
+{% if language == 'hebrew' %}
 Donate<br>
 money
+{% else %}
+Donate<br>
+money
+{% endif %}
+
 
 {% elif word == 'Donate hardware' %}
+{% if language == 'hebrew' %}
 Donate<br>
 hardware
+{% else %}
+Donate<br>
+hardware
+{% endif %}
+
 
 {% elif word == 'Organize an event' %}
+{% if language == 'hebrew' %}
 Organize<br>
 an event
+{% else %}
+Organize<br>
+an event
+{% endif %}
+
 
 {% elif word == 'Volunteer at an event' %}
+{% if language == 'hebrew' %}
 Volunteer<br>
 at an event
+{% else %}
+Volunteer<br>
+at an event
+{% endif %}
 
-{% elif word == 'Volunteer at an event' %}
-Volunteer<br>
-at an event
 
 {% endif %}
 {% endblock%}

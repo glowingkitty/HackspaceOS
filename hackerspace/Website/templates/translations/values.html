@@ -1,0 +1,133 @@
+{% load config %}
+{% block content %}
+
+{% if word == 'We have ONE rule - be excellent' %}
+{% if language == 'hebrew' %}
+We have ONE rule:<br>Be excellent to others & yourself!
+{% else %}
+We have ONE rule:<br>Be excellent to others & yourself!
+{% endif %}
+
+
+{% elif word == 'SPACE is an anarchist hackerspace' %}
+{% if language == 'hebrew' %}
+{{ 'BASICS.NAME'|get_config }} is an anarchist hackerspace, where you can come and do everything you would like to - 
+as long as you follow our one rule: Be excellent to others & yourself.
+{% else %}
+{{ 'BASICS.NAME'|get_config }} is an anarchist hackerspace, where you can come and do everything you would like to - 
+as long as you follow our one rule: Be excellent to others & yourself.
+{% endif %}
+
+
+{% elif word == 'How to participate?' %}
+{% if language == 'hebrew' %}
+How to participate?
+{% else %}
+How to participate?
+{% endif %}
+
+
+{% elif word == 'Most is done by do-ocracy' %}
+{% if language == 'hebrew' %}
+Most of what happens at {{ 'BASICS.NAME'|get_config }} is done via do-ocracy - if you want to see something happening, make it happen - as long as you are excellent to others and yourself.<br>
+If you would like to participate (which is super excellent!), you can do it in many ways, for example:
+{% else %}
+Most of what happens at {{ 'BASICS.NAME'|get_config }} is done via do-ocracy - if you want to see something happening, make it happen - as long as you are excellent to others and yourself.<br>
+If you would like to participate (which is super excellent!), you can do it in many ways, for example:
+{% endif %}
+
+
+{% elif word == 'work on cool things' %}
+{% if language == 'hebrew' %}
+work on cool things you care about & have a great time at {{ 'BASICS.NAME'|get_config }}
+{% else %}
+work on cool things you care about & have a great time at {{ 'BASICS.NAME'|get_config }}
+{% endif %}
+
+
+{% elif word == 'donate money or hardware' %}
+{% if language == 'hebrew' %}
+<span class="inline_link" onclick="showOverlay('donate')">donate money or hardware</span>
+{% else %}
+<span class="inline_link" onclick="showOverlay('donate')">donate money or hardware</span>
+{% endif %}
+
+
+{% elif word == 'get in conversations with others' %}
+{% if language == 'hebrew' %}
+get in conversations with others and ask what they work on & if you can help in any way
+{% else %}
+get in conversations with others and ask what they work on & if you can help in any way
+{% endif %}
+
+
+{% elif word == 'organize an event or support existing ones' %}
+{% if language == 'hebrew' %}
+<a href="/event/new" class="inline_link" onclick="event.preventDefault();getPage('/event/new','menu_h_events')">organize an event or support existing ones</a>
+{% else %}
+<a href="/event/new" class="inline_link" onclick="event.preventDefault();getPage('/event/new','menu_h_events')">organize an event or support existing ones</a>
+{% endif %}
+
+
+{% elif word == 'help cleaning up the space' %}
+{% if language == 'hebrew' %}
+help cleaning up the space
+{% else %}
+help cleaning up the space
+{% endif %}
+
+
+{% elif word == 'give welcoming tours to new people in the space' %}
+{% if language == 'hebrew' %}
+give welcoming tours to new people in the space
+{% else %}
+give welcoming tours to new people in the space
+{% endif %}
+
+
+{% elif word == '& much more.' %}
+{% if language == 'hebrew' %}
+& much more.
+{% else %}
+& much more.
+{% endif %}
+
+
+{% elif word == 'Safespace/Bravespace' %}
+{% if language == 'hebrew' %}
+Safespace/Bravespace
+{% else %}
+Safespace/Bravespace
+{% endif %}
+
+
+{% elif word == 'Safespace/Bravespace text' %}
+{% if language == 'hebrew' %}
+All the excellent people coming to {{ 'BASICS.NAME'|get_config }} should be able to feel comfortable at the space.<br>
+That means if anyone is harassing you / makes you feel unsafe, it's perfectly excellent to ask that person to leave and take a break.<br>
+<br>
+However, that doesn't mean you aren't able to discuss controversal topics at {{ 'BASICS.NAME'|get_config }}. 
+But be mindful about having a rational, respectful, mature discussion with others, even if you strongly disagree with them.<br>
+<br>
+If you feel a situation surpresses aspects of your speech and your speech wasn't intended to be hurtful, talk with people in the space in person about it.
+{% else %}
+All the excellent people coming to {{ 'BASICS.NAME'|get_config }} should be able to feel comfortable at the space.<br>
+That means if anyone is harassing you / makes you feel unsafe, it's perfectly excellent to ask that person to leave and take a break.<br>
+<br>
+However, that doesn't mean you aren't able to discuss controversal topics at {{ 'BASICS.NAME'|get_config }}. 
+But be mindful about having a rational, respectful, mature discussion with others, even if you strongly disagree with them.<br>
+<br>
+If you feel a situation surpresses aspects of your speech and your speech wasn't intended to be hurtful, talk with people in the space in person about it.
+{% endif %}
+
+
+{% elif word == 'SPACEs history' %}
+{% if language == 'hebrew' %}
+{{ 'BASICS.NAME'|get_config }}'s history:<br>The Up's, Down's & Learnings
+{% else %}
+{{ 'BASICS.NAME'|get_config }}'s history:<br>The Up's, Down's & Learnings
+{% endif %}
+
+
+{% endif %}
+{% endblock%}
