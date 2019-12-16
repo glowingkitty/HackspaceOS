@@ -9,11 +9,11 @@
     {% if result.str_relative_time %}
     <div class="result_preview_relative_time">{{ result.str_relative_time }}</div>
     {% endif %}
-    <div class="result_preview_left">
-    <div class="h2 in_result_preview_block">{{ result.str_name_en_US|shorten:30|safe }}</div>
+    <div class="result_preview_left{% if language == 'hebrew' %} rtl{% endif %}">
+    <div class="h2 in_result_preview_block{% if language == 'hebrew' %} rtl{% endif %}">{{ result.str_name_en_US|shorten:30|safe }}</div>
     <div class="text_semitransparent with_padding_left" style="font-size: 14px;">{{ result.datetime_range }}</div>
     </div>
-    <div class="result_preview_right{% if result.url_featured_photo or result.image_featured_photo %}" style="background-image: url('{% if result.url_featured_photo %}{{ result.url_featured_photo }}{% elif result.image_featured_photo %}{{ result.image_featured_photo.url }}{% endif %}'){% else %} {{ result.str_name_en_US|getDefaultImage }}{% endif %}"></div>
+    <div class="result_preview_right{% if language == 'hebrew' %} rtl{% endif %}{% if result.url_featured_photo or result.image_featured_photo %}" style="background-image: url('{% if result.url_featured_photo %}{{ result.url_featured_photo }}{% elif result.image_featured_photo %}{{ result.image_featured_photo.url }}{% endif %}'){% else %} {{ result.str_name_en_US|getDefaultImage }}{% endif %}"></div>
 </a>
 
 {% endblock %}
