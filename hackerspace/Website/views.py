@@ -17,7 +17,7 @@ def get_view_response(request, page, sub_page, hashname):
         'hash': hashname,
         'ADMIN_URL': STR__get_key('DJANGO.ADMIN_URL'),
         'user': request.user,
-        'language':'hebrew'
+        'language':'english'
     }
 
     if page == 'landingpage':
@@ -411,7 +411,7 @@ def event_view(request, sub_page):
 def get_view(request):
     log('get_view(request)')
     in_space = request.COOKIES.get('in_space')
-    language='hebrew'
+    language='english'
     marry_messages = []
     response = None
     if request.GET.get('what', None) == 'events_slider':
@@ -457,7 +457,7 @@ def get_view(request):
                 'int_overlapping_events':len(overlapping_events['overlapping_events']),
                 'html': get_template(
                 'components/body/event_new/form_elements/overlapping_events.html').render({
-                    'language':'hebrew',
+                    'language':'english',
                     'overlapping_events': overlapping_events
                 })})
 
@@ -626,7 +626,7 @@ def search_view(request):
             'num_results': len(search_results),
             'html': get_template(
                 'components/search/search_results.html').render({
-                    'language':'hebrew',
+                    'language':'english',
                     'search_results': search_results
                 }) if not request.GET.get('filter', None) else get_template('components/body/event_new/hosts_search_results.html').render({
                     'all_hosts': search_results[:4],
