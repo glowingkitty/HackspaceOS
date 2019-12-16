@@ -159,9 +159,19 @@
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
 }
 
+.photo_menu_overlay.rtl {
+    margin-left: inherit;
+    margin-right: 30%;
+}
+
 @media (max-width: 570px) {
     .photo_menu_overlay {
         margin-left: 22%;
+    }
+
+    .photo_menu_overlay.rtl {
+        margin-left: inherit;
+        margin-right: 22%;
     }
 }
 
@@ -169,11 +179,21 @@
     .photo_menu_overlay {
         margin-left: 14%;
     }
+
+    .photo_menu_overlay.rtl {
+        margin-left: inherit;
+        margin-right: 14%;
+    }
 }
 
 @media (max-width: 320px) {
     .photo_menu_overlay {
         margin-left: 2%;
+    }
+
+    .photo_menu_overlay.rtl {
+        margin-left: inherit;
+        margin-right: 2%;
     }
 }
 

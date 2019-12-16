@@ -3,7 +3,8 @@
 
 {% if word == 'We have ONE rule - be excellent' %}
 {% if language == 'hebrew' %}
-We have ONE rule:<br>Be excellent to others & yourself!
+יש לנו כלל אחד:<br>
+היה מצוין לאחרים ולעצמך!
 {% else %}
 We have ONE rule:<br>Be excellent to others & yourself!
 {% endif %}
@@ -11,8 +12,8 @@ We have ONE rule:<br>Be excellent to others & yourself!
 
 {% elif word == 'SPACE is an anarchist hackerspace' %}
 {% if language == 'hebrew' %}
-{{ 'BASICS.NAME'|get_config }} is an anarchist hackerspace, where you can come and do everything you would like to - 
-as long as you follow our one rule: Be excellent to others & yourself.
+{{ 'BASICS.NAME'|get_config }} הוא המרחב האנרכיסטי, אליו תוכלו לבוא ולעשות כל מה שתרצו -
+כל עוד אתה פועל לפי הכלל האחד שלנו: היה מצוין לאחרים ולעצמך.
 {% else %}
 {{ 'BASICS.NAME'|get_config }} is an anarchist hackerspace, where you can come and do everything you would like to - 
 as long as you follow our one rule: Be excellent to others & yourself.
@@ -21,7 +22,7 @@ as long as you follow our one rule: Be excellent to others & yourself.
 
 {% elif word == 'How to participate?' %}
 {% if language == 'hebrew' %}
-How to participate?
+איך להשתתף?
 {% else %}
 How to participate?
 {% endif %}
@@ -29,8 +30,8 @@ How to participate?
 
 {% elif word == 'Most is done by do-ocracy' %}
 {% if language == 'hebrew' %}
-Most of what happens at {{ 'BASICS.NAME'|get_config }} is done via do-ocracy - if you want to see something happening, make it happen - as long as you are excellent to others and yourself.<br>
-If you would like to participate (which is super excellent!), you can do it in many ways, for example:
+רוב מה שקורה ב {{ 'BASICS.NAME'|get_config }} נעשה באמצעות עשה-אוקראטיה - אם אתה רוצה לראות משהו קורה, גרם לזה לקרות - כל עוד אתה מצוין לאחרים ולעצמך.<br>
+אם תרצה להשתתף (וזה סופר מצוין!), אתה יכול לעשות זאת בדרכים רבות, למשל:
 {% else %}
 Most of what happens at {{ 'BASICS.NAME'|get_config }} is done via do-ocracy - if you want to see something happening, make it happen - as long as you are excellent to others and yourself.<br>
 If you would like to participate (which is super excellent!), you can do it in many ways, for example:
@@ -39,7 +40,7 @@ If you would like to participate (which is super excellent!), you can do it in m
 
 {% elif word == 'work on cool things' %}
 {% if language == 'hebrew' %}
-work on cool things you care about & have a great time at {{ 'BASICS.NAME'|get_config }}
+עבד על דברים מגניבים שאכפת לך מהם ותהני מאוד ב- {{ 'BASICS.NAME'|get_config }}
 {% else %}
 work on cool things you care about & have a great time at {{ 'BASICS.NAME'|get_config }}
 {% endif %}
@@ -47,7 +48,7 @@ work on cool things you care about & have a great time at {{ 'BASICS.NAME'|get_c
 
 {% elif word == 'donate money or hardware' %}
 {% if language == 'hebrew' %}
-<span class="inline_link" onclick="showOverlay('donate')">donate money or hardware</span>
+<span class="inline_link" onclick="showOverlay('donate')">לתרום כסף או חומרה</span>
 {% else %}
 <span class="inline_link" onclick="showOverlay('donate')">donate money or hardware</span>
 {% endif %}
@@ -55,7 +56,7 @@ work on cool things you care about & have a great time at {{ 'BASICS.NAME'|get_c
 
 {% elif word == 'get in conversations with others' %}
 {% if language == 'hebrew' %}
-get in conversations with others and ask what they work on & if you can help in any way
+היכנס לשיחות עם אחרים ושאל על מה הם עובדים ואם אתה יכול לעזור בכל דרך
 {% else %}
 get in conversations with others and ask what they work on & if you can help in any way
 {% endif %}
@@ -63,7 +64,7 @@ get in conversations with others and ask what they work on & if you can help in 
 
 {% elif word == 'organize an event or support existing ones' %}
 {% if language == 'hebrew' %}
-<a href="/event/new" class="inline_link" onclick="event.preventDefault();getPage('/event/new','menu_h_events')">organize an event or support existing ones</a>
+<a href="/event/new" class="inline_link" onclick="event.preventDefault();getPage('/event/new','menu_h_events')">ארגן אירוע או תומך בקיים</a>
 {% else %}
 <a href="/event/new" class="inline_link" onclick="event.preventDefault();getPage('/event/new','menu_h_events')">organize an event or support existing ones</a>
 {% endif %}
@@ -71,7 +72,7 @@ get in conversations with others and ask what they work on & if you can help in 
 
 {% elif word == 'help cleaning up the space' %}
 {% if language == 'hebrew' %}
-help cleaning up the space
+עזרה בניקיון החלל
 {% else %}
 help cleaning up the space
 {% endif %}
@@ -79,7 +80,7 @@ help cleaning up the space
 
 {% elif word == 'give welcoming tours to new people in the space' %}
 {% if language == 'hebrew' %}
-give welcoming tours to new people in the space
+תן סיורים מסבירי פנים לאנשים חדשים במרחב
 {% else %}
 give welcoming tours to new people in the space
 {% endif %}
@@ -87,7 +88,7 @@ give welcoming tours to new people in the space
 
 {% elif word == '& much more.' %}
 {% if language == 'hebrew' %}
-& much more.
+& הרבה יותר.
 {% else %}
 & much more.
 {% endif %}
@@ -95,7 +96,7 @@ give welcoming tours to new people in the space
 
 {% elif word == 'Safespace/Bravespace' %}
 {% if language == 'hebrew' %}
-Safespace/Bravespace
+מרחב בטוח / סביבת שטח
 {% else %}
 Safespace/Bravespace
 {% endif %}
@@ -103,13 +104,17 @@ Safespace/Bravespace
 
 {% elif word == 'Safespace/Bravespace text' %}
 {% if language == 'hebrew' %}
-All the excellent people coming to {{ 'BASICS.NAME'|get_config }} should be able to feel comfortable at the space.<br>
-That means if anyone is harassing you / makes you feel unsafe, it's perfectly excellent to ask that person to leave and take a break.<br>
+כל האנשים המצוינים שמגיעים ל־ {{ 'BASICS.NAME'|get_config }} צריכים להיות מסוגלים להרגיש בנוח במרחב.
 <br>
-However, that doesn't mean you aren't able to discuss controversal topics at {{ 'BASICS.NAME'|get_config }}. 
-But be mindful about having a rational, respectful, mature discussion with others, even if you strongly disagree with them.<br>
 <br>
-If you feel a situation surpresses aspects of your speech and your speech wasn't intended to be hurtful, talk with people in the space in person about it.
+זה אומר שאם מישהו מטריד אותך / גורם לך להרגיש לא בטוח, זה מצוין לחלוטין לבקש מאותו אדם לעזוב ולהפסיק.
+<br>
+<br>
+עם זאת, זה לא אומר שאתה לא מסוגל לדון בנושאים מעוררים מחלוקת בשעה {{ 'BASICS.NAME'|get_config }}.
+אך זכור לנהל דיונים רציונליים, מכבדים ובוגרים עם אחרים, גם אם אתה לא מסכים איתם.
+<br>
+<br>
+אם אתה חש מצב שמפליא על היבטי הדיבור שלך והנאום שלך לא נועד לפגוע, שוחח עם אנשים במרחב באופן אישי על זה.
 {% else %}
 All the excellent people coming to {{ 'BASICS.NAME'|get_config }} should be able to feel comfortable at the space.<br>
 That means if anyone is harassing you / makes you feel unsafe, it's perfectly excellent to ask that person to leave and take a break.<br>
@@ -123,7 +128,9 @@ If you feel a situation surpresses aspects of your speech and your speech wasn't
 
 {% elif word == 'SPACEs history' %}
 {% if language == 'hebrew' %}
-{{ 'BASICS.NAME'|get_config }}'s history:<br>The Up's, Down's & Learnings
+ההיסטוריה של {{ 'BASICS.NAME'|get_config }}:
+<br>
+עליות, דאונס ולומדות
 {% else %}
 {{ 'BASICS.NAME'|get_config }}'s history:<br>The Up's, Down's & Learnings
 {% endif %}

@@ -18,7 +18,7 @@
     <a href="#button__show_more" id="button__show_more" onclick="showMorePhotos()" class="button__cta secondary inline"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
 </div>
 
-<div class="photo_menu_overlay">
+<div class="photo_menu_overlay{% if language == 'hebrew' %} rtl{% endif %}">
     <div id="button__photo_latest" onclick="getPhotos(this,'latest')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %} active"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Latest'|photos:language }}</div>
     <div id="button__photo_oldest" onclick="getPhotos(this,'oldest')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Oldest'|photos:language }}</div>
     <div id="button__photo_random" onclick="getPhotos(this,'random')" class="photo_menu_heading{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Random'|photos:language }}</div>
