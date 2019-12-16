@@ -1,19 +1,55 @@
+{% load config %}
 {% block content %}
 
-{% if word == 'Latest' %}
-Latest
+{% if word == 'We have ONE rule - be excellent' %}
+We have ONE rule:<br>Be excellent to others & yourself!
 
-{% elif word == 'Oldest' %}
-Oldest
+{% elif word == 'SPACE is an anarchist hackerspace' %}
+{{ 'BASICS.NAME'|get_config }} is an anarchist hackerspace, where you can come and do everything you would like to - 
+as long as you follow our one rule: Be excellent to others & yourself.
 
-{% elif word == 'Random' %}
-Random
+{% elif word == 'How to participate?' %}
+How to participate?
 
-{% elif word == 'Want to see your photos here?' %}
-Want to see your photos here?
+{% elif word == 'Most is done by do-ocracy' %}
+Most of what happens at {{ 'BASICS.NAME'|get_config }} is done via do-ocracy - if you want to see something happening, make it happen - as long as you are excellent to others and yourself.<br>
+If you would like to participate (which is super excellent!), you can do it in many ways, for example:
 
-{% elif word == 'Use' %}
-Use
+{% elif word == 'work on cool things' %}
+work on cool things you care about & have a great time at {{ 'BASICS.NAME'|get_config }}
+
+{% elif word == 'donate money or hardware' %}
+<span class="inline_link" onclick="showOverlay('donate')">donate money or hardware</span>
+
+{% elif word == 'get in conversations with others' %}
+get in conversations with others and ask what they work on & if you can help in any way
+
+{% elif word == 'organize an event or support existing ones' %}
+<a href="/event/new" class="inline_link" onclick="event.preventDefault();getPage('/event/new','menu_h_events')">organize an event or support existing ones</a>
+
+{% elif word == 'help cleaning up the space' %}
+help cleaning up the space
+
+{% elif word == 'give welcoming tours to new people in the space' %}
+give welcoming tours to new people in the space
+
+{% elif word == '& much more.' %}
+& much more.
+
+{% elif word == 'Safespace/Bravespace' %}
+Safespace/Bravespace
+
+{% elif word == 'Safespace/Bravespace text' %}
+All the excellent people coming to {{ 'BASICS.NAME'|get_config }} should be able to feel comfortable at the space.<br>
+That means if anyone is harassing you / makes you feel unsafe, it's perfectly excellent to ask that person to leave and take a break.<br>
+<br>
+However, that doesn't mean you aren't able to discuss controversal topics at {{ 'BASICS.NAME'|get_config }}. 
+But be mindful about having a rational, respectful, mature discussion with others, even if you strongly disagree with them.<br>
+<br>
+If you feel a situation surpresses aspects of your speech and your speech wasn't intended to be hurtful, talk with people in the space in person about it.
+
+{% elif word == 'SPACEs history' %}
+{{ 'BASICS.NAME'|get_config }}'s history:<br>The Up's, Down's & Learnings
 
 {% endif %}
 {% endblock%}
