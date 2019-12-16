@@ -17,50 +17,51 @@
 צור אירוע
 
 {% elif word == 'Show all' %}
-Show all
+הצג את כל התוצאות
 
 {% elif word == 'Show more' %}
-Show more
+הצג עוד תוצאות
 
 {% elif word == 'Do I belong at SPACE?' %}
-Do I belong at {{ 'BASICS.NAME'|get_config }}?
+האם מתאים לי להיות ב {{ 'BASICS.NAME'|get_config }}?
 
 {% elif word == 'YES you do as long...' %}
-YES YOU DO! As long as you follow <a class="inline_link" href="/values" onclick="event.preventDefault();getPage('/values','menu_h_values')">our one rule</a>.<br>
+בוודאי שכן! כל עוד את/ה מסכימ/ה עם <a class="inline_link" href="/values" onclick="event.preventDefault();getPage('/values','menu_h_values')">our one rule</a>.<br>
 At {{ 'BASICS.NAME'|get_config }} you can meet friendly people doing all kinds of cool things - from software & electronics up to playing music, reading books and having great conversations with your fellow hackers.
 
 {% elif word == 'When?' %}
-When?
+מתי?
 
 {% elif word == 'Where?' %}
-Where?
+איפה?
 
 {% elif word == 'Navigate' %}
-Navigate
+ניווט
 
 {% elif word == 'SPACE wouldnt exist without your support!' %}
-{{ 'BASICS.NAME'|get_config }} wouldn't exist without your support!
+{{ 'BASICS.NAME'|get_config }} מתקיימת בזכות התמיכה שלך! 
 
 {% elif word == 'Donate' %}
-Donate
+תרומה
 
 {% elif word == 'Talk with your fellow HACKERS!' %}
-Talk with your fellow {{ 'PHYSICAL_SPACE.PEOPLE_NAME'|get_config }}!
+לדבר עם חבר/ת קהילה {{ 'PHYSICAL_SPACE.PEOPLE_NAME'|get_config }}!
 
 {% elif word == 'on' %}
-on
+ב
 
 {% elif word == 'or' %}
-or
+או
 
 {% elif word == 'And join us online!' %}
 And join us online!
 
 {% elif word == 'Did you know? Hackerspaces exist all over the world!' %}
+הידעת? האקרספייסים קיימים בכל העולם!
 Did you know? Hackerspaces exist all over the world!
 
 {% elif word == 'Website based on' %}
-Website based on
+האתר מבוסס על 
 
 {% endif %}
 {% endblock%}
