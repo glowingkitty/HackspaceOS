@@ -9,7 +9,7 @@
 </div>
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Big-C consensus items</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Big-C consensus items</h2>
     <a href="#bottom_content" class="inline_link">{% if all_current_items %}{{ all_current_items.count }}{% else %}0{% endif %} current item{% if all_current_items.count > 1 or all_current_items.count == 0 %}s{% endif %}</a>
     <br>
     <br>
@@ -47,7 +47,7 @@
         {% else %}
         {% include "components/body/consensus_items_entries.html" with all_items=all_current_items specific_selector='_current' %}
         {% if all_current_items_count > 10 %}
-        <a href="#button__show_more" id="button__show_more_current" onclick="showMore('{{ show_more }}','_current')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+        <a href="#button__show_more" id="button__show_more_current" onclick="showMore('{{ show_more }}','_current')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
         {% endif %}
         {% endif %}
     </div>
@@ -57,7 +57,7 @@
         {% else %}
         {% include "components/body/consensus_items_entries.html" with all_items=all_archived_items next_results_id_addition='_archive' %}
         {% if all_archived_items_count > 10 %}
-        <a href="#button__show_more" id="button__show_more_archived" onclick="showMore('{{ show_more }}','_archived')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+        <a href="#button__show_more" id="button__show_more_archived" onclick="showMore('{{ show_more }}','_archived')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
         {% endif %}
         {% endif %}
     </div>

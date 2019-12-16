@@ -8,16 +8,16 @@
 <div class="footer">
     {% if 'SOCIAL.INTERNAL_COMMUNICATION_PLATFORMS'|get_config %}
     <div class="divider_20"></div>
-    <div{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'Talk with your fellow HACKERS!'|landingpage:language }}</div>
+    <div{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Talk with your fellow HACKERS!'|landingpage:language }}</div>
     {% for platform in 'SOCIAL.INTERNAL_COMMUNICATION_PLATFORMS'|get_config %}
-    <a href="{{ platform.url }}" target="_blank" class="link dark_back"{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'on'|landingpage:language }} {{ platform.name }}</a>
+    <a href="{{ platform.url }}" target="_blank" class="link dark_back"{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'on'|landingpage:language }} {{ platform.name }}</a>
     {% endfor %}
     <div class="divider_20"></div>
     {% endif %}
 
     {% with SOCIAL_NETWORKS='SOCIAL.SOCIAL_NETWORKS'|get_config %}
     {% if SOCIAL_NETWORKS %}
-    <div{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'And join us online!'|landingpage:language }}</div>
+    <div{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'And join us online!'|landingpage:language }}</div>
     <div class="divider_10"></div>
     {% for network in SOCIAL_NETWORKS|upto:5 %}
         {% if network.name|lower != 'twitter' %}
@@ -37,14 +37,14 @@
         {% endwith %}
         <div class="footer_half_block">
             <div class="divider_20"></div>
-            <div{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'Did you know? Hackerspaces exist all over the world!'|landingpage:language|safe }}</div>
+            <div{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Did you know? Hackerspaces exist all over the world!'|landingpage:language|safe }}</div>
             <div class="divider_20"></div>
             <a href="https://wiki.hackerspaces.org/List_of_Hackerspaces" target="_blank" class="hackerspace_map w-inline-block"></a>
-            <a href="https://wiki.hackerspaces.org/List_of_Hackerspaces" target="_blank" class="button__cta secondary move_up"{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'Show all'|landingpage:language }}</a>
+            <a href="https://wiki.hackerspaces.org/List_of_Hackerspaces" target="_blank" class="button__cta secondary move_up"{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Show all'|landingpage:language }}</a>
         </div>
     </div>
     <div class="divider_100"></div>
-    <a class="inline_link" href="https://github.com/marcoEDU/HackerspaceTemplatePackage" target="_blank"{% if language == 'hebrew' %} lang="he" dir="rtl"{% endif %}>{{ 'Website based on'|landingpage:language }} HackerspaceTemplatePackage</a>
+    <a class="inline_link" href="https://github.com/marcoEDU/HackerspaceTemplatePackage" target="_blank"{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Website based on'|landingpage:language }} HackerspaceTemplatePackage</a>
 </div>
 
 {% endblock %}

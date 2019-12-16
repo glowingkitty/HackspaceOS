@@ -3,12 +3,12 @@
 {% block content %}
 
 <div id="visit_us" class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>{{ 'Visit us!'|landingpage:language }}</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Visit us!'|landingpage:language }}</h2>
     {% if 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY'|get_config %}
     <div class="table">
-      <div class="visit_us_text_left{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>{{ 'When?'|landingpage:language }}</div>
+      <div class="visit_us_text_left{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'When?'|landingpage:language }}</div>
       {% if language == 'hebrew' %}
-      <div class="visit_us_text_right rtl" lang="he" align="right">{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY.hebrew'|get_config }}</div>
+      <div class="visit_us_text_right rtl" align="right">{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY.hebrew'|get_config }}</div>
       {% else %}
       <div class="visit_us_text_right">{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY.english'|get_config }}</div>
       {% endif %}
@@ -16,9 +16,9 @@
     <div class="divider_10"></div>
     {% endif %}
     <div class="table">
-      <div class="visit_us_text_left{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>{{ 'Where?'|landingpage:language }}</div>
+      <div class="visit_us_text_left{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Where?'|landingpage:language }}</div>
       {% with HACKERSPACE_ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
-      <div class="visit_us_text_right{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>
+      <div class="visit_us_text_right{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>
         {% if HACKERSPACE_ADDRESS.STREET %}{{ HACKERSPACE_ADDRESS.STREET }}<br>{% endif %}
         {% if HACKERSPACE_ADDRESS.CITY %}{{ HACKERSPACE_ADDRESS.CITY }}<br>{% endif %}
         {% if HACKERSPACE_ADDRESS.STATE %}{{ HACKERSPACE_ADDRESS.STATE }} {% endif %}{% if HACKERSPACE_ADDRESS.ZIP %}{{ HACKERSPACE_ADDRESS.ZIP }}{% endif %}{% if HACKERSPACE_ADDRESS.STATE or HACKERSPACE_ADDRESS.ZIP %}<br>{% endif %}
@@ -34,7 +34,7 @@
     <div class="divider_20"></div>
     <iframe class="map_preview" src="{{ 'BASICS.EMBEDDED_MAP_URL'|get_config }}" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
     <div class="align_center move_up">
-      <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ 'BASICS.NAME'|get_config }},{{ HACKERSPACE_ADDRESS.CITY }}" class="button__cta secondary inline"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Navigate'|landingpage:language }}</a>
+      <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ 'BASICS.NAME'|get_config }},{{ HACKERSPACE_ADDRESS.CITY }}" class="button__cta secondary inline"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Navigate'|landingpage:language }}</a>
     </div>
     {% else %}
     <div class="align_center">

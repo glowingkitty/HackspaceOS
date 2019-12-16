@@ -19,6 +19,6 @@ def getOpenNowStatus(language):
         else:
             break
     if language == 'hebrew':
-        return '<div lang="he" dir="rtl" align="right">'+translated_status+'</div><div class="status_code_icon '+color_indicator+' rtl"></div>'
+        return '<div dir="rtl" align="right">'+translated_status+'</div><div class="status_code_icon '+color_indicator+' rtl"></div>'
     else:
         return '<div class="status_code_icon '+color_indicator+'"></div><div>'+translated_status+'</div>'
