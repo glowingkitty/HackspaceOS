@@ -10,14 +10,14 @@
                 "is a community",
                 "is a maker & learning space",
                 "is a do-ocracy",
-                "is what you make out of it"
+                "is what you make of it"
             ],
             "hebrew": [
-                "הוא מרחב האקרים בשנת {{ CITY }}",
+                "היא האקרספייס ב {{ CITY }}",
                 "היא קהילה",
-                "הוא יצרנית ומרחב למידה",
-                "הוא דו-אוקקרטיה",
-                "זה מה שאתה עושה מזה"
+                "היא מרחב עשייה ולמידה",
+                "היא דו-אוקרטיה",
+                "היא מה שתחליטו שתהיה"
             ]
         },
         "THINGS_TO_DO": [
