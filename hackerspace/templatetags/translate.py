@@ -1,28 +1,98 @@
 from django.template import Library
-import json
-
 register = Library()
-
-with open('translations.json') as json_file:
-    translations = json.load(json_file)
 
 
 @register.filter
-def text(text, language):
-    from getConfig import get_config
+def landingpage(text, language):
+    from django.template.loader import get_template
     try:
-        if language in translations[text]:
-            text = translations[text][language]
-        else:
-            text = translations[text]['english']
-        if '0SPACE0' in text:
-            text = text.replace('0SPACE0', get_config('BASICS.NAME'))
-        if '0CITY0' in text:
-            text = text.replace('0CITY0', get_config(
-                'PHYSICAL_SPACE.ADDRESS.CITY'))
-        if '0HACKERS0' in text:
-            text = text.replace('0HACKERS0', get_config(
-                'PHYSICAL_SPACE.PEOPLE_NAME'))
-        return translations[text][language]
+        return get_template('translations/landingpage/'+language+'.html').render({
+            'word': text
+        })
     except:
-        return text
+        try:
+            return get_template('translations/landingpage/english.html').render({
+                'word': text
+            })
+        except:
+            return text
+
+
+@register.filter
+def donate(text, language):
+    from django.template.loader import get_template
+    try:
+        return get_template('translations/donate/'+language+'.html').render({
+            'word': text
+        })
+    except:
+        try:
+            return get_template('translations/donate/english.html').render({
+                'word': text
+            })
+        except:
+            return text
+
+
+@register.filter
+def menu(text, language):
+    from django.template.loader import get_template
+    try:
+        return get_template('translations/menu/'+language+'.html').render({
+            'word': text
+        })
+    except:
+        try:
+            return get_template('translations/menu/english.html').render({
+                'word': text
+            })
+        except:
+            return text
+
+
+@register.filter
+def values(text, language):
+    from django.template.loader import get_template
+    try:
+        return get_template('translations/values/'+language+'.html').render({
+            'word': text
+        })
+    except:
+        try:
+            return get_template('translations/values/english.html').render({
+                'word': text
+            })
+        except:
+            return text
+
+
+@register.filter
+def events(text, language):
+    from django.template.loader import get_template
+    try:
+        return get_template('translations/events/'+language+'.html').render({
+            'word': text
+        })
+    except:
+        try:
+            return get_template('translations/events/english.html').render({
+                'word': text
+            })
+        except:
+            return text
+
+
+@register.filter
+def photos(text, language):
+    from django.template.loader import get_template
+    try:
+        return get_template('translations/photos/'+language+'.html').render({
+            'word': text
+        })
+    except:
+        try:
+            return get_template('translations/photos/english.html').render({
+                'word': text
+            })
+        except:
+            return text

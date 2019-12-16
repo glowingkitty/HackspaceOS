@@ -33,7 +33,7 @@
         </a>
         {% else %}
         <a href="#visit_us" class="button__cta">
-            <div{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Visit us!'|text:language }}</div>
+            <div{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Visit us!'|landingpage:language }}</div>
             {% if 'PHYSICAL_SPACE.OPENING_HOURS'|get_config %}
             <div id="open_status" class="cta_extra_info">
                 {{ is_open_status|safe }}

@@ -1,0 +1,66 @@
+{% load config %}
+{% block content %}
+
+{% if word == 'Probably open' %}
+כנראה פתוח
+
+{% elif word == 'Probably closed' %}
+כנראה סגור
+
+{% elif word == 'Open now' %}
+פתוח עכשיו
+
+{% elif word == 'Visit us!' %}
+בקר אותנו!
+
+{% elif word == 'Create an event' %}
+צור אירוע
+
+{% elif word == 'Show all' %}
+Show all
+
+{% elif word == 'Show more' %}
+Show more
+
+{% elif word == 'Do I belong at SPACE?' %}
+Do I belong at {{ 'BASICS.NAME'|get_config }}?
+
+{% elif word == 'YES you do as long...' %}
+YES YOU DO! As long as you follow <a class="inline_link" href="/values" onclick="event.preventDefault();getPage('/values','menu_h_values')">our one rule</a>.<br>
+At {{ 'BASICS.NAME'|get_config }} you can meet friendly people doing all kinds of cool things - from software & electronics up to playing music, reading books and having great conversations with your fellow hackers.
+
+{% elif word == 'When?' %}
+When?
+
+{% elif word == 'Where?' %}
+Where?
+
+{% elif word == 'Navigate' %}
+Navigate
+
+{% elif word == 'SPACE wouldnt exist without your support!' %}
+{{ 'BASICS.NAME'|get_config }} wouldn't exist without your support!
+
+{% elif word == 'Donate' %}
+Donate
+
+{% elif word == 'Talk with your fellow HACKERS!' %}
+Talk with your fellow {{ 'PHYSICAL_SPACE.PEOPLE_NAME'|get_config }}!
+
+{% elif word == 'on' %}
+on
+
+{% elif word == 'or' %}
+or
+
+{% elif word == 'And join us online!' %}
+And join us online!
+
+{% elif word == 'Did you know? Hackerspaces exist all over the world!' %}
+Did you know? Hackerspaces exist all over the world!
+
+{% elif word == 'Website based on' %}
+Website based on
+
+{% endif %}
+{% endblock%}

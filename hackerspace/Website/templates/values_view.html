@@ -12,24 +12,24 @@
 <div class="divider_20"></div>
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'We have ONE rule - be excellent'|text:language }}</h2>
-    <p class="paragraph"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'SPACE is an anarchist hackerspace'|text:language }}</p>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'We have ONE rule - be excellent'|values:language }}</h2>
+    <p class="paragraph"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'SPACE is an anarchist hackerspace'|values:language }}</p>
 </div>
 
 <div class="divider_20"></div>
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'How to participate?'|text:language }}</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'How to participate?'|values:language }}</h2>
     <p class="paragraph"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>
-    {{ 'Most is done by do-ocracy'|text:language }}<br> 
+    {{ 'Most is done by do-ocracy'|values:language }}<br> 
     <ul{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>
-    <li>{{ 'work on cool things'|text:language }}</li>
-    <li><span onclick="showOverlay('donate')" class="inline_link">{{ 'donate money or hardware'|text:language }}</span></li>
-    <li>{{ 'get in conversations with others'|text:language }}</li>
-    <li><a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="inline_link">{{ 'organize an event or support existing ones'|text:language }}</a></li>
-    <li>{{ 'help cleaning up the space'|text:language }}</li>
-    <li>{{ 'give welcoming tours to new people in the space'|text:language }}</li>
-    <li>{{ '& much more.'|text:language }}</li>
+    <li>{{ 'work on cool things'|values:language }}</li>
+    <li><span onclick="showOverlay('donate')" class="inline_link">{{ 'donate money or hardware'|values:language }}</span></li>
+    <li>{{ 'get in conversations with others'|values:language }}</li>
+    <li><a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="inline_link">{{ 'organize an event or support existing ones'|values:language }}</a></li>
+    <li>{{ 'help cleaning up the space'|values:language }}</li>
+    <li>{{ 'give welcoming tours to new people in the space'|values:language }}</li>
+    <li>{{ '& much more.'|values:language }}</li>
     </ul>
     </p>
 </div>
@@ -38,15 +38,15 @@
 <div class="divider_20"></div>
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'Safespace/Bravespace'|text:language }}</h2>
-    <p class="paragraph"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Safespace/Bravespace text'|text:language }}</p>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'Safespace/Bravespace'|values:language }}</h2>
+    <p class="paragraph"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Safespace/Bravespace text'|values:language }}</p>
 </div>
 
 {% if 'BASICS.ABOUT.HISTORY_HTML'|get_config %}
 
 <div class="divider_20"></div>
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ NAME }}'s history:<br>The Up's, Down's & Learnings</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ 'SPACEs history'|values:language }}</h2>
     <p class="paragraph">
     {{ 'BASICS.ABOUT.HISTORY_HTML'|get_config|safe }}
     </p>
