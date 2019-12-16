@@ -7,10 +7,10 @@
     <a href="#" class="button__close_overlay{% if language == 'hebrew' %} rtl{% endif %}" onclick="closeOverlays()"></a>
 
     {% with NAME='BASICS.NAME'|get_config %}
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Donate'|landingpage:language }}</h2>
-    <div{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'SPACE is funded by donations. ...'|donate:language }}</div>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Donate'|landingpage:language }}</h2>
+    <div{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'SPACE is funded by donations. ...'|donate:language }}</div>
     {% if 'BASICS.DONATIONS_TAX_DEDUCTIBLE'|get_config == True %}
-    <div class="text_semitransparent"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Donations are tax deductible.'|donate:language }}</div>
+    <div class="text_semitransparent"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Donations are tax deductible.'|donate:language }}</div>
     {% endif %}
     <div class="divider_20"></div>
     {% endwith %}
@@ -35,7 +35,7 @@
     {% comment %} <div class="divider_20"></div>
     <div class="divider_20"></div> {% endcomment %}
 
-    {% comment %} <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Or help realizing a community wishes</h2> {% endcomment %}
+    {% comment %} <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Or help realizing a community wishes</h2> {% endcomment %}
 
 </div>
 

@@ -17,14 +17,14 @@
 <div class="button__cta secondary auto_translate" onclick="translate_description('{{ LANGUAGES.0 }}','{{ language }}')">Auto translate</div>
 {% endif %}
 {% endif %}
-<textarea {% if language == 'hebrew' %}lang="he" dir="rtl" align="right" {% endif %}id="{{ input_id }}_{{ language }}" rows="5" class="input_field_enter_name round_square grey_background" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%;" placeholder="Describe what your event is all about."></textarea>
+<textarea {% if language == 'hebrew' %}lang="he" align="right" {% endif %}id="{{ input_id }}_{{ language }}" rows="5" class="input_field_enter_name round_square grey_background" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%;" placeholder="Describe what your event is all about."></textarea>
 <div class="divider_20"></div>
 {% endfor %}
 {% endwith %}
 
 {% else %}
 
-<textarea {% if language == 'hebrew' %}lang="he" dir="rtl" align="right" {% endif %}id="{{ input_id }}" rows="5" class="input_field_enter_name round_square grey_background" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%;" placeholder="Describe what your event is all about."></textarea>
+<textarea {% if language == 'hebrew' %}lang="he" align="right" {% endif %}id="{{ input_id }}" rows="5" class="input_field_enter_name round_square grey_background" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%;" placeholder="Describe what your event is all about."></textarea>
 <div class="divider_20"></div>
 
 {% endif %}

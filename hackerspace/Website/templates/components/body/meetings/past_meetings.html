@@ -2,14 +2,14 @@
 {% block content %}
 
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Previous meeting notes</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Previous meeting notes</h2>
     {% if past_meetings %}
 
     {% include "components/body/meetings/meetings_list.html" %}
 
     <div class="cta_center">
         <input type="hidden" id="more_start_from" value="10"></input>
-        <a href="#button__show_more" id="button__show_more" onclick="showMore('meeting_notes','')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+        <a href="#button__show_more" id="button__show_more" onclick="showMore('meeting_notes','')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
         <div class="divider_100"></div>
     </div>
     {% else %}

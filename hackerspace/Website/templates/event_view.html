@@ -30,7 +30,7 @@
         {% if selected.one_space and 'Spaces' in MODULES %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name_en_US }}</a>{% endif %}
     </div>
     
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ selected.str_name_en_US|landingpage_replaceLinkCSS|safe }}</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>{{ selected.str_name_en_US|landingpage_replaceLinkCSS|safe }}</h2>
     {% if selected.url_meetup_event %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
     {% endif %}
@@ -62,7 +62,7 @@
 
 <div class="max_540">
     <div class="blocks_inline_50_percent">
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Location</h2>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Location</h2>
         <div>
         {% with HACKERSPACE_ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
         {% if HACKERSPACE_ADDRESS.STREET not in selected.str_location %}
@@ -77,7 +77,7 @@
     </div>
     {% if selected.many_hosts.exists %}
     <div class="blocks_inline_50_percent">
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Hosts</h2>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Hosts</h2>
         {% for host in selected.many_hosts.all %}
         <a class="host_link" href="{{ host.url_discourse }}" target="_blank">
             <div class="host_preview_image" style="background-image: url('{{ host.url_featured_photo }}')"></div>
@@ -94,13 +94,13 @@
     
     {% if selected.one_space and 'Spaces' in MODULES %}
     <div class="blocks_inline_50_percent">
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Space</h2>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Space</h2>
         {% include "components/body/result_preview_block.html" with result=selected.one_space %}
     </div>
     {% endif %}
     {% if selected.one_guilde and 'Guildes' in MODULES %}
     <div class="blocks_inline_50_percent">
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Guilde</h2>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Guilde</h2>
         {% include "components/body/result_preview_block.html" with result=selected.one_guilde %}
     </div>
     {% endif %}
@@ -116,13 +116,13 @@
     <div class="max_540">
         {% if selected.next_event %}
         <div class="blocks_inline_50_percent">
-            <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Join us next time!</h2>
+            <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Join us next time!</h2>
             {% include "components/body/result_preview_block.html" with change_contrast=True result=selected.next_event %}
         </div>
         {% endif %}
         {% if selected.similar_events %}
         <div class="blocks_inline_50_percent">
-            <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Similar events</h2>
+            <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Similar events</h2>
             {% for result in selected.similar_events %}
             {% include "components/body/result_preview_block.html" with change_contrast=True %}
             {% endfor %}

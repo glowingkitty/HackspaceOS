@@ -13,7 +13,7 @@
 
 <div class="divider_20"></div>
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{{ selected.str_name_en_US }}</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>{{ selected.str_name_en_US }}</h2>
     <div>
         {% if selected.text_description_en_US %}
         {{ selected.text_description_en_US|findSearches:'Searching ...'|landingpage:language|safe }}<br>
@@ -27,7 +27,7 @@
 
 {% if selected.many_members.all %}
 <div class="max_540">
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>People</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>People</h2>
     {% for person in selected.many_members.all %}
     {{ person }}
     {% endfor %}
@@ -43,27 +43,27 @@
     <div class="max_540">
         {% if selected.events %}
         <div class="blocks_inline_50_percent">
-            <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Events</h2>
+            <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Events</h2>
             {% for result in selected.events|upto:3 %}
             {% include "components/body/result_preview_block.html" with change_contrast=True %}
             {% endfor %}
             <div id="next_results_events"></div>
             {% if selected.events.count > 3 %}
             <input type="hidden" id="more_start_from_events" value="3"></input>
-            <a href="#button__show_more_events" id="button__show_more_events" onclick="showMore('events','_events')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+            <a href="#button__show_more_events" id="button__show_more_events" onclick="showMore('events','_events')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
             {% endif %}
         </div>
         {% endif %}
         {% if selected.projects %}
         <div class="blocks_inline_50_percent">
-            <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>Projects</h2>
+            <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>Projects</h2>
             {% for result in selected.projects %}
             {% include "components/body/result_preview_block.html" with change_contrast=True url_external=result.url_discourse %}
             {% endfor %}
             <div id="next_results_projects"></div>
             {% if selected.projects.count > 3 %}
             <input type="hidden" id="more_start_from_projects" value="3"></input>
-            <a href="#button__show_more_projects" id="button__show_more_projects" onclick="showMore('projects','_projects')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" dir="rtl" align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
+            <a href="#button__show_more_projects" id="button__show_more_projects" onclick="showMore('projects','_projects')" class="button__cta secondary"{% if language == 'hebrew' %} lang="he" align="right"{% endif %}>{{ 'Show more'|landingpage:language }}</a>
             {% endif %}
         </div>
         {% endif %}

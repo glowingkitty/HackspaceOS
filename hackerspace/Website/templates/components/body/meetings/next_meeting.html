@@ -2,7 +2,7 @@
 
 <div id="join_next_meeting" class="max_540">
     {% if next_meeting %}
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" dir="rtl" align="right"{% else %}"{% endif %}>{% if current_meeting %}Or join{% else %}Join{% endif %} our next meeting!</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" lang="he" align="right"{% else %}"{% endif %}>{% if current_meeting %}Or join{% else %}Join{% endif %} our next meeting!</h2>
     <div class="divider_20"></div>
     {% include "components/body/result_preview_block.html" with result=next_meeting %}
     {% endif %}
