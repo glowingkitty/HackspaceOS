@@ -18,10 +18,9 @@
 <div class="max_540">
     {% if selected.boolean_approved == False %}
     <div class="new_event_info">
-        This event was submitted and doesn't show up in the search yet.<br>
-        If no one at {{ 'BASICS.NAME'|get_config }} rejects this event (because it's spam or a duplicate for example), it will be automatically published<br><strong>{{ selected.str_relative_publish_time }}</strong>.<br>
+        {{ 'This event was submitted...'|events:language|safe }}<br><strong>{{ selected.str_relative_publish_time }}</strong>.<br>
         <br>
-        Want to have the event published earlier? Ask someone at {{ 'BASICS.NAME'|get_config }} with a user account for this website to confirm the event or to create a user account for you.
+        {{ 'Want it published earlier?...'|events:language|safe }}
     </div>
     {% endif %}
     <div class="sub_heading text_semitransparent">
@@ -30,31 +29,46 @@
         {% if selected.one_space and 'Spaces' in MODULES %} | <a class="inline_link" href="/{{ selected.one_space.str_slug }}" target="_blank">{{ selected.one_space.str_name_en_US }}</a>{% endif %}
     </div>
     
-    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ selected.str_name_en_US|TEXT_replaceLinkCSS|safe }}</h2>
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>
+        {% if language == 'hebrew' %}
+        {{ selected.str_name_he_IL|TEXT_replaceLinkCSS|safe }}
+        {% else %}
+        {{ selected.str_name_en_US|TEXT_replaceLinkCSS|safe }}
+        {% endif %}
+    </h2>
     {% if selected.url_meetup_event %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
     {% endif %}
     {% if user.is_authenticated and selected.boolean_approved == False %}
-    <div id="button__approve_event" onclick="approveEvent('{{ selected.str_slug }}')" class="button__cta inline">Approve event</div>
+    <div id="button__approve_event" onclick="approveEvent('{{ selected.str_slug }}')" class="button__cta inline">{{ 'Approve event'|events:language }}</div>
     {% endif %}
     {% if selected.boolean_approved == False %}
-    <div id="button__delete_event" onclick="deleteEvent('{{ selected.str_slug }}')" class="button__cta secondary inline">Delete event{% if selected.int_series_startUNIX %} series{% endif %}</div>
+    <div id="button__delete_event" onclick="deleteEvent('{{ selected.str_slug }}')" class="button__cta secondary inline">{{ 'Delete event'|events:language }}{% if selected.int_series_startUNIX %} {{ 'series'|events:language }}{% endif %}</div>
     <br>
     <br>
     {% endif %}
     {% if selected.url_discourse_event and selected.boolean_looking_for_volunteers == True %}
-    <a href="{{ selected.url_discourse_event }}" target="_blank" class="button__cta secondary inline">Volunteer</a>
+    <a href="{{ selected.url_discourse_event }}" target="_blank" class="button__cta secondary inline">{{ 'Volunteer'|events:language }}</a>
     {% endif %}
     {% if selected.url_meetup_event or selected.boolean_looking_for_volunteers == True %}
     <br>
     <br>
     {% endif %}
 
-    {% if selected.text_description_en_US|length > 350 %}
-    <div id="event_description" class="text_box_max_height">{{ selected.text_description_en_US|TEXT_replaceLinkCSS|safe }}</div>
-    <div class="inline_link" onclick="showFullDescription('event_description',this)">Show full description</div>
+    {% if language == 'hebrew' %}
+        {% if selected.text_description_he_IL|length > 350 %}
+        <div id="event_description" class="text_box_max_height">{{ selected.text_description_he_IL|TEXT_replaceLinkCSS|safe }}</div>
+        <div class="inline_link" onclick="showFullDescription('event_description',this)">{{ 'Show full description'|events:language }}</div>
+        {% else %}
+        <div>{{ selected.text_description_he_IL|TEXT_replaceLinkCSS|safe }}</div>
+        {% endif %}
     {% else %}
-    <div>{{ selected.text_description_en_US|TEXT_replaceLinkCSS|safe }}</div>
+        {% if selected.text_description_en_US|length > 350 %}
+        <div id="event_description" class="text_box_max_height">{{ selected.text_description_en_US|TEXT_replaceLinkCSS|safe }}</div>
+        <div class="inline_link" onclick="showFullDescription('event_description',this)">{{ 'Show full description'|events:language }}</div>
+        {% else %}
+        <div>{{ selected.text_description_en_US|TEXT_replaceLinkCSS|safe }}</div>
+        {% endif %}
     {% endif %}
 </div>
 
@@ -62,7 +76,7 @@
 
 <div class="max_540">
     <div class="blocks_inline_50_percent">
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Location</h2>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Location'|events:language }}</h2>
         <div>
         {% with HACKERSPACE_ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
         {% if HACKERSPACE_ADDRESS.STREET not in selected.str_location %}
@@ -77,10 +91,10 @@
     </div>
     {% if selected.many_hosts.exists %}
     <div class="blocks_inline_50_percent">
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Hosts</h2>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Hosts'|events:language }}</h2>
         {% for host in selected.many_hosts.all %}
         <a class="host_link" href="{{ host.url_discourse }}" target="_blank">
-            <div class="host_preview_image" style="background-image: url('{{ host.url_featured_photo }}')"></div>
+            <div class="host_preview_image{% if language == 'hebrew' %} rtl{% endif %}" style="background-image: url('{{ host.url_featured_photo }}')"></div>
             <div>{{ host.str_name_en_US|STR__first_name }}</div>
         </a>
         {% endfor %}
@@ -94,13 +108,13 @@
     
     {% if selected.one_space and 'Spaces' in MODULES %}
     <div class="blocks_inline_50_percent">
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Space</h2>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Space'|events:language }}</h2>
         {% include "components/body/result_preview_block.html" with result=selected.one_space %}
     </div>
     {% endif %}
     {% if selected.one_guilde and 'Guildes' in MODULES %}
     <div class="blocks_inline_50_percent">
-        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Guilde</h2>
+        <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Guilde'|events:language }}</h2>
         {% include "components/body/result_preview_block.html" with result=selected.one_guilde %}
     </div>
     {% endif %}
@@ -116,13 +130,13 @@
     <div class="max_540">
         {% if selected.next_event %}
         <div class="blocks_inline_50_percent">
-            <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Join us next time!</h2>
+            <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Join us next time!'|events:language }}</h2>
             {% include "components/body/result_preview_block.html" with change_contrast=True result=selected.next_event %}
         </div>
         {% endif %}
         {% if selected.similar_events %}
         <div class="blocks_inline_50_percent">
-            <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>Similar events</h2>
+            <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Similar events'|events:language }}</h2>
             {% for result in selected.similar_events %}
             {% include "components/body/result_preview_block.html" with change_contrast=True %}
             {% endfor %}

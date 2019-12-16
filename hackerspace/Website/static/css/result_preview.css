@@ -139,9 +139,19 @@
     color: #fff;
 }
 
+.result_preview_relative_time.rtl {
+    left: inherit;
+    right: 10px;
+}
+
 .result_preview_relative_time.repeating_day {
     left: auto;
     right: 10px;
+}
+
+.result_preview_relative_time.rtl.repeating_day {
+    right: auto;
+    left: 10px;
 }
 
 @media (max-width: 767px) {

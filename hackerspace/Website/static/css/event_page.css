@@ -15,6 +15,12 @@
     background-repeat: no-repeat;
 }
 
+.host_preview_image.rtl {
+    float: right;
+    margin-right: inherit;
+    margin-left: 10px;
+}
+
 .host_link {
     line-height: 40px;
     text-decoration: none;

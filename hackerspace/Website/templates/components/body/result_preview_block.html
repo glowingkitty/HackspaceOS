@@ -4,13 +4,19 @@
 
 <a class="result_preview{% if change_contrast == True %} change_contrast{% endif %}" {% if url_external %}href="{{ url_external }}"{% elif result.str_slug %}onclick="event.preventDefault();getPage('/{{ result.str_slug }}','{{ result.str_menu_heading }}')" href="/{{ result.str_slug }}"{% else %}href="{{ result.url_discourse }}{% endif %}" target="_blank">
     {% if result.text_series_timing %}
-    <div class="result_preview_relative_time repeating_day">{{ result.str_series }}</div>
+    <div class="result_preview_relative_time{% if language == 'hebrew' %} rtl{% endif %} repeating_day">{{ result.str_series }}</div>
     {% endif %}
     {% if result.str_relative_time %}
-    <div class="result_preview_relative_time">{{ result.str_relative_time }}</div>
+    <div class="result_preview_relative_time{% if language == 'hebrew' %} rtl{% endif %}">{{ result.str_relative_time }}</div>
     {% endif %}
     <div class="result_preview_left{% if language == 'hebrew' %} rtl{% endif %}">
-    <div class="h2 in_result_preview_block{% if language == 'hebrew' %} rtl{% endif %}">{{ result.str_name_en_US|shorten:30|safe }}</div>
+    <div class="h2 in_result_preview_block{% if language == 'hebrew' %} rtl{% endif %}">
+        {% if language == 'hebrew' %}
+        {{ result.str_name_he_IL|shorten:30|safe }}
+        {% else %}
+        {{ result.str_name_en_US|shorten:30|safe }}
+        {% endif %}
+    </div>
     <div class="text_semitransparent with_padding_left" style="font-size: 14px;">{{ result.datetime_range }}</div>
     </div>
     <div class="result_preview_right{% if language == 'hebrew' %} rtl{% endif %}{% if result.url_featured_photo or result.image_featured_photo %}" style="background-image: url('{% if result.url_featured_photo %}{{ result.url_featured_photo }}{% elif result.image_featured_photo %}{{ result.image_featured_photo.url }}{% endif %}'){% else %} {{ result.str_name_en_US|getDefaultImage }}{% endif %}"></div>

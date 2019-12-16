@@ -331,6 +331,72 @@ Publish event
 {% endif %}
 
 
+{% elif word == 'This event was submitted...' %}
+{% if language == 'hebrew' %}
+אירוע זה הוגש ואינו מופיע עדיין בחיפוש. <br>
+אם איש ב- {{ 'BASICS.NAME'|get_config }} לא דוחה אירוע זה (מכיוון שזה ספאם או כפילות למשל), הוא יפורסם אוטומטית
+{% else %}
+This event was submitted and doesn't show up in the search yet.<br>
+If no one at {{ 'BASICS.NAME'|get_config }} rejects this event (because it's spam or a duplicate for example), it will be automatically published
+{% endif %}
+
+
+{% elif word == 'Want it published earlier?...' %}
+{% if language == 'hebrew' %}
+רוצים לפרסם את האירוע מוקדם יותר? בקש ממישהו ב- {{ 'BASICS.NAME'|get_config }} עם חשבון משתמש עבור אתר זה כדי לאשר את האירוע או ליצור חשבון משתמש עבורך.
+{% else %}
+Want to have the event published earlier? Ask someone at {{ 'BASICS.NAME'|get_config }} with a user account for this website to confirm the event or to create a user account for you.
+{% endif %}
+
+
+{% elif word == 'Approve event' %}
+{% if language == 'hebrew' %}
+אשר את האירוע
+{% else %}
+Approve event
+{% endif %}
+
+
+{% elif word == 'Delete event' %}
+{% if language == 'hebrew' %}
+מחק אירוע
+{% else %}
+Delete event
+{% endif %}
+
+
+{% elif word == 'series' %}
+{% if language == 'hebrew' %}
+סִדרָה
+{% else %}
+series
+{% endif %}
+
+
+{% elif word == 'Volunteer' %}
+{% if language == 'hebrew' %}
+מתנדב
+{% else %}
+Volunteer
+{% endif %}
+
+
+{% elif word == 'Show full description' %}
+{% if language == 'hebrew' %}
+הצג תיאור מלא
+{% else %}
+Show full description
+{% endif %}
+
+
+{% elif word == 'Join us next time!' %}
+{% if language == 'hebrew' %}
+הצטרפו אלינו בפעם הבאה!
+{% else %}
+Join us next time!
+{% endif %}
+
+
 {% else %}
 {{ word }}
 
