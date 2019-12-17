@@ -36,13 +36,13 @@ class Command(BaseCommand):
         show_message('Start importing your existing photos from the web ...')
         time.sleep(2)
 
+        Photo.objects.import_from_google_photos()
         Photo.objects.import_from_twitter()
         Photo.objects.import_from_twitter_hashtag()
         Photo.objects.import_from_wiki()
         Photo.objects.import_from_instagram()
         Photo.objects.import_from_instagram_tag()
         Photo.objects.import_from_flickr()
-        Photo.objects.import_from_google_photos()
 
         show_message(
             '✅ Done! I updated the database')
