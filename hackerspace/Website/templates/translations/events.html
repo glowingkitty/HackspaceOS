@@ -4,7 +4,7 @@
 
 {% if word == 'What event do you want to organize?' %}
 {% if language == 'hebrew' %}
-איזה אירוע אתה רוצה לארגן?
+איזה אירוע תרצו לארגן?
 {% else %}
 What event do you want to organize?
 {% endif %}
@@ -28,12 +28,14 @@ Continue
 
 {% elif word == 'Consider helping existing event...' %}
 {% if language == 'hebrew' %}
-שקול גם:
+שיקלו גם:
 <br>
-אולי אירוע דומה ב- {{ 'BASICS.NAME'|get_config }} יכול להזדקק לעזרתכם!
+אולי אירוע דומה ב- 
+{{ 'BASICS.NAME'|get_config }}
+ זקוק למתנדבים נוספים?
 {% else %}
 Also consider:<br>
-Maybe a similar event at {{ 'BASICS.NAME'|get_config }} could need your help!
+Maybe a similar event at {{ 'BASICS.NAME'|get_config }} could need your help?
 {% endif %}
 
 
@@ -55,7 +57,7 @@ Name
 
 {% elif word == 'Tipp: Keep it short & clear.' %}
 {% if language == 'hebrew' %}
-שםטיפ: שמור על זה קצר וברור.
+טיפ: שמרו על זה קצר וברור.
 {% else %}
 Tipp: Keep it short & clear.
 {% endif %}
@@ -79,7 +81,7 @@ hebrew
 
 {% elif word == 'Time' %}
 {% if language == 'hebrew' %}
-זמן
+שעה
 {% else %}
 Time
 {% endif %}
@@ -95,7 +97,7 @@ Date
 
 {% elif word == 'Duration' %}
 {% if language == 'hebrew' %}
-משך הזמן
+משך
 {% else %}
 Duration
 {% endif %}
@@ -111,7 +113,7 @@ Description
 
 {% elif word == 'Describe what your event is all about.' %}
 {% if language == 'hebrew' %}
-תאר במה עוסק האירוע שלך.
+תאר את האירוע.
 {% else %}
 Describe what your event is all about.
 {% endif %}
@@ -119,7 +121,7 @@ Describe what your event is all about.
 
 {% elif word == 'Auto translate' %}
 {% if language == 'hebrew' %}
-תרגם אוטומטית
+תרגום אוטומטי
 {% else %}
 Auto translate
 {% endif %}
@@ -127,7 +129,7 @@ Auto translate
 
 {% elif word == 'Featured photo' %}
 {% if language == 'hebrew' %}
-תמונה מוצגת
+תמונה
 {% else %}
 Featured photo
 {% endif %}
@@ -143,7 +145,7 @@ Recommended: 1200x600 or higher
 
 {% elif word == 'Location' %}
 {% if language == 'hebrew' %}
-מקום
+מיקום
 {% else %}
 Location
 {% endif %}
@@ -159,7 +161,9 @@ Other location
 
 {% elif word == 'Street Address, ZIP code, State, Country' %}
 {% if language == 'hebrew' %}
-כתובת רחוב, מיקוד, מדינה, מדינה
+ רחוב, מיקוד, מחוז ומדינה
+
+ **** No idea how to translate ****
 {% else %}
 Street Address, ZIP code, State, Country
 {% endif %}
@@ -167,7 +171,7 @@ Street Address, ZIP code, State, Country
 
 {% elif word == 'Repeating' %}
 {% if language == 'hebrew' %}
-חוזר
+אירוע חוזר
 {% else %}
 Repeating
 {% endif %}
@@ -200,6 +204,8 @@ Monthly
 {% elif word == 'Hosts' %}
 {% if language == 'hebrew' %}
 מארחים
+
+**** Need better translation ****
 {% else %}
 Hosts
 {% endif %}
@@ -207,7 +213,11 @@ Hosts
 
 {% elif word == 'Select the host...' %}
 {% if language == 'hebrew' %}
-בחר את מארחי האירוע. השם שלך חסר? ודא שנרשמת <a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}" target="_blank" class="inline_link">קבוצת Discourse שלנו</a>.
+בחר את מארחי האירוע. השם שלך לא מופיע? ודאו שנרשמתם ל
+<a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}" target="_blank" class="inline_link">
+    קבוצת 
+    הדיסקורס
+     שלנו</a>.
 {% else %}
 Select the hosts of the event. Your name is missing? Make sure you signed up in <a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}" target="_blank" class="inline_link">our Discourse group</a>.
 {% endif %}
@@ -239,7 +249,7 @@ Up to 10 people
 
 {% elif word == 'Up to 20 people' %}
 {% if language == 'hebrew' %}
-עד 20 איש
+עד 20 אנשים
 {% else %}
 Up to 20 people
 {% endif %}
@@ -257,9 +267,11 @@ More than 20 people
 {% if language == 'hebrew' %}
 לאירועים גדולים:
 <br>
-מי יהיה לאורך כל תקופת האירוע בפתח לקבל את פני האנשים ב- {{ 'BASICS.NAME'|get_config }} וגם יקשה על הגנבים לגנוב דברים?
+מי יהיה לאורך כל תקופת האירוע בפתח לקבל את פני המשתתפים ב- 
+{{ 'BASICS.NAME'|get_config }}
+ וגם יקשה על הגנבים לגנוב ציוד?
 <br>
-אתה? מארגן משותף? מתנדב? (שם המתנדב?) או אבטחת דלת שכורה?
+אתה? מארגן אחר? מתנדב? (שם המתנדב?) או מאבטח שכור?
 {% else %}
 For large events:<br>
 Who will be for the whole time of the event at the door to welcome people to {{ 'BASICS.NAME'|get_config }} and also make it more difficult for thiefs to steal things?<br>
@@ -269,7 +281,7 @@ You? a co-organizer? a volunteer? (name of the volunteer?) or a hired door secur
 
 {% elif word == 'Who welcomes people?' %}
 {% if language == 'hebrew' %}
-מי מברך אנשים?
+מי מקבל את המשתתפים בכניסה?
 {% else %}
 Who welcomes people?
 {% endif %}
@@ -285,7 +297,7 @@ Volunteers
 
 {% elif word == 'Can you need volunteers?...' %}
 {% if language == 'hebrew' %}
-האם אתה יכול להזדקק למתנדבים שיעזרו לך באירוע? בונים, מקדמים אותו או כל דבר אחר?
+האם נדרשים מתנדבים לתפעול האירוע? להקמתו, פרסומו או כל דבר אחר?
 {% else %}
 Can you need volunteers to help you with the event? Building up, promoting it or anything else?
 {% endif %}
@@ -293,7 +305,7 @@ Can you need volunteers to help you with the event? Building up, promoting it or
 
 {% elif word == 'Yes, ask for help' %}
 {% if language == 'hebrew' %}
-כן, בקש עזרה
+אל תהססו לבקש עזרה
 {% else %}
 Yes, ask for help
 {% endif %}
@@ -301,7 +313,7 @@ Yes, ask for help
 
 {% elif word == 'No help needed' %}
 {% if language == 'hebrew' %}
-אין עזרה
+אין צורך בעזרה
 {% else %}
 No help needed
 {% endif %}
@@ -309,7 +321,9 @@ No help needed
 
 {% elif word == 'Server config incomplete... Meetup' %}
 {% if language == 'hebrew' %}
-תצורת השרת לא הושלמה. בקש ממנהל האתר להגדיר את הסודות של Meetup, כדי לאפשר פרסום אירועים להיפגש.
+חסרות הגדרות בשרת. בקש ממנהל האתר להגדיר את הסיסמאות ל
+ Meetup, 
+ כדי לאפשר פרסום אירועים שם.
 {% else %}
 Server config incomplete. Ask the website admin to setup the secrets for Meetup, to enable posting events to meetup.
 {% endif %}
@@ -317,7 +331,9 @@ Server config incomplete. Ask the website admin to setup the secrets for Meetup,
 
 {% elif word == 'Server config incomplete... Discourse' %}
 {% if language == 'hebrew' %}
-תצורת השרת לא הושלמה. בקש ממנהל האתר להגדיר את הסודות לשנת Discourse, כדי לאפשר פרסום אירועים לשיח.
+חסרות הגדרות בשרת. בקש ממנהל האתר להגדיר את הסודות לשנת
+ Discourse, 
+ כדי לאפשר פרסום אירועים שם.
 {% else %}
 Server config incomplete. Ask the website admin to setup the secrets for Discourse, to enable posting events to Discourse.
 {% endif %}
@@ -325,7 +341,7 @@ Server config incomplete. Ask the website admin to setup the secrets for Discour
 
 {% elif word == 'Publish event' %}
 {% if language == 'hebrew' %}
-פרסם אירוע
+פרסם את האירוע
 {% else %}
 Publish event
 {% endif %}
@@ -333,8 +349,10 @@ Publish event
 
 {% elif word == 'This event was submitted...' %}
 {% if language == 'hebrew' %}
-אירוע זה הוגש ואינו מופיע עדיין בחיפוש. <br>
-אם איש ב- {{ 'BASICS.NAME'|get_config }} לא דוחה אירוע זה (מכיוון שזה ספאם או כפילות למשל), הוא יפורסם אוטומטית
+האירוע נשלח לאישור. <br>
+אם אף אחד ב- 
+{{ 'BASICS.NAME'|get_config }}
+ לא דוחה אירוע זה (מכיוון שמדובר על ספאם או כפילות למשל), הוא יפורסם אוטומטית
 {% else %}
 This event was submitted and doesn't show up in the search yet.<br>
 If no one at {{ 'BASICS.NAME'|get_config }} rejects this event (because it's spam or a duplicate for example), it will be automatically published
@@ -343,7 +361,9 @@ If no one at {{ 'BASICS.NAME'|get_config }} rejects this event (because it's spa
 
 {% elif word == 'Want it published earlier?...' %}
 {% if language == 'hebrew' %}
-רוצים לפרסם את האירוע מוקדם יותר? בקש ממישהו ב- {{ 'BASICS.NAME'|get_config }} עם חשבון משתמש עבור אתר זה כדי לאשר את האירוע או ליצור חשבון משתמש עבורך.
+רוצים לפרסם את האירוע בהקדם האפשרי? בקש ממישהו ב- 
+{{ 'BASICS.NAME'|get_config }}
+ עם הרשאות באתר זה לאשר את האירוע או ליצור עבורך חשבון משתמש.
 {% else %}
 Want to have the event published earlier? Ask someone at {{ 'BASICS.NAME'|get_config }} with a user account for this website to confirm the event or to create a user account for you.
 {% endif %}
@@ -359,7 +379,7 @@ Approve event
 
 {% elif word == 'Delete event' %}
 {% if language == 'hebrew' %}
-מחק אירוע
+מחק את האירוע
 {% else %}
 Delete event
 {% endif %}
@@ -367,7 +387,7 @@ Delete event
 
 {% elif word == 'series' %}
 {% if language == 'hebrew' %}
-סִדרָה
+סדרה
 {% else %}
 series
 {% endif %}
