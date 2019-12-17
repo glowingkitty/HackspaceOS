@@ -72,3 +72,13 @@ def meetings(text, language):
         'word': text,
         'language': language
     }).lstrip().rstrip()
+
+
+@register.filter
+def get_language_local_name(language):
+    languages = {
+        'english': 'English',
+        'hebrew': 'עברית',
+        'german': 'Deutsch'
+    }
+    return languages[language]

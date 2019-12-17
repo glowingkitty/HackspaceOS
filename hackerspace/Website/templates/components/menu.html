@@ -67,6 +67,12 @@
   <div onclick="showOverlay('donate')" class="menu_heading sub_heading" style="cursor: pointer"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Donate'|landingpage:language }}</div>
   {% endif %}
 
+  <br>
+
+  {% for all_language in 'WEBSITE.LANGUAGES'|get_config %}
+  <a href="?lang={{ all_language }}" class="menu_heading sub_heading{% if all_language == language %} selected{% endif %}">{{ all_language|get_language_local_name }}</a>
+  {% endfor %}
+
   {% comment %}
   <a href="#" onclick="getPage('/libraries')" class="menu_heading">Libraries</a>
   <a href="#" onclick="getPage('/books')" class="menu_heading sub_heading">Books</a>

@@ -39,3 +39,9 @@ function translate_description(from_language, to_language) {
             });
     }
 }
+
+function save_language(to_language) {
+    var CookieDate = new Date;
+    CookieDate.setFullYear(CookieDate.getFullYear() + 1);
+    document.cookie = 'lang=' + to_language + '; expires=' + CookieDate.toGMTString() + ';';
+}

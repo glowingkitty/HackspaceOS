@@ -21,6 +21,7 @@
     function onLoadFunctions(page) {
         {% comment %} Remove hash {% endcomment %}
         history.pushState("", document.title, window.location.pathname);
+        save_language('{{ language }}')
         if (page=='/'){
             changeText('{{ language }}');
             setInterval(function () {

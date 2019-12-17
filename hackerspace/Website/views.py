@@ -2,13 +2,21 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 
-from hackerspace.models import Error, Person,Project, Event, Guilde, MeetingNote, Space, Machine, Consensus,Photo
+from hackerspace.models import Error, Person, Project, Event, Guilde, MeetingNote, Space, Machine, Consensus, Photo
 from hackerspace.tools.space_open import getOpenNowStatus
 from hackerspace.tools.tools import make_description_sentence
 from hackerspace.Website.search import search
-from getKey import STR__get_key,BOOLEAN__key_exists
+from getKey import STR__get_key, BOOLEAN__key_exists
 from getConfig import get_config
 from hackerspace.log import log
+
+def getLanguage(request):
+    if request.GET.get('lang',None):
+        return request.GET.get('lang',None)
+    elif request.COOKIES.get('lang',None):
+        return request.COOKIES.get('lang',None)
+    else:
+        return 'english'
 
 def get_view_response(request, page, sub_page, hashname):
     context = {
@@ -17,7 +25,7 @@ def get_view_response(request, page, sub_page, hashname):
         'hash': hashname,
         'ADMIN_URL': STR__get_key('DJANGO.ADMIN_URL'),
         'user': request.user,
-        'language':'english'
+        'language': getLanguage(request)
     }
 
     if page == 'landingpage':
@@ -28,7 +36,7 @@ def get_view_response(request, page, sub_page, hashname):
             'page_description': make_description_sentence(),
             'is_open_status': getOpenNowStatus(context['language']),
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:5],
-            'photos':Photo.objects.latest()[:33]
+            'photos': Photo.objects.latest()[:33]
         }}
 
     elif page == 'values':
@@ -51,7 +59,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
     elif page == 'meeting':
         selected = MeetingNote.objects.filter(
-            text_date=sub_page).first()
+            text_date = sub_page).first()
         return {**context, **{
             'slug': '/meeting/'+selected.text_date,
             'page_git_url': '/Website/templates/meeting_view.html',
@@ -70,7 +78,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'guildes':
-        all_results = Guilde.objects.all()[:10]
+        all_results=Guilde.objects.all()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -88,8 +96,8 @@ def get_view_response(request, page, sub_page, hashname):
         }}
     elif page == 'guilde':
         if 'guilde/' not in sub_page:
-            sub_page = 'guilde/'+sub_page
-        selected = Guilde.objects.filter(str_slug=sub_page).first()
+            sub_page='guilde/'+sub_page
+        selected=Guilde.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/guilde/'+sub_page,
             'page_git_url': '/Website/templates/guilde_view.html',
@@ -99,7 +107,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'spaces':
-        all_results = Space.objects.all()[:10]
+        all_results=Space.objects.all()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -117,8 +125,8 @@ def get_view_response(request, page, sub_page, hashname):
         }}
     elif page == 'space':
         if 'space/' not in sub_page:
-            sub_page = 'space/'+sub_page
-        selected = Space.objects.filter(str_slug=sub_page).first()
+            sub_page='space/'+sub_page
+        selected=Space.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/space/'+sub_page,
             'page_git_url': '/Website/templates/space_view.html',
@@ -128,7 +136,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'machines':
-        all_results = Machine.objects.all()[:10]
+        all_results=Machine.objects.all()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -146,8 +154,8 @@ def get_view_response(request, page, sub_page, hashname):
         }}
     elif page == 'machine':
         if 'machine/' not in sub_page:
-            sub_page = 'machine/'+sub_page
-        selected = Machine.objects.filter(str_slug=sub_page).first()
+            sub_page='machine/'+sub_page
+        selected=Machine.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/machine/'+sub_page,
             'page_git_url': '/Website/templates/machine_view.html',
@@ -157,7 +165,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'projects':
-        all_results = Project.objects.latest()[:10]
+        all_results=Project.objects.latest()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -175,8 +183,8 @@ def get_view_response(request, page, sub_page, hashname):
         }}
     elif page == 'project':
         if 'project/' not in sub_page:
-            sub_page = 'project/'+sub_page
-        selected = Project.objects.filter(str_slug=sub_page).first()
+            sub_page='project/'+sub_page
+        selected=Project.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/project/'+sub_page,
             'page_git_url': '/Website/templates/project_view.html',
@@ -207,7 +215,7 @@ def get_view_response(request, page, sub_page, hashname):
         }}
 
     elif page == 'events':
-        all_results = Event.objects.QUERYSET__upcoming()[:10]
+        all_results=Event.objects.QUERYSET__upcoming()[:10]
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/results_list.html',
@@ -226,36 +234,36 @@ def get_view_response(request, page, sub_page, hashname):
         }}
     elif page == 'event':
         if 'event/' not in sub_page:
-            sub_page = 'event/'+sub_page
-        selected = Event.objects.filter(str_slug=sub_page).first()
+            sub_page='event/'+sub_page
+        selected=Event.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/event/'+sub_page,
             'page_git_url': '/Website/templates/event_view.html',
             'page_name': get_config('BASICS.NAME')+' | Event | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected,
-            'photos':Photo.objects.latest()[:33]
+            'photos': Photo.objects.latest()[:33]
         }}
     elif page == 'event_new':
         from django.middleware.csrf import get_token
-        EVENTS_SPACE_DEFAULT = get_config('EVENTS.EVENTS_SPACE_DEFAULT')
+        EVENTS_SPACE_DEFAULT=get_config('EVENTS.EVENTS_SPACE_DEFAULT')
         return {**context, **{
             'slug': '/'+page,
             'page_git_url': '/Website/templates/event_new_view.html',
             'page_name': get_config('BASICS.NAME')+' | New event',
             'page_description': 'Organize an event at '+get_config('BASICS.NAME'),
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:4],
-            'default_space': Space.objects.filter(str_name_en_US=EVENTS_SPACE_DEFAULT).first(),
-            'all_spaces': Space.objects.exclude(str_name_en_US=EVENTS_SPACE_DEFAULT),
-            'all_guildes':Guilde.objects.all(),
+            'default_space': Space.objects.filter(str_name_en_US = EVENTS_SPACE_DEFAULT).first(),
+            'all_spaces': Space.objects.exclude(str_name_en_US = EVENTS_SPACE_DEFAULT),
+            'all_guildes': Guilde.objects.all(),
             'csrf_token': get_token(request)
         }}
 
 
-def get_page_response(request, page, sub_page=None):
-    log('get_page_response(request,page={},sub_page={})'.format(page,sub_page))
-    page = page
-    hash_name = request.build_absolute_uri().split(
+def get_page_response(request, page, sub_page = None):
+    log('get_page_response(request,page={},sub_page={})'.format(page, sub_page))
+    page=page
+    hash_name=request.build_absolute_uri().split(
         '#')[1] if '#' in request.build_absolute_uri() else None
 
     html = 'page.html' if page != 'meeting_present' else 'meeting_present.html'
@@ -411,7 +419,7 @@ def event_view(request, sub_page):
 def get_view(request):
     log('get_view(request)')
     in_space = request.COOKIES.get('in_space')
-    language='english'
+    language=getLanguage(request)
     marry_messages = []
     response = None
     if request.GET.get('what', None) == 'events_slider':
@@ -457,7 +465,7 @@ def get_view(request):
                 'int_overlapping_events':len(overlapping_events['overlapping_events']),
                 'html': get_template(
                 'components/body/event_new/form_elements/overlapping_events.html').render({
-                    'language':'english',
+                    'language':getLanguage(request),
                     'overlapping_events': overlapping_events
                 })})
 
@@ -476,7 +484,8 @@ def get_view(request):
 
     elif request.GET.get('what', None) == 'start_meeting':
         response = JsonResponse({'html': get_template(
-            'components/body/meetings/current_meeting.html').render()})
+            'components/body/meetings/current_meeting.html').render({'language':getLanguage(request)}
+            )})
 
     elif request.GET.get('what', None):
         page = request.GET.get('what', None)
@@ -509,19 +518,21 @@ def get_view(request):
 
     log('--> return response')
     return response
+    
 
 def translate_view(request):
     log('translate_view(request)')
     import json
     import bleach
     from googletrans import Translator
+    import emoji
     translator = Translator()
 
     with open('hackerspace/Website/templates/languages.json') as json_file:
         language_codes = json.load(json_file)
 
     if request.GET.get('q', None) and request.GET.get('language', None):
-        text = bleach.clean(request.GET.get('q',None)).encode('ascii', 'ignore').decode('ascii')
+        text = bleach.clean(emoji.get_emoji_regexp().sub(u'',request.GET.get('q',None)))
 
         response = JsonResponse({'text': translator.translate(
             text=text,
@@ -532,7 +543,7 @@ def translate_view(request):
         LANGUAGES = get_config('WEBSITE.LANGUAGES')
         languages = {}
 
-        text = bleach.clean(request.GET.get('q',None)).encode('ascii', 'ignore').decode('ascii')
+        text = bleach.clean(emoji.get_emoji_regexp().sub(u'',request.GET.get('q',None)))
         for language in LANGUAGES:
             if len(LANGUAGES)>1:
                 languages[language]=translator.translate(
@@ -619,6 +630,7 @@ def remove_view(request):
 
 def search_view(request):
     log('search_view(request)')
+    language = getLanguage(request)
     search_results = search(request.GET.get('q', None),
                             request.GET.get('filter', None))
     response = JsonResponse(
@@ -626,11 +638,13 @@ def search_view(request):
             'num_results': len(search_results),
             'html': get_template(
                 'components/search/search_results.html').render({
-                    'language':'english',
+                    'language':language,
                     'search_results': search_results
                 }) if not request.GET.get('filter', None) else get_template('components/body/event_new/hosts_search_results.html').render({
+                    'language':language,
                     'all_hosts': search_results[:4],
                 }) if request.GET.get('filter', None)=='hosts' else get_template('components/body/results_list_entries.html').render({
+                    'language':language,
                     'all_results': search_results[:4],
                 }),
         }
@@ -650,6 +664,7 @@ def new_view(request):
             {
                 'html': get_template(
                     'components/body/meetings/current_meeting.html').render({
+                        'language':getLanguage(request),
                         'current_meeting': new_meeting
                     })
             }
