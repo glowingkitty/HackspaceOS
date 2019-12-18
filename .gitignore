@@ -1,3 +1,5 @@
+uploads/
+
 config/
 secrets.json
 *.sketch
@@ -43,7 +45,7 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-setup_backup/
+setup_backup__*
 htmlcov/
 .tox/
 .coverage
