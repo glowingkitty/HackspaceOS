@@ -30,7 +30,7 @@
     </div>
     
     <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>
-        {% if language == 'hebrew' %}
+        {% if language == 'hebrew' and selected.str_name_he_IL %}
         {{ selected.str_name_he_IL|TEXT_replaceLinkCSS|safe }}
         {% else %}
         {{ selected.str_name_en_US|TEXT_replaceLinkCSS|safe }}
@@ -55,7 +55,7 @@
     <br>
     {% endif %}
 
-    {% if language == 'hebrew' %}
+    {% if language == 'hebrew' and selected.text_description_he_IL %}
         {% if selected.text_description_he_IL|length > 350 %}
         <div id="event_description" class="text_box_max_height">{{ selected.text_description_he_IL|TEXT_replaceLinkCSS|safe }}</div>
         <div class="inline_link" onclick="showFullDescription('event_description',this)">{{ 'Show full description'|events:language }}</div>

@@ -859,3 +859,11 @@ def delete_event_view(request):
 
     log('--> return response')
     return response
+
+
+def logout_view(request):
+    from django.contrib.auth import logout
+    from django.shortcuts import redirect
+
+    logout(request)
+    return redirect('/')

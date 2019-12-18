@@ -11,7 +11,7 @@
     {% endif %}
     <div class="result_preview_left{% if language == 'hebrew' %} rtl{% endif %}">
     <div class="h2 in_result_preview_block{% if language == 'hebrew' %} rtl{% endif %}">
-        {% if language == 'hebrew' %}
+        {% if language == 'hebrew' and result.str_name_he_IL %}
         {{ result.str_name_he_IL|shorten:30|safe }}
         {% else %}
         {{ result.str_name_en_US|shorten:30|safe }}

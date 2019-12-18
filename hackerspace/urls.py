@@ -84,5 +84,7 @@ urlpatterns = [
     path('upload/<str:what>', views.upload_view, name='upload'),
 
     path('approve-event', views.approve_event_view, name='approve-event'),
-    path('delete-event', views.delete_event_view, name='delete-event')
+    path('delete-event', views.delete_event_view, name='delete-event'),
+
+    path('logout', views.logout_view, name='logout')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

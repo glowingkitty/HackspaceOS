@@ -1,4 +1,5 @@
 {% load config %}
+{% load secrets %}
 {% load css %}
 {% load translate %}
 {% block content %}
@@ -72,6 +73,12 @@
   {% for all_language in 'WEBSITE.LANGUAGES'|get_config %}
   <a href="?lang={{ all_language }}" class="menu_heading sub_heading{% if all_language == language %} selected{% endif %}">{{ all_language|get_language_local_name }}</a>
   {% endfor %}
+
+  {% if user.is_authenticated %}
+  <br>
+  <a class="menu_heading sub_heading" href="/{{ 'DJANGO.ADMIN_URL'|get_key }}" target="_blank">Admin interface</a>
+  <a class="menu_heading sub_heading" href="/logout">Logout</a>
+  {% endif %}
 
   {% comment %}
   <a href="#" onclick="getPage('/libraries')" class="menu_heading">Libraries</a>
