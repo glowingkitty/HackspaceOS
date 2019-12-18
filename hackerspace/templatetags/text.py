@@ -75,9 +75,10 @@ def findSearches(text, while_searching_str):
 
 @register.filter
 def TEXT_replaceLinkCSS(text):
+    from html import unescape
     if not text:
         return None
-    return text.replace('class="linkified"', 'target="_blank" class="inline_link"').replace('\n', '<br>')
+    return unescape(text.replace('class="linkified"', 'target="_blank" class="inline_link"').replace('\n', '<br>'))
 
 
 @register.filter

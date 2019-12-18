@@ -132,25 +132,29 @@ def STR__get_timezone_from_lat_lon(lat,lon):
 def createEvent(event):
     log('createEvent(event)')
     from getConfig import get_config
+    from dateutil.parser import parse
+    from datetime import datetime
+    
     HACKERSPACE_NAME = get_config('BASICS.NAME')
     HACKERSPACE_ADDRESS = get_config('PHYSICAL_SPACE.ADDRESS')
-    str_location_name = event['venue']['name'] if event['venue']['name'] and event[
+    str_location_name = event['venue']['name'] if 'venue' in event and event['venue']['name'] and event[
         'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_NAME
-    str_location_street = event['venue']['address_1'] if event['venue']['name'] and event[
+    str_location_street = event['venue']['address_1'] if 'venue' in event and event['venue']['name'] and event[
         'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['STREET']
-    str_location_zip = event['venue']['zip'] if event['venue']['name'] and event[
+    str_location_zip = event['venue']['zip'] if 'venue' in event and event['venue']['name'] and event[
         'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['ZIP']
-    str_location_city = event['venue']['city'] if event['venue']['name'] and event[
+    str_location_city = event['venue']['city'] if 'venue' in event and event['venue']['name'] and event[
         'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['CITY']
-    str_location_countrycode = event['venue']['country'].upper() if event['venue']['name'] and event[
+    str_location_countrycode = event['venue']['country'].upper() if 'venue' in event and event['venue']['name'] and event[
         'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['COUNTRYCODE']
 
     Event().create(json_content={
-        'str_name_en_US': event['name'],
-        'int_UNIXtime_event_start': round(event['time']/1000),
-        'int_UNIXtime_event_end': round(event['time']/1000)+(event['duration']/1000),
-        'int_minutes_duration': ((event['duration']/1000)/60),
-        'url_featured_photo': event['featured_photo']['photo_link'] if 'featured_photo' in event else None,
+        'str_name_en_US': event['name'] if 'name' in event else event['title'],
+        'int_UNIXtime_event_start': round(event['time']/1000) if 'time' in event else parse(event['event']['start']).timestamp(),
+        'int_UNIXtime_event_end': round(event['time']/1000)+(event['duration']/1000) if 'time' in event else parse(event['event']['end']).timestamp() if 'end' in event['event'] else parse(event['event']['start']).timestamp()+(120*60),
+        'int_minutes_duration': ((event['duration']/1000)/60) if 'duration' in event else round(
+            (parse(event['event']['end']).timestamp() - parse(event['event']['start']).timestamp())/1000) if 'end' in event['event'] else 120,
+        'url_featured_photo': event['featured_photo']['photo_link'] if 'featured_photo' in event else event['image_url'] if 'image_url' in event and event['image_url'] else None,
         'text_description_en_US': event['description'],
         'str_location': str_location_name+'\n'+str_location_street+'\n'+str_location_zip+', '+str_location_city+', '+str_location_countrycode,
         'one_space': RESULT__extractSpace(event),
@@ -164,8 +168,8 @@ def createEvent(event):
         str(event['series']['monthly']
             ) if 'series' in event and 'monthly' in event['series'] else None,
         'url_meetup_event': event['link'] if 'link' in event else None,
-        'int_UNIXtime_created': event['created'],
-        'int_UNIXtime_updated': event['updated'],
+        'int_UNIXtime_created': event['created'] if 'created' in event else parse(event['created_at']).timestamp(),
+        'int_UNIXtime_updated': event['updated'] if 'updated' in event else parse(event['last_posted_at']).timestamp(),
         'str_timezone': STR__extractTimezone(event)
     }
     )
@@ -412,6 +416,24 @@ class EventSet(models.QuerySet):
         log('Event.objects.announce_via_marry(self)')
         for event in self.all()[:3]:
             event.announce_via_marry()
+
+    def import_from_discourse(self):
+        log('Event.objects.import_from_discourse(self)')
+        from hackerspace.APIs.discourse import get_category_posts,get_post_details
+        from dateutil.parser import parse
+        from datetime import datetime
+        from django.db.models import Q
+        
+        events = get_category_posts('events',True)
+        now = datetime.now()
+        for event in events:
+            if 'event' in event:
+                date_start = parse(event['event']['start'])
+                if date_start.year >= now.year and date_start.month >= now.month and date_start.day >= now.day:
+                    if Event.objects.filter(Q(str_name_en_US=event['title'])|Q(str_name_he_IL=event['title'])).exists()==False:
+                        event['description'] = get_post_details(event['slug'])['cooked']
+                        createEvent(event)
+
 
     def import_from_meetup(self, slug=get_config('EVENTS.MEETUP_GROUP')):
         log('Event.objects.import_from_meetup(self,slug={})'.format(slug))
