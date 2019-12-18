@@ -17,7 +17,7 @@
         {{ result.str_name_en_US|shorten:30|safe }}
         {% endif %}
     </div>
-    <div class="text_semitransparent with_padding_left" style="font-size: 14px;">{{ result.datetime_range }}</div>
+    <div class="text_semitransparent with_padding_left" style="font-size: 14px;">{{ result.datetime_range_text }}</div>
     </div>
     <div class="result_preview_right{% if language == 'hebrew' %} rtl{% endif %}{% if result.url_featured_photo or result.image_featured_photo %}" style="background-image: url('{% if result.url_featured_photo %}{{ result.url_featured_photo }}{% elif result.image_featured_photo %}{{ result.image_featured_photo.url }}{% endif %}'){% else %} {{ result.str_name_en_US|getDefaultImage }}{% endif %}"></div>
 </a>

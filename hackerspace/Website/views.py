@@ -532,7 +532,7 @@ def translate_view(request):
         language_codes = json.load(json_file)
 
     if request.GET.get('q', None) and request.GET.get('language', None):
-        text = bleach.clean(emoji.get_emoji_regexp().sub(u'',request.GET.get('q',None)))
+        text = emoji.get_emoji_regexp().sub(u'',request.GET.get('q',None))
 
         response = JsonResponse({'text': translator.translate(
             text=text,
@@ -543,7 +543,8 @@ def translate_view(request):
         LANGUAGES = get_config('WEBSITE.LANGUAGES')
         languages = {}
 
-        text = bleach.clean(emoji.get_emoji_regexp().sub(u'',request.GET.get('q',None)))
+        text = emoji.get_emoji_regexp().sub(u'',request.GET.get('q',None))
+        
         for language in LANGUAGES:
             if len(LANGUAGES)>1:
                 languages[language]=translator.translate(

@@ -23,7 +23,7 @@
 {% if alllanguage != language %}
 <div class="text_semitransparent inline">{{ alllanguage|events:language|title }}</div>
 <div class="button__cta secondary auto_translate{% if language == 'hebrew' %} rtl{% endif %}" onclick="translate_description('{{ language }}','{{ alllanguage }}')">{{ 'Auto translate'|events:language|safe }}</div>
-<textarea {% if alllanguage == 'hebrew' %}align="right" {% endif %}id="{{ input_id }}_{{ alllanguage }}" rows="5" class="input_field_enter_name round_square grey_background" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%;" placeholder="{{ 'Describe what your event is all about.'|events:language|safe }}"></textarea>
+<textarea {% if alllanguage == 'hebrew' %} dir="rtl" align="right" {% endif %}id="{{ input_id }}_{{ alllanguage }}" rows="5" class="input_field_enter_name round_square grey_background" style="line-height: 25px;padding-top: 10px;padding-bottom: 10px;width: 80%;" placeholder="{{ 'Describe what your event is all about.'|events:language|safe }}"></textarea>
 <div class="divider_20"></div>
 {% endif %}
 

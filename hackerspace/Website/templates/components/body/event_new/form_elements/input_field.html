@@ -22,7 +22,7 @@
 {% if LANGUAGES|length > 1 %}
 <div class="text_semitransparent">{{ alllanguage|events:language|title }}</div>
 {% endif %}
-<input {% if alllanguage == 'hebrew' %}align="right" {% endif %}{% if input_id %}id="{{ input_id }}_{{ alllanguage }}"{% endif %} {% if oninput %}oninput="{{ oninput }}"{% endif %} {% if input_id == 'event_date' %}type="date" {% elif input_id == 'event_time' %}type="time" {% else %}type="text" {% endif %}class="input_field_enter_name round_square grey_background" style="width: {% if field_width %}{{ field_width }}{% else %}80%{% endif %};" placeholder="{{ field_placeholder|events:language|safe }}"></input>
+<input {% if alllanguage == 'hebrew' %}dir="rtl" align="right" {% endif %}{% if input_id %}id="{{ input_id }}_{{ alllanguage }}"{% endif %} {% if oninput %}oninput="{{ oninput }}"{% endif %} {% if input_id == 'event_date' %}type="date" {% elif input_id == 'event_time' %}type="time" {% else %}type="text" {% endif %}class="input_field_enter_name round_square grey_background" style="width: {% if field_width %}{{ field_width }}{% else %}80%{% endif %};" placeholder="{{ field_placeholder|events:language|safe }}"></input>
 <div class="divider_20"></div>
 {% endif %}
 {% endfor %}

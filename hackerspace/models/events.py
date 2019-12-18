@@ -733,6 +733,10 @@ class Event(models.Model):
         return '🗓'+month+' '+day_num+' | '+self.time_range
 
     @property
+    def datetime_range_text(self):
+        return self.datetime_range.replace('⏰','').replace('🗓','')
+
+    @property
     def repeating(self):
         import calendar
 
