@@ -128,10 +128,10 @@
 
     <div class="divider_100"></div>
     <div class="max_540">
-        {% if selected.next_event %}
+        {% if selected.RESULT__next_event %}
         <div class="blocks_inline_50_percent">
             <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Join us next time!'|events:language }}</h2>
-            {% include "components/body/result_preview_block.html" with change_contrast=True result=selected.next_event %}
+            {% include "components/body/result_preview_block.html" with change_contrast=True result=selected.RESULT__next_event %}
         </div>
         {% endif %}
         {% if selected.similar_events %}
