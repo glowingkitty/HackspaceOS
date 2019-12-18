@@ -576,7 +576,7 @@ class Event(models.Model):
     def RESULT__next_event(self):
         log('event.RESULT__next_event()')
         log('--> return QUERYSET')
-        return Event.objects.QUERYSET__upcoming().filter(str_name_en_US=self.str_name_en_US).exclude(str_slug=self.str_slug).first()
+        return Event.objects.QUERYSET__upcoming().filter(str_name_en_US=self.str_name_en_US,str_series_repeat_how_often=self.str_series_repeat_how_often).exclude(str_slug=self.str_slug).first()
 
     # TODO: figure out based on what (keywords?) similar events should be filtered
     def similar_events(self):
@@ -587,6 +587,10 @@ class Event(models.Model):
     @property
     def str_menu_heading(self):
         return 'menu_h_events'
+
+    @property
+    def series(self):
+        return Event.objects.filter(str_name_en_US=self.str_name_en_US,str_series_repeat_how_often=self.str_series_repeat_how_often).order_by('int_UNIXtime_event_start')
 
     @property
     def str_series(self):
@@ -722,6 +726,10 @@ class Event(models.Model):
         return '⏰'+start_time+(' - ' + end_time if self.int_minutes_duration < (24*60) else ' | '+str(round(self.int_minutes_duration/60/24))+' days')
 
     @property
+    def time_range_text(self):
+        return self.time_range.replace('⏰','')
+
+    @property
     def datetime_range(self):
         if not (self.datetime_start and self.datetime_end):
             return None
@@ -833,9 +841,15 @@ class Event(models.Model):
         log('event.create_discourse_event()')
         from hackerspace.APIs.discourse import create_post
         from django.template.loader import get_template
+        from html import unescape
+
+        if self.str_series_repeat_how_often:
+            name = (self.repeating +' | '+self.time_range_text+' | '+self.str_name_en_US)
+        else:
+            name = self.datetime_range_text+' | '+self.str_name_en_US
 
         self.url_discourse_event = create_post(
-            (self.str_name_en_US+' | 🗓'+self.repeating +' | '+self.time_range).encode('ascii', 'ignore').decode('ascii') if self.str_series_repeat_how_often else str(self),
+            unescape(name),
             get_template('components/discourse/event_post.html').render({
                 'result': self
             }),
@@ -939,9 +953,10 @@ class Event(models.Model):
             self.url_meetup_event = response.json()['link']
             self.save()
             log('--> return event')
-            return self
         else:
             log('--> '+str(response.status_code)+' response: '+str(response.json()))
+
+        return self
 
 
     def save(self, *args, **kwargs):

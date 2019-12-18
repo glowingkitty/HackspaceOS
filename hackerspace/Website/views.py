@@ -544,7 +544,7 @@ def translate_view(request):
         languages = {}
 
         text = emoji.get_emoji_regexp().sub(u'',request.GET.get('q',None))
-        
+
         for language in LANGUAGES:
             if len(LANGUAGES)>1:
                 languages[language]=translator.translate(
@@ -732,9 +732,6 @@ def new_view(request):
             for host in hosts:
                 new_event.many_hosts.add(Person.objects.by_url_discourse(host))
 
-        # if event is repeating, create upcoming instances
-        new_event = new_event.create_upcoming_instances()
-
         # if loggedin user: share event to other platforms (Meetup, Discourse, etc.)
         if request.user.is_authenticated:
             new_event.create_discourse_event()
@@ -751,6 +748,9 @@ def new_view(request):
                 )
         else:
             log('--> Request not sent via hackerspace domain. Skipped notifying via Slack.')
+
+        # if event is repeating, create upcoming instances
+        new_event = new_event.create_upcoming_instances()
 
         # if user is signed in and event autoapproved - direct to event page, else show info
         response = JsonResponse(
