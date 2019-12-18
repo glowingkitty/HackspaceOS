@@ -3,7 +3,7 @@
 
 {% if word == 'Or join' %}
 {% if language == 'hebrew' %}
-או להצטרף
+או הצטרפו
 {% else %}
 Or join
 {% endif %}
@@ -11,7 +11,7 @@ Or join
 
 {% elif word == 'Join' %}
 {% if language == 'hebrew' %}
-הצטרף
+הצטרפו
 {% else %}
 Join
 {% endif %}
@@ -19,7 +19,7 @@ Join
 
 {% elif word == 'our next meeting!' %}
 {% if language == 'hebrew' %}
-הפגישה הבאה שלנו!
+המפגש הבא שלנו!
 {% else %}
 our next meeting!
 {% endif %}
@@ -27,7 +27,7 @@ our next meeting!
 
 {% elif word == 'Click here to manually start a new meeting' %}
 {% if language == 'hebrew' %}
-לחץ כאן כדי להתחיל פגישה חדשה ידנית
+לחץ כאן להתחלת מפגש חדש באופן ידני
 {% else %}
 Click here to manually start a new meeting
 {% endif %}
@@ -35,7 +35,7 @@ Click here to manually start a new meeting
 
 {% elif word == 'Previous meeting notes' %}
 {% if language == 'hebrew' %}
-הערות פגישה קודמות
+הערות ממפגש קודם
 {% else %}
 Previous meeting notes
 {% endif %}
@@ -43,7 +43,7 @@ Previous meeting notes
 
 {% elif word == 'No meeting notes yet.' %}
 {% if language == 'hebrew' %}
-אין עדיין הערות פגישה.
+אין עדיין הערות למפגש.
 {% else %}
 No meeting notes yet.
 {% endif %}
@@ -51,7 +51,7 @@ No meeting notes yet.
 
 {% elif word == 'Join todays meeting!' %}
 {% if language == 'hebrew' %}
-הצטרף לפגישה של היום!
+הצטרפו למפגש שמתקיים היום!
 {% else %}
 Join today's meeting!
 {% endif %}
@@ -59,7 +59,7 @@ Join today's meeting!
 
 {% elif word == 'Starting new meeting ...' %}
 {% if language == 'hebrew' %}
-מתחיל פגישה חדשה ...
+מתחיל מפגש חדש ...
 {% else %}
 Starting new meeting ...
 {% endif %}
@@ -67,7 +67,9 @@ Starting new meeting ...
 
 {% elif word == 'Join us now...' %}
 {% if language == 'hebrew' %}
-הצטרף אלינו עכשיו, בשידור חי, כנושא פתקים לפגישה הנוכחית שלנו:
+הצטרף אלינו עכשיו, בשידור חי, כרשם למפגש הנוכחי שלנו:
+
+**** לא יודע איך לנסח את זה עם שם הפעולה (הצטרפות) מבלי להוריד את הדגש במשפט על כך שהאירוע מתקיים כעת)
 {% else %}
 Join us now, live, as a note taker for our current meeting:
 {% endif %}
@@ -83,9 +85,15 @@ Presentation mode
 
 {% elif word == 'Starting a new meeting based on...' %}
 {% if language == 'hebrew' %}
-פתיחת פגישה חדשה על בסיס {% if 'WEBSITE.WEBSITE_GIT'|get_config %}<a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ MEETINGS.IMPORTANT_URLS.MEETING_TEMPLATE|get_config }}" class="highlight_text_red" target="_blank">התבנית שלנו</a>{% else %}התבנית שלנו{% endif %}.
+פתיחת מפגש חדש על בסיס 
+{% if 'WEBSITE.WEBSITE_GIT'|get_config %}
+<a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ MEETINGS.IMPORTANT_URLS.MEETING_TEMPLATE|get_config }}" class="highlight_text_red" target="_blank">
+    התבנית שלנו
+</a>{% else %}
+התבנית שלנו
+{% endif %}.
 <br>
-אנא המתן רגע ...
+אנא המתן ...
 {% else %}
 Starting a new meeting based on {% if 'WEBSITE.WEBSITE_GIT'|get_config %}<a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ MEETINGS.IMPORTANT_URLS.MEETING_TEMPLATE|get_config }}" class="highlight_text_red" target="_blank">our template</a>{% else %}our template{% endif %}.<br>
 Please wait a minute…
@@ -94,9 +102,9 @@ Please wait a minute…
 
 {% elif word == 'Did you know? Keywords?' %}
 {% if language == 'hebrew' %}
-האם ידעת?
+הידעתם?
 <br>
-אתה יכול להוסיף ידנית מילת מפתח להערות באמצעות #.
+ניתן להוסיף ידנית מילות מפתח באמצעות הסימן #.
 <br>
 לדוגמה: #lasercutter
 {% else %}
@@ -108,7 +116,7 @@ For example: #lasercutter
 
 {% elif word == 'Is the meeting over?' %}
 {% if language == 'hebrew' %}
-האם הפגישה הסתיימה?
+האם המפגש הסתיים?
 {% else %}
 Is the meeting over?
 {% endif %}
@@ -117,7 +125,14 @@ Is the meeting over?
 {% elif word == 'If yes... meeting will be saved...' %}
 {% if language == 'hebrew' %}
 {% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
-אם תלחץ על כן, <a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.END_MEETING }}" target="_blank">תסריט זה יסיים את הפגישה</a> ושמור אותו ב- <a class="inline_link" href="/meetings" target="_blank">הארכיון שלנו</a>.
+אם תלחץ על כן, 
+<a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.END_MEETING }}" target="_blank">
+    תסריט זה יסיים את הפגישה
+</a>
+ וישמור אותו ב- 
+ <a class="inline_link" href="/meetings" target="_blank">
+    ארכיון שלנו
+</a>.
 {% endwith %}
 {% else %}
 {% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
@@ -152,7 +167,7 @@ Keywords
 
 {% elif word == 'Add' %}
 {% if language == 'hebrew' %}
-הוסף
+הוספה
 {% else %}
 Add
 {% endif %}
@@ -160,7 +175,7 @@ Add
 
 {% elif word == 'Meeting Notes' %}
 {% if language == 'hebrew' %}
-הערות מפגש
+הערות מהמפגש
 {% else %}
 Meeting Notes
 {% endif %}
