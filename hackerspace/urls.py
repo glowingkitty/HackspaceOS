@@ -87,4 +87,4 @@ urlpatterns = [
     path('delete-event', views.delete_event_view, name='delete-event'),
 
     path('logout', views.logout_view, name='logout')
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
