@@ -88,7 +88,10 @@ def STR__first_name(text):
 
 @register.filter
 def STR__remove_hash(text):
-    return text.split('#')[1]
+    if '#' in text:
+        return text.split('#')[1]
+    else:
+        return text
 
 
 @register.filter
