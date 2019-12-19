@@ -82,7 +82,6 @@ html {
     box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
-    overflow: auto;
 }
 
 .side_menu.rtl {
