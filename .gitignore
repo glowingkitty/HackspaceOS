@@ -1,5 +1,16 @@
 uploads/
 
+# setup files
+config.json
+header_banner.jpg
+header_logo.jpg
+logo.svg
+apple-touch-icon.png
+favicon-16x16.png
+favicon-32x32.png
+favicon.ico
+
+
 config/
 secrets.json
 *.sketch
