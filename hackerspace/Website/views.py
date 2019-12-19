@@ -25,7 +25,8 @@ def get_view_response(request, page, sub_page, hashname):
         'hash': hashname,
         'ADMIN_URL': STR__get_key('DJANGO.ADMIN_URL'),
         'user': request.user,
-        'language': getLanguage(request)
+        'language': getLanguage(request),
+        'auto_search':request.GET.get('search',None)
     }
 
     if page == 'landingpage':
@@ -868,3 +869,8 @@ def logout_view(request):
 
     logout(request)
     return redirect('/')
+
+
+def handler404(request, exception, template_name="404.html"):
+    from django.shortcuts import redirect
+    return redirect('/?search='+request.path[1:])
