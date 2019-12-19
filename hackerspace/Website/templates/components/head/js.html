@@ -1,6 +1,7 @@
 {% load static %}
 {% load js %}
 {% load config %}
+{% load translate %}
 
 {% block content %}
 
@@ -21,6 +22,9 @@
     function onLoadFunctions(page) {
         {% comment %} Remove hash {% endcomment %}
         history.pushState("", document.title, window.location.pathname);
+        {% if auto_search %}
+        enterSearch('{{ auto_search }}','{{ 'Searching ...'|landingpage:language|safe }}');
+        {% endif %}
         save_language('{{ language }}')
         if (page=='/'){
             changeText('{{ language }}');
