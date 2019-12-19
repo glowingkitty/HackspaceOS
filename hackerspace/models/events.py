@@ -434,6 +434,24 @@ class EventSet(models.QuerySet):
                         event['description'] = get_post_details(event['slug'])['cooked']
                         createEvent(event)
 
+    def update_field(self,fieldname,content):
+        if fieldname=='str_name_en_US':
+            for entry in self.all():
+                entry.str_name_en_US=content
+                super(Event, entry).save()
+        elif fieldname=='str_name_he_IL':
+            for entry in self.all():
+                entry.str_name_en_US=content
+                super(Event, entry).save()
+        elif fieldname=='text_description_en_US':
+            for entry in self.all():
+                entry.text_description_en_US=content
+                super(Event, entry).save()
+        elif fieldname=='text_description_he_IL':
+            for entry in self.all():
+                entry.text_description_he_IL=content
+                super(Event, entry).save()
+
 
     def import_from_meetup(self, slug=get_config('EVENTS.MEETUP_GROUP')):
         log('Event.objects.import_from_meetup(self,slug={})'.format(slug))
@@ -841,7 +859,6 @@ class Event(models.Model):
         log('event.create_discourse_event()')
         from hackerspace.APIs.discourse import create_post
         from django.template.loader import get_template
-        from html import unescape
 
         if self.str_series_repeat_how_often:
             name = (self.repeating +' | '+self.time_range_text+' | '+self.str_name_en_US)
@@ -849,7 +866,7 @@ class Event(models.Model):
             name = self.datetime_range_text+' | '+self.str_name_en_US
 
         self.url_discourse_event = create_post(
-            unescape(name),
+            name,
             get_template('components/discourse/event_post.html').render({
                 'result': self
             }),

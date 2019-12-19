@@ -131,5 +131,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'hackerspace/Website/static'),
 )
 
+MEDIA_URL = "/uploads/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
 
 mimetypes.add_type("image/svg+xml", ".svg", True)

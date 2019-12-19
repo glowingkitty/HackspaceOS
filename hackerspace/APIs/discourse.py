@@ -53,6 +53,9 @@ def create_category(name):
 
 def create_post(str_headline, str_text, str_category):
     log('create_post()')
+    from html import unescape
+    import emoji
+
     if BOOLEAN__key_exists('DISCOURSE.API_KEY') == False:
         log('--> Failed: DISCOURSE.API_KEY not set')
         return None
@@ -63,7 +66,7 @@ def create_post(str_headline, str_text, str_category):
                              }, params={
                                  'api_key': STR__get_key('DISCOURSE.API_KEY'),
                                  'api_username': STR__get_key('DISCOURSE.API_USERNAME'),
-                                 'title': str_headline,
+                                 'title': emoji.get_emoji_regexp().sub(u'', unescape(str_headline)),
                                  'raw': str_text,
                                  'category': get_category_id(str_category)
                                  # TODO add event details
