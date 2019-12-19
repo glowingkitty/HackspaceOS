@@ -163,7 +163,9 @@ Other location
 {% if language == 'hebrew' %}
  רחוב, מיקוד, מחוז ומדינה
 
- **** No idea how to translate ****
+{% comment %}
+  No idea how to translate
+{% endcomment %}
 {% else %}
 Street Address, ZIP code, State, Country
 {% endif %}
@@ -204,8 +206,10 @@ Monthly
 {% elif word == 'Hosts' %}
 {% if language == 'hebrew' %}
 מארחים
-
-**** Need better translation ****
+{% comment %}
+Need better translation 
+אולי מארגני האירוע? או מארגנים?
+{% endcomment %}
 {% else %}
 Hosts
 {% endif %}
