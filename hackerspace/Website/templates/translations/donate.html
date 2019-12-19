@@ -4,8 +4,11 @@
 
 {% if word == 'SPACE is funded by donations. ...' %}
 {% if language == 'hebrew' %}
-{{ 'BASICS.NAME'|get_config }} ממומן על ידי התרומות שלך.<br>
-אז בבקשה עזרו לנו לשמור על {{ 'BASICS.NAME'|get_config }} בחיים וצומחים! בכסף, בחומרה או בזמנכם!
+{{ 'BASICS.NAME'|get_config }}
+ ממומן על ידי התרומות של כולנו.<br>
+אז בבקשה עזרו לנו לשמור על 
+{{ 'BASICS.NAME'|get_config }} 
+בחיים וצומח! בכסף, בחומרה או בזמן!
 {% else %}
 {{ 'BASICS.NAME'|get_config }} is funded by YOUR donations.<br>
 So please help us keeping {{ 'BASICS.NAME'|get_config }} alive & growing! With money, hardware or your time!
@@ -22,7 +25,9 @@ Donations are tax deductible.
 
 {% elif word == 'Donate money' %}
 {% if language == 'hebrew' %}
-לתרום<br>כסף
+תרומת
+<br>
+כסף
 {% else %}
 Donate<br>
 money
@@ -31,7 +36,9 @@ money
 
 {% elif word == 'Donate hardware' %}
 {% if language == 'hebrew' %}
-לתרום<br>חומרה
+תרומת
+<br>
+חומרה
 {% else %}
 Donate<br>
 hardware
@@ -40,7 +47,9 @@ hardware
 
 {% elif word == 'Organize an event' %}
 {% if language == 'hebrew' %}
-ארגן<br>אירוע
+ארגון
+<br>
+אירוע
 {% else %}
 Organize<br>
 an event
@@ -49,7 +58,9 @@ an event
 
 {% elif word == 'Volunteer at an event' %}
 {% if language == 'hebrew' %}
-התנדב<br>באירוע
+התנדבות
+<br>
+באירוע
 {% else %}
 Volunteer<br>
 at an event
