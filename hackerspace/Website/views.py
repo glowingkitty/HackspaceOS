@@ -32,7 +32,7 @@ def get_view_response(request, page, sub_page, hashname):
     if page == 'landingpage':
         return {**context, **{
             'slug': '/',
-            'page_git_url': '/Website/templates/landingpage_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/landingpage_view.html',
             'page_name': get_config('BASICS.NAME'),
             'page_description': make_description_sentence(),
             'is_open_status': getOpenNowStatus(context['language']),
@@ -43,7 +43,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'values':
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/values_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/values_view.html',
             'page_name': get_config('BASICS.NAME')+' | Values',
             'page_description': 'Our values at '+get_config('BASICS.NAME')
         }}
@@ -51,7 +51,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'meetings':
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/meetings_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/meetings_view.html',
             'page_name': get_config('BASICS.NAME')+' | Meetings',
             'page_description': 'Join our weekly meetings!',
             'current_meeting': MeetingNote.objects.current(),
@@ -63,7 +63,7 @@ def get_view_response(request, page, sub_page, hashname):
             text_date = sub_page).first()
         return {**context, **{
             'slug': '/meeting/'+selected.text_date,
-            'page_git_url': '/Website/templates/meeting_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/meeting_view.html',
             'page_name': get_config('BASICS.NAME')+' | Meeting | '+selected.text_date,
             'page_description': 'Join our weekly meetings!',
             'selected': selected,
@@ -82,7 +82,7 @@ def get_view_response(request, page, sub_page, hashname):
         all_results=Guilde.objects.all()[:10]
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/results_list.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/results_list.html',
             'page_name': get_config('BASICS.NAME')+' | Guildes',
             'page_description': 'Join a guilde at '+get_config('BASICS.NAME')+'!',
             'headline': 'Guildes',
@@ -101,7 +101,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected=Guilde.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/guilde/'+sub_page,
-            'page_git_url': '/Website/templates/guilde_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/guilde_view.html',
             'page_name': get_config('BASICS.NAME')+' | Guilde | '+selected.str_name_en_US,
             'page_description': 'Join our weekly meetings!',
             'selected': selected
@@ -111,7 +111,7 @@ def get_view_response(request, page, sub_page, hashname):
         all_results=Space.objects.all()[:10]
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/results_list.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/results_list.html',
             'page_name': get_config('BASICS.NAME')+' | Spaces',
             'page_description': get_config('BASICS.NAME')+' has many awesome spaces!',
             'headline': 'Spaces',
@@ -130,7 +130,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected=Space.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/space/'+sub_page,
-            'page_git_url': '/Website/templates/space_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/space_view.html',
             'page_name': get_config('BASICS.NAME')+' | Space | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected
@@ -140,7 +140,7 @@ def get_view_response(request, page, sub_page, hashname):
         all_results=Machine.objects.all()[:10]
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/results_list.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/results_list.html',
             'page_name': get_config('BASICS.NAME')+' | Machines',
             'page_description': get_config('BASICS.NAME')+' has all kinds of awesome machines!',
             'headline': 'Machines',
@@ -159,7 +159,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected=Machine.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/machine/'+sub_page,
-            'page_git_url': '/Website/templates/machine_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/machine_view.html',
             'page_name': get_config('BASICS.NAME')+' | Machine | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected
@@ -169,7 +169,7 @@ def get_view_response(request, page, sub_page, hashname):
         all_results=Project.objects.latest()[:10]
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/results_list.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/results_list.html',
             'page_name': get_config('BASICS.NAME')+' | Projects',
             'page_description': 'People at '+get_config('BASICS.NAME')+' created all kinds of awesome projects!',
             'headline': 'Projects',
@@ -188,7 +188,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected=Project.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/project/'+sub_page,
-            'page_git_url': '/Website/templates/project_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/project_view.html',
             'page_name': get_config('BASICS.NAME')+' | Project | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected
@@ -197,7 +197,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'consensus':
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/consensus_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/consensus_view.html',
             'page_name': get_config('BASICS.NAME')+' | Big-C consensus items',
             'page_description': 'When you want to do something that would drastically change '+get_config('BASICS.NAME')+' (or need a lot of money from Noisebridge for a project) - suggest a Big-C consensus item!',
             'all_current_items': Consensus.objects.current(),
@@ -209,7 +209,7 @@ def get_view_response(request, page, sub_page, hashname):
     elif page == 'photos':
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/photos_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/photos_view.html',
             'page_name': get_config('BASICS.NAME')+' | Photos',
             'page_description': 'Explore '+get_config('BASICS.NAME')+'\'s history in photos!',
             'photos': Photo.objects.latest()[:30],
@@ -219,7 +219,7 @@ def get_view_response(request, page, sub_page, hashname):
         all_results=Event.objects.QUERYSET__upcoming()[:10]
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/results_list.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/results_list.html',
             'page_name': get_config('BASICS.NAME')+' | Events',
             'page_description': 'At '+get_config('BASICS.NAME')+' we have all kinds of cool events - organized by your fellow hackers!',
             'headline': 'Events',
@@ -239,7 +239,7 @@ def get_view_response(request, page, sub_page, hashname):
         selected=Event.objects.filter(str_slug = sub_page).first()
         return {**context, **{
             'slug': '/event/'+sub_page,
-            'page_git_url': '/Website/templates/event_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/event_view.html',
             'page_name': get_config('BASICS.NAME')+' | Event | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected,
@@ -250,7 +250,7 @@ def get_view_response(request, page, sub_page, hashname):
         EVENTS_SPACE_DEFAULT=get_config('EVENTS.EVENTS_SPACE_DEFAULT')
         return {**context, **{
             'slug': '/'+page,
-            'page_git_url': '/Website/templates/event_new_view.html',
+            'page_git_url': '/tree/master/hackerspace/Website/templates/event_new_view.html',
             'page_name': get_config('BASICS.NAME')+' | New event',
             'page_description': 'Organize an event at '+get_config('BASICS.NAME'),
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:4],
