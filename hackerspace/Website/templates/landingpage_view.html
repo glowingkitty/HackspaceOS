@@ -10,7 +10,9 @@
 <div class="divider_20"></div>
 {% include "components/body/landing_do_i_belong.html" %}
 <div class="divider_20"></div>
+{% if in_space == False %}
 {% include "components/body/landing_visit_us.html" %}
+{% endif %}
 {% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
 {% include "components/body/landing_please_donate.html" %}
 {% endif %}

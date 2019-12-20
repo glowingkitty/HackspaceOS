@@ -30,6 +30,44 @@
         var CookieDate = new Date;
         CookieDate.setFullYear(CookieDate.getFullYear() + 1);
         document.cookie = 'in_space=True; expires=' + CookieDate.toGMTString() + ';';
+        
+        {% comment %} If mouse isnt moving for a while, load landingpage {% endcomment %}
+        var load_landingpage_var; 
+        var reload_website_var; 
+        
+        function startTimer() { 
+            // load landingpage every 20 seconds without activity and reload website after 1 hour without activity
+            load_landingpage_var = window.setTimeout(load_landingpage, 20000)
+            reload_website_var = window.setTimeout(reload_website, 3600000)
+        }
+        
+        function load_landingpage() {
+            getPage('/','menu_h_landingpage')
+        }
+
+        function reload_website() {
+            location.reload(true)
+        }
+
+        function resetTimer() { 
+            window.clearTimeout(load_landingpage_var)
+            window.clearTimeout(reload_website_var)
+            startTimer();
+        }
+
+        function setupTimers () {
+            document.addEventListener("mousemove", resetTimer, false);
+            document.addEventListener("mousedown", resetTimer, false);
+            document.addEventListener("keypress", resetTimer, false);
+            document.addEventListener("touchmove", resetTimer, false);
+            document.addEventListener("scroll", resetTimer, false);
+            
+            startTimer();
+        }
+
+        setupTimers()
+
+
         {% endif %}
         save_language('{{ language }}')
         if (page == '/') {
