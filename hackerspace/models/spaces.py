@@ -29,6 +29,7 @@ class Space(models.Model):
         max_length=250, blank=True, null=True, verbose_name='Name he-IL')
     url_featured_photo = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Photo URL')
+    image_featured_photo = models.ImageField(upload_to ='spaces_images',blank=True, null=True, verbose_name='Photo')
     url_wiki = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Wiki URL')
     one_guilde = models.ForeignKey(
