@@ -183,6 +183,13 @@ class EventSet(models.QuerySet):
         log('--> return QUERYSET')
         return self.filter(str_name_en_US='Noisebridge General Meeting', int_UNIXtime_event_start__gt=time.time()).order_by('int_UNIXtime_event_start').first()
 
+    def QUERYSET__now(self):
+        log('Event.objects.QUERYSET__now(self)')
+        import time
+
+        log('--> return QUERYSET')
+        return self.filter(int_UNIXtime_event_end__gt=time.time(),int_UNIXtime_event_start__lte=time.time(),boolean_approved=True).order_by('int_UNIXtime_event_start')
+
     def QUERYSET__in_timeframe(self, from_UNIX_time, to_UNIX_time, str_space_name=None):
         log('Event.objects.QUERYSET__in_timeframe(self, from_UNIX_time={}, to_UNIX_time={}, str_space_name={})'.format(from_UNIX_time,to_UNIX_time,str_space_name))
         from django.db.models import Q
