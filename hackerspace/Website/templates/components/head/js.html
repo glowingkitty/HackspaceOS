@@ -42,7 +42,11 @@
         }
         
         function load_landingpage() {
-            getPage('/','menu_h_landingpage')
+            if (window.location.pathname=='/'){
+                window.scrollTo(0, 0);
+            }else{
+                getPage('/','menu_h_landingpage')
+            }
         }
 
         function reload_website() {
