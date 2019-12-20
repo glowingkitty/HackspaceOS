@@ -21,7 +21,7 @@ def getLanguage(request):
 def get_view_response(request, page, sub_page, hashname):
     context = {
         'view': page+'_view',
-        'in_space': True if request.COOKIES.get('in_space') else None,
+        'in_space': True if request.COOKIES.get('in_space') or request.GET.get('in_space',None)=='True' else False,
         'hash': hashname,
         'ADMIN_URL': STR__get_key('DJANGO.ADMIN_URL'),
         'user': request.user,

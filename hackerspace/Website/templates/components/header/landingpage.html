@@ -7,48 +7,46 @@
 
 <div class="header_block">
     <div class="header_center">
-        <div {% if 'header_logo.jpg'|image_exists %}class="header_logo"{% endif %}>{{ 'BASICS.NAME'|get_config }}</div>
+        <div {% if 'header_logo.jpg'|image_exists %}class="header_logo" {% endif %}>{{ 'BASICS.NAME'|get_config }}</div>
         <div class="header_text">
-        <span
-            class="txt-rotate"
-            data-period="2000"
-            {% if language == 'hebrew' %}
-            align="right"
-
-            {% with HACKERSPACE_IS_SENTENCES='BASICS.HACKERSPACE_IS_SENTENCES.hebrew'|get_config %}
-            data-rotate='[ {{ HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'>{{ HACKERSPACE_IS_SENTENCES.0 }}</span>
+            <span class="txt-rotate" data-period="2000" {% if language == 'hebrew' %} align="right"
+                {% with HACKERSPACE_IS_SENTENCES='BASICS.HACKERSPACE_IS_SENTENCES.hebrew'|get_config %}
+                data-rotate='[ {{ HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'>{{ HACKERSPACE_IS_SENTENCES.0 }}</span>
             {% endwith %}
 
             {% else %}
 
             {% with HACKERSPACE_IS_SENTENCES='BASICS.HACKERSPACE_IS_SENTENCES.english'|get_config %}
-            data-rotate='[ {{ HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }} ]'>{{ HACKERSPACE_IS_SENTENCES.0 }}</span>
+            data-rotate='[ {{ HACKERSPACE_IS_SENTENCES|prepareForTextCarusel }}
+            ]'>{{ HACKERSPACE_IS_SENTENCES.0 }}</span>
             {% endwith %}
 
             {% endif %}
         </div>
-        {% if in_space %}
-        <a href="#" onclick="marryspeak('{{ 'EXTRAS.SAYHELLO'|get_config }}');this.style.display='none'" class="button__cta">
+        {% if in_space and 'BASICS.NAME'|get_config == 'Noisebridge' %}
+        <a href="#" onclick="marryspeak('{{ 'EXTRAS.SAYHELLO'|get_config }}');this.style.display='none'"
+            class="button__cta">
             <div>Say hello!</div>
         </a>
-        {% else %}
+        {% elif in_space == False %}
         <a href="#visit_us" class="button__cta">
-            <div{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Visit us!'|landingpage:language|safe }}</div>
-            {% if 'PHYSICAL_SPACE.OPENING_HOURS'|get_config %}
-            <div id="open_status" class="cta_extra_info">
-                {{ is_open_status|safe }}
-            </div>
-            {% endif %}
-        </a>
-        {% endif %}
+            <div{% if language == 'hebrew' %} align="right" {% endif %}>{{ 'Visit us!'|landingpage:language|safe }}
     </div>
-    <div class="header_separator"></div>
-    <div class="header_image">
-        <div class="header_dark_overlay"></div>
-        <div id="photos_block">
-            {% include "components/body/photos_list.html" with overlays=False %}
-        </div>
+    {% if 'PHYSICAL_SPACE.OPENING_HOURS'|get_config %}
+    <div id="open_status" class="cta_extra_info">
+        {{ is_open_status|safe }}
     </div>
+    {% endif %}
+    </a>
+    {% endif %}
+</div>
+<div class="header_separator"></div>
+<div class="header_image">
+    <div class="header_dark_overlay"></div>
+    <div id="photos_block">
+        {% include "components/body/photos_list.html" with overlays=False %}
+    </div>
+</div>
 </div>
 
 {% endblock %}
