@@ -62,6 +62,7 @@ def save_instagram_photos(browser):
 
 def save_twitter_photos(browser):
     import time
+    log('save_twitter_photos(browser)')
 
     # get all image blocks
     images_boxes = browser.find_elements_by_css_selector(
@@ -69,9 +70,9 @@ def save_twitter_photos(browser):
 
     no_images_found_counter = 0
 
-    while len(images_boxes) > 0 or no_images_found_counter < 5:
+    while len(images_boxes) > 0 and no_images_found_counter < 5:
         # if only one tweet remaining, load more via scroll loading
-        while len(images_boxes) == 1 or len(images_boxes) == 0:
+        while (len(images_boxes) == 1 or len(images_boxes) == 0) and no_images_found_counter < 5:
             browser.execute_script(
                 "window.scrollTo(0, 0);")
             browser.execute_script(
