@@ -27,8 +27,12 @@ def save_instagram_photos(browser):
     from dateutil.parser import parse
     from datetime import datetime
 
+    log('save_instagram_photos(browser)')
+
+    photos_processed=0
+
     # save photo
-    while boolean_element_exists(browser, 'HBoOv.coreSpriteRightPaginationArrow'):
+    while photos_processed==0 or boolean_element_exists(browser, 'HBoOv.coreSpriteRightPaginationArrow'):
         time.sleep(3)
 
         image_urls = browser.find_elements_by_class_name(
@@ -55,9 +59,12 @@ def save_instagram_photos(browser):
             # end script, since photos aren't new
             log('--> Photo exists. Skipped...')
 
-        # go to next photo
-        browser.find_element_by_class_name(
-            'HBoOv.coreSpriteRightPaginationArrow').click()
+        photos_processed+=1
+
+        if boolean_element_exists(browser, 'HBoOv.coreSpriteRightPaginationArrow'):
+            # go to next photo
+            browser.find_element_by_class_name(
+                'HBoOv.coreSpriteRightPaginationArrow').click()
 
 
 def save_twitter_photos(browser):
