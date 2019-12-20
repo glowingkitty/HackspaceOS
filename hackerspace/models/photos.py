@@ -159,6 +159,9 @@ def save_wiki_photo(photo):
 
         elif Photo.objects.filter(url_post=photo['descriptionurl']).exists() == True:
             log('--> Skipped photo. Already exists.')
+            browser.close()
+            return 'Skipped'
+
         else:
             try:
                 url_image = browser.find_element_by_class_name(
@@ -175,8 +178,11 @@ def save_wiki_photo(photo):
                     datetime.timestamp(parse(photo['timestamp']))),
             ).save()
             log('--> New photo saved')
+            browser.close()
 
-        browser.close()
+            return 'Saved'
+
+        
 
 
 class PhotoSet(models.QuerySet):
@@ -247,14 +253,16 @@ class PhotoSet(models.QuerySet):
                 browser.find_element_by_xpath('//*[@title="Info"]').click()
                 time.sleep(4)
 
-                while boolean_element_exists(browser,'//*[@aria-label="View next photo"]')==True:
+                already_saved_counter=0
+
+                while boolean_element_exists(browser,'//*[@aria-label="View next photo"]')==True and already_saved_counter < 5:
 
                     info_window = browser.find_element_by_class_name('Q77Pt.eejsDc')
                     str_date = info_window.find_element_by_class_name('R9U8ab').get_attribute('innerHTML')
                     str_time = info_window.find_element_by_class_name('sprMUb').get_attribute('innerHTML').replace('Yesterday, ','').replace('Today, ','')
 
                     # get image
-                    url_image = browser.find_element_by_xpath('//*[@jsname="uLHQEd"]').get_attribute('src')
+                    url_image = browser.find_element_by_xpath('//*[@jsname="uLHQEd"]').get_attribute('src').split('=w')[0]
 
                     # get date
                     image_date = parse(str_date+', '+str_time)
@@ -270,12 +278,16 @@ class PhotoSet(models.QuerySet):
                         log('--> New photo saved')
                     else:
                         log('--> Photo exist. Skipped...')
+                        already_saved_counter+=1
 
                     # next photo
                     actions = ActionChains(browser)
                     actions.send_keys(Keys.RIGHT)
                     actions.perform()
                     time.sleep(6)
+                
+                if already_saved_counter>=5:
+                    log('--> No new photos it seems.')
 
                 log('--> Done! saved all photos.')
 
@@ -381,16 +393,26 @@ class PhotoSet(models.QuerySet):
         }
         response_json = requests.get(WIKI_API_URL, params=parameter).json()
 
+        skipped_photos_counter=0
+
         # for every photo...
         for photo in response_json['query']['allimages']:
-            save_wiki_photo(photo)
+            if skipped_photos_counter<5:
+                status = save_wiki_photo(photo)
+                if status=='Skipped':
+                    skipped_photos_counter+=1
 
-        while 'continue' in response_json and 'aicontinue' in response_json['continue']:
+        while 'continue' in response_json and 'aicontinue' in response_json['continue'] and skipped_photos_counter < 5:
             response_json = requests.get(
                 WIKI_API_URL, params={**parameter, **{'aicontinue': response_json['continue']['aicontinue']}}).json()
 
             for photo in response_json['query']['allimages']:
-                save_wiki_photo(photo)
+                status = save_wiki_photo(photo)
+                if status=='Skipped':
+                    skipped_photos_counter+=1
+
+        if skipped_photos_counter>=5:
+            log('No new photos it seems.')
 
         log('Complete! All photos processed! Now {} photos'.format(
             Photo.objects.count()))

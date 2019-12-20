@@ -14,7 +14,7 @@ def startChrome(headless, url):
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
     browser_path = os.path.join(
-        sys.path[0], 'hackerspace/Website/selenium/chromedriver_'+sys.platform)
+        sys.path[0], 'hackerspace/Website/Selenium/chromedriver_'+sys.platform)
     browser = webdriver.Chrome(
         chrome_options=options, executable_path=browser_path)
     browser.get(url)
