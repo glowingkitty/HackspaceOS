@@ -2,7 +2,7 @@
 {% load translate %}
 {% block content %}
 
-<div class="max_540">
+<div id="do_i_belong" class="max_540">
     <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Do I belong at SPACE?'|landingpage:language|safe }}</h2>
     <p class="paragraph"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'YES you do as long...'|landingpage:language|safe }}</p>
 </div>

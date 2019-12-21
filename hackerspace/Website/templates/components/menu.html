@@ -22,7 +22,20 @@
   {% endif %}
 
   <a href="/" id="menu_h_landingpage" onclick="event.preventDefault();getPage('/','menu_h_landingpage')" class="menu_heading{% if slug == '/' %} selected{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Landingpage'|menu:language }}</a>
+  {% if slug == '/' %}
+  <a href="#do_i_belong" class="menu_heading sub_heading{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Do I belong at SPACE?'|landingpage:language }}</a>
   
+  {% if in_space == False %}
+  <a href="#visit_us" class="menu_heading sub_heading{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Visit us!'|landingpage:language }}</a>
+  
+  {% if 'CONTACT.PHONE_NUMBER'|get_config or 'CONTACT.E_MAIL'|get_config or 'CONTACT.TELEGRAM_GROUPS'|get_config %}
+  <a href="#contact_us" class="menu_heading sub_heading{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Contact us!'|landingpage:language }}</a>
+  {% endif %}
+  
+  {% endif %}
+  
+  {% endif %}
+
   {% if 'Values' in MODULES or 'Photos' in MODULES or 'BASICS.HACKERSPACE_MANUAL'|get_config %}
   <a href="
       {% if 'Values' in MODULES %}/values
