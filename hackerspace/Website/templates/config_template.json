@@ -151,8 +151,15 @@
     },
 
     "CONTACT": {
+        "__info__0": "If your hackerspace has a phone number and people pick up the phone - enter the number, including countrycode.",
+        "__info__0__example": "+17150000001",
         "PHONE_NUMBER": null,
         "E_MAIL": null,
+        "__info__1": "Does your hackerspace have one or more Telegram groups? List them here.",
+        "__info__1__example": [{
+            "NAME": "TAMI",
+            "INVITE_URL": "https://telegram.org/..."
+        }],
         "TELEGRAM_GROUPS": []
     },
 
