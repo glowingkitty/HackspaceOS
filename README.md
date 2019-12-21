@@ -3,6 +3,8 @@
 
 Create an amazing new website for your local hackerspace within minutes!
 
+=> [🌍 Example websites](#examples)
+
 => [🌟 Features](#features)
 
 => [🛠 How to setup](#setup)
@@ -15,7 +17,16 @@ Create an amazing new website for your local hackerspace within minutes!
 [<img src="./readme_images/screenshot_1.png">](https://www.youtube.com/watch?v=lsepx_z1kbU)
 
 <br/><br/>
-<img alt="Features" src="./readme_images/heading_features.png" id="features" >
+<img alt="🌍 Example websites" src="./readme_images/heading_examples.png" id="examples" >
+
+Take a look at the hackerspaces which already use this template!:)
+
+- **TAMI, Tel Aviv (Israel):** [https://beta.telavivmakers.org/](https://beta.telavivmakers.org/)
+- **Noisebridge, San Francisco (USA):** about to launch, needs to be deployed
+- and maybe your hackerspace soon as well?:)
+
+<br/><br/>
+<img alt="🌟 Features" src="./readme_images/heading_features.png" id="features" >
 
 This website template has a lot of super useful features for your hackerspace! Don’t need all of them? Don’t worry, you can easily deactivate or customize them as well!
 
@@ -40,6 +51,8 @@ This website template has a lot of super useful features for your hackerspace! D
 => [👥Consensus Items](#consensus)
 
 => [💲Tell people how to donate](#donate)
+
+=> [🌍Multi-language support](#languages)
 
 Want more? [Learn how to contribute](#contribute)!
 
@@ -149,6 +162,14 @@ I mean… do you really need anything else to convince your hackerspace communit
 - links to donate money, hardware or organize or volunteer an event
 
 <img src="./readme_images/screenshot_donate.png" >
+
+<br/><br/>
+<img alt="🌍Multi-language support" src="./readme_images/heading_multi_language.png" id="languages" >
+
+- easily switch between languages
+- more languages can be easily added via the [translation files](./hackerspace/Website/templates/translations/)
+
+<img src="./readme_images/screenshot_multi_language.png" >
 
 
 <br/><br/>
