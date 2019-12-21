@@ -1,4 +1,6 @@
 uploads/
+*.conf
+uwsgi_params
 
 # setup files
 config.json
