@@ -1,0 +1,40 @@
+{% load config %}
+{% load translate %}
+{% block content %}
+
+<div id="visit_us" class="max_540">
+    <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Contact us!'|landingpage:language|safe }}</h2>
+    <p class="paragraph"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Contact us... text'|landingpage:language|safe }}</p>
+    
+    {% if 'CONTACT.PHONE_NUMBER'|get_config %}
+    <a href="phone:{{ 'CONTACT.PHONE_NUMBER'|get_config }}" class="contact_us_option">
+        <div class="contact_us_icon">{% include "components/SVGs/phone.html" %}</div>
+        <div class="inline_link">{{ 'CONTACT.PHONE_NUMBER'|get_config }}</div>
+    </a>
+    {% endif %}
+
+    {% with EMAIL='CONTACT.E_MAIL'|get_config %}
+    {% if EMAIL %}
+    <a href="mailto:{{ EMAIL }}" class="contact_us_option">
+        <div class="contact_us_icon">{% include "components/SVGs/email.html" %}</div>
+        <div class="inline_link">{{ EMAIL }}</div>
+    </a>
+    {% endif %}
+    {% endwith %}
+
+    {% if 'CONTACT.TELEGRAM_GROUPS'|get_config %}
+    {% for GROUP in 'CONTACT.TELEGRAM_GROUPS'|get_config %}
+    <a href="{{ GROUP.INVITE_URL }}" target="_blank" class="contact_us_option">
+        <div class="contact_us_icon">{% include "components/SVGs/telegram.html" %}</div>
+        <div class="inline_link">Click to join "{{ GROUP.NAME }}" on Telegram</div>
+    </a>
+    {% endfor %}
+    {% endif %}
+
+    <div class="divider_20"></div>
+    <div class="divider_20"></div>
+    <div class="divider_20"></div>
+
+</div>
+
+{% endblock %}

@@ -347,6 +347,17 @@
     color: grey;
 }
 
+.contact_us_icon {
+    width: 25px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.contact_us_option {
+    display: block;
+    padding: 10px;
+}
+
 @media (prefers-color-scheme: dark) {
     .button__close_overlay {
         background-color: black;

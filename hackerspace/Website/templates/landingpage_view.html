@@ -10,9 +10,16 @@
 <div class="divider_20"></div>
 {% include "components/body/landing_do_i_belong.html" %}
 <div class="divider_20"></div>
+
 {% if in_space == False %}
 {% include "components/body/landing_visit_us.html" %}
+
+{% if 'CONTACT.PHONE_NUMBER'|get_config or 'CONTACT.E_MAIL'|get_config or 'CONTACT.TELEGRAM_GROUPS'|get_config %}
+{% include "components/body/landing_contact_us.html" %}
 {% endif %}
+
+{% endif %}
+
 {% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
 {% include "components/body/landing_please_donate.html" %}
 {% endif %}

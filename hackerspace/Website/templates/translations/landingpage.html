@@ -169,6 +169,22 @@ Website based on
 {% endif %}
 
 
+{% elif word == 'Contact us!' %}
+{% if language == 'hebrew' %}
+צור קשר!
+{% else %}
+Contact us!
+{% endif %}
+
+
+{% elif word == 'Contact us... text' %}
+{% if language == 'hebrew' %}
+רוצה לבדוק מחדש האם החלל פתוח או שיש לך שאלות לגבי {{ 'BASICS.NAME'|get_config }}? צור קשר!
+{% else %}
+Want to double check if the space is open or do you have any questions aboout {{ 'BASICS.NAME'|get_config }}? Contact us!
+{% endif %}
+
+
 {% else %}
 {{ word }}
 

@@ -150,6 +150,12 @@
         }
     },
 
+    "CONTACT": {
+        "PHONE_NUMBER": null,
+        "E_MAIL": null,
+        "TELEGRAM_GROUPS": []
+    },
+
     "PHYSICAL_SPACE": {
         "__info__0": "How do you call people in your hackerspace? Hackers? Noisebutts?",
         "PEOPLE_NAME": "hackers",
