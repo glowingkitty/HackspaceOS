@@ -7,7 +7,7 @@
     <p class="paragraph"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Contact us... text'|landingpage:language|safe }}</p>
     
     {% if 'CONTACT.PHONE_NUMBER'|get_config %}
-    <a href="phone:{{ 'CONTACT.PHONE_NUMBER'|get_config }}" class="contact_us_option">
+    <a href="tel:{{ 'CONTACT.PHONE_NUMBER'|get_config }}" class="contact_us_option">
         <div class="contact_us_icon">{% include "components/SVGs/phone.html" %}</div>
         <div class="inline_link">{{ 'CONTACT.PHONE_NUMBER'|get_config }}</div>
     </a>
