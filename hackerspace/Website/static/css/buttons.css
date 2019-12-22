@@ -96,16 +96,6 @@
     background-repeat: no-repeat;
 }
 
-.button__cta.secondary.with_icon.plus_icon {
-    background-image: url('../images/plus.svg');
-}
-
-.button__cta.secondary.with_icon.plus_icon.rtl {
-    padding-left: inherit;
-    padding-right: 44px;
-    background-position: 95% 50%;
-}
-
 .button__donate_cta {
     cursor: pointer;
     background-position: 50% 50%;

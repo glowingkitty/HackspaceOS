@@ -11,7 +11,9 @@
       <a href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show all'|landingpage:language|safe }}</a>
       <div class="divider_10"></div>
       {% endif %}
-      <a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="button__cta secondary with_icon plus_icon{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Create an event'|landingpage:language|safe }}</a>
+      <a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="button__cta secondary with_icon{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>
+        <div style="width: 22px;margin-right: 5px;">{% include "components/SVGs/plus.html" %}</div>
+        {{ 'Create an event'|landingpage:language|safe }}</a>
     </div>
 </div>
 
