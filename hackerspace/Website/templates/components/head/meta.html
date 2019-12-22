@@ -1,7 +1,18 @@
+{% load static %}
+
 {% block content %}
 
 <meta charset="utf-8">
 <title>{{ page_name }}</title>
 <meta content="width=device-width, initial-scale=1" name="viewport">
+
+<meta property="og:title" content="{{ page_name }}">
+<meta property="og:description" content="{{ page_description }}">
+<meta property="og:image" content="{% static 'images/header_banner.jpg' %}">
+
+<meta name="twitter:title" content="{{ page_name }}">
+<meta name="twitter:description" content="{{ page_description }}">
+<meta name="twitter:image" content="{% static 'images/header_banner.jpg' %}">
+<meta name="twitter:card" content="summary_large_image">
 
 {% endblock %}
