@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="37px" height="36px" viewBox="0 0 37 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>patreon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M13.53675,0.0417945205 C6.092625,0.0417945205 0.036,6.01434247 0.036,13.3561233 C0.036,20.6757123 6.092625,26.6305068 13.53675,26.6305068 C20.958,26.6305068 26.9955,20.6757123 26.9955,13.3561233 C26.9955,6.01434247 20.958,0.0417945205 13.53675,0.0417945205 Z" id="path-1"></path>
+        <polygon id="path-3" points="0 0.042375 6.83588889 0.042375 6.83588889 36 0 36"></polygon>
+    </defs>
+    <g id="Website" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="LandingpageDesktop" transform="translate(-784.000000, -236.000000)">
+            <g id="patreon" transform="translate(784.000000, 236.000000)">
+                <g id="Group-3" transform="translate(10.000000, 0.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <polygon id="Fill-1" fill="#F96855" mask="url(#mask-2)" points="-1.839 28.4798219 28.8705 28.4798219 28.8705 -1.80752055 -1.839 -1.80752055"></polygon>
+                </g>
+                <g id="Group-6">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="Clip-5"></g>
+                    <polygon id="Fill-4" fill="#002F4B" mask="url(#mask-4)" points="-1.94444444 37.875 8.78033333 37.875 8.78033333 -1.832625 -1.94444444 -1.832625"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -271,6 +271,11 @@
     background-image: url('../images/donate/Volunteer.svg')
 }
 
+.button__cube.patreon {
+    background-image: url('../images/donate/Patreon.svg')
+}
+
+
 @media (prefers-color-scheme: dark) {
     .button__cube {
         background-color: black;

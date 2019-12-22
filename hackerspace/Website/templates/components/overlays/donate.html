@@ -18,6 +18,15 @@
     {% if DONATION_URLs.MONEY %}
     <a class="button__cube money" href="{{ DONATION_URLs.MONEY }}" target="_blank"{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Donate money'|donate:language|safe }}</a>
     {% endif %}
+    
+    {% with SOCIAL_NETWORKS='SOCIAL.SOCIAL_NETWORKS'|get_config %}
+    {% for NETWORK in SOCIAL_NETWORKS %}
+    {% if NETWORK.name == 'Patreon' %}
+    <a class="button__cube patreon" href="{{ NETWORK.url }}" target="_blank"{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Become a Patreon'|donate:language|safe }}</a>
+    {% endif %}
+    {% endfor %}
+    {% endwith %}
+    
     {% if DONATION_URLs.HARDWARE %}
     <a class="button__cube hardware" href="{{ DONATION_URLs.HARDWARE }}" target="_blank"{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Donate hardware'|donate:language|safe }}</a>
     {% endif %}
