@@ -26,7 +26,7 @@
     {% for GROUP in 'CONTACT.TELEGRAM_GROUPS'|get_config %}
     <a href="{{ GROUP.INVITE_URL }}" target="_blank" class="contact_us_option">
         <div class="contact_us_icon">{% include "components/SVGs/telegram.html" %}</div>
-        <div class="inline_link">Click to join "{{ GROUP.NAME }}" on Telegram</div>
+        <div class="inline_link">{{ 'Click to join'|landingpage:language }} "{{ GROUP.NAME }}" {{ 'on'|landingpage:language }} Telegram</div>
     </a>
     {% endfor %}
     {% endif %}
