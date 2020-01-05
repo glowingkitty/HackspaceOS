@@ -67,8 +67,11 @@ urlpatterns = [
     path('events.json', views.events_json_view, name='events_json'),
     path('event/new', views.event_new_view,
          name='event_new_view'),
+    path('event/<str:sub_page>/banner', views.event_banner_view,
+         name='event_banner_view'),
     path('event/<str:sub_page>', views.event_view,
          name='event_view'),
+
 
     path('photos', views.photos_view, name='photos'),
 

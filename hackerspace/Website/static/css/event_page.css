@@ -55,3 +55,62 @@
         background-color: #494949
     }
 }
+
+
+.event_banner {
+    margin: 0px;
+    font-family: var(--FONT);
+}
+
+.event_banner_top_block {
+    font-size: 35px;
+    top: 20px;
+    left: 0px;
+    display: inline-block;
+    position: absolute;
+    background-color: #393939;
+    color: #F2F2F2;
+    padding-left: 95px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 20px;
+}
+
+.event_banner_bottom_block {
+    background-color: #393939;
+    color: #F2F2F2;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    font-size: 30px;
+    padding: 20px;
+}
+
+.event_banner_time_range {
+    margin-top: 10px;
+    opacity: 0.7;
+}
+
+.event_banner_logo {
+    width: 73px;
+    height: 73px;
+    position: absolute;
+    top: -12px;
+    left: 12px;
+    background-image: url('../images/logo.svg');
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.event_banner_image {
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 230px;
+}

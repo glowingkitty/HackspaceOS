@@ -2,7 +2,7 @@ from django.db import models
 from hackerspace.log import log
 
 
-def startChrome(headless, url):
+def startChrome(headless, url=None):
     log('startChrome(headless={}, url={})'.format(headless, url))
     import os
     import sys
@@ -17,7 +17,8 @@ def startChrome(headless, url):
         sys.path[0], 'hackerspace/Website/Selenium/chromedriver_'+sys.platform)
     browser = webdriver.Chrome(
         chrome_options=options, executable_path=browser_path)
-    browser.get(url)
+    if url:
+        browser.get(url)
     return browser
 
 

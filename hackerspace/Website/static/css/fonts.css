@@ -72,6 +72,12 @@
     line-height: 30px;
 }
 
+.h2.event_image {
+    font-size: 40px;
+    max-height: 100%;
+    border-left: 10px solid var(--PRIMARY_COLOR)
+}
+
 .h2.large.small_distance_bottom {
     margin-bottom: 10px;
 }

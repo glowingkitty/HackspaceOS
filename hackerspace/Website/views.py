@@ -245,6 +245,13 @@ def get_view_response(request, page, sub_page, hashname):
             'selected': selected,
             'photos': Photo.objects.latest()[:33]
         }}
+    elif page == 'event_banner':
+        if 'event/' not in sub_page:
+            sub_page='event/'+sub_page
+        selected=Event.objects.filter(str_slug = sub_page).first()
+        return {**context, **{
+            'selected': selected,
+        }}
     elif page == 'event_new':
         from django.middleware.csrf import get_token
         EVENTS_SPACE_DEFAULT=get_config('EVENTS.EVENTS_SPACE_DEFAULT')
@@ -267,9 +274,14 @@ def get_page_response(request, page, sub_page = None):
     hash_name=request.build_absolute_uri().split(
         '#')[1] if '#' in request.build_absolute_uri() else None
 
-    html = 'page.html' if page != 'meeting_present' else 'meeting_present.html'
-    response = render(request, html, get_view_response(
-        request, page, sub_page, hash_name))
+    if page == 'meeting_present':
+        html = 'meeting_present.html'
+    elif page == 'event_banner':
+        html = 'event_banner_view.html'
+    else:
+        html = 'page.html'
+    
+    response = render(request, html, get_view_response(request, page, sub_page, hash_name))
     return response
 
 
@@ -394,6 +406,9 @@ def event_new_view(request):
     log('event_new_view(request)')
     return get_page_response(request, 'event_new')
 
+def event_banner_view(request,sub_page):
+    log('event_banner_view(request)')
+    return get_page_response(request, 'event_banner',sub_page)
 
 def event_view(request, sub_page):
     log('event_view(request, {})'.format(sub_page))

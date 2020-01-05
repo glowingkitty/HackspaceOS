@@ -1,0 +1,25 @@
+{% load config %}
+{% load translate %}
+{% block content %}
+
+{% include "components/head/head.html" with css_files=css_files %}
+
+<body class="event_banner">
+    {% if selected.url_featured_photo %}
+    <div class="event_banner_image" style="background-image: url('{{ selected.url_featured_photo }}')"></div>
+    {% elif selected.image_featured_photo %}
+    <div class="event_banner_image" style="background-image: url('{{ selected.image_featured_photo.url }}')"></div>
+    {% endif %}
+    <div class="event_banner_top_block">
+        <div class="event_banner_logo"></div>Soon at TAMI:
+    </div>
+    <div class="event_banner_bottom_block">
+        <div class="h2 event_image">{{ selected.str_name_en_US|safe }}</div>
+        <div class="event_banner_time_range">{{ selected.datetime_range }}</div>
+    </div>
+    <script>
+    document.getElementsByClassName('event_banner_image')[0].setAttribute('style',document.getElementsByClassName('event_banner_image')[0].getAttribute('style')+';bottom: '+document.getElementsByClassName('event_banner_bottom_block')[0].offsetHeight+'px')
+    </script>
+</body>
+
+{% endblock %}

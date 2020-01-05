@@ -797,6 +797,23 @@ class Event(models.Model):
             how_often = 'Every month on the '+date_of_month
         return how_often
         
+    def save_social_media_image(self):
+        log('event.save_social_media_image()')
+        from hackerspace.models.meetingnotes import startChrome
+        import time
+
+        # start new selenium browser
+        browser = startChrome(False)
+                        
+        # set window size to 500x500
+        browser.set_window_size(500,500)
+
+        # load page /banner
+        browser.get('http://hellopc.local:8000/'+self.str_slug+'/banner')
+        time.sleep(2)
+
+        # make screenshot and save it
+        browser.save_screenshot(self.str_slug+'.png')
 
     def publish(self):
         log('event.publish()')
