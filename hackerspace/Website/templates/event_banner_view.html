@@ -15,7 +15,7 @@
     </div>
     <div class="event_banner_bottom_block">
         <div class="h2 event_image">{{ selected.str_name_en_US|safe }}</div>
-        <div class="event_banner_time_range">{{ selected.datetime_range }}</div>
+        <div class="event_banner_time_range">{{ selected.datetime_range_text }}</div>
     </div>
     <script>
     document.getElementsByClassName('event_banner_image')[0].setAttribute('style',document.getElementsByClassName('event_banner_image')[0].getAttribute('style')+';bottom: '+document.getElementsByClassName('event_banner_bottom_block')[0].offsetHeight+'px')

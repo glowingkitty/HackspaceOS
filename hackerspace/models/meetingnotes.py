@@ -10,9 +10,11 @@ def startChrome(headless, url=None):
     from selenium.webdriver.chrome.options import Options
 
     options = Options()
+    options.add_argument('--no-sandbox')
+    
     if headless == True:
         options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
+        
     browser_path = os.path.join(
         sys.path[0], 'hackerspace/Website/Selenium/chromedriver_'+sys.platform)
     browser = webdriver.Chrome(

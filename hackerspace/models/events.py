@@ -799,21 +799,22 @@ class Event(models.Model):
         
     def save_social_media_image(self):
         log('event.save_social_media_image()')
-        from hackerspace.models.meetingnotes import startChrome
         import time
+        import asyncio
+        from pyppeteer import launch
 
-        # start new selenium browser
-        browser = startChrome(False)
-                        
-        # set window size to 500x500
-        browser.set_window_size(500,500)
+        filename = 'social_image'+str(time.time())+'.png'
 
-        # load page /banner
-        browser.get('http://hellopc.local:8000/'+self.str_slug+'/banner')
-        time.sleep(2)
+        async def main():
+            browser = await launch(headless=True, ignoreHTTPSErrors=True, args=['--no-sandbox'])
+            page = await browser.newPage()
+            await page.emulate({'viewport':{'width':500,'height':500}})
+            await page.goto('http://127.0.0.1:8000/'+self.str_slug+'/banner')
+            await page.screenshot({'path': filename})
+            await browser.close()
 
-        # make screenshot and save it
-        browser.save_screenshot(self.str_slug+'.png')
+        asyncio.get_event_loop().run_until_complete(main())
+
 
     def publish(self):
         log('event.publish()')
@@ -1033,12 +1034,12 @@ class Event(models.Model):
             self = RESULT__updateTime(self)
             if not self.str_slug:
                 self.str_slug = urllib.parse.quote(
-                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name_en_US.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
+                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name_en_US.lower().replace('+','').replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
                 counter=0
                 while Event.objects.filter(str_slug=self.str_slug).exists()==True:
                     counter+=1
                     self.str_slug = urllib.parse.quote(
-                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name_en_US.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', '')+str(counter))
+                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name_en_US.lower().replace('+','').replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', '')+str(counter))
 
             log('--> Save lat/lon if not exist yet')
             if not self.float_lat:

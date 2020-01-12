@@ -1,6 +1,7 @@
 uploads/
 *.conf
 uwsgi_params
+HackerspaceVenv/
 
 # setup files
 config.json
