@@ -1,4 +1,5 @@
 aiohttp==3.6.2
+appdirs==1.4.3
 appnope==0.1.0
 asgiref==3.2.3
 async-timeout==3.0.1
@@ -21,6 +22,7 @@ geographiclib==1.50
 geopy==1.20.0
 googletrans==2.4.0
 idna==2.8
+idna-ssl==1.1.0
 ipython==7.10.2
 ipython-genutils==0.2.0
 jedi==0.15.2
@@ -31,11 +33,14 @@ parso==0.5.2
 pexpect==4.7.0
 pickleshare==0.7.5
 Pillow==6.2.1
+pkg-resources==0.0.0
 prompt-toolkit==3.0.2
 psycopg2==2.8.4
 ptyprocess==0.6.0
 pycodestyle==2.5.0
+pyee==6.0.0
 Pygments==2.5.2
+pyppeteer==0.0.25
 python-dateutil==2.8.0
 pytz==2019.3
 rcssmin==1.0.6
@@ -48,8 +53,11 @@ six==1.13.0
 slackclient==2.4.0
 soupsieve==1.9.5
 sqlparse==0.3.0
+tqdm==4.41.1
 traitlets==4.3.3
+typing-extensions==3.7.4.1
 urllib3==1.25.6
 wcwidth==0.1.7
 webencodings==0.5.1
+websockets==8.1
 yarl==1.4.1
