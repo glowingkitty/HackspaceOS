@@ -809,7 +809,7 @@ class Event(models.Model):
             browser = await launch(headless=True, ignoreHTTPSErrors=True, args=['--no-sandbox'])
             page = await browser.newPage()
             await page.emulate({'viewport':{'width':500,'height':500}})
-            await page.goto('http://127.0.0.1:8000/'+self.str_slug+'/banner')
+            await page.goto('https://'+get_config('WEBSITE.DOMAIN')+'/'+self.str_slug+'/banner')
             await page.screenshot({'path': filename})
             await browser.close()
 
@@ -1009,6 +1009,7 @@ class Event(models.Model):
             from hackerspace.models import Space, Person
             import bleach
             from getConfig import get_config
+            import re
 
             log('--> clean from scripts')
             if self.str_name_en_US:
@@ -1033,13 +1034,11 @@ class Event(models.Model):
 
             self = RESULT__updateTime(self)
             if not self.str_slug:
-                self.str_slug = urllib.parse.quote(
-                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name_en_US.lower().replace('+','').replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', ''))
+                self.str_slug = 'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+re.sub('[\W_]+', '', self.str_name_en_US.lower()) 
                 counter=0
                 while Event.objects.filter(str_slug=self.str_slug).exists()==True:
                     counter+=1
-                    self.str_slug = urllib.parse.quote(
-                    'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+self.str_name_en_US.lower().replace('+','').replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and').replace('(', '').replace(')', '')+str(counter))
+                    self.str_slug = 'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+re.sub('[\W_]+', '', self.str_name_en_US.lower())+str(counter)
 
             log('--> Save lat/lon if not exist yet')
             if not self.float_lat:
