@@ -281,29 +281,10 @@ class Setup():
             'Awesome! Let\'s complete the setup by saving your secrets (API keys, etc.)'
         ])
 
-        if not Search().setup_done:
-            Search().setup()  # includes Discourse and MediWiki
-
-        if not Meetup().setup_done:
-            Meetup().setup()
-
-        if not Notify().setup_done:
-            Notify().setup()  # Slack or Telegram
-
-        if not Flickr().setup_done:
-            Flickr().setup()
-
-        if not GooglePhotos().setup_done:
-            GooglePhotos().setup()
-
-        if not Instagram().setup_done:
-            Instagram().setup()
-
-        if not Twitter().setup_done:
-            Twitter().setup()
-
-        if not Aws().setup_done:
-            Aws().setup()
+        apis = (Search, Meetup, Notify, Flickr, GooglePhotos, Instagram, Aws)
+        for api in apis:
+            if not api().setup_done:
+                api().setup()
 
         show_messages([
             '✅ Yeahh we are done! I saved your config.json and secrets.json files in the main directory. So you can easily change them any time.',

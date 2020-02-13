@@ -9,6 +9,11 @@ class Notify():
         self.started = round(time.time())
 
     @property
+    def setup_done(self):
+        from _apis.models import Slack, Telegram
+        return True if Slack().setup_done or Telegram().setup_done else False
+
+    @property
     def config(self):
         from _apis.models import Slack, Telegram
         if Slack().setup_done:

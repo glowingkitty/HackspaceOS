@@ -10,6 +10,11 @@ class Search():
         self.started = round(time.time())
 
     @property
+    def setup_done(self):
+        from _apis.models import Discourse, MediaWiki
+        return True if Discourse().setup_done and MediaWiki().setup_done else False
+
+    @property
     def config(self):
         from _apis.models import Discourse, MediaWiki
         return {"Discourse": Discourse().config, "MediaWiki": MediaWiki().config}
