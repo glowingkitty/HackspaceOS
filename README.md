@@ -21,7 +21,7 @@ Create an amazing new website for your local hackerspace within minutes!
 
 Take a look at the hackerspaces which already use this template!:)
 
-- **TAMI, Tel Aviv (Israel):** [https://beta.telavivmakers.org/](https://beta.telavivmakers.org/)
+- **TAMI, Tel Aviv (Israel):** [https://telavivmakers.org/](https://telavivmakers.org/)
 - **Noisebridge, San Francisco (USA):** about to launch, needs to be deployed
 - and maybe your hackerspace soon as well?:)
 
