@@ -21,7 +21,7 @@ Create an amazing new website for your local hackerspace within minutes!
 
 Take a look at the hackerspaces which already use this template!:)
 
-- **TAMI, Tel Aviv (Israel):** [https://telavivmakers.org/](https://telavivmakers.org/)
+- **TAMI, Tel Aviv (Israel):** [https://beta.telavivmakers.org/](https://beta.telavivmakers.org/)
 - **Noisebridge, San Francisco (USA):** about to launch, needs to be deployed
 - and maybe your hackerspace soon as well?:)
 
@@ -141,7 +141,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 <img alt="📝Create, archive and see all your meeting notes" src="./readme_images/heading_meeting_notes.png" id="meeting-notes" >
 
 - easy import of existing meeting notes from your [Wiki](https://www.mediawiki.org/wiki/MediaWiki)
-- automatically start a new meeting on [Riseup Pad](https://pad.riseup.net/) based on your [meeting notes template](./hackerspace/Website/templates/meeting_notes.txt)
+- automatically start a new meeting on [Riseup Pad](https://pad.riseup.net/) based on your [meeting notes template](./_database/templates/meeting_notes.txt)
 - presenter/note taker mode - to allow everyone to see what the current topic is (and how long the meeting is already going on)
 - use #hashtags to tag keywords - which get extracted automatically when you finish a meeting
 
@@ -167,7 +167,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 <img alt="🌍Multi-language support" src="./readme_images/heading_multi_language.png" id="languages" >
 
 - easily switch between languages
-- more languages can be easily added via the [translation files](./hackerspace/Website/templates/translations/)
+- more languages can be easily added via the [translation files](./_database/templates/translations/)
 
 <img src="./readme_images/screenshot_multi_language.png" >
 
@@ -193,14 +193,14 @@ pip install -r requirements.txt;python setup.py;python manage.py makemigrations;
 **Step 5:** Setup the cronjobs from cronjobs.txt - to keep the database updated
 
 
-**Step 6:** To add your own logo: Add the following files to [hackerspace/Website/static/images/](./hackerspace/Website/static/images/): 
+**Step 6:** To add your own logo: Add the following files to [_database/static/images/](./_database/static/images/): 
 ```
 logo.svg
 header_logo.jpg
 ```
 
 
-**Step 7:** [Create your own favicons](https://www.favicon-generator.org/) and add the following files to [hackerspace/Website/static/images/favicons/](./hackerspace/Website/static/images/favicons/): 
+**Step 7:** [Create your own favicons](https://www.favicon-generator.org/) and add the following files to [_database/static/images/favicons/](./_database/static/images/favicons/): 
 ```
 favicon.ico
 favicon-32x32.png
@@ -208,7 +208,7 @@ favicon-16x16.png
 apple-touch-icon.png
 ```
 
-**Step 8:** Add your default background image as "header_banner.jpg" to [hackerspace/Website/static/images/](./hackerspace/Website/static/images/)
+**Step 8:** Add your default background image as "header_banner.jpg" to [_database/static/images/](./_database/static/images/)
 
 **Step 9:** Test your website
 
@@ -217,21 +217,21 @@ apple-touch-icon.png
 <br/><br/>
 <img alt="🧹 How to customize" src="./readme_images/heading_customize.png" id="customize" >
 
-=> [Click to change your default colors & fonts](./hackerspace/CUSTOMIZE/CSS.py)
+=> [Click to change your default colors & fonts](./_database/CUSTOMIZE/CSS.py)
 
-=> [Click to show templates](./hackerspace/Website/templates/)
+=> [Click to show templates](./_database/templates/)
 
-=> [Click to show CSS files](./hackerspace/Website/static/css/)
+=> [Click to show CSS files](./_database/static/css/)
 
-=> [Click to show images](./hackerspace/Website/static/images/)
+=> [Click to show images](./_database/static/images/)
 
-=> [Click to show JavaScript files](./hackerspace/Website/static/js/)
+=> [Click to show JavaScript files](./_database/static/js/)
 
 => How to add a new page:
 
--  add a new path in [urls.py](./hackerspace/urls.py)
-- add a new view in [views.py](./hackerspace/Website/views.py)
-- add the template html in [/templates](./hackerspace/Website/templates/)
+-  add a new path in [urls.py](./_database/urls.py)
+- add a new view in [views.py](./_database/views.py)
+- add the template html in [/templates](./_database/templates/)
 
 <br/><br/>
 <img alt="💻How to contribute" src="./readme_images/heading_contribute.png" id="contribute" >

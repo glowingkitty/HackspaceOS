@@ -1,7 +1,9 @@
 uploads/
 *.conf
+*.service
 uwsgi_params
 HackerspaceVenv/
+_apis/models/instagram/
 
 # setup files
 config.json

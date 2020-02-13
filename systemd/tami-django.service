@@ -6,7 +6,7 @@ After=network-online.target
 [Service]
 WorkingDirectory=/home/tami/HackerspaceTemplatePackage
 User=tami
-ExecStart=/home/tami/HackerspaceTemplatePackage/pyvenv/bin/uwsgi -s localhost:8001 --wsgi-file hackerspace/wsgi.py
+ExecStart=/home/tami/HackerspaceTemplatePackage/pyvenv/bin/uwsgi -s localhost:8001 --wsgi-file _database/wsgi.py
 
 [Install]
 WantedBy=sysinit.target

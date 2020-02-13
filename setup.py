@@ -1,11 +1,12 @@
 
 from asci_art import show_message, show_messages
 import requests
+from _apis.models import *
 
 
 def get_template(which):
     import json
-    file_path = 'hackerspace/Website/templates/'+which+'_template.json'
+    file_path = '_database/templates/'+which+'_template.json'
     with open(file_path) as json_file:
         template = json.load(json_file)
     return template
@@ -87,13 +88,13 @@ class Setup():
             'config.json',
             'secrets.json',
             'db.sqlite3',
-            'hackerspace/Website/static/images/logo.svg',
-            'hackerspace/Website/static/images/header_logo.jpg',
-            'hackerspace/Website/static/images/header_banner.jpg',
-            'hackerspace/Website/static/images/favicons/favicon.ico',
-            'hackerspace/Website/static/images/favicons/favicon-32x32.png',
-            'hackerspace/Website/static/images/favicons/favicon-16x16.png',
-            'hackerspace/Website/static/images/favicons/apple-touch-icon.png',
+            '_database/static/images/logo.svg',
+            '_database/static/images/header_logo.jpg',
+            '_database/static/images/header_banner.jpg',
+            '_database/static/images/favicons/favicon.ico',
+            '_database/static/images/favicons/favicon-32x32.png',
+            '_database/static/images/favicons/favicon-16x16.png',
+            '_database/static/images/favicons/apple-touch-icon.png',
         ]
         self.config = get_template('config')
         self.secrets = get_template('secrets')
@@ -150,29 +151,29 @@ class Setup():
                 'Welcome! How can I help you? (enter a number) '+options_string)
             selection_processedd = False
             while selection_processedd == False:
-                try:
-                    selection = input()
-                    selector_number = int(selection)-1
-                    if options[selector_number] == 'Create a new website':
-                        self._new()
-                        selection_processedd = True
-                    elif options[selector_number] == 'Export current setup':
-                        self._export()
-                        selection_processedd = True
-                    elif options[selector_number] == 'Delete current setup':
-                        self._delete()
-                        selection_processedd = True
-                    elif options[selector_number] == 'Import backup':
-                        self._import()
-                        selection_processedd = True
-                    else:
-                        show_message(
-                            'ERROR: That option doesn\'t exist. How can I help you? (enter a number) '+options_string)
-                except KeyboardInterrupt:
-                    exit()
-                except:
+                # try:
+                selection = input()
+                selector_number = int(selection)-1
+                if options[selector_number] == 'Create a new website':
+                    self._new()
+                    selection_processedd = True
+                elif options[selector_number] == 'Export current setup':
+                    self._export()
+                    selection_processedd = True
+                elif options[selector_number] == 'Delete current setup':
+                    self._delete()
+                    selection_processedd = True
+                elif options[selector_number] == 'Import backup':
+                    self._import()
+                    selection_processedd = True
+                else:
                     show_message(
                         'ERROR: That option doesn\'t exist. How can I help you? (enter a number) '+options_string)
+                # except KeyboardInterrupt:
+                #     exit()
+                # except:
+                #     show_message(
+                #         'ERROR: That option doesn\'t exist. How can I help you? (enter a number) '+options_string)
 
     def _new(self):
         import secrets
@@ -198,8 +199,6 @@ class Setup():
             # if hackerspace name saved, also save other config defaults based on name
             self.config['MEETINGS']['RISEUPPAD_MEETING_PATH'] = self.name.lower() + \
                 '-meetings'
-            if requests.get('https://www.meetup.com/'+self.name.lower()).status_code == 200:
-                self.config['EVENTS']['MEETUP_GROUP'] = self.name.lower()
 
         self.config = set_secret(self.config, later_then_config,
                                  'Ok, great. And in what city is your hackerspace? (Just the city name itself)', 'PHYSICAL_SPACE', 'ADDRESS', 'CITY')
@@ -263,13 +262,6 @@ class Setup():
                 'Visit https://' + \
                 self.config['WEBSITE']['DOMAIN']+' for more details.'
 
-        # try to auto find the wiki api url, else ask for it
-        if self.config['WEBSITE']['DOMAIN'] and requests.get('https://'+self.config['WEBSITE']['DOMAIN']+'/api.php').status_code == 200:
-            self.config['BASICS']['WIKI']['API_URL'] = 'https://' + \
-                self.config['WEBSITE']['DOMAIN']+'/api.php'
-        else:
-            self.config = set_secret(self.config, later_then_config,
-                                     'Do you have a wiki? What is the API URL?', 'BASICS', 'WIKI', 'API_URL')
         self.config = set_secret(self.config, later_then_config,
                                  'And the last question: What should be your website\'s primary color (for buttons for example). Recommended: a color in your hackerspace logo?', 'CSS', 'PRIMARY_COLOR')
 
@@ -279,40 +271,39 @@ class Setup():
         self.secrets['DJANGO']['SECRET_KEY'] = secrets.token_urlsafe(50)
         self.secrets['DJANGO']['ADMIN_URL'] = secrets.token_urlsafe(20)
 
-        show_messages([
-            'Awesome! Let\'s complete the setup by saving your secrets (API keys, etc.)',
-            'Starting with: AWS (needed to enable users to upload event images when they create a new event via your new website)'
-        ])
-
-        self.secrets = set_secrets(self.secrets, later_then_secrets, 'AWS')
-
-        show_messages([
-            'Does your hackerspace use Discourse? It\'s a great forum software used by many hackerspaces & other communities.',
-            'Let\'s setup your Discourse secrets, so we can automatically post new user generated events from your website to your Discourse page.',
-        ])
-
-        self.secrets = set_secrets(
-            self.secrets, later_then_secrets, 'Discourse')
-
-        show_messages([
-            'Does your hackerspace have a Meetup group? Meetup.com is super useful to make more people aware of your events!',
-            'Let\'s setup your Meetup secrets, so we can automatically post new user generated events from your website to your Meetup group.',
-        ])
-
-        self.secrets = set_secrets(self.secrets, later_then_secrets, 'Meetup')
-
-        show_messages([
-            'Does your hackerspace use Slack? Slack is both useful for chats within the community - but also for notifications from automated scripts.',
-            'Let\'s setup your Slack API_TOKEN, so we can automatically inform you if a visitor created an event. So people in your community have the chance to reject the event and prevent it from automatically getting posted.',
-        ])
-
-        self.secrets = set_secrets(self.secrets, later_then_secrets, 'Slack')
-
         with open('config.json', 'w') as outfile:
             json.dump(self.config, outfile, indent=4)
 
         with open('secrets.json', 'w') as outfile:
             json.dump(self.secrets, outfile, indent=4)
+
+        show_messages([
+            'Awesome! Let\'s complete the setup by saving your secrets (API keys, etc.)'
+        ])
+
+        if not Search().setup_done:
+            Search().setup()  # includes Discourse and MediWiki
+
+        if not Meetup().setup_done:
+            Meetup().setup()
+
+        if not Notify().setup_done:
+            Notify().setup()  # Slack or Telegram
+
+        if not Flickr().setup_done:
+            Flickr().setup()
+
+        if not GooglePhotos().setup_done:
+            GooglePhotos().setup()
+
+        if not Instagram().setup_done:
+            Instagram().setup()
+
+        if not Twitter().setup_done:
+            Twitter().setup()
+
+        if not Aws().setup_done:
+            Aws().setup()
 
         show_messages([
             '✅ Yeahh we are done! I saved your config.json and secrets.json files in the main directory. So you can easily change them any time.',
@@ -389,8 +380,8 @@ class Setup():
                     # extracting all the files
                     zip.extractall()
 
-                show_message('✅Done! Imported "'+folder_name.split('setup_backup__')[1].split('.zip')[0] +
-                             '" ('+get_size(folder_name)+')')
+                show_message('✅Done! Imported "'+folder_name.split('setup_backup__')
+                             [1].split('.zip')[0] + '" ('+get_size(folder_name)+')')
 
             except:
                 show_message(
