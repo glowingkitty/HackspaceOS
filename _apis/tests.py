@@ -3,6 +3,8 @@ from _apis.models import *
 from _database.models import Event
 import time
 import unittest
+from config import Config
+from random import randint
 
 
 class DiscourseTestCase(TestCase):
@@ -76,7 +78,9 @@ class TwitterTestCase(TestCase):
 class TelegramTestCase(TestCase):
     def test_message(self):
         if Telegram().setup_done:
-            response = Telegram().message('This is a test. Hello World.')
+            messages = Config('UNITTESTS.TELEGRAM_TEST_MESSAGES').value
+            selected_message = randint(0, len(messages)-1)
+            response = Telegram().message(messages[selected_message])
             self.assertEqual(response, True)
 
 
