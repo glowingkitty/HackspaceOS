@@ -86,10 +86,11 @@ class TelegramTestCase(TestCase):
 
 class AwsTestCase(TestCase):
     def test_s3_upload_and_delete(self):
-        with open('README.md', 'rb') as f:
-            file_url = Aws().upload(f)
-            self.assertTrue(type(file_url) == str)
-            Aws().delete('README.md')
+        if Aws().setup_done:
+            with open('README.md', 'rb') as f:
+                file_url = Aws().upload(f)
+                self.assertTrue(type(file_url) == str)
+                Aws().delete('README.md')
 
 
 class FlickrTestCase(TestCase):
@@ -111,6 +112,9 @@ class MediaWikiTestCase(TestCase):
 
 
 class MeetupTestCase(TestCase):
+    def setUp(self):
+        Event.objects.import_from_meetup(slug='noisebridge')
+
     def test_events(self):
         events = Meetup('noisebridge').events
         self.assertTrue(len(events) > 0)
