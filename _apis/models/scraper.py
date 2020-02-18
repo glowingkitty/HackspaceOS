@@ -1,92 +1,104 @@
 from log import log
 from requests import get
 from bs4 import BeautifulSoup
-import asyncio
-from pyppeteer.errors import NetworkError
-from pyppeteer import launch
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import time
+from secrets import Secret
+
 
 class Scraper():
-    def __init__(self,url=None,show_log=True,scraper_type='bs4',scroll_down=False,user_agent='desktop'):
+    def __init__(self,
+                 url=None,
+                 show_log=True,
+                 scraper_type='bs4',
+                 scroll_down=False,
+                 user_agent='desktop',
+                 auto_close_selenium=True,
+                 selenium_remote_webdriver=Secret('REMOTE_WEBDRIVER_IP').value):
         self.logs = ['self.__init__']
         self.show_log = show_log
         self.started = round(time.time())
         self.type = scraper_type
         self.page = None
         self.scroll_down = scroll_down
-        if user_agent=='mobile':
+        self.selenium = None
+        self.auto_close_selenium = auto_close_selenium
+        self.selenium_remote_webdriver = selenium_remote_webdriver
+        if user_agent == 'mobile':
             self.user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B137 Safari/601.1'
         else:
             self.user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
 
         if self.type == 'bs4':
             self.help = 'https://www.crummy.com/software/BeautifulSoup/bs4/doc/'
-        elif self.type == 'pyppeteer':
-            self.help = 'https://github.com/miyakogi/pyppeteer'
+        elif self.type == 'selenium':
+            self.help = 'https://selenium-python.readthedocs.io'
         else:
             self.help = None
 
         if url:
-            self.get_page(url)        
+            self.get_page(url)
 
     def log(self, text):
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text),os.path.basename(__file__),self.started)
+            log('{}'.format(text), os.path.basename(__file__), self.started)
 
-    
-    def get_page(self,url):
+    def get_page(self, url):
         self.log('get_page()')
 
         if self.type == 'bs4':
             self.log('-> load page via bs4')
-            self.page = BeautifulSoup(get(url,headers={'User-Agent':self.user_agent}).text, 'html.parser')
-        elif self.type == 'pyppeteer':
-            self.log('-> load page via pyppeteer')
+            self.page = BeautifulSoup(
+                get(url, headers={'User-Agent': self.user_agent}).text, 'html.parser')
+        elif self.type == 'selenium':
+            self.log('-> load page via selenium')
 
-            async def main():
-                retry_counter = 0
-                while retry_counter<5:
-                    try:
-                        browser = await launch(headless=True, ignoreHTTPSErrors=True, args=['--no-sandbox'])
-                        page = await browser.newPage()
-                        await page.setUserAgent(self.user_agent)
-                        await page.goto(url)
-
-                        if self.scroll_down:
-                            counter = 0
-                            while counter < self.scroll_down:
-                                self.log('-> scrolling down...')
-                                await page._keyboard.down('PageDown')
-                                counter+=1
-                        time.sleep(2)
-                        page = await page.content()
-                        await browser.close()
-                        return page
-                    except:
-                        await browser.close()
-                        self.log('-> Failed. Try again')
-                        retry_counter += 1
-
-
-            page = asyncio.get_event_loop().run_until_complete(main())
-            if page and len(page)>0:
-                self.page = BeautifulSoup(page, 'html.parser')
+            firefox_options = webdriver.FirefoxOptions()
+            profile = webdriver.FirefoxProfile()
+            profile.set_preference(
+                "general.useragent.override", self.user_agent)
+            # if remote webdriver defined, use remote - else local
+            if self.selenium_remote_webdriver:
+                self.selenium = webdriver.Remote(
+                    command_executor=self.selenium_remote_webdriver+'/wd/hub',
+                    options=firefox_options,
+                    browser_profile=profile
+                )
             else:
-                self.log('-> ERROR: No page loaded!')
-                self.page = None
+                self.selenium = webdriver.Firefox(
+                    firefox_profile=profile,
+                    executable_path='geckodriver'
+                )
+
+            self.selenium.get(url)
+
+            if self.scroll_down:
+                counter = 0
+                body = self.selenium.find_element_by_css_selector('body')
+                while counter < self.scroll_down:
+                    self.log('-> scrolling down...')
+                    body.send_keys(Keys.PAGE_DOWN)
+                    counter += 1
+
+            page = self.selenium.page_source
+            if self.auto_close_selenium:
+                self.selenium.close()
+            self.page = BeautifulSoup(page, 'html.parser')
             self.type = 'bs4'
-    
+
         return self.page
 
-    def select(self,selector,by='class'):
+    def select(self, selector, by='class'):
         self.log('select()')
 
         if not self.page:
             self.log('-> ERROR: page is missing')
             return None
-        
+
         if not selector:
             self.log('-> ERROR: selector is missing')
             return None
@@ -99,22 +111,22 @@ class Scraper():
         else:
             sub_selectors = None
 
-        if by=='class':
+        if by == 'class':
             if self.type == 'bs4':
                 self.log('-> select class with bs4')
                 selected = self.page.find_all(class_=selector)
 
-        elif by=='tag':
+        elif by == 'tag':
             if self.type == 'bs4':
                 self.log('-> select tag with bs4')
                 selected = self.page.find_all(selector)
-        
-        elif by=='id':
+
+        elif by == 'id':
             if self.type == 'bs4':
                 self.log('-> select id with bs4')
                 selected = self.page.find(id=selector)
-        
-        elif by=='select':
+
+        elif by == 'select':
             if self.type == 'bs4':
                 self.log('-> select id with bs4')
                 selected = self.page.select(selector)
@@ -125,7 +137,7 @@ class Scraper():
         if sub_selectors:
             self.log('-> apply sub selector')
             for selector in sub_selectors:
-                if selected==None:
+                if selected == None:
                     return None
 
                 if selector == '0':
@@ -135,11 +147,12 @@ class Scraper():
                 elif selector == '1:':
                     selected = selected[1:]
                 elif selector == 'text':
-                    if type(selected)==list:
-                        selected = [x.text.replace('\n','').strip() for x in selected]
+                    if type(selected) == list:
+                        selected = [x.text.replace(
+                            '\n', '').strip() for x in selected]
                     else:
-                        selected = selected.text.replace('\n','').strip()
-                        
+                        selected = selected.text.replace('\n', '').strip()
+
                 elif selector == 'a':
                     selected = selected.a
                 elif selector == 'span':
@@ -147,8 +160,8 @@ class Scraper():
                 elif selector == 'int':
                     selected = selected.text
 
-                    if type(selected)==str:
-                        selected = selected.replace(',','').replace('.','')
+                    if type(selected) == str:
+                        selected = selected.replace(',', '').replace('.', '')
 
                     if ' ' in selected:
                         selected = selected.split(' ')[0]
@@ -156,7 +169,6 @@ class Scraper():
                         selected = float(selected.split('K')[0])*1000
                     elif 'M' in selected:
                         selected = float(selected.split('M')[0])*1000000
-
 
                     selected = int(selected)
                 else:

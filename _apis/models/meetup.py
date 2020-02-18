@@ -2,22 +2,90 @@
 from log import log
 import time
 from config import Config
+from secrets import Secret
 import requests
+import json
 
 
 class Meetup():
-    def __init__(self, group=Config('EVENTS.MEETUP_GROUP').value, show_log=True):
+    def __init__(self,
+                 group=Config('EVENTS.MEETUP_GROUP').value,
+                 email=Secret('MEETUP.EMAIL').value,
+                 password=Secret('MEETUP.PASSWORD').value,
+                 client_id=Secret('MEETUP.CLIENT_ID').value,
+                 client_secret=Secret('MEETUP.CLIENT_SECRET').value,
+                 redirect_uri=Secret('MEETUP.REDIRECT_URI').value,
+                 show_log=True):
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
         self.group = group
         self.response = None
+        self.email = email
+        self.password = password
+        self.client_id = client_id
+        self.client_secret = client_secret,
+        self.redirect_uri = redirect_uri
         self.setup_done = True if group else False
         self.help = 'https://www.meetup.com/meetup_api/docs/'
 
     @property
     def config(self):
         return {"group": Config('EVENTS.MEETUP_GROUP').value}
+
+    @property
+    def access_token(self):
+        from _apis.models import Scraper
+        from selenium.webdriver.common.by import By
+        import requests
+
+        # check if still usable token is saved in secrets.json - else get new one
+        if Secret('MEETUP.ACCESS_TOKEN').value and Secret('MEETUP.ACCESS_TOKEN_VALID_UPTO').value > time.time()+60:
+            return Secret('MEETUP.ACCESS_TOKEN').value
+
+        # check if required fields exist
+        if not self.client_id or not self.client_secret or not self.redirect_uri or not self.email or not self.password:
+            self.log('-> ERROR: Meetup secrets incomplete!')
+            return None
+
+        # else: following steps to get an API token - see https://www.meetup.com/meetup_api/auth/
+
+        # Step 1: Get code to get access token, by loggin into meetup account
+        login_page = Scraper(
+            'https://secure.meetup.com/oauth2/authorize?scope=basic+event_management&client_id={}&response_type=code&redirect_uri={}'.format(self.client_id, self.redirect_uri), scraper_type='selenium', auto_close_selenium=False)
+        login_page.selenium.find_element(By.LINK_TEXT, 'Continue').click()
+        login_page.selenium.find_element_by_id('email').send_keys(self.email)
+        login_page.selenium.find_element_by_id(
+            'password').send_keys(self.password)
+        login_page.selenium.find_element_by_id('loginFormSubmit').click()
+        code = login_page.selenium.current_url.split('code=')[1]
+        login_page.selenium.close()
+
+        # Step 2: get access token
+        self.response_json = requests.post('https://secure.meetup.com/oauth2/access',
+                                           params={
+                                               'client_id': self.client_id,
+                                               'client_secret': self.client_secret,
+                                               'code': code,
+                                               'response_type': 'code',
+                                               'grant_type': 'authorization_code',
+                                               'redirect_uri': self.redirect_uri,
+                                               'scope': ['basic', 'event_management']
+                                           }).json()
+
+        if 'access_token' in self.response_json:
+            with open('secrets.json') as json_file:
+                secrets = json.load(json_file)
+            secrets['MEETUP']['ACCESS_TOKEN'] = self.response_json['access_token']
+            secrets['MEETUP']['ACCESS_TOKEN_VALID_UPTO'] = round(
+                time.time()+self.response_json['expires_in'])
+            with open('secrets.json', 'w') as outfile:
+                json.dump(secrets, outfile, indent=4)
+            return self.response_json['access_token']
+        else:
+            self.log(
+                '-> ERROR: Failed to get Access Token - {}'.format(self.response_json))
+            return None
 
     def log(self, text):
         import os
@@ -232,8 +300,70 @@ class Meetup():
                 } for event in self.response_json
             ]
 
-    def import_events(self):
-        from _database.models import Event
-        events = self.events
-        for event in events:
-            Event().create(json_content=event)
+    def create(self, event, announce=False, publish_status='draft'):
+        # API Doc: https://www.meetup.com/meetup_api/docs/:urlname/events/#create
+        self.log('create()')
+
+        if not self.access_token:
+            self.log('--> No MEETUP.ACCESS_TOKEN')
+            self.log('--> return None')
+            return None
+
+        response = requests.post('https://api.meetup.com/'+self.group+'/events', params={
+            'access_token': self.access_token,
+            'sign': True,
+            'announce': announce,
+            'publish_status': publish_status,  # draft or published
+            'description': event.text_description_en_US,
+            'duration': event.int_minutes_duration*60*1000,
+            'event_hosts': None,  # TODO figure out meetup user IDs and how to add them here
+            'fee': {
+                'accepts': None,  # TODO add option for paid events later
+                'amount': None,
+                'currency': None,
+                'refund_policy': None
+            },
+            'guest_limit': 2,  # from 0 to 2
+            'how_to_find_us': Config('PHYSICAL_SPACE.ADDRESS.HOW_TO_FIND_US__english').value,
+            'lat': event.float_lat,
+            'lon': event.float_lon,
+            'name': event.str_name_en_US,
+            'self_rsvp': False,
+            'time': event.int_UNIXtime_event_start*1000,
+            'venue_id': None,  # TODO figure out how to get venue id
+            'venue_visibility': None  # TODO
+        })
+
+        if response.status_code == 201:
+            event.url_meetup_event = response.json()['link']
+            event.save()
+            self.log('--> return event')
+            return event
+        else:
+            self.log('--> '+str(response.status_code) +
+                     ' response: '+str(response.json()))
+            return None
+
+    def delete(self, event):
+        # API Doc: https://www.meetup.com/meetup_api/docs/:urlname/events/:id/#delete
+        self.log('delete()')
+
+        if not self.access_token:
+            self.log('--> No MEETUP.ACCESS_TOKEN')
+            self.log('--> return None')
+            return None
+
+        response = requests.delete('https://api.meetup.com/'+self.group+'/events/'+event.url_meetup_event.split('/')[-2], params={
+            'access_token': self.access_token,
+            'sign': True,
+        })
+
+        if response.status_code == 204:
+            event.url_meetup_event = None
+            event.save()
+            self.log('--> return event')
+            return event
+        else:
+            self.log('--> '+str(response.status_code) +
+                     ' response: '+str(response.json()))
+            return None
