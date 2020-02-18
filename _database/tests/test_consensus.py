@@ -3,5 +3,8 @@ from _database.models import Consensus
 
 
 class ConsensusTestCase(TestCase):
-    def test_import(self):
-        pass
+    def setUp(self):
+        Consensus.objects.import_from_discourse()
+
+    def test_LIST__search_results(self):
+        self.assertTrue(type(Consensus.objects.LIST__search_results()) == list)
