@@ -12,3 +12,5 @@ from _apis.models.flickr import Flickr
 from _apis.models.meetup import Meetup
 from _apis.models.scraper import Scraper
 from _apis.models.aws import Aws
+from _apis.models.flaschentaschen import Flaschentaschen
+from _apis.models.marryspeak import MarrySpeak
