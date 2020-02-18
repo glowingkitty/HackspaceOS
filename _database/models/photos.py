@@ -16,8 +16,8 @@ class PhotoSet(models.QuerySet):
         import random
         # get random numbers to show random results
         random_set = []
-        maximum = self.count()
-        while len(random_set) < num_results:
+        maximum = self.count()-1
+        while len(random_set) < num_results and len(random_set) != maximum:
             random_number = random.randint(0, maximum)
             while random_number in random_set:
                 random_number = random.randint(0, maximum)
