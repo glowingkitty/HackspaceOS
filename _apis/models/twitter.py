@@ -96,15 +96,16 @@ class Twitter():
         self.log('import_photos()')
         from _database.models import Photo
         photos = self.photos
-        for json_entry in photos:
-            if Photo.objects.filter(url_post=json_entry['URL_post']).exists() == False:
-                Photo(
-                    text_description_en_US=json_entry['TEXT_description'],
-                    url_image=json_entry['URL_image'],
-                    url_post=json_entry['URL_post'],
-                    str_source='Twitter',
-                    int_UNIXtime_created=json_entry['INT_UNIX_taken'],
-                ).save()
-                self.log('-> new photo saved')
-            else:
-                self.log('-> Photo already exists')
+        if photos:
+            for json_entry in photos:
+                if Photo.objects.filter(url_post=json_entry['URL_post']).exists() == False:
+                    Photo(
+                        text_description_en_US=json_entry['TEXT_description'],
+                        url_image=json_entry['URL_image'],
+                        url_post=json_entry['URL_post'],
+                        str_source='Twitter',
+                        int_UNIXtime_created=json_entry['INT_UNIX_taken'],
+                    ).save()
+                    self.log('-> new photo saved')
+                else:
+                    self.log('-> Photo already exists')

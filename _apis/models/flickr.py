@@ -57,6 +57,7 @@ class Flickr():
         photos_list = []
 
         if not self.url:
+            self.log('-> ERROR: Flickr URL not defined')
             return None
 
         if self.page:
@@ -71,7 +72,7 @@ class Flickr():
                 url = self.url+'page'+str(page)
             else:
                 url = self.url+'/page'+str(page)
-            photos = Scraper(url, scraper_type='pyppeteer').select(
+            photos = Scraper(url, scraper_type='selenium').select(
                 'view photo-list-photo-view requiredToShowOnServer awake', 'class')
 
             if len(photos) == 0:
@@ -102,15 +103,16 @@ class Flickr():
         self.log('import_photos()')
         from _database.models import Photo
         photos = self.photos
-        for json_entry in photos:
-            if Photo.objects.filter(url_post=json_entry['URL_post']).exists() == False:
-                Photo(
-                    text_description_en_US=json_entry['TEXT_description'],
-                    url_image=json_entry['URL_image'],
-                    url_post=json_entry['URL_post'],
-                    str_source='Flickr',
-                    int_UNIXtime_created=json_entry['INT_UNIX_taken'],
-                ).save()
-                self.log('-> new photo saved')
-            else:
-                self.log('-> Photo already exists')
+        if photos:
+            for json_entry in photos:
+                if Photo.objects.filter(url_post=json_entry['URL_post']).exists() == False:
+                    Photo(
+                        text_description_en_US=json_entry['TEXT_description'],
+                        url_image=json_entry['URL_image'],
+                        url_post=json_entry['URL_post'],
+                        str_source='Flickr',
+                        int_UNIXtime_created=json_entry['INT_UNIX_taken'],
+                    ).save()
+                    self.log('-> new photo saved')
+                else:
+                    self.log('-> Photo already exists')

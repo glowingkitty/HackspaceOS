@@ -55,11 +55,12 @@ class GooglePhotos():
 
         photos_details = []
         if not self.urls:
+            self.log('-> ERROR: url not defined')
             return None
 
         for URL in self.urls:
             self.scraper = Scraper(
-                URL, scraper_type='pyppeteer', scroll_down=5)
+                URL, scraper_type='selenium', scroll_down=5)
             photos = self.scraper.select('RY3tic', 'class')
 
             photos_details = photos_details + [{
