@@ -38,10 +38,8 @@ class Command(BaseCommand):
 
         Photo.objects.import_from_google_photos()
         Photo.objects.import_from_twitter()
-        Photo.objects.import_from_twitter_hashtag()
         Photo.objects.import_from_wiki()
         Photo.objects.import_from_instagram()
-        Photo.objects.import_from_instagram_tag()
         Photo.objects.import_from_flickr()
 
         show_message(

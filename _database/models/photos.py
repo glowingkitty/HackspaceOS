@@ -55,6 +55,11 @@ class PhotoSet(models.QuerySet):
         log('import_from_flickr()')
         Flickr().import_photos()
 
+    def import_from_instagram(self):
+        from _apis.models import Instagram
+        log('import_from_instagram()')
+        Instagram().import_photos()
+
 
 class Photo(models.Model):
     objects = PhotoSet.as_manager()
