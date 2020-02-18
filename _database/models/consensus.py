@@ -122,5 +122,6 @@ class Consensus(models.Model):
             print('Created "'+obj.str_name_en_US+'"')
 
     def save(self, *args, **kwargs):
+        from _database.models import Helper
         self = Helper().RESULT__updateTime(self)
         super(Consensus, self).save(*args, **kwargs)

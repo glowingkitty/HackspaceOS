@@ -279,6 +279,13 @@ class EventSet(models.QuerySet):
                             'cooked']
                         self.createEvent(event)
 
+    def import_from_meetup(self, slug=Config('EVENTS.MEETUP_GROUP').value):
+        from _database.models import Event
+        from _apis.models import Meetup
+        events = Meetup(slug).events
+        for event in events:
+            Event().create(json_content=event)
+
     def update_field(self, fieldname, content):
         from _database.models import Event
 
@@ -298,10 +305,3 @@ class EventSet(models.QuerySet):
             for entry in self.all():
                 entry.text_description_he_IL = content
                 super(Event, entry).save()
-
-    def import_from_meetup(self, slug=Config('EVENTS.MEETUP_GROUP').value):
-        from _database.models import Event
-        from _apis.models import Meetup
-        events = Meetup(slug).events
-        for event in events:
-            Event().create(json_content=event)

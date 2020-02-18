@@ -53,7 +53,6 @@ class Space(models.Model):
     @property
     def machines(self):
         from _database.models import Machine
-
         return Machine.objects.filter(one_space=self)
 
     @property
