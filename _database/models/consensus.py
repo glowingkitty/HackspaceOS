@@ -3,7 +3,6 @@ import urllib.parse
 from django.db import models
 
 from _apis.models import Discourse
-from _database.models.events import RESULT__updateTime
 from datetime import datetime
 
 from django.db.models import Q
@@ -24,6 +23,7 @@ class ConsensusSet(models.QuerySet):
     def import_from_discourse(self):
         print('import_from_discourse()')
         from _database.models import Person
+        from _apis.models import Discourse
         from dateutil import parser
         from secrets import Secret
         import time
@@ -37,7 +37,7 @@ class ConsensusSet(models.QuerySet):
             time.sleep(2)
 
             if requests.get(DISCOURSE_URL+'/c/consensus-items').status_code == 200:
-                consensus_items = get_category_posts(
+                consensus_items = Discourse().get_category_posts(
                     category='consensus-items', all_pages=True)
                 print('process {} consensus-items'.format(len(consensus_items)))
                 for consensus_item in consensus_items:
@@ -105,21 +105,22 @@ class Consensus(models.Model):
         return 'menu_h_consensus'
 
     def create(self, json_content):
+        from _database.models import Helper
         try:
             obj = Consensus.objects.get(
                 str_name_en_US=json_content['str_name_en_US']
             )
             for key, value in json_content.items():
                 setattr(obj, key, value)
-            obj = RESULT__updateTime(obj)
+            obj = Helper().RESULT__updateTime(obj)
             obj.save()
             print('Updated "'+obj.str_name_en_US+'"')
         except Consensus.DoesNotExist:
             obj = Consensus(**json_content)
-            obj = RESULT__updateTime(obj)
+            obj = Helper().RESULT__updateTime(obj)
             obj.save()
             print('Created "'+obj.str_name_en_US+'"')
 
     def save(self, *args, **kwargs):
-        self = RESULT__updateTime(self)
+        self = Helper().RESULT__updateTime(self)
         super(Consensus, self).save(*args, **kwargs)

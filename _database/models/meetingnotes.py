@@ -2,40 +2,6 @@ from django.db import models
 from log import log
 
 
-def startChrome(headless, url=None):
-    log('startChrome(headless={}, url={})'.format(headless, url))
-    import os
-    import sys
-    from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
-
-    options = Options()
-    options.add_argument('--no-sandbox')
-    
-    if headless == True:
-        options.add_argument('--headless')
-        
-    browser_path = os.path.join(
-        sys.path[0], '_database/Selenium/chromedriver_'+sys.platform)
-    browser = webdriver.Chrome(
-        chrome_options=options, executable_path=browser_path)
-    if url:
-        browser.get(url)
-    return browser
-
-
-def openMeetingNotes():
-    import time
-    from config import Config
-
-    browser = startChrome(
-        headless=True, url='https://pad.riseup.net/p/'+Config('MEETINGS.RISEUPPAD_MEETING_PATH').value)
-    time.sleep(5)
-    browser.switch_to_frame(0)
-    browser.switch_to_frame(0)
-    return browser
-
-
 class MeetingNoteSet(models.QuerySet):
     def remove_empty_notes(self):
         self.filter(text_notes__isnull=True).delete()
@@ -136,6 +102,18 @@ class MeetingNote(models.Model):
             minutes = minutes-(hours*60)
         return '{}h {}min'.format(hours, minutes)
 
+    def openMeetingNotes(self):
+        import time
+        from _apis.models import Scraper
+        from config import Config
+
+        browser = Scraper('https://pad.riseup.net/p/' +
+                          Config('MEETINGS.RISEUPPAD_MEETING_PATH').value, scraper_type='selenium', auto_close_selenium=False).selenium
+        time.sleep(5)
+        browser.switch_to_frame(0)
+        browser.switch_to_frame(0)
+        return browser
+
     def start(self):
         print('Starting...')
         import os
@@ -146,7 +124,7 @@ class MeetingNote(models.Model):
         from selenium.webdriver.common.keys import Keys
         from config import Config
 
-        browser = openMeetingNotes()
+        browser = self.openMeetingNotes()
 
         input_field = browser.find_element_by_id('innerdocbody')
         input_field.clear()
@@ -167,14 +145,17 @@ class MeetingNote(models.Model):
                 MeetingNote.objects.count()+1))
             time.sleep(0.3)
             input_field.send_keys(line)
+
         print('Done: https://pad.riseup.net/p/' +
               Config('MEETINGS.RISEUPPAD_MEETING_PATH').value)
+        browser.close()
 
     def end(self):
         # save meeting notes
-        browser = openMeetingNotes()
+        browser = self.openMeetingNotes()
         self.text_notes = browser.find_element_by_id('innerdocbody').text
         self.save()
+        browser.close()
 
         # to do: auto notify via slack
         print('Done: Ended & saved meeting')
@@ -295,9 +276,9 @@ class MeetingNote(models.Model):
             print('Skipped - Already exists. '+self.text_date)
 
     def save(self, *args, **kwargs):
-        from _database.models.events import RESULT__updateTime
+        from _database.models import Helper
 
-        self = RESULT__updateTime(self)
+        self = Helper().RESULT__updateTime(self)
         if not self.text_date:
             self.text_date = str(self.date)
 

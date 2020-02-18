@@ -40,7 +40,7 @@ class Wish(models.Model):
         return 'menu_h_wishes'
 
     def save(self, *args, **kwargs):
-        from _database.models.events import RESULT__updateTime
+        from _database.models import Helper
 
-        self = RESULT__updateTime(self)
+        self = Helper().RESULT__updateTime(self)
         super(Wish, self).save(*args, **kwargs)

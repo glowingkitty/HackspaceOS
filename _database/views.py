@@ -589,32 +589,32 @@ def translate_view(request):
 
 def load_more_view(request):
     log('load_more_view(request)')
-    from _database.views_helper_functions import JSON_RESPONSE_more_results, JSON_RESPONSE_more_photos
+    from _database.models import Helper
 
     if request.GET.get('what', None) and request.GET.get('from', None):
         if request.GET.get('what', None) == 'meeting_notes':
-            response = JSON_RESPONSE_more_results(
+            response = Helper().JSON_RESPONSE_more_results(
                 request, 'meetings/meetings_list.html', MeetingNote.objects.past())
         elif request.GET.get('what', None) == 'events':
-            response = JSON_RESPONSE_more_results(
+            response = Helper().JSON_RESPONSE_more_results(
                 request, 'results_list_entries.html', Event.objects.QUERYSET__upcoming())
         elif request.GET.get('what', None) == 'projects':
-            response = JSON_RESPONSE_more_results(
+            response = Helper().JSON_RESPONSE_more_results(
                 request, 'results_list_entries.html', Project.objects.latest())
         elif request.GET.get('what', None) == 'spaces':
-            response = JSON_RESPONSE_more_results(
+            response = Helper().JSON_RESPONSE_more_results(
                 request, 'results_list_entries.html', Space.objects.all())
         elif request.GET.get('what', None) == 'machines':
-            response = JSON_RESPONSE_more_results(
+            response = Helper().JSON_RESPONSE_more_results(
                 request, 'results_list_entries.html', Machine.objects.all())
         elif request.GET.get('what', None) == 'guildes':
-            response = JSON_RESPONSE_more_results(
+            response = Helper().JSON_RESPONSE_more_results(
                 request, 'results_list_entries.html', Guilde.objects.all())
         elif request.GET.get('what', None) == 'consensus':
-            response = JSON_RESPONSE_more_results(
+            response = Helper().JSON_RESPONSE_more_results(
                 request, 'consensus_items_entries.html', Consensus.objects.latest())
         elif request.GET.get('what', None) == 'photos':
-            response = JSON_RESPONSE_more_photos(request)
+            response = Helper().JSON_RESPONSE_more_photos(request)
     else:
         response = JsonResponse({'error': 'Request incomplete or wrong'})
         response.status_code = 404

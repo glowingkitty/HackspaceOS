@@ -29,7 +29,8 @@ class Space(models.Model):
         max_length=250, blank=True, null=True, verbose_name='Name he-IL')
     url_featured_photo = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Photo URL')
-    image_featured_photo = models.ImageField(upload_to ='spaces_images',blank=True, null=True, verbose_name='Photo')
+    image_featured_photo = models.ImageField(
+        upload_to='spaces_images', blank=True, null=True, verbose_name='Photo')
     url_wiki = models.URLField(
         max_length=200, blank=True, null=True, verbose_name='Wiki URL')
     one_guilde = models.ForeignKey(
@@ -60,10 +61,10 @@ class Space(models.Model):
         return 'menu_h_spaces'
 
     def save(self, *args, **kwargs):
-        from _database.models.events import RESULT__updateTime
+        from _database.models import Helper
         import urllib.parse
 
-        self = RESULT__updateTime(self)
+        self = Helper().RESULT__updateTime(self)
         self.str_slug = urllib.parse.quote(
             'space/'+self.str_name_en_US.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Space, self).save(*args, **kwargs)

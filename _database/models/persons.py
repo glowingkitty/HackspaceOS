@@ -104,6 +104,6 @@ class Person(models.Model):
         return Event.objects.QUERYSET__by_host(one_host=self)
 
     def save(self, *args, **kwargs):
-        from _database.models.events import RESULT__updateTime
-        self = RESULT__updateTime(self)
+        from _database.models import Helper
+        self = Helper().RESULT__updateTime(self)
         super(Person, self).save(*args, **kwargs)

@@ -100,7 +100,7 @@ class Project(models.Model):
             print('Created "'+obj.str_name_en_US+'"')
 
     def save(self, *args, **kwargs):
-        from _database.models.events import RESULT__updateTime
+        from _database.models import Helper
         import urllib.parse
         from googletrans import Translator
         translator = Translator()
@@ -112,5 +112,5 @@ class Project(models.Model):
                 self.str_name_he_IL = translator.translate(
                     self.str_name_en_US, 'he').text
 
-        self = RESULT__updateTime(self)
+        self = Helper().RESULT__updateTime(self)
         super(Project, self).save(*args, **kwargs)

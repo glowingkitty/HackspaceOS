@@ -51,9 +51,9 @@ class Machine(models.Model):
         return 'menu_h_machines'
 
     def save(self, *args, **kwargs):
-        from _database.models.events import RESULT__updateTime
+        from _database.models import Helper
         import urllib.parse
-        self = RESULT__updateTime(self)
+        self = Helper().RESULT__updateTime(self)
         self.str_slug = urllib.parse.quote(
             'machine/'+self.str_name_en_US.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Machine, self).save(*args, **kwargs)

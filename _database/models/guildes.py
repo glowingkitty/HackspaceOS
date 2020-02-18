@@ -56,9 +56,9 @@ class Guilde(models.Model):
 
     def save(self, *args, **kwargs):
         import urllib.parse
-        from _database.models.events import RESULT__updateTime
+        from _database.models import Helper
 
-        self = RESULT__updateTime(self)
+        self = Helper().RESULT__updateTime(self)
         self.str_slug = urllib.parse.quote(
             'guilde/'+self.str_name_en_US.lower().replace(' ', '-').replace('/', '').replace('@', 'at').replace('&', 'and'))
         super(Guilde, self).save(*args, **kwargs)

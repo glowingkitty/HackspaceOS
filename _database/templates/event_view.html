@@ -134,14 +134,6 @@
             {% include "components/body/result_preview_block.html" with change_contrast=True result=selected.RESULT__next_event %}
         </div>
         {% endif %}
-        {% if selected.similar_events %}
-        <div class="blocks_inline_50_percent">
-            <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Similar events'|events:language }}</h2>
-            {% for result in selected.similar_events %}
-            {% include "components/body/result_preview_block.html" with change_contrast=True %}
-            {% endfor %}
-        </div>
-        {% endif %}
     </div>
     <div class="divider_100"></div>
 </div>

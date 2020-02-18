@@ -9,3 +9,4 @@ from _database.models.guildes import Guilde
 from _database.models.meetingnotes import MeetingNote
 from _database.models.wishes import Wish
 from _database.models.photos import Photo
+from _database.models.helper import Helper
