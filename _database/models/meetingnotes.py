@@ -1,5 +1,6 @@
 from django.db import models
 from log import log
+from config import Config
 
 
 class MeetingNoteSet(models.QuerySet):
@@ -17,10 +18,9 @@ class MeetingNoteSet(models.QuerySet):
                 int_UNIXtime_created__lt=older_then.int_UNIXtime_created)
         return self.filter(text_notes__isnull=False).order_by('-int_UNIXtime_created')
 
-    def import_all_from_wiki(self):
+    def import_all_from_wiki(self, WIKI_API_URL=Config('BASICS.WIKI.API_URL').value, test=False):
         import requests
-        from config import Config
-        WIKI_API_URL = Config('BASICS.WIKI.API_URL').value
+
         if not WIKI_API_URL:
             log('--> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
             return
@@ -31,15 +31,18 @@ class MeetingNoteSet(models.QuerySet):
         all_wiki_pages = [
             x['title'] for x in response_json['query']['categorymembers'] if 'Meeting Notes 20' in x['title']]
 
-        while 'continue' in response_json and 'cmcontinue' in response_json['continue']:
-            response_json = requests.get(WIKI_API_URL +
-                                         '?action=query&list=categorymembers&cmcontinue='+response_json['continue']['cmcontinue']+'&cmtitle=Category:Meeting_Notes&cmlimit=500&format=json').json()
+        if test:
+            all_wiki_pages = all_wiki_pages[:4]
+        else:
+            while 'continue' in response_json and 'cmcontinue' in response_json['continue']:
+                response_json = requests.get(WIKI_API_URL +
+                                             '?action=query&list=categorymembers&cmcontinue='+response_json['continue']['cmcontinue']+'&cmtitle=Category:Meeting_Notes&cmlimit=500&format=json').json()
 
-            all_wiki_pages += [
-                x['title'] for x in response_json['query']['categorymembers'] if 'Meeting Notes 20' in x['title']]
+                all_wiki_pages += [
+                    x['title'] for x in response_json['query']['categorymembers'] if 'Meeting Notes 20' in x['title']]
 
         for meeting in all_wiki_pages:
-            MeetingNote().import_from_wiki(meeting)
+            MeetingNote().import_from_wiki(meeting, WIKI_API_URL)
 
         print('Imported all meeting notes from wiki')
 
@@ -102,57 +105,55 @@ class MeetingNote(models.Model):
             minutes = minutes-(hours*60)
         return '{}h {}min'.format(hours, minutes)
 
-    def openMeetingNotes(self):
+    def openMeetingNotes(self, riseuppad_meeting_path=Config('MEETINGS.RISEUPPAD_MEETING_PATH').value):
         import time
         from _apis.models import Scraper
-        from config import Config
 
-        browser = Scraper('https://pad.riseup.net/p/' +
-                          Config('MEETINGS.RISEUPPAD_MEETING_PATH').value, scraper_type='selenium', auto_close_selenium=False).selenium
+        browser = Scraper('https://pad.riseup.net/p/' + riseuppad_meeting_path,
+                          scraper_type='selenium', auto_close_selenium=False).selenium
         time.sleep(5)
-        browser.switch_to_frame(0)
-        browser.switch_to_frame(0)
+        browser.switch_to.frame(browser.find_element_by_name("ace_outer"))
+        browser.switch_to.frame(browser.find_element_by_name("ace_inner"))
         return browser
 
-    def start(self):
+    def start(self,
+              riseuppad_meeting_path=Config(
+                  'MEETINGS.RISEUPPAD_MEETING_PATH').value,
+              hackspace_name=Config('BASICS.NAME').value,
+              timezone=Config('PHYSICAL_SPACE.TIMEZONE_STRING').value
+              ):
         print('Starting...')
         import os
         import sys
         import time
         from datetime import datetime
         import pytz
-        from selenium.webdriver.common.keys import Keys
         from config import Config
+        from django.template.loader import get_template
 
-        browser = self.openMeetingNotes()
+        browser = self.openMeetingNotes(
+            riseuppad_meeting_path=riseuppad_meeting_path)
+
+        # copy template for new meeting into riseup pad
+        meeting_template = get_template(os.path.join(
+            sys.path[0], '_database/templates/meeting_notes.txt')).render({
+                'MeetingNumber': MeetingNote.objects.count()+1,
+                'HackspaceName': hackspace_name,
+                'Date': str(
+                    datetime.now(pytz.timezone(timezone)).date())
+            })
 
         input_field = browser.find_element_by_id('innerdocbody')
         input_field.clear()
+        input_field.send_keys(meeting_template)
 
-        # copy template for new meeting into riseup pad
-        try:
-            meeting_template = open(os.path.join(
-                sys.path[0], '_database/templates/meeting_notes__'+Config('BASICS.NAME').value+'.txt'), 'r').read()
-        except:
-            meeting_template = ''
-
-        for line in reversed(meeting_template.split('\n')):
-            input_field.send_keys(Keys.RETURN)
-            line = line.replace('{{ Space }}', Config('BASICS.NAME').value)
-            line = line.replace('{{ Date }}', str(
-                datetime.now(pytz.timezone(Config('PHYSICAL_SPACE.TIMEZONE_STRING').value)).date()))
-            line = line.replace('{{ MeetingNumber }}', str(
-                MeetingNote.objects.count()+1))
-            time.sleep(0.3)
-            input_field.send_keys(line)
-
-        print('Done: https://pad.riseup.net/p/' +
-              Config('MEETINGS.RISEUPPAD_MEETING_PATH').value)
+        print('Done: https://pad.riseup.net/p/' + riseuppad_meeting_path)
         browser.close()
 
-    def end(self):
+    def end(self, riseuppad_meeting_path=Config('MEETINGS.RISEUPPAD_MEETING_PATH').value):
         # save meeting notes
-        browser = self.openMeetingNotes()
+        browser = self.openMeetingNotes(
+            riseuppad_meeting_path=riseuppad_meeting_path)
         self.text_notes = browser.find_element_by_id('innerdocbody').text
         self.save()
         browser.close()
@@ -246,11 +247,10 @@ class MeetingNote(models.Model):
         self.updateCreatedBasedOnName()
         self.save()
 
-    def import_from_wiki(self, page):
-        from config import Config
+    def import_from_wiki(self, page, wiki_api_url=Config('BASICS.WIKI.API_URL').value):
         import requests
 
-        if not Config('BASICS.WIKI.API_URL').value:
+        if not wiki_api_url:
             log('--> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
             return
 
@@ -262,7 +262,7 @@ class MeetingNote(models.Model):
             from bs4 import BeautifulSoup
 
             response_json = requests.get(
-                Config('BASICS.WIKI.API_URL').value+'?action=parse&page='+page+'&format=json').json()['parse']
+                wiki_api_url+'?action=parse&page='+page+'&format=json').json()['parse']
             soup = BeautifulSoup(str(response_json['text']).replace(
                 "{\'*\': \'", "").replace("'}", "").replace("\\n", "").replace("\\\'", "\'"), 'html.parser')
             for a in soup.findAll('a'):
