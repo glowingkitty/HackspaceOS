@@ -3,7 +3,8 @@ from _database.models import Consensus
 
 
 class ConsensusTestCase(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         Consensus.objects.import_from_discourse()
 
     def test_LIST__search_results(self):

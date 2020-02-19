@@ -1,6 +1,7 @@
 from log import log
 from django.db import models
 from config import Config
+from secrets import Secret
 
 
 class EventSet(models.QuerySet):
@@ -72,6 +73,7 @@ class EventSet(models.QuerySet):
 
         counter = 0
         while counter < hours_before:
+            log('while counter < hours_before')
             counter += 1
             times.insert(0, {
                 'int_UNIX_time': round(new_event_UNIX_time-(counter*60)),
@@ -80,6 +82,7 @@ class EventSet(models.QuerySet):
 
         counter = 0
         while counter < hours_event_duration:
+            log('while counter < hours_event_duration')
             times.append({
                 'int_UNIX_time': round(new_event_UNIX_time+(counter*60)),
                 'str_readable': str((local_time+timedelta(hours=counter)).strftime('%I:%M %p'))
@@ -87,6 +90,7 @@ class EventSet(models.QuerySet):
             counter += 1
 
         while (counter-hours_event_duration) < hours_after:
+            log('while (counter-hours_event_duration) < hours_after:')
             times.append({
                 'int_UNIX_time': round(new_event_UNIX_time+(counter*60)),
                 'str_readable': str((local_time+timedelta(hours=counter)).strftime('%I:%M %p'))
@@ -260,7 +264,7 @@ class EventSet(models.QuerySet):
         for event in self.all()[:3]:
             event.announce_via_marry()
 
-    def import_from_discourse(self):
+    def import_from_discourse(self, url=Secret('DISCOURSE.DISCOURSE_URL').value):
         log('Event.objects.import_from_discourse(self)')
         from _apis.models import Discourse
         from dateutil.parser import parse
@@ -268,14 +272,14 @@ class EventSet(models.QuerySet):
         from django.db.models import Q
         from _database.models import Event
 
-        events = Discourse().get_category_posts('events', True)
+        events = Discourse(url=url).get_category_posts('events', True)
         now = datetime.now()
         for event in events:
             if 'event' in event:
                 date_start = parse(event['event']['start'])
                 if date_start.year >= now.year and date_start.month >= now.month and date_start.day >= now.day:
                     if Event.objects.filter(Q(str_name_en_US=event['title']) | Q(str_name_he_IL=event['title'])).exists() == False:
-                        event['description'] = Discourse().get_post_details(event['slug'])[
+                        event['description'] = Discourse(url=url).get_post_details(event['slug'])[
                             'cooked']
                         self.createEvent(event)
 
