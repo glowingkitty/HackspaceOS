@@ -9,7 +9,7 @@ class WishesSet(models.QuerySet):
             results_list.append({
                 'icon': 'wish',
                 'name': result.str_name_en_US,
-                'url': '/'+result.str_slug,
+                'url': result.url_discourse,
                 'menu_heading': 'menu_h_wishes'
             })
         return results_list
