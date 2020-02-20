@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.template.loader import get_template
 
 from _database.models import Person, Project, Event, Guilde, MeetingNote, Space, Machine, Consensus, Photo
-from _database.tools.space_open import getOpenNowStatus
-from _database.tools.tools import make_description_sentence
+from _website.tools.space_open import getOpenNowStatus
+from _website.tools.tools import make_description_sentence
 from _apis.models.search import Search
 from secrets import Secret
 from config import Config

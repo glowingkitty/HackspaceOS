@@ -1,6 +1,6 @@
 import re
 from django.template import Library
-from _database.tools.tools import remove_tags
+from _website.tools.tools import remove_tags
 
 register = Library()
 

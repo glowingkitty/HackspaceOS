@@ -40,6 +40,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     '_apis',
     '_database',
+    '_website',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,12 +59,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = '_database.urls'
+ROOT_URLCONF = '_website.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "_database/templates")],
+        'DIRS': [os.path.join(BASE_DIR, "_website/templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = '_database.wsgi.application'
+WSGI_APPLICATION = '_website.wsgi.application'
 
 
 # Database
@@ -126,10 +127,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/_database/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '_database/staticfiles')
+STATIC_URL = '/_website/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '_website/staticfiles')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '_database/static'),
+    os.path.join(BASE_DIR, '_website/static'),
 )
 
 MEDIA_URL = "/uploads/"
