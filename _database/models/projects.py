@@ -1,5 +1,6 @@
 from django.db import models
 from log import log
+from secrets import Secret
 
 
 class ProjectSet(models.QuerySet):
@@ -17,18 +18,16 @@ class ProjectSet(models.QuerySet):
     def latest(self):
         return self.order_by('-int_UNIXtime_created')
 
-    def import_from_discourse(self):
+    def import_from_discourse(self, DISCOURSE_URL=Secret('DISCOURSE.DISCOURSE_URL').value):
         print('import_from_discourse()')
         from _database.models import Person
         from _apis.models import Discourse
         from datetime import datetime
         from dateutil import parser
-        from secrets import Secret
         from asci_art import show_message
         import time
         import requests
 
-        DISCOURSE_URL = Secret('DISCOURSE.DISCOURSE_URL').value
         if DISCOURSE_URL:
             show_message(
                 '✅ Found DISCOURSE.DISCOURSE_URL - start importing projects from Discourse.')

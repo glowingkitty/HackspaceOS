@@ -4,10 +4,8 @@ from _database.models import Project
 
 class ProjectsTestCase(TestCase):
     def setUp(self):
-        pass
+        Project.objects.import_from_discourse(
+            DISCOURSE_URL='https://discuss.noisebridge.info')
 
     def test_LIST__search_results(self):
-        pass
-
-    def test_import_from_discourse(self):
-        pass
+        self.assertTrue(len(Project.objects.LIST__search_results()) > 0)
