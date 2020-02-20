@@ -35,30 +35,30 @@ class PhotoSet(models.QuerySet):
     def oldest(self):
         return self.order_by('int_UNIXtime_created')
 
-    def import_from_google_photos(self):
+    def import_from_google_photos(self, test=False):
         from _apis.models import GooglePhotos
         log('import_from_google_photos()')
-        GooglePhotos().import_photos()
+        GooglePhotos().import_photos(test=test)
 
-    def import_from_twitter(self):
+    def import_from_twitter(self, test=False):
         from _apis.models import Twitter
         log('import_from_twitter()')
-        Twitter().import_photos()
+        Twitter().import_photos(test=test)
 
-    def import_from_wiki(self):
+    def import_from_wiki(self, test=False):
         from _apis.models import MediaWiki
         log('import_from_wiki()')
-        MediaWiki().import_photos()
+        MediaWiki().import_photos(test=test)
 
-    def import_from_flickr(self):
+    def import_from_flickr(self, test=False):
         from _apis.models import Flickr
         log('import_from_flickr()')
-        Flickr().import_photos()
+        Flickr().import_photos(test=test)
 
-    def import_from_instagram(self):
+    def import_from_instagram(self, test=False):
         from _apis.models import Instagram
         log('import_from_instagram()')
-        Instagram().import_photos()
+        Instagram().import_photos(test=test)
 
 
 class Photo(models.Model):

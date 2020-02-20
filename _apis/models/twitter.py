@@ -92,10 +92,13 @@ class Twitter():
             'INT_UNIX_taken':round(x['time'].timestamp())
         } for x in tweets]
 
-    def import_photos(self):
+    def import_photos(self, test=False):
         self.log('import_photos()')
         from _database.models import Photo
-        photos = self.photos
+        if test:
+            photos = self.photos[:5]
+        else:
+            photos = self.photos
         if photos:
             for json_entry in photos:
                 if Photo.objects.filter(url_post=json_entry['URL_post']).exists() == False:

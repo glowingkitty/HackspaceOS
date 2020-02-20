@@ -149,7 +149,7 @@ class MediaWiki():
 
                 return 'Saved'
 
-    def import_photos(self):
+    def import_photos(self, test=False, WIKI_API_URL=Config('BASICS.WIKI.API_URL').value):
         # API documentation: https://www.mediawiki.org/wiki/API:Allimages
         self.log('import_photos()')
         from _database.models import Photo
@@ -157,8 +157,6 @@ class MediaWiki():
         from asci_art import show_message
         import requests
         import time
-
-        WIKI_API_URL = Config('BASICS.WIKI.API_URL').value
 
         if WIKI_API_URL:
             show_message(
@@ -197,14 +195,15 @@ class MediaWiki():
                 if status == 'Skipped':
                     skipped_photos_counter += 1
 
-        while 'continue' in response_json and 'aicontinue' in response_json['continue'] and skipped_photos_counter < 5:
-            response_json = requests.get(
-                WIKI_API_URL, params={**parameter, **{'aicontinue': response_json['continue']['aicontinue']}}).json()
+        if not test:
+            while 'continue' in response_json and 'aicontinue' in response_json['continue'] and skipped_photos_counter < 5:
+                response_json = requests.get(
+                    WIKI_API_URL, params={**parameter, **{'aicontinue': response_json['continue']['aicontinue']}}).json()
 
-            for photo in response_json['query']['allimages']:
-                status = self.save_wiki_photo(photo)
-                if status == 'Skipped':
-                    skipped_photos_counter += 1
+                for photo in response_json['query']['allimages']:
+                    status = self.save_wiki_photo(photo)
+                    if status == 'Skipped':
+                        skipped_photos_counter += 1
 
         if skipped_photos_counter >= 5:
             self.log('No new photos it seems.')

@@ -3,26 +3,23 @@ from _database.models import Photo
 
 
 class PhotosTestCase(TestCase):
-    def setUp(self):
-        pass
-
     def test_import_from_google_photos(self):
-        pass
+        Photo.objects.import_from_google_photos(test=True)
 
     def test_import_from_twitter(self):
-        pass
+        Photo.objects.import_from_twitter(test=True)
 
     def test_import_from_wiki(self):
-        pass
+        Photo.objects.import_from_wiki(test=True)
 
     def test_import_from_flickr(self):
-        pass
+        Photo.objects.import_from_flickr(test=True)
 
     def test_import_from_instagram(self):
-        pass
+        Photo.objects.import_from_instagram(test=True)
 
     def test_count_overview(self):
-        pass
+        self.assertTrue(type(Photo.objects.count_overview()) == dict)
 
     def test_random(self):
-        pass
+        self.assertTrue(type(Photo.objects.random()) == list)
