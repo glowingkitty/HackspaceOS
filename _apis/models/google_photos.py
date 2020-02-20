@@ -83,10 +83,7 @@ class GooglePhotos():
             self.log('-> ERROR: Can\'t find GOOGLE_PHOTOS_ALBUM_URLS in your config.json. Will skip importing photos from Google Photos for now.')
             return
 
-        if test:
-            photos = self.photos[:5]
-        else:
-            photos = self.photos
+        photos = self.photos
         for photo in photos:
             if Photo.objects.filter(url_post=photo['URL_post']).exists() == False:
                 Photo(

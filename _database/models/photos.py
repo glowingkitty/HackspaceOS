@@ -17,11 +17,12 @@ class PhotoSet(models.QuerySet):
         # get random numbers to show random results
         random_set = []
         maximum = self.count()-1
-        while len(random_set) < num_results and len(random_set) != maximum:
-            random_number = random.randint(0, maximum)
-            while random_number in random_set:
+        if maximum > 0:
+            while len(random_set) < num_results and len(random_set) != maximum:
                 random_number = random.randint(0, maximum)
-            random_set.append(random_number)
+                while random_number in random_set:
+                    random_number = random.randint(0, maximum)
+                random_set.append(random_number)
 
         random_results = []
         for number in random_set:

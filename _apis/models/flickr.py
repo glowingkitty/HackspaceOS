@@ -103,10 +103,7 @@ class Flickr():
         self.log('import_photos()')
         from _database.models import Photo
 
-        if test:
-            photos = self.photos[:5]
-        else:
-            photos = self.photos
+        photos = self.photos
         if photos:
             for json_entry in photos:
                 if Photo.objects.filter(url_post=json_entry['URL_post']).exists() == False:

@@ -180,7 +180,7 @@ class MediaWiki():
             'list': 'allimages',
             'aisort': 'timestamp',
             'aidir': 'descending',
-            'ailimit': '500',
+            'ailimit': '500' if not test else '5',
             'aiminsize': '50000',  # minimum 50kb size, to filter out small logos/icons
             'aiprop': 'timestamp|canonicaltitle|url|user'
         }
