@@ -3,7 +3,8 @@ from _database.models import Project
 
 
 class ProjectsTestCase(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         Project.objects.import_from_discourse(
             DISCOURSE_URL='https://discuss.noisebridge.info')
 
