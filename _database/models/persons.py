@@ -1,5 +1,6 @@
 from django.db import models
 from log import log
+from secrets import Secret
 
 
 class PersonSet(models.QuerySet):
@@ -17,21 +18,19 @@ class PersonSet(models.QuerySet):
     def by_url_discourse(self, url):
         return self.filter(url_discourse=url).first()
 
-    def import_from_discourse(self):
+    def import_from_discourse(self, DISCOURSE_URL=Secret('DISCOURSE.DISCOURSE_URL').value):
         from _apis.models import Discourse
-        from secrets import Secret
         import time
         import requests
         from asci_art import show_message
 
-        DISCOURSE_URL = Secret('DISCOURSE.DISCOURSE_URL').value
         if DISCOURSE_URL:
             show_message(
                 '✅ Found DISCOURSE.DISCOURSE_URL - start importing persons from Discourse.')
             time.sleep(2)
 
             if requests.get(DISCOURSE_URL).status_code == 200:
-                users = Discourse().get_users()
+                users = Discourse(url=DISCOURSE_URL).get_users()
                 log('--> process {} users'.format(len(users)))
                 for user in users:
                     Person().create(json_content={
