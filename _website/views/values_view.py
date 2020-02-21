@@ -23,7 +23,6 @@ class ValuesView(View):
 
     def get(self, request):
         self.log('ValuesView.get()')
-        from _database.models import Event, Photo
 
         request = Request(request)
         context = {
@@ -34,9 +33,9 @@ class ValuesView(View):
             'user': request.user,
             'language': request.language,
             'auto_search': request.search,
-            'slug': '/',
+            'slug': '/values',
             'page_git_url': '/tree/master/_website/templates/values_view.html',
-            'page_name': Config('BASICS.NAME').value,
+            'page_name': Config('BASICS.NAME').value+' | Values',
             'page_description': 'Our values at '+Config('BASICS.NAME').value
         }
         return render(request.request, 'page.html', context)
