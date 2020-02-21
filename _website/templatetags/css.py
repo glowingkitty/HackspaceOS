@@ -8,8 +8,8 @@ register = Library()
 @register.filter
 def getCSSfiles(placeholder):
     css_files = [f.replace('.css', '') for f in listdir(join(
-        sys.path[0], '_database/static/css')) if isfile(join(join(
-            sys.path[0], '_database/static/css'), f))]
+        sys.path[0], '_website/static/css')) if isfile(join(join(
+            sys.path[0], '_website/static/css'), f))]
     return css_files
 
 
@@ -20,4 +20,4 @@ def getCSSpath(filename):
 
 @register.filter
 def image_exists(filename):
-    return isfile(join(sys.path[0], '_database/static/images/'+filename))
+    return isfile(join(sys.path[0], '_website/static/images/'+filename))

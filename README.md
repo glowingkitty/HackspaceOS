@@ -193,14 +193,14 @@ pip install -r requirements.txt;python setup.py;python manage.py makemigrations;
 **Step 5:** Setup the cronjobs from cronjobs.txt - to keep the database updated
 
 
-**Step 6:** To add your own logo: Add the following files to [_database/static/images/](./_database/static/images/): 
+**Step 6:** To add your own logo: Add the following files to [_website/static/images/](./_website/static/images/): 
 ```
 logo.svg
 header_logo.jpg
 ```
 
 
-**Step 7:** [Create your own favicons](https://www.favicon-generator.org/) and add the following files to [_database/static/images/favicons/](./_database/static/images/favicons/): 
+**Step 7:** [Create your own favicons](https://www.favicon-generator.org/) and add the following files to [_website/static/images/favicons/](./_website/static/images/favicons/): 
 ```
 favicon.ico
 favicon-32x32.png
@@ -208,7 +208,7 @@ favicon-16x16.png
 apple-touch-icon.png
 ```
 
-**Step 8:** Add your default background image as "header_banner.jpg" to [_database/static/images/](./_database/static/images/)
+**Step 8:** Add your default background image as "header_banner.jpg" to [_website/static/images/](./_website/static/images/)
 
 **Step 9:** Test your website
 
@@ -221,11 +221,11 @@ apple-touch-icon.png
 
 => [Click to show templates](./_database/templates/)
 
-=> [Click to show CSS files](./_database/static/css/)
+=> [Click to show CSS files](./_website/static/css/)
 
-=> [Click to show images](./_database/static/images/)
+=> [Click to show images](./_website/static/images/)
 
-=> [Click to show JavaScript files](./_database/static/js/)
+=> [Click to show JavaScript files](./_website/static/js/)
 
 => How to add a new page:
 

@@ -88,13 +88,13 @@ class Setup():
             'config.json',
             'secrets.json',
             'db.sqlite3',
-            '_database/static/images/logo.svg',
-            '_database/static/images/header_logo.jpg',
-            '_database/static/images/header_banner.jpg',
-            '_database/static/images/favicons/favicon.ico',
-            '_database/static/images/favicons/favicon-32x32.png',
-            '_database/static/images/favicons/favicon-16x16.png',
-            '_database/static/images/favicons/apple-touch-icon.png',
+            '_website/static/images/logo.svg',
+            '_website/static/images/header_logo.jpg',
+            '_website/static/images/header_banner.jpg',
+            '_website/static/images/favicons/favicon.ico',
+            '_website/static/images/favicons/favicon-32x32.png',
+            '_website/static/images/favicons/favicon-16x16.png',
+            '_website/static/images/favicons/apple-touch-icon.png',
         ]
         self.config = get_template('config')
         self.secrets = get_template('secrets')
