@@ -1,7 +1,6 @@
 import re
 from django.template import Library
-from _website.tools.tools import remove_tags
-
+TAG_RE = re.compile(r'<[^>]+>')
 register = Library()
 
 
@@ -9,7 +8,7 @@ register = Library()
 def prepareForTextCarusel(HACKERSPACE_IS_SENTENCES):
     output = ''
     for sentence in HACKERSPACE_IS_SENTENCES:
-        output += '"'+remove_tags(sentence)+'", '
+        output += '"'+TAG_RE.sub('', sentence)+'", '
     if output.endswith(', '):
         output = output[:-2]
     return output

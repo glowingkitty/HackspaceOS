@@ -1,10 +1,9 @@
-from django.http import HttpResponse
 from django.views import View
 from secrets import Secret
 from config import Config
 from django.shortcuts import render
 import time
-from _website.models import Request, Response
+from _website.models import Request
 from log import log
 
 

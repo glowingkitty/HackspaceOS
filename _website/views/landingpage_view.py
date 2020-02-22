@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.views import View
 from secrets import Secret
 from config import Config

@@ -16,7 +16,10 @@ class Secret():
         if target:
             path = target.split('.')
             for part in path:
-                self.value = self.value[part]
+                if part in self.value:
+                    self.value = self.value[part]
+                else:
+                    self.value = None
 
         self.exists = True if self.value else False
 
