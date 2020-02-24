@@ -23,7 +23,7 @@ def get_view_response(request, page, sub_page, hashname):
         'view': page+'_view',
         'in_space': True if request.COOKIES.get('in_space') or request.GET.get('in_space', None) == 'True' else False,
         'hash': hashname,
-        'ADMIN_URL': Secret('DJANGO.ADMIN_URL').value,
+        'ADMIN_URL': self.admin_url,
         'user': request.user,
         'language': getLanguage(request),
         'auto_search': request.GET.get('search', None)

@@ -33,27 +33,28 @@ urlpatterns = [
     path('meeting/<str:sub_page>', views.MeetingsView.as_view(),
          name='meeting_present_view'),
 
-    path('guildes', views.GuildesView.as_view(), name='guildes'),
-    path('guilde/<str:sub_page>', views.GuildesView.as_view(),
+    path('guildes', views.GuildesView.as_view(path='all'), name='guildes'),
+    path('guilde/<str:sub_page>', views.GuildesView.as_view(path='result'),
          name='guilde_view'),
 
-    path('spaces', views.SpacesView.as_view(), name='spaces'),
-    path('space/<str:sub_page>', views.SpacesView.as_view(),
+    path('spaces', views.SpacesView.as_view(path='all'), name='spaces'),
+    path('space/<str:sub_page>', views.SpacesView.as_view(path='result'),
          name='space_view'),
 
-    path('machines', views.MachinesView.as_view(), name='machines'),
-    path('machine/<str:sub_page>', views.MachinesView.as_view(),
+    path('machines', views.MachinesView.as_view(path='all'), name='machines'),
+    path('machine/<str:sub_page>', views.MachinesView.as_view(path='result'),
          name='machine_view'),
 
-    path('projects', views.ProjectsView.as_view(), name='projects'),
-    path('project/<str:sub_page>', views.ProjectsView.as_view(),
+    path('projects', views.ProjectsView.as_view(path='all'), name='projects'),
+    path('project/<str:sub_page>', views.ProjectsView.as_view(path='result'),
          name='project_view'),
 
-    path('events', views.EventsView.as_view(), name='events'),
-    path('event/new', views.EventsView.as_view(), name='event_new_view'),
+    path('events', views.EventsView.as_view(path='all'), name='events'),
+    path('event/new', views.EventsView.as_view(path='new'), name='event_new_view'),
     path('event/<str:sub_page>/banner',
-         views.EventsView.as_view(), name='event_banner_view'),
-    path('event/<str:sub_page>', views.EventsView.as_view(), name='event_view'),
+         views.EventsView.as_view(path='banner'), name='event_banner_view'),
+    path('event/<str:sub_page>',
+         views.EventsView.as_view(path='result'), name='event_view'),
 
     path('photos', views.PhotosView.as_view(), name='photos'),
 
