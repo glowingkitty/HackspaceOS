@@ -40,7 +40,7 @@ class GuildesView(View):
         selected = Guilde.objects.filter(str_slug=sub_page).first()
 
         return {
-            'view': 'event_view',
+            'view': 'guilde_view',
             'in_space': request.in_space,
             'hash': request.hash,
             'ADMIN_URL': self.admin_url,
@@ -50,7 +50,7 @@ class GuildesView(View):
             'slug': '/guilde/'+sub_page,
             'page_git_url': '/tree/master/_database/templates/guilde_view.html',
             'page_name': self.space_name+' | Guilde | '+selected.str_name_en_US,
-            'page_description': 'Join our weekly meetings!',
+            'page_description': selected.text_description_en_US,
             'selected': selected
         }
 

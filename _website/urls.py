@@ -45,9 +45,7 @@ urlpatterns = [
     path('machine/<str:sub_page>', views.MachinesView.as_view(path='result'),
          name='machine_view'),
 
-    path('projects', views.ProjectsView.as_view(path='all'), name='projects'),
-    path('project/<str:sub_page>', views.ProjectsView.as_view(path='result'),
-         name='project_view'),
+    path('projects', views.ProjectsView.as_view(), name='projects'),
 
     path('events', views.EventsView.as_view(path='all'), name='events'),
     path('event/new', views.EventsView.as_view(path='new'), name='event_new_view'),
