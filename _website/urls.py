@@ -19,18 +19,18 @@ urlpatterns = [
     path('ourvalues/', RedirectView.as_view(
         url='values', permanent=False), name='ourvalues'),
 
-    path('meetings', views.MeetingsView.as_view(), name='meetings'),
+    path('meetings', views.MeetingsView.as_view(path='all'), name='meetings'),
     path('meeting', RedirectView.as_view(
          url='meetings', permanent=False), name='meeting'),
     path('meetings/', RedirectView.as_view(
          url='meetings', permanent=False), name='meetings/'),
     path('meeting/', RedirectView.as_view(
         url='meetings', permanent=False), name='meeting/'),
-    path('meeting/present', views.MeetingsView.as_view(),
+    path('meeting/present', views.MeetingsView.as_view(path='present'),
          name='meeting_present_view'),
     path('meeting/end', views.MeetingsView.as_view(),
          name='meeting_end_view'),
-    path('meeting/<str:sub_page>', views.MeetingsView.as_view(),
+    path('meeting/<str:sub_page>', views.MeetingsView.as_view(path='result'),
          name='meeting_present_view'),
 
     path('guildes', views.GuildesView.as_view(path='all'), name='guildes'),
