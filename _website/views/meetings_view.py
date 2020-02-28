@@ -7,7 +7,7 @@ class MeetingsView(View):
     def all_results(self, request):
         self.log('-> MeetingsView().all_results()')
         from _database.models import MeetingNote, Event
-        return {
+        return render(request.request, 'page.html', {
             'view': 'meetings_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -22,7 +22,7 @@ class MeetingsView(View):
             'current_meeting': MeetingNote.objects.current(),
             'next_meeting': Event.objects.QUERYSET__next_meeting(),
             'past_meetings': MeetingNote.objects.past()[:10]
-        }
+        })
 
     def result(self, request, sub_page):
         self.log('-> MeetingsView().result()')
@@ -30,7 +30,7 @@ class MeetingsView(View):
 
         selected = MeetingNote.objects.filter(
             text_date=sub_page).first()
-        return {
+        return render(request.request, 'page.html', {
             'view': 'meeting_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -45,19 +45,19 @@ class MeetingsView(View):
             'selected': selected,
             'next_meeting': Event.objects.QUERYSET__next_meeting(),
             'past_meetings': MeetingNote.objects.past(selected)[:10]
-        }
+        })
 
     def present(self, request):
         self.log('-> MeetingsView().present()')
         from _database.models import MeetingNote
-        return {
+        return render(request.request, 'meeting_present.html', {
             'user': request.user,
             'language': request.language,
             'slug': '/meeting/present',
             'page_name': self.space_name+' | Meeting | Presentation mode',
             'page_description': 'Join our weekly meetings!',
             'current_meeting': MeetingNote.objects.current()
-        }
+        })
 
     def get(self, request):
         self.log('MeetingsView.get()')
@@ -65,15 +65,12 @@ class MeetingsView(View):
 
         # process all guildes view
         if self.path == 'all':
-            context = self.all_results(request)
-            return render(request.request, 'page.html', context)
+            return self.all_results(request)
 
         # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            context = self.result(request, self.args['sub_page'])
-            return render(request.request, 'page.html', context)
+            return self.result(request, self.args['sub_page'])
 
         # process present
         elif self.path == 'present':
-            context = self.present(request)
-            return render(request.request, 'meeting_present.html', context)
+            return self.present(request)

@@ -6,9 +6,10 @@ from _website.models import Request
 class EventsView(View):
     def all_results(self, request):
         self.log('-> EventsView().all_results()')
+        request = Request(request)
         from _database.models import Event
         all_results = Event.objects.QUERYSET__upcoming()[:10]
-        return {
+        return render(request.request, 'page.html', {
             'view': 'events_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -30,17 +31,18 @@ class EventsView(View):
             'all_results': all_results if all_results else True,
             'results_count': Event.objects.count(),
             'show_more': 'events'
-        }
+        })
 
     def result(self, request, sub_page):
         self.log('-> EventsView().result()')
         from _database.models import Event, Photo
+        request = Request(request)
 
         if 'event/' not in sub_page:
             sub_page = 'event/'+sub_page
         selected = Event.objects.filter(str_slug=sub_page).first()
 
-        return {
+        return render(request.request, 'page.html', {
             'view': 'event_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -54,31 +56,33 @@ class EventsView(View):
             'page_description': selected.text_description_en_US,
             'selected': selected,
             'photos': Photo.objects.latest()[:33]
-        }
+        })
 
     def banner(self, request, sub_page):
         self.log('-> EventsView().banner()')
         from _database.models import Event, Photo
+        request = Request(request)
 
         if 'event/' not in sub_page:
             sub_page = 'event/'+sub_page
         selected = Event.objects.filter(str_slug=sub_page).first()
 
-        return {
+        return render(request.request, 'page.html', {
             'view': 'event_banner_view',
             'user': request.user,
             'language': request.language,
             'selected': selected,
-        }
+        })
 
     def new(self, request, sub_page):
         self.log('-> EventsView().new()')
         from _database.models import Event, Photo, Space, Guilde
         from config import Config
         from django.middleware.csrf import get_token
+        request = Request(request)
         EVENTS_SPACE_DEFAULT = Config('EVENTS.EVENTS_SPACE_DEFAULT').value
 
-        return {
+        return render(request.request, 'page.html', {
             'view': 'event_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -95,26 +99,23 @@ class EventsView(View):
             'all_spaces': Space.objects.exclude(str_name_en_US=EVENTS_SPACE_DEFAULT),
             'all_guildes': Guilde.objects.all(),
             'csrf_token': get_token(request)
-        }
+        })
 
     def get(self, request):
         self.log('EventsView.get()')
-        request = Request(request)
 
         # process all events view
         if self.path == 'all':
-            context = self.all_results(request)
+            return self.all_results(request)
 
         # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            context = self.result(request, self.args['sub_page'])
+            return self.result(request, self.args['sub_page'])
 
         # process get banner
         elif self.path == 'banner' and 'sub_page' in self.args and self.args['sub_page']:
-            context = self.banner(request, self.args['sub_page'])
+            return self.banner(request, self.args['sub_page'])
 
         # process create event view
         elif self.path == 'new':
-            context = self.new(request)
-
-        return render(request.request, 'page.html', context)
+            return self.new(request)

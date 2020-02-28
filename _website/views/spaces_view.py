@@ -7,8 +7,10 @@ class SpacesView(View):
     def all_results(self, request):
         self.log('-> SpacesView().all_results()')
         from _database.models import Space
+        request = Request(request)
         all_results = Space.objects.all()[:10]
-        return {
+
+        return render(request.request, 'page.html', {
             'view': 'spaces_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -29,17 +31,18 @@ class SpacesView(View):
             'all_results': all_results if all_results else True,
             'results_count': Space.objects.count(),
             'show_more': 'spaces'
-        }
+        })
 
     def result(self, request, sub_page):
         self.log('-> SpacesView().result()')
         from _database.models import Space
+        request = Request(request)
 
         if 'space/' not in sub_page:
             sub_page = 'space/'+sub_page
         selected = Space.objects.filter(str_slug=sub_page).first()
 
-        return {
+        return render(request.request, 'page.html', {
             'view': 'space_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -52,18 +55,15 @@ class SpacesView(View):
             'page_name': self.space_name+' | Space | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected
-        }
+        })
 
     def get(self, request):
         self.log('SpacesView.get()')
-        request = Request(request)
 
         # process all guildes view
         if self.path == 'all':
-            context = self.all_results(request)
+            return self.all_results(request)
 
         # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            context = self.result(request, self.args['sub_page'])
-
-        return render(request.request, 'page.html', context)
+            return self.result(request, self.args['sub_page'])

@@ -7,8 +7,9 @@ class MachinesView(View):
     def all_results(self, request):
         self.log('-> MachinesView().all_results()')
         from _database.models import Machine
+        request = Request(request)
         all_results = Machine.objects.all()[:10]
-        return {
+        return render(request.request, 'page.html', {
             'view': 'spaces_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -29,17 +30,18 @@ class MachinesView(View):
             'all_results': all_results if all_results else True,
             'results_count': Machine.objects.count(),
             'show_more': 'machines'
-        }
+        })
 
     def result(self, request, sub_page):
         self.log('-> MachinesView().result()')
         from _database.models import Machine
+        request = Request(request)
 
         if 'machine/' not in sub_page:
             sub_page = 'machine/'+sub_page
         selected = Machine.objects.filter(str_slug=sub_page).first()
 
-        return {
+        return render(request.request, 'page.html', {
             'view': 'machine_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -52,18 +54,15 @@ class MachinesView(View):
             'page_name': self.space_name+' | Machine | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected
-        }
+        })
 
     def get(self, request):
         self.log('MachinesView.get()')
-        request = Request(request)
 
         # process all guildes view
         if self.path == 'all':
-            context = self.all_results(request)
+            return self.all_results(request)
 
         # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            context = self.result(request, self.args['sub_page'])
-
-        return render(request.request, 'page.html', context)
+            return self.result(request, self.args['sub_page'])

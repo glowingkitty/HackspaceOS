@@ -2,25 +2,26 @@ import time
 
 
 class Request():
-    def __init__(self, request, show_log=True):
+    def __init__(self, request=None, show_log=True):
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
         self.request = request
-        self.url = request.build_absolute_uri()
-        self.hash = self.url.split('#')[1] if '#' in self.url else None
-        self.user = request.user
-        self.search = request.GET.get('search', None)
+        self.url = request.build_absolute_uri() if request else None
+        self.hash = self.url.split(
+            '#')[1] if self.url and '#' in self.url else None
+        self.user = request.user if request else None
+        self.search = request.GET.get('search', None) if request else None
 
-        if request.GET.get('lang', None):
+        if request and request.GET.get('lang', None):
             self.language = request.GET.get('lang', None)
-        elif request.COOKIES.get('lang', None):
+        elif request and request.COOKIES.get('lang', None):
             self.language = request.COOKIES.get('lang', None)
         else:
             self.language = 'english'
 
-        self.in_space = True if request.COOKIES.get(
-            'in_space') or request.GET.get('in_space', None) == 'True' else False
+        self.in_space = True if request and (request.COOKIES.get(
+            'in_space') or request.GET.get('in_space', None) == 'True') else False
 
     def log(self, text):
         import os
