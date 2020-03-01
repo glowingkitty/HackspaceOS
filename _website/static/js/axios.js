@@ -39,7 +39,7 @@ function request_html(parameter, replace_id, inner_OR_outer = 'inner') {
 }
 
 function showMore(what, specific_selector) {
-    axios.get("/load_more?what=" + what + '&from=' + document.getElementById('more_start_from' + specific_selector).value + '&specific_selector=' + specific_selector + '&origin=' + window.location.pathname)
+    axios.get("/apis/hackspace_os/load_more/" + what + '?from=' + document.getElementById('more_start_from' + specific_selector).value + '&specific_selector=' + specific_selector + '&origin=' + window.location.pathname)
         .then(function (response) {
             document.getElementById('more_start_from' + specific_selector).value = response.data.continue_from
             document.getElementById('next_results' + specific_selector).outerHTML = response.data.html
@@ -56,7 +56,7 @@ function showMore(what, specific_selector) {
 }
 
 function showMorePhotos() {
-    axios.get('/load_more?what=photos&from=' + document.getElementById('more_start_from').value + '&type=' + document.getElementById('type').value)
+    axios.get('/apis/hackspace_os/load_more/photos?from=' + document.getElementById('more_start_from').value + '&type=' + document.getElementById('type').value)
         .then(function (response) {
             document.getElementById('more_start_from').value = response.data.continue_from
             document.getElementById('next_results').outerHTML = response.data.html
@@ -85,7 +85,7 @@ function getPhotos(button, type) {
 
             document.getElementById('type').value = type
         }
-        axios.get('/load_more?what=photos&from=0&type=' + type)
+        axios.get('/apis/hackspace_os/load_more/photos?from=0&type=' + type)
             .then(function (response) {
                 if (window.location.href.includes('/photos')) {
                     document.getElementById('more_start_from').value = response.data.continue_from

@@ -17,7 +17,7 @@ class HackspaceOS():
             log('{}'.format(text), os.path.basename(__file__), self.started)
 
     def page(self, page, request=None):
-        self.log('page()')
+        self.log('HackspaceOS().page()')
         from _website import views
 
         if page == '__':
@@ -108,52 +108,81 @@ class HackspaceOS():
             }
         )
 
-    def photos(self):
-        self.log('photos()')
+    def load_more(self, what, request=None):
+        self.log('HackspaceOS().loadmore()')
+        log('load_more_view(request)')
+        from _database.models import Helper, MeetingNote, Event, Project, Space, Machine, Guilde, Consensus
 
-    def load_more(self):
-        self.log('loadmore()')
+        if what and request.GET.get('from', None):
+            if what == 'meeting_notes':
+                response = Helper().JSON_RESPONSE_more_results(
+                    request, 'meetings/meetings_list.html', MeetingNote.objects.past())
+            elif what == 'events':
+                response = Helper().JSON_RESPONSE_more_results(
+                    request, 'results_list_entries.html', Event.objects.QUERYSET__upcoming())
+            elif what == 'projects':
+                response = Helper().JSON_RESPONSE_more_results(
+                    request, 'results_list_entries.html', Project.objects.latest())
+            elif what == 'spaces':
+                response = Helper().JSON_RESPONSE_more_results(
+                    request, 'results_list_entries.html', Space.objects.all())
+            elif what == 'machines':
+                response = Helper().JSON_RESPONSE_more_results(
+                    request, 'results_list_entries.html', Machine.objects.all())
+            elif what == 'guildes':
+                response = Helper().JSON_RESPONSE_more_results(
+                    request, 'results_list_entries.html', Guilde.objects.all())
+            elif what == 'consensus':
+                response = Helper().JSON_RESPONSE_more_results(
+                    request, 'consensus_items_entries.html', Consensus.objects.latest())
+            elif what == 'photos':
+                response = Helper().JSON_RESPONSE_more_photos(request)
+        else:
+            response = JsonResponse({'error': 'Request incomplete or wrong'})
+            response.status_code = 404
+
+        return response
 
     def events_slider(self):
-        self.log('events_slider()')
+        self.log('HackspaceOS().events_slider()')
 
     def open_status(self):
-        self.log('open_status()')
+        self.log('HackspaceOS().open_status()')
 
     def event_overlap(self):
-        self.log('event_overlap()')
+        self.log('HackspaceOS().event_overlap()')
 
     def meeting_duration(self):
-        self.log('meeting_duration()')
+        self.log('HackspaceOS().meeting_duration()')
 
     def translate(self):
-        self.log('translate()')
+        self.log('HackspaceOS().translate()')
 
     def remove_keyword(self):
-        self.log('remove_keyword()')
+        self.log('HackspaceOS().remove_keyword()')
 
     def save(self):
-        self.log('save()')
+        self.log('HackspaceOS().save()')
 
     def search(self):
-        self.log('search()')
+        self.log('HackspaceOS().search()')
 
     def upload_image(self, image):
-        self.log('upload_image()')
+        self.log('HackspaceOS().upload_image()')
 
     def create_event(self):
-        self.log('create_event()')
+        self.log('HackspaceOS().create_event()')
 
     def approve_event(self):
         # requires user loggedin
-        self.log('approve_event()')
+        self.log('HackspaceOS().approve_event()')
 
     def delete(self, file_name):
-        self.log('delete()')
+        self.log('HackspaceOS().delete()')
 
     def create_meeting(self):
-        self.log('create_meeting()')
+        self.log('HackspaceOS().create_meeting()')
 
     def logout(self):
         # requires user loggedin
-        self.log('logout()')
+        self.log('HackspaceOS().logout()')
