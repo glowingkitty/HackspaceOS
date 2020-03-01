@@ -1,17 +1,16 @@
 from _website.views.view import View
-from secrets import Secret
-from config import Config
 from django.shortcuts import render
 from _website.models import Request
+from django.template.loader import get_template
 
 
 class ConsensusView(View):
-    def get(self, request):
-        self.log('ConsensusView.get()')
+    def get_context(self, request):
+        self.log('ConsensusView.get_context()')
         from _database.models import Consensus
 
         request = Request(request)
-        context = {
+        self.context = {
             'view': 'consensus_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -28,4 +27,12 @@ class ConsensusView(View):
             'all_archived_items': Consensus.objects.archived(),
             'all_archived_items_count': Consensus.objects.archived().count(),
         }
-        return render(request.request, 'page.html', context)
+
+    def get(self, request):
+        self.log('ConsensusView.get()')
+        self.get_context(request)
+        return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('ConsensusView.html()')
+        return get_template('page.html').render(self.context)

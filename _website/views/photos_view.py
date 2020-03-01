@@ -3,15 +3,16 @@ from secrets import Secret
 from config import Config
 from django.shortcuts import render
 from _website.models import Request
+from django.template.loader import get_template
 
 
 class PhotosView(View):
-    def get(self, request):
-        self.log('PhotosView.get()')
+    def get_context(self, request):
+        self.log('PhotosView.get_context()')
         from _database.models import Photo
 
         request = Request(request)
-        context = {
+        self.context = {
             'view': 'photos_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -25,4 +26,12 @@ class PhotosView(View):
             'page_description': 'Explore '+self.space_name+'\'s history in photos!',
             'photos': Photo.objects.latest()[:30]
         }
-        return render(request.request, 'page.html', context)
+
+    def get(self, request):
+        self.log('PhotosView.get()')
+        self.get_context(request)
+        return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('PhotosView.html()')
+        return get_template('page.html').render(self.context)

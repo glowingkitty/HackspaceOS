@@ -28,8 +28,6 @@ urlpatterns = [
         url='meetings', permanent=False), name='meeting/'),
     path('meeting/present', views.MeetingsView.as_view(path='present'),
          name='meeting_present_view'),
-    path('meeting/end', views.MeetingsView.as_view(),
-         name='meeting_end_view'),
     path('meeting/<str:sub_page>', views.MeetingsView.as_view(path='result'),
          name='meeting_present_view'),
 

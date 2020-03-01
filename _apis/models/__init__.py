@@ -1,4 +1,5 @@
 # link the models locations
+from _apis.models.hackspaceOS import HackspaceOS
 from _apis.models.discourse import Discourse
 from _apis.models.mediawiki import MediaWiki
 from _apis.models.search import Search

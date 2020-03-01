@@ -2,15 +2,15 @@ from _website.views.view import View
 from secrets import Secret
 from config import Config
 from django.shortcuts import render
-from _website.models import Request, Response
+from _website.models import Request
+from django.template.loader import get_template
 
 
 class ValuesView(View):
-    def get(self, request):
-        self.log('ValuesView.get()')
-
+    def get_context(self, request):
+        self.log('ValuesView.get_context()')
         request = Request(request)
-        context = {
+        self.context = {
             'view': 'values_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -23,4 +23,12 @@ class ValuesView(View):
             'page_name': self.space_name+' | Values',
             'page_description': 'Our values at '+self.space_name
         }
-        return render(request.request, 'page.html', context)
+
+    def get(self, request):
+        self.log('ValuesView.get()')
+        self.get_context(request)
+        return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('ValuesView.html()')
+        return get_template('page.html').render(self.context)

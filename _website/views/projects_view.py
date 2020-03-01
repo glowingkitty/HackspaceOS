@@ -1,18 +1,19 @@
 from _website.views.view import View
 from django.shortcuts import render
 from _website.models import Request
+from django.template.loader import get_template
 
 
 class ProjectsView(View):
-    def get(self, request):
-        self.log('ProjectsView.get()')
+    def get_context(self, request):
+        self.log('ProjectsView.get_context()')
         from _database.models import Project
         from secrets import Secret
 
         request = Request(request)
 
         all_results = Project.objects.all()[:10]
-        context = {
+        self.context = {
             'view': 'projects_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -35,4 +36,11 @@ class ProjectsView(View):
             'show_more': 'projects'
         }
 
-        return render(request.request, 'page.html', context)
+    def get(self, request):
+        self.log('ProjectsView.get()')
+        self.get_context(request)
+        return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('ProjectsView.html()')
+        return get_template('page.html').render(self.context)

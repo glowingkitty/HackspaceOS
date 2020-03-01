@@ -1,13 +1,16 @@
 from _website.views.view import View
 from django.shortcuts import render
 from _website.models import Request
+from django.template.loader import get_template
 
 
 class MeetingsView(View):
     def all_results(self, request):
         self.log('-> MeetingsView().all_results()')
         from _database.models import MeetingNote, Event
-        return render(request.request, 'page.html', {
+        request = Request(request)
+
+        self.context = {
             'view': 'meetings_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -22,15 +25,16 @@ class MeetingsView(View):
             'current_meeting': MeetingNote.objects.current(),
             'next_meeting': Event.objects.QUERYSET__next_meeting(),
             'past_meetings': MeetingNote.objects.past()[:10]
-        })
+        }
 
     def result(self, request, sub_page):
         self.log('-> MeetingsView().result()')
         from _database.models import MeetingNote, Event
+        request = Request(request)
 
         selected = MeetingNote.objects.filter(
             text_date=sub_page).first()
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'meeting_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -45,32 +49,43 @@ class MeetingsView(View):
             'selected': selected,
             'next_meeting': Event.objects.QUERYSET__next_meeting(),
             'past_meetings': MeetingNote.objects.past(selected)[:10]
-        })
+        }
 
     def present(self, request):
         self.log('-> MeetingsView().present()')
         from _database.models import MeetingNote
-        return render(request.request, 'meeting_present.html', {
+        request = Request(request)
+        self.context = {
             'user': request.user,
             'language': request.language,
             'slug': '/meeting/present',
             'page_name': self.space_name+' | Meeting | Presentation mode',
             'page_description': 'Join our weekly meetings!',
             'current_meeting': MeetingNote.objects.current()
-        })
+        }
 
     def get(self, request):
         self.log('MeetingsView.get()')
-        request = Request(request)
-
         # process all guildes view
         if self.path == 'all':
-            return self.all_results(request)
+            self.all_results(request)
 
         # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            return self.result(request, self.args['sub_page'])
+            self.result(request, self.args['sub_page'])
 
         # process present
         elif self.path == 'present':
-            return self.present(request)
+            self.present(request)
+
+        if self.context['slug'] == '/meeting/present':
+            return render(request, 'meeting_present.html', self.context)
+        else:
+            return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('MeetingsView.html()')
+        if self.context['slug'] == '/meeting/present':
+            return get_template('meeting_present.html').render(self.context)
+        else:
+            return get_template('page.html').render(self.context)

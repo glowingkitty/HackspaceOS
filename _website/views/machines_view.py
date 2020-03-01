@@ -1,6 +1,7 @@
 from _website.views.view import View
 from django.shortcuts import render
 from _website.models import Request
+from django.template.loader import get_template
 
 
 class MachinesView(View):
@@ -9,7 +10,7 @@ class MachinesView(View):
         from _database.models import Machine
         request = Request(request)
         all_results = Machine.objects.all()[:10]
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'spaces_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -30,7 +31,7 @@ class MachinesView(View):
             'all_results': all_results if all_results else True,
             'results_count': Machine.objects.count(),
             'show_more': 'machines'
-        })
+        }
 
     def result(self, request, sub_page):
         self.log('-> MachinesView().result()')
@@ -41,7 +42,7 @@ class MachinesView(View):
             sub_page = 'machine/'+sub_page
         selected = Machine.objects.filter(str_slug=sub_page).first()
 
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'machine_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -54,15 +55,21 @@ class MachinesView(View):
             'page_name': self.space_name+' | Machine | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected
-        })
+        }
 
     def get(self, request):
         self.log('MachinesView.get()')
 
         # process all guildes view
         if self.path == 'all':
-            return self.all_results(request)
+            self.all_results(request)
 
         # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            return self.result(request, self.args['sub_page'])
+            self.result(request, self.args['sub_page'])
+
+        return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('MachinesView.html()')
+        return get_template('page.html').render(self.context)

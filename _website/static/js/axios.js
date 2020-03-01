@@ -1,5 +1,5 @@
 function request_html(parameter, replace_id, inner_OR_outer = 'inner') {
-    axios.get("/get/?" + parameter, {
+    axios.get("/apis/hackspace_os/" + parameter, {
             cancelToken: new CancelToken(function executor(c) {
                 // An executor function receives a cancel function as a parameter
                 cancel_search = c;

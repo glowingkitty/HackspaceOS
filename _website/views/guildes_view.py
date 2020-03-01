@@ -1,6 +1,7 @@
 from _website.views.view import View
 from django.shortcuts import render
 from _website.models import Request
+from django.template.loader import get_template
 
 
 class GuildesView(View):
@@ -9,7 +10,7 @@ class GuildesView(View):
         from _database.models import Guilde
         request = Request(request)
         all_results = Guilde.objects.all()[:10]
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'guildes_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -30,7 +31,7 @@ class GuildesView(View):
             'all_results': all_results if all_results else True,
             'results_count': Guilde.objects.count(),
             'show_more': 'guildes'
-        })
+        }
 
     def result(self, request, sub_page):
         self.log('-> GuildesView().result()')
@@ -41,7 +42,7 @@ class GuildesView(View):
             sub_page = 'guilde/'+sub_page
         selected = Guilde.objects.filter(str_slug=sub_page).first()
 
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'guilde_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -54,15 +55,21 @@ class GuildesView(View):
             'page_name': self.space_name+' | Guilde | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected
-        })
+        }
 
     def get(self, request):
         self.log('GuildesView.get()')
 
         # process all guildes view
         if self.path == 'all':
-            return self.all_results(request)
+            self.all_results(request)
 
         # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            return self.result(request, self.args['sub_page'])
+            self.result(request, self.args['sub_page'])
+
+        return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('GuildesView.html()')
+        return get_template('page.html').render(self.context)

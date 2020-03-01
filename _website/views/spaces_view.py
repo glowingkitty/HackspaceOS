@@ -1,6 +1,7 @@
 from _website.views.view import View
 from django.shortcuts import render
 from _website.models import Request
+from django.template.loader import get_template
 
 
 class SpacesView(View):
@@ -10,7 +11,7 @@ class SpacesView(View):
         request = Request(request)
         all_results = Space.objects.all()[:10]
 
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'spaces_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -31,7 +32,7 @@ class SpacesView(View):
             'all_results': all_results if all_results else True,
             'results_count': Space.objects.count(),
             'show_more': 'spaces'
-        })
+        }
 
     def result(self, request, sub_page):
         self.log('-> SpacesView().result()')
@@ -42,7 +43,7 @@ class SpacesView(View):
             sub_page = 'space/'+sub_page
         selected = Space.objects.filter(str_slug=sub_page).first()
 
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'space_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -55,15 +56,21 @@ class SpacesView(View):
             'page_name': self.space_name+' | Space | '+selected.str_name_en_US,
             'page_description': selected.text_description_en_US,
             'selected': selected
-        })
+        }
 
     def get(self, request):
         self.log('SpacesView.get()')
 
         # process all guildes view
         if self.path == 'all':
-            return self.all_results(request)
+            self.all_results(request)
 
         # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            return self.result(request, self.args['sub_page'])
+            self.result(request, self.args['sub_page'])
+
+        return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('SpacesView.html()')
+        return get_template('page.html').render(self.context)

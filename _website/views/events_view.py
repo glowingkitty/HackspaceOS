@@ -1,6 +1,7 @@
 from _website.views.view import View
 from django.shortcuts import render
 from _website.models import Request
+from django.template.loader import get_template
 
 
 class EventsView(View):
@@ -9,7 +10,7 @@ class EventsView(View):
         request = Request(request)
         from _database.models import Event
         all_results = Event.objects.QUERYSET__upcoming()[:10]
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'events_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -31,7 +32,7 @@ class EventsView(View):
             'all_results': all_results if all_results else True,
             'results_count': Event.objects.count(),
             'show_more': 'events'
-        })
+        }
 
     def result(self, request, sub_page):
         self.log('-> EventsView().result()')
@@ -42,7 +43,7 @@ class EventsView(View):
             sub_page = 'event/'+sub_page
         selected = Event.objects.filter(str_slug=sub_page).first()
 
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'event_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -56,7 +57,7 @@ class EventsView(View):
             'page_description': selected.text_description_en_US,
             'selected': selected,
             'photos': Photo.objects.latest()[:33]
-        })
+        }
 
     def banner(self, request, sub_page):
         self.log('-> EventsView().banner()')
@@ -67,14 +68,14 @@ class EventsView(View):
             sub_page = 'event/'+sub_page
         selected = Event.objects.filter(str_slug=sub_page).first()
 
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'event_banner_view',
             'user': request.user,
             'language': request.language,
             'selected': selected,
-        })
+        }
 
-    def new(self, request, sub_page):
+    def new(self, request):
         self.log('-> EventsView().new()')
         from _database.models import Event, Photo, Space, Guilde
         from config import Config
@@ -82,7 +83,7 @@ class EventsView(View):
         request = Request(request)
         EVENTS_SPACE_DEFAULT = Config('EVENTS.EVENTS_SPACE_DEFAULT').value
 
-        return render(request.request, 'page.html', {
+        self.context = {
             'view': 'event_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -99,23 +100,29 @@ class EventsView(View):
             'all_spaces': Space.objects.exclude(str_name_en_US=EVENTS_SPACE_DEFAULT),
             'all_guildes': Guilde.objects.all(),
             'csrf_token': get_token(request)
-        })
+        }
 
     def get(self, request):
         self.log('EventsView.get()')
 
         # process all events view
         if self.path == 'all':
-            return self.all_results(request)
+            self.all_results(request)
 
         # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            return self.result(request, self.args['sub_page'])
+            self.result(request, self.args['sub_page'])
 
         # process get banner
         elif self.path == 'banner' and 'sub_page' in self.args and self.args['sub_page']:
-            return self.banner(request, self.args['sub_page'])
+            self.banner(request, self.args['sub_page'])
 
         # process create event view
         elif self.path == 'new':
-            return self.new(request)
+            self.new(request)
+
+        return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('EventsView.html()')
+        return get_template('page.html').render(self.context)

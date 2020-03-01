@@ -1,18 +1,17 @@
 from _website.views.view import View
-from secrets import Secret
-from config import Config
 from django.shortcuts import render
 from _website.models import Request, Response
+from django.template.loader import get_template
 
 
 class LandingpageView(View):
-    def get(self, request):
-        self.log('LandingpageView.get()')
+    def get_context(self, request):
+        self.log('LandingpageView.get_context()')
         from _database.models import Event, Photo
 
         request = Request(request)
         response = Response()
-        context = {
+        self.context = {
             'view': 'landingpage_view',
             'in_space': request.in_space,
             'hash': request.hash,
@@ -28,4 +27,12 @@ class LandingpageView(View):
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:5],
             'photos': Photo.objects.latest()[:33]
         }
-        return render(request.request, 'page.html', context)
+
+    def get(self, request):
+        self.log('LandingpageView.get()')
+        self.get_context(request)
+        return render(request, 'page.html', self.context)
+
+    def html(self):
+        self.log('LandingpageView.html()')
+        return get_template('page.html').render(self.context)
