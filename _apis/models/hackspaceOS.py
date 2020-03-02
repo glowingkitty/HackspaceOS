@@ -9,6 +9,7 @@ from _apis.models.hackspaceOS_functions.meeting_duration import MeetingDuration
 from _apis.models.hackspaceOS_functions.translate import Translate
 from _apis.models.hackspaceOS_functions.remove_keyword import RemoveKeyword
 from _apis.models.hackspaceOS_functions.save_keyword import SaveKeyword
+from _apis.models.hackspaceOS_functions.search import Search
 
 
 class HackspaceOS():
@@ -61,6 +62,7 @@ class HackspaceOS():
 
     def search(self, request=None):
         self.log('HackspaceOS().search()')
+        return Search(request).value
 
     def upload_image(self, image):
         self.log('HackspaceOS().upload_image()')
