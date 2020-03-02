@@ -7,6 +7,8 @@ urlpatterns = [
          HackspaceOSapiView.as_view(path='page'), name='page'),
     path('apis/hackspace_os/load_more/<str:sub_page>',
          HackspaceOSapiView.as_view(path='load_more'), name='load_more'),
+    path('apis/hackspace_os/events_slider',
+         HackspaceOSapiView.as_view(path='events_slider'), name='events_slider'),
 ]
 
 handler404 = '_database.views.handler404'
