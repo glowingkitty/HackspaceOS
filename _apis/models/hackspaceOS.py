@@ -5,6 +5,7 @@ from _apis.models.hackspaceOS_functions.load_more import LoadMore
 from _apis.models.hackspaceOS_functions.events_slider import EventsSlider
 from _apis.models.hackspaceOS_functions.open_status import OpenStatus
 from _apis.models.hackspaceOS_functions.event_overlap import EventOverlap
+from _apis.models.hackspaceOS_functions.meeting_duration import MeetingDuration
 
 
 class HackspaceOS():
@@ -41,6 +42,7 @@ class HackspaceOS():
 
     def meeting_duration(self, request=None):
         self.log('HackspaceOS().meeting_duration()')
+        return MeetingDuration(request).value
 
     def translate(self, request=None):
         self.log('HackspaceOS().translate()')

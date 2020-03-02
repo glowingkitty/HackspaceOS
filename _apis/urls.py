@@ -13,6 +13,8 @@ urlpatterns = [
          HackspaceOSapiView.as_view(path='open_status'), name='open_status'),
     path('apis/hackspace_os/event_overlap',
          HackspaceOSapiView.as_view(path='event_overlap'), name='event_overlap'),
+    path('apis/hackspace_os/meeting_duration',
+         HackspaceOSapiView.as_view(path='meeting_duration'), name='meeting_duration'),
 ]
 
 handler404 = '_database.views.handler404'
