@@ -1,6 +1,6 @@
 function get_name_fields(name_input) {
     // request to server: get translation to all languages
-    axios.get('/translate', {
+    axios.get('/apis/hackspace_os/translate', {
             params: {
                 'q': name_input
             }
@@ -22,7 +22,7 @@ function get_name_fields(name_input) {
 function translate_description(from_language, to_language) {
     // send server request
     if (document.getElementById('event_description_' + from_language).value) {
-        axios.get('/translate', {
+        axios.get('/apis/hackspace_os/translate', {
                 params: {
                     'q': document.getElementById('event_description_' + from_language).value,
                     'language': to_language

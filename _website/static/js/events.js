@@ -52,7 +52,7 @@ function checkForOverlappingEvents() {
     }
 
     // make server request and check if overlapping events exist
-    axios.get('/get/?what=event_overlap&date=' + event_date + '&time=' + event_time + '&duration=' + event_duration + (event_space ? '&space=' + event_space : ''))
+    axios.get('/apis/hackspace_os/event_overlap?date=' + event_date + '&time=' + event_time + '&duration=' + event_duration + (event_space ? '&space=' + event_space : ''))
         .then(function (response) {
             if (response.data.int_overlapping_events > 0) {
                 document.getElementById('overlapping_events').innerHTML = response.data.html
