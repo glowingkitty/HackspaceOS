@@ -44,10 +44,6 @@ class HackspaceOS():
         self.log('HackspaceOS().event_overlap()')
         return EventOverlap(request).value
 
-    def meeting_duration(self, request=None):
-        self.log('HackspaceOS().meeting_duration()')
-        return MeetingDuration(request).value
-
     def translate(self, request=None):
         self.log('HackspaceOS().translate()')
         return Translate(request).value
@@ -77,8 +73,15 @@ class HackspaceOS():
     def delete(self, file_name):
         self.log('HackspaceOS().delete()')
 
-    def create_meeting(self):
-        self.log('HackspaceOS().create_meeting()')
+    def start_meeting(self):
+        self.log('HackspaceOS().start_meeting()')
+
+    def end_meeting(self):
+        self.log('HackspaceOS().end_meeting()')
+
+    def meeting_duration(self, request=None):
+        self.log('HackspaceOS().meeting_duration()')
+        return MeetingDuration(request).value
 
     def logout(self):
         # requires user loggedin
