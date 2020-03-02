@@ -4,6 +4,7 @@ from _apis.models.hackspaceOS_functions.page import Page
 from _apis.models.hackspaceOS_functions.load_more import LoadMore
 from _apis.models.hackspaceOS_functions.events_slider import EventsSlider
 from _apis.models.hackspaceOS_functions.open_status import OpenStatus
+from _apis.models.hackspaceOS_functions.event_overlap import EventOverlap
 
 
 class HackspaceOS():
@@ -34,22 +35,23 @@ class HackspaceOS():
         self.log('HackspaceOS().open_status()')
         return OpenStatus(request).value
 
-    def event_overlap(self):
+    def event_overlap(self, request=None):
         self.log('HackspaceOS().event_overlap()')
+        return EventOverlap(request).value
 
-    def meeting_duration(self):
+    def meeting_duration(self, request=None):
         self.log('HackspaceOS().meeting_duration()')
 
-    def translate(self):
+    def translate(self, request=None):
         self.log('HackspaceOS().translate()')
 
-    def remove_keyword(self):
+    def remove_keyword(self, request=None):
         self.log('HackspaceOS().remove_keyword()')
 
-    def save(self):
+    def save(self, request=None):
         self.log('HackspaceOS().save()')
 
-    def search(self):
+    def search(self, request=None):
         self.log('HackspaceOS().search()')
 
     def upload_image(self, image):

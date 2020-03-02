@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from _website.views.view import View
 from _apis.models import HackspaceOS
 
