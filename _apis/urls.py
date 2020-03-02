@@ -17,6 +17,8 @@ urlpatterns = [
          HackspaceOSapiView.as_view(path='meeting_duration'), name='meeting_duration'),
     path('apis/hackspace_os/translate',
          HackspaceOSapiView.as_view(path='translate'), name='translate'),
+    path('apis/hackspace_os/remove_keyword',
+         HackspaceOSapiView.as_view(path='remove_keyword'), name='remove_keyword'),
 ]
 
 handler404 = '_database.views.handler404'
