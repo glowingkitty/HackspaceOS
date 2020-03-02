@@ -13,7 +13,7 @@ function saveKeyword(while_waiting_for_saving_str, rtl) {
 
     if (document.getElementById('keyword_input').value && document.getElementById('keyword_input').value != '') {
         document.getElementById('keywords').innerHTML = document.getElementById('keywords').innerHTML + '<a href="#" onclick="enterSearch(this.innerText,\'' + while_waiting_for_saving_str + '\',' + rtl + ')" class="keyword">' + document.getElementById('keyword_input').value + '<span class="button__remove_keyword" onclick="removeKeyword(event,this)"></span></a>'
-        axios.get("/save?keyword=" + document.getElementById('keyword_input').value + '&origin=' + window.location.pathname)
+        axios.get("/apis/hackspace_os/save?keyword=" + document.getElementById('keyword_input').value + '&origin=' + window.location.pathname)
             .then(function () {
                 document.getElementById('keyword_input').value = ''
             })
@@ -26,7 +26,7 @@ function saveKeyword(while_waiting_for_saving_str, rtl) {
 
 function removeKeyword(event, element) {
     event.stopPropagation();
-    axios.get("/remove?keyword=" + element.parentElement.innerText + '&origin=' + window.location.pathname)
+    axios.get("/apis/hackspace_os/remove_keyword?keyword=" + element.parentElement.innerText + '&origin=' + window.location.pathname)
         .then(function () {
             element.parentElement.outerHTML = ''
         })
@@ -38,10 +38,10 @@ function removeKeyword(event, element) {
 
 function startNewMeeting() {
     // show loading screen
-    request_html('what=start_meeting', 'join_next_meeting', 'outer')
+    request_html('start_meeting', 'join_next_meeting', 'outer')
 
     // make request to start new meeting
-    axios.get('/new?what=meeting')
+    axios.get('/apis/hackspace_os/new?what=meeting')
         .then(function (response) {
             // if done, replace meeting placeholder with real meeting preview
             document.getElementById('current_meeting_block').outerHTML = response.data.html
@@ -97,7 +97,7 @@ function confirmMeetingOver() {
     document.getElementById('dark_overlay').onclick = function () {}
 
     // make request to server
-    axios.get("/meeting/end")
+    axios.get("/apis/hackspace_os/meeting/end")
         .then(function (response) {
             // load meeting page
             if (response.data.meeting_url)

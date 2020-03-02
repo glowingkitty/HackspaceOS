@@ -8,6 +8,7 @@ from _apis.models.hackspaceOS_functions.event_overlap import EventOverlap
 from _apis.models.hackspaceOS_functions.meeting_duration import MeetingDuration
 from _apis.models.hackspaceOS_functions.translate import Translate
 from _apis.models.hackspaceOS_functions.remove_keyword import RemoveKeyword
+from _apis.models.hackspaceOS_functions.save_keyword import SaveKeyword
 
 
 class HackspaceOS():
@@ -54,8 +55,9 @@ class HackspaceOS():
         self.log('HackspaceOS().remove_keyword()')
         return RemoveKeyword(request).value
 
-    def save(self, request=None):
-        self.log('HackspaceOS().save()')
+    def save_keyword(self, request=None):
+        self.log('HackspaceOS().save_keyword()')
+        return SaveKeyword(request).value
 
     def search(self, request=None):
         self.log('HackspaceOS().search()')
