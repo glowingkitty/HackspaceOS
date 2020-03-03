@@ -9,10 +9,11 @@ from _apis.models.hackspaceOS_functions.keyword_remove import KeywordRemove
 from _apis.models.hackspaceOS_functions.keyword_add import KeywordAdd
 from _apis.models.hackspaceOS_functions.search import Search
 from _apis.models.hackspaceOS_functions.image_upload import ImageUpload
+from _apis.models.hackspaceOS_functions.events_slider import EventsSlider
 from _apis.models.hackspaceOS_functions.event_create import EventCreate
+from _apis.models.hackspaceOS_functions.event_delete import EventDelete
 from _apis.models.hackspaceOS_functions.event_approve import EventApprove
 from _apis.models.hackspaceOS_functions.event_overlap import EventOverlap
-from _apis.models.hackspaceOS_functions.events_slider import EventsSlider
 
 
 class HackspaceOS():
