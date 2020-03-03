@@ -128,7 +128,7 @@ Is the meeting over?
 {% if language == 'hebrew' %}
 {% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
 אם תלחץ על כן, 
-<a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.END_MEETING }}" target="_blank">
+<a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.meeting_end }}" target="_blank">
     תסריט זה יסיים את הפגישה
 </a>
  וישמור אותו ב- 
@@ -138,7 +138,7 @@ Is the meeting over?
 {% endwith %}
 {% else %}
 {% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
-If you click yes, <a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.END_MEETING }}" target="_blank">this script will end the meeting</a> and save it to <a class="inline_link" href="/meetings" target="_blank">our archive</a>.
+If you click yes, <a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.meeting_end }}" target="_blank">this script will end the meeting</a> and save it to <a class="inline_link" href="/meetings" target="_blank">our archive</a>.
 {% endwith %}
 {% endif %}
 

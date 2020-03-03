@@ -38,7 +38,7 @@
             {% if 'WEBSITE.DOMAIN'|get_config in request.META.HTTP_HOST %}https://{% else %}http://{% endif %}</span>
             {{ request.META.HTTP_HOST }}/meeting</div>
     </div>
-    <a href="#" onclick="showOverlay()" class="button__cta secondary end_meeting">End meeting</a>
+    <a href="#" onclick="showOverlay()" class="button__cta secondary meeting_end">End meeting</a>
 </body>
 </html>
 

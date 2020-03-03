@@ -206,7 +206,7 @@ class MeetingNote(models.Model):
         except:
             return ''
 
-    def add_keyword(self, keyword):
+    def keyword_add(self, keyword):
         if self.text_keywords and keyword != '':
             self.text_keywords += ','+keyword
         else:
@@ -214,7 +214,7 @@ class MeetingNote(models.Model):
         super(MeetingNote, self).save()
         print('Saved keyword - '+keyword)
 
-    def remove_keyword(self, keyword):
+    def keyword_remove(self, keyword):
         if self.text_keywords and keyword != '':
             self.text_keywords = self.text_keywords.replace(
                 ','+keyword, '').replace(keyword+',', '')

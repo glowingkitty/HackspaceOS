@@ -8,6 +8,6 @@ class MeetingNotesTestCase(TestCase):
             WIKI_API_URL='https://www.noisebridge.net/api.php', test=True)
         self.assertTrue(len(MeetingNote.objects.LIST__search_results()) > 0)
 
-    def test_start_and_end_meeting(self):
+    def test_start_and_meeting_end(self):
         MeetingNote().start('hackspace-os-test')
         MeetingNote().end('hackspace-os-test')

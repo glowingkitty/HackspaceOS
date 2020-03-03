@@ -11,7 +11,7 @@
         <div id="keywords" style="display: inline-block">
             {% if selected.text_keywords%}
                 {% for keyword in selected.text_keywords|split:',' %}
-                    <a href="#" onclick="enterSearch(this.innerText,'{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" onhover="" class="keyword">{{ keyword }}<span class="button__remove_keyword" onclick="removeKeyword(event,this)"></span></a>
+                    <a href="#" onclick="enterSearch(this.innerText,'{{ 'Searching ...'|landingpage:language|safe }}',{% if language == 'hebrew' %}true{% else %}false{% endif %})" onhover="" class="keyword">{{ keyword }}<span class="button__keyword_remove" onclick="removeKeyword(event,this)"></span></a>
                 {% endfor %}
             {% endif %}
         </div>

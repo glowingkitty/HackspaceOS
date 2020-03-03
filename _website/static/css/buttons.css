@@ -188,7 +188,7 @@
     right: auto;
 }
 
-.button__cta.secondary.end_meeting {
+.button__cta.secondary.meeting_end {
     position: absolute;
     left: auto;
     top: auto;
@@ -197,13 +197,13 @@
     opacity: 0.3;
 }
 
-.button__cta.secondary.end_meeting:hover {
+.button__cta.secondary.meeting_end:hover {
     opacity: 1;
 }
 
 
 
-.button__remove_keyword {
+.button__keyword_remove {
     transform: rotate(45deg);
     background-image: url('../images/plus.svg');
     background-size: contain;

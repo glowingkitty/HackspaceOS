@@ -7,7 +7,7 @@ class RemoveKeyword():
             meeting = MeetingNote.objects.filter(
                 text_date=request.GET.get('origin', None).split('/')[1]).first()
 
-            meeting.remove_keyword(request.GET.get('keyword'))
+            meeting.keyword_remove(request.GET.get('keyword'))
             response = JsonResponse({'success': True})
         else:
             response = JsonResponse({'error': 'Request incomplete or wrong'})

@@ -198,7 +198,7 @@
     transform: translate(0px, -5px);
 }
 
-.keyword:hover .button__remove_keyword {
+.keyword:hover .button__keyword_remove {
     display: inline-block;
 }
 

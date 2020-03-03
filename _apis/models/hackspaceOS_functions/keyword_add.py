@@ -7,7 +7,7 @@ class SaveKeyword():
             meeting = MeetingNote.objects.filter(
                 text_date=request.GET.get('origin', None).split('/')[1]).first()
 
-            meeting.add_keyword(request.GET.get('keyword'))
+            meeting.keyword_add(request.GET.get('keyword'))
             response = JsonResponse({'success': True})
         else:
             response = JsonResponse({'error': 'Request incomplete or wrong'})

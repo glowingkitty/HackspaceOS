@@ -627,7 +627,7 @@ def save_view(request):
         meeting = MeetingNote.objects.filter(
             text_date=request.GET.get('origin', None).split('/')[1]).first()
 
-        meeting.add_keyword(request.GET.get('keyword'))
+        meeting.keyword_add(request.GET.get('keyword'))
         response = JsonResponse({'success': True})
     else:
         response = JsonResponse({'error': 'Request incomplete or wrong'})
@@ -643,7 +643,7 @@ def remove_view(request):
         meeting = MeetingNote.objects.filter(
             text_date=request.GET.get('origin', None).split('/')[1]).first()
 
-        meeting.remove_keyword(request.GET.get('keyword'))
+        meeting.keyword_remove(request.GET.get('keyword'))
         response = JsonResponse({'success': True})
     else:
         response = JsonResponse({'error': 'Request incomplete or wrong'})
@@ -824,8 +824,8 @@ def upload_view(request, what):
     return response
 
 
-def approve_event_view(request):
-    log('approve_event_view(request)')
+def event_approve_view(request):
+    log('event_approve_view(request)')
 
     if request.user.is_authenticated == False:
         log('--> Failed: User not logged in')
@@ -861,8 +861,8 @@ def approve_event_view(request):
     return response
 
 
-def delete_event_view(request):
-    log('delete_event_view(request)')
+def event_delete_view(request):
+    log('event_delete_view(request)')
 
     if not request.GET.get('str_slug', None) or Event.objects.filter(str_slug=request.GET.get('str_slug', None)).exists() == False:
         log('--> Failed: Result not found')

@@ -191,7 +191,7 @@ function new_event(url_image, languages) {
 
 }
 
-function publish_event(button, upload_image_to_AWS, languages) {
+function publish_event(button, image_upload_to_AWS, languages) {
     // check if fields are missing
     for (language in languages) {
         if (!document.getElementById('event_name_' + languages[language]).value) {
@@ -269,7 +269,7 @@ function publish_event(button, upload_image_to_AWS, languages) {
     button.outerHTML = '<div>Submitting...</div>'
 
     // upload image
-    if (input && input.files && input.files[0] && upload_image_to_AWS == true) {
+    if (input && input.files && input.files[0] && image_upload_to_AWS == true) {
 
         let data = new FormData();
 
@@ -312,9 +312,9 @@ function show_up_to_block(repeating_block_value) {
 
 function approveEvent(str_slug) {
     // show 'Approving...' text
-    document.getElementById('button__approve_event').outerHTML = '<div>Approving...</div>'
-    if (document.getElementById('button__delete_event')) {
-        document.getElementById('button__delete_event').outerHTML = ''
+    document.getElementById('button__event_approve').outerHTML = '<div>Approving...</div>'
+    if (document.getElementById('button__event_delete')) {
+        document.getElementById('button__event_delete').outerHTML = ''
     }
 
     // send server request
@@ -332,9 +332,9 @@ function approveEvent(str_slug) {
 
 function deleteEvent(str_slug) {
     // show 'Deleting...' text
-    document.getElementById('button__delete_event').outerHTML = '<div>Deleting...</div>'
-    if (document.getElementById('button__approve_event')) {
-        document.getElementById('button__approve_event').outerHTML = ''
+    document.getElementById('button__event_delete').outerHTML = '<div>Deleting...</div>'
+    if (document.getElementById('button__event_approve')) {
+        document.getElementById('button__event_approve').outerHTML = ''
     }
 
     // send server request

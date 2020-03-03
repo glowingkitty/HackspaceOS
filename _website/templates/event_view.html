@@ -40,10 +40,10 @@
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
     {% endif %}
     {% if user.is_authenticated and selected.boolean_approved == False %}
-    <div id="button__approve_event" onclick="approveEvent('{{ selected.str_slug }}')" class="button__cta inline">{{ 'Approve event'|events:language }}</div>
+    <div id="button__event_approve" onclick="approveEvent('{{ selected.str_slug }}')" class="button__cta inline">{{ 'Approve event'|events:language }}</div>
     {% endif %}
     {% if selected.boolean_approved == False %}
-    <div id="button__delete_event" onclick="deleteEvent('{{ selected.str_slug }}')" class="button__cta secondary inline">{{ 'Delete event'|events:language }}{% if selected.int_series_startUNIX %} {{ 'series'|events:language }}{% endif %}</div>
+    <div id="button__event_delete" onclick="deleteEvent('{{ selected.str_slug }}')" class="button__cta secondary inline">{{ 'Delete event'|events:language }}{% if selected.int_series_startUNIX %} {{ 'series'|events:language }}{% endif %}</div>
     <br>
     <br>
     {% endif %}
