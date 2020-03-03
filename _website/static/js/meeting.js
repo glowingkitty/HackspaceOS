@@ -13,7 +13,7 @@ function saveKeyword(while_waiting_for_saving_str, rtl) {
 
     if (document.getElementById('keyword_input').value && document.getElementById('keyword_input').value != '') {
         document.getElementById('keywords').innerHTML = document.getElementById('keywords').innerHTML + '<a href="#" onclick="enterSearch(this.innerText,\'' + while_waiting_for_saving_str + '\',' + rtl + ')" class="keyword">' + document.getElementById('keyword_input').value + '<span class="button__remove_keyword" onclick="removeKeyword(event,this)"></span></a>'
-        axios.get("/apis/hackspace_os/save?keyword=" + document.getElementById('keyword_input').value + '&origin=' + window.location.pathname)
+        axios.get("/apis/hackspace_os/keyword/save?keyword=" + document.getElementById('keyword_input').value + '&origin=' + window.location.pathname)
             .then(function () {
                 document.getElementById('keyword_input').value = ''
             })
@@ -26,7 +26,7 @@ function saveKeyword(while_waiting_for_saving_str, rtl) {
 
 function removeKeyword(event, element) {
     event.stopPropagation();
-    axios.get("/apis/hackspace_os/remove_keyword?keyword=" + element.parentElement.innerText + '&origin=' + window.location.pathname)
+    axios.get("/apis/hackspace_os/keyword/remove?keyword=" + element.parentElement.innerText + '&origin=' + window.location.pathname)
         .then(function () {
             element.parentElement.outerHTML = ''
         })
@@ -41,7 +41,7 @@ function startNewMeeting() {
     request_html('start_meeting', 'join_next_meeting', 'outer')
 
     // make request to start new meeting
-    axios.get('/apis/hackspace_os/new?what=meeting')
+    axios.get('/apis/hackspace_os/meeting/create')
         .then(function (response) {
             // if done, replace meeting placeholder with real meeting preview
             document.getElementById('current_meeting_block').outerHTML = response.data.html

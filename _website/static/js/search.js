@@ -19,7 +19,7 @@ function search(query, while_waiting_string, rtl) {
         }
 
 
-        axios.get("/search?q=" + query, {
+        axios.get("/apis/hackspace_os/search?q=" + query, {
                 cancelToken: new CancelToken(function executor(c) {
                     // An executor function receives a cancel function as a parameter
                     cancel_search = c;
@@ -57,7 +57,7 @@ function search_events(query) {
         document.getElementById('continue_add_event_button').style.display = 'none'
     } else {
         document.getElementById('continue_add_event_button').style.display = 'inline-block'
-        axios.get("/search?q=" + query + '&filter=events', {
+        axios.get("/apis/hackspace_os/search?q=" + query + '&filter=events', {
                 cancelToken: new CancelToken(function executor(c) {
                     // An executor function receives a cancel function as a parameter
                     cancel_search = c;
@@ -87,7 +87,7 @@ function search_events(query) {
 }
 
 function search_hosts(query) {
-    axios.get("/search?q=" + query + '&filter=hosts', {
+    axios.get("/apis/hackspace_os/search?q=" + query + '&filter=hosts', {
             cancelToken: new CancelToken(function executor(c) {
                 // An executor function receives a cancel function as a parameter
                 cancel_search = c;
