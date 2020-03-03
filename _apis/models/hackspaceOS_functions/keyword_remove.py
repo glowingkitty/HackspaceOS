@@ -1,4 +1,4 @@
-class RemoveKeyword():
+class KeywordRemove():
     def __init__(self, request):
         from django.http import JsonResponse
         from _database.models import MeetingNote

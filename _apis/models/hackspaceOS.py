@@ -7,11 +7,11 @@ from _apis.models.hackspaceOS_functions.open_status import OpenStatus
 from _apis.models.hackspaceOS_functions.event_overlap import EventOverlap
 from _apis.models.hackspaceOS_functions.meeting_duration import MeetingDuration
 from _apis.models.hackspaceOS_functions.translate import Translate
-from _apis.models.hackspaceOS_functions.keyword_remove import RemoveKeyword
-from _apis.models.hackspaceOS_functions.keyword_add import SaveKeyword
+from _apis.models.hackspaceOS_functions.keyword_remove import KeywordRemove
+from _apis.models.hackspaceOS_functions.keyword_add import KeywordAdd
 from _apis.models.hackspaceOS_functions.search import Search
-from _apis.models.hackspaceOS_functions.image_upload import UploadImage
-from _apis.models.hackspaceOS_functions.event_create import CreateEvent
+from _apis.models.hackspaceOS_functions.image_upload import ImageUpload
+from _apis.models.hackspaceOS_functions.event_create import EventCreate
 
 
 class HackspaceOS():
@@ -28,7 +28,7 @@ class HackspaceOS():
 
     def image_upload(self, request=None):
         self.log('HackspaceOS().image_upload()')
-        return UploadImage(request).value
+        return ImageUpload(request).value
 
     def page(self, page, request=None):
         self.log('HackspaceOS().page()')
@@ -52,11 +52,11 @@ class HackspaceOS():
 
     def keyword_remove(self, request=None):
         self.log('HackspaceOS().keyword_remove()')
-        return RemoveKeyword(request).value
+        return KeywordRemove(request).value
 
     def keyword_add(self, request=None):
         self.log('HackspaceOS().keyword_add()')
-        return SaveKeyword(request).value
+        return KeywordAdd(request).value
 
     def events_slider(self, request=None):
         self.log('HackspaceOS().events_slider()')
@@ -64,7 +64,7 @@ class HackspaceOS():
 
     def event_create(self, request=None):
         self.log('HackspaceOS().event_create()')
-        return CreateEvent(request).value
+        return EventCreate(request).value
 
     def event_approve(self, request=None):
         # requires user loggedin

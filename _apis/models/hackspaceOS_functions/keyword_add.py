@@ -1,4 +1,4 @@
-class SaveKeyword():
+class KeywordAdd():
     def __init__(self, request):
         from django.http import JsonResponse
         from _database.models import MeetingNote

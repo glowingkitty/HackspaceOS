@@ -1,4 +1,4 @@
-class CreateEvent():
+class EventCreate():
     def __init__(self, request=None):
         from _apis.models import Notify
         from _database.models import Helper, Event, Space, Guilde, Person

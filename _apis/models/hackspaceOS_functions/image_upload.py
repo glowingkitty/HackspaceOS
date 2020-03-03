@@ -1,4 +1,4 @@
-class UploadImage():
+class ImageUpload():
     def __init__(self, request=None):
         from django.http import JsonResponse
         from django.template.loader import get_template
