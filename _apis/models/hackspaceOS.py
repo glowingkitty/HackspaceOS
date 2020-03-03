@@ -2,9 +2,7 @@ import time
 from log import log
 from _apis.models.hackspaceOS_functions.page import Page
 from _apis.models.hackspaceOS_functions.load_more import LoadMore
-from _apis.models.hackspaceOS_functions.events_slider import EventsSlider
 from _apis.models.hackspaceOS_functions.open_status import OpenStatus
-from _apis.models.hackspaceOS_functions.event_overlap import EventOverlap
 from _apis.models.hackspaceOS_functions.meeting_duration import MeetingDuration
 from _apis.models.hackspaceOS_functions.translate import Translate
 from _apis.models.hackspaceOS_functions.keyword_remove import KeywordRemove
@@ -12,6 +10,9 @@ from _apis.models.hackspaceOS_functions.keyword_add import KeywordAdd
 from _apis.models.hackspaceOS_functions.search import Search
 from _apis.models.hackspaceOS_functions.image_upload import ImageUpload
 from _apis.models.hackspaceOS_functions.event_create import EventCreate
+from _apis.models.hackspaceOS_functions.event_approve import EventApprove
+from _apis.models.hackspaceOS_functions.event_overlap import EventOverlap
+from _apis.models.hackspaceOS_functions.events_slider import EventsSlider
 
 
 class HackspaceOS():
@@ -69,10 +70,12 @@ class HackspaceOS():
     def event_approve(self, request=None):
         # requires user loggedin
         self.log('HackspaceOS().event_approve()')
+        return EventApprove(request).value
 
     def event_delete(self, request=None):
         # who should be able to delete files
         self.log('HackspaceOS().event_delete()')
+        return EventDelete(request).value
 
     def event_overlap(self, request=None):
         self.log('HackspaceOS().event_overlap()')
@@ -84,10 +87,13 @@ class HackspaceOS():
 
     def meeting_create(self, request=None):
         self.log('HackspaceOS().meeting_create()')
+        return MeetingCreate(request).value
 
     def meeting_end(self, request=None):
         self.log('HackspaceOS().meeting_end()')
+        return MeetingEnd(request).value
 
     def logout(self, request=None):
         # requires user loggedin
         self.log('HackspaceOS().logout()')
+        return Logout(request).value
