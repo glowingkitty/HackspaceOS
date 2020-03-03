@@ -3,6 +3,10 @@ from _apis.models import HackspaceOS
 
 
 class HackspaceOSapiView(View):
+    def post(self, request, sub_page=None):
+        if self.path == 'upload_image':
+            return HackspaceOS().upload_image(request)
+
     def get(self, request, sub_page=None):
         if self.path == 'page' and sub_page:
             return HackspaceOS().page(sub_page, request)
@@ -33,9 +37,6 @@ class HackspaceOSapiView(View):
 
         elif self.path == 'search':
             return HackspaceOS().search(request)
-
-        elif self.path == 'upload_image':
-            return HackspaceOS().upload_image(request)
 
         elif self.path == 'create_event':
             return HackspaceOS().create_event(request)

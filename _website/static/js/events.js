@@ -178,7 +178,7 @@ function new_event(url_image, languages) {
     // create event
     axios.defaults.xsrfCookieName = 'csrftoken';
     axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-    axios.post("/new", data)
+    axios.post("/apis/hackspace_os/new", data)
         .then(function (response) {
             getPage(response.data.url_next, 'menu_h_events')
         })
@@ -280,7 +280,7 @@ function publish_event(button, upload_image_to_AWS, languages) {
 
         axios.defaults.xsrfCookieName = 'csrftoken';
         axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-        axios.post('/upload/event-image', data, {
+        axios.post('/apis/hackspace_os/upload_image', data, {
                 headers: {
                     'content-type': 'multipart/form-data'
                 },
@@ -318,7 +318,7 @@ function approveEvent(str_slug) {
     }
 
     // send server request
-    axios.get("/approve-event?str_slug=" + str_slug)
+    axios.get("/apis/hackspace_os/approve-event?str_slug=" + str_slug)
         .then(function () {
             getPage(str_slug, 'menu_h_events')
         })
@@ -338,7 +338,7 @@ function deleteEvent(str_slug) {
     }
 
     // send server request
-    axios.get("/delete-event?str_slug=" + str_slug)
+    axios.get("/apis/hackspace_os/delete-event?str_slug=" + str_slug)
         .then(function () {
             getPage('/events', 'menu_h_events')
         })

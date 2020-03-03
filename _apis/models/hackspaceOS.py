@@ -10,6 +10,7 @@ from _apis.models.hackspaceOS_functions.translate import Translate
 from _apis.models.hackspaceOS_functions.remove_keyword import RemoveKeyword
 from _apis.models.hackspaceOS_functions.save_keyword import SaveKeyword
 from _apis.models.hackspaceOS_functions.search import Search
+from _apis.models.hackspaceOS_functions.upload_image import UploadImage
 
 
 class HackspaceOS():
@@ -60,8 +61,9 @@ class HackspaceOS():
         self.log('HackspaceOS().search()')
         return Search(request).value
 
-    def upload_image(self, image):
+    def upload_image(self, request):
         self.log('HackspaceOS().upload_image()')
+        return UploadImage(request).value
 
     def create_event(self):
         self.log('HackspaceOS().create_event()')

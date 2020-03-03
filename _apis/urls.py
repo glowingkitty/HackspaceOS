@@ -23,6 +23,8 @@ urlpatterns = [
          HackspaceOSapiView.as_view(path='save_keyword'), name='save_keyword'),
     path('apis/hackspace_os/search',
          HackspaceOSapiView.as_view(path='search'), name='search'),
+    path('apis/hackspace_os/upload_image',
+         HackspaceOSapiView.as_view(path='upload_image'), name='upload_image'),
 ]
 
 handler404 = '_database.views.handler404'
