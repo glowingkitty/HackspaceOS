@@ -5,6 +5,7 @@ from _apis.models.hackspaceOS_functions.load_more import LoadMore
 from _apis.models.hackspaceOS_functions.open_status import OpenStatus
 from _apis.models.hackspaceOS_functions.meeting_duration import MeetingDuration
 from _apis.models.hackspaceOS_functions.meeting_create import MeetingCreate
+from _apis.models.hackspaceOS_functions.meeting_end import MeetingEnd
 from _apis.models.hackspaceOS_functions.translate import Translate
 from _apis.models.hackspaceOS_functions.keyword_remove import KeywordRemove
 from _apis.models.hackspaceOS_functions.keyword_add import KeywordAdd
