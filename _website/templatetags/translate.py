@@ -5,7 +5,7 @@ register = Library()
 @register.filter
 def landingpage(text, language):
     from django.template.loader import get_template
-    return get_template('translations/landingpage.html').render({
+    return get_template('landingpage.html').render({
         'word': text,
         'language': language
     }).lstrip().rstrip()
@@ -14,7 +14,7 @@ def landingpage(text, language):
 @register.filter
 def donate(text, language):
     from django.template.loader import get_template
-    return get_template('translations/donate.html').render({
+    return get_template('donate.html').render({
         'word': text,
         'language': language
     }).lstrip().rstrip()
@@ -23,7 +23,7 @@ def donate(text, language):
 @register.filter
 def menu(text, language):
     from django.template.loader import get_template
-    return get_template('translations/menu.html').render({
+    return get_template('menu.html').render({
         'word': text,
         'language': language
     }).lstrip().rstrip()
@@ -32,7 +32,7 @@ def menu(text, language):
 @register.filter
 def values(text, language):
     from django.template.loader import get_template
-    return get_template('translations/values.html').render({
+    return get_template('values.html').render({
         'word': text,
         'language': language
     }).lstrip().rstrip()
@@ -41,7 +41,7 @@ def values(text, language):
 @register.filter
 def results_lists(text, language):
     from django.template.loader import get_template
-    return get_template('translations/results_lists.html').render({
+    return get_template('results_lists.html').render({
         'word': text,
         'language': language
     }).lstrip().rstrip()
@@ -50,7 +50,7 @@ def results_lists(text, language):
 @register.filter
 def events(text, language):
     from django.template.loader import get_template
-    return get_template('translations/events.html').render({
+    return get_template('events.html').render({
         'word': text,
         'language': language
     }).lstrip().rstrip()
@@ -59,7 +59,7 @@ def events(text, language):
 @register.filter
 def photos(text, language):
     from django.template.loader import get_template
-    return get_template('translations/photos.html').render({
+    return get_template('photos.html').render({
         'word': text,
         'language': language
     }).lstrip().rstrip()
@@ -68,7 +68,7 @@ def photos(text, language):
 @register.filter
 def meetings(text, language):
     from django.template.loader import get_template
-    return get_template('translations/meetings.html').render({
+    return get_template('meetings.html').render({
         'word': text,
         'language': language
     }).lstrip().rstrip()

@@ -8,7 +8,7 @@ class Translate():
         from config import Config
         translator = Translator()
 
-        with open('_website/templates/languages.json') as json_file:
+        with open('_translations/languages.json') as json_file:
             language_codes = json.load(json_file)
 
         if request.GET.get('q', None) and request.GET.get('language', None):
