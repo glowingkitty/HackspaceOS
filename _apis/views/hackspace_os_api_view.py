@@ -52,6 +52,3 @@ class HackspaceOSapiView(View):
 
         elif self.path == 'meeting_end':
             return HackspaceOS().meeting_end(request)
-
-        elif self.path == 'logout':
-            return HackspaceOS().logout(request)

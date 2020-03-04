@@ -37,10 +37,7 @@ urlpatterns = [
     path('apis/hackspace_os/meeting/create',
          HackspaceOSapiView.as_view(path='meeting_create'), name='meeting_create'),
     path('apis/hackspace_os/meeting/end',
-         HackspaceOSapiView.as_view(path='meeting_end'), name='meeting_end'),
-
-    path('apis/hackspace_os/logout',
-         HackspaceOSapiView.as_view(path='logout'), name='logout'),
+         HackspaceOSapiView.as_view(path='meeting_end'), name='meeting_end')
 ]
 
 handler404 = '_database.views.handler404'

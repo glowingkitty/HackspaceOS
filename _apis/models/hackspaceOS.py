@@ -71,7 +71,6 @@ class HackspaceOS():
         return EventCreate(request).value
 
     def event_approve(self, request=None):
-        # requires user loggedin
         self.log('HackspaceOS().event_approve()')
         return EventApprove(request).value
 
@@ -97,6 +96,5 @@ class HackspaceOS():
         return MeetingEnd(request).value
 
     def logout(self, request=None):
-        # requires user loggedin
         self.log('HackspaceOS().logout()')
         return Logout(request).value

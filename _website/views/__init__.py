@@ -8,3 +8,4 @@ from _website.views.photos_view import PhotosView
 from _website.views.projects_view import ProjectsView
 from _website.views.spaces_view import SpacesView
 from _website.views.values_view import ValuesView
+from _website.views.logout_view import LogoutView

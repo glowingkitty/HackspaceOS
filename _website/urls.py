@@ -56,6 +56,8 @@ urlpatterns = [
 
     path('consensus', views.ConsensusView.as_view(), name='consensus'),
 
+    path('logout', views.LogoutView.as_view(), name='logout'),
+
 ]+api_urls + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# TODO handler404 = '_database.views.handler404'
+handler404 = '_website.views.handler_404_view.handler404'
