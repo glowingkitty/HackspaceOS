@@ -4,6 +4,7 @@ uploads/
 uwsgi_params
 HackspaceOSVenv/
 _apis/models/instagram/
+systemd/
 
 # setup files
 config.json
