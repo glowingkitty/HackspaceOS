@@ -1,9 +1,10 @@
 import requests
 import random
-from log import log
+from _setup.log import log
+
 
 class MarrySpeak():
-    def __init__(self,show_log=True):
+    def __init__(self, show_log=True):
         self.logs = ['self.__init__']
         self.show_log = show_log
         self.url = 'http://pegasus.noise:5000'
@@ -19,14 +20,12 @@ class MarrySpeak():
         ]
         self.help = 'http://pegasus.noise'
 
-
     def log(self, text):
         self.logs.append(text)
         if self.show_log == True:
             log('{}'.format(text))
 
-
-    def speak(self,text, intro='Did you know?'):
+    def speak(self, text, intro='Did you know?'):
         try:
             self.log('speak()')
             # make marry speak
@@ -34,19 +33,20 @@ class MarrySpeak():
             if intro:
                 requests.get(self.url+'?text='+intro)
             for part in parts:
-                requests.get(self.url+'?text='+part.replace('.', ' dot ').replace(':', ' colon '))
+                requests.get(self.url+'?text='+part.replace('.',
+                                                            ' dot ').replace(':', ' colon '))
             self.log('-> Success')
 
         except:
-            self.log('-> ERROR: Couldnt talk to marry. Make sure to deactivate your VPN connection and be in the local Noisebridge network.')
-
+            self.log(
+                '-> ERROR: Couldnt talk to marry. Make sure to deactivate your VPN connection and be in the local Noisebridge network.')
 
     def interestingFacts(self):
         self.log('interestingFacts()')
         entry_num = random.randint(0, len(facts)-1)
         self.speak(facts[entry_num])
 
-
     def weeklyMeetingReminder(self):
         self.log('weeklyMeetingReminder()')
-        self.speak('Attention attention everyone. The Weekly General Meeting happens in 10 minutes in the Hackatorium. Please join us')
+        self.speak(
+            'Attention attention everyone. The Weekly General Meeting happens in 10 minutes in the Hackatorium. Please join us')

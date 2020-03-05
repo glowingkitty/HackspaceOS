@@ -1,6 +1,6 @@
 import requests
-from log import log
-from config import Config
+from _setup.log import log
+from _setup.config import Config
 import time
 
 
@@ -24,7 +24,7 @@ class MediaWiki():
             log('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from asci_art import show_message, show_messages
+        from _setup.asci_art import show_message, show_messages
         import json
 
         try:
@@ -98,7 +98,7 @@ class MediaWiki():
         from _database.models import Photo
         from dateutil.parser import parse
         from datetime import datetime
-        from config import Config
+        from _setup.config import Config
 
         if not self.url:
             self.log(
@@ -153,8 +153,8 @@ class MediaWiki():
         # API documentation: https://www.mediawiki.org/wiki/API:Allimages
         self.log('import_photos()')
         from _database.models import Photo
-        from config import Config
-        from asci_art import show_message
+        from _setup.config import Config
+        from _setup.asci_art import show_message
         import requests
         import time
 

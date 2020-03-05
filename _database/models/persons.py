@@ -1,6 +1,6 @@
 from django.db import models
-from log import log
-from secrets import Secret
+from _setup.log import log
+from _setup.secrets import Secret
 
 
 class PersonSet(models.QuerySet):
@@ -22,7 +22,7 @@ class PersonSet(models.QuerySet):
         from _apis.models import Discourse
         import time
         import requests
-        from asci_art import show_message
+        from _setup.asci_art import show_message
 
         if DISCOURSE_URL:
             show_message(
@@ -52,7 +52,7 @@ class PersonSet(models.QuerySet):
         if not name or name == '':
             return None
         from django.db.models import Q
-        from secrets import Secret
+        from _setup.secrets import Secret
 
         return self.filter(Q(url_discourse=Secret('DISCOURSE.DISCOURSE_URL').value + 'u/'+name) | Q(str_name_en_US__icontains=name)).first()
 

@@ -1,20 +1,20 @@
 import requests
-from log import log
+from _setup.log import log
+
 
 class Flaschentaschen():
-    def __init__(self,show_log=True):
+    def __init__(self, show_log=True):
         self.logs = ['self.__init__']
         self.show_log = show_log
         self.url = 'http://pegasus.noise:4444/api'
         self.help = 'https://www.noisebridge.net/Flaschen_Taschen'
-
 
     def log(self, text):
         self.logs.append(text)
         if self.show_log == True:
             log('{}'.format(text))
 
-    def showText(self,text):
+    def showText(self, text):
         try:
             self.log('showText()')
             requests.post(self.url+'/text', {'text': text})

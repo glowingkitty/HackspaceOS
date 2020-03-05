@@ -1,6 +1,6 @@
 import time
-from secrets import Secret
-from log import log
+from _setup.secrets import Secret
+from _setup.log import log
 import boto3
 from botocore.exceptions import NoCredentialsError
 
@@ -41,7 +41,7 @@ class Aws():
             log('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from asci_art import show_message, show_messages
+        from _setup.asci_art import show_message, show_messages
         import json
 
         try:

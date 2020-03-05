@@ -6,9 +6,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         from _database.models import Event, Consensus, Person, Wish, Photo, Project
-        from config import Config
-        from secrets import Secret
-        from asci_art import show_message
+        from _setup.config import Config
+        from _setup.secrets import Secret
+        from _setup.asci_art import show_message
         import time
         import requests
 

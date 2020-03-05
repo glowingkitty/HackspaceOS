@@ -1,8 +1,8 @@
 from django.views import View
 import time
-from log import log
-from secrets import Secret
-from config import Config
+from _setup.log import log
+from _setup.secrets import Secret
+from _setup.config import Config
 
 
 class View(View):

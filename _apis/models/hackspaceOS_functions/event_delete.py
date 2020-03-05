@@ -2,7 +2,7 @@ class EventDelete():
     def __init__(self, request=None):
         from _database.models import Event
         from _apis.models import Notify
-        from config import Config
+        from _setup.config import Config
         from django.http import JsonResponse
 
         if not request.GET.get('str_slug', None) or Event.objects.filter(str_slug=request.GET.get('str_slug', None)).exists() == False:

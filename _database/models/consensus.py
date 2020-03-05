@@ -25,10 +25,10 @@ class ConsensusSet(models.QuerySet):
         from _database.models import Person
         from _apis.models import Discourse
         from dateutil import parser
-        from secrets import Secret
+        from _setup.secrets import Secret
         import time
         import requests
-        from asci_art import show_message
+        from _setup.asci_art import show_message
 
         DISCOURSE_URL = Secret('DISCOURSE.DISCOURSE_URL').value
         if DISCOURSE_URL:

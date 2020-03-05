@@ -1,4 +1,4 @@
-from log import log
+from _setup.log import log
 import time
 
 
@@ -30,7 +30,7 @@ class Notify():
             log('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from asci_art import show_message, show_messages
+        from _setup.asci_art import show_message, show_messages
         from _apis.models import Slack, Telegram
         try:
             if not Slack().setup_done and not Telegram().setup_done:

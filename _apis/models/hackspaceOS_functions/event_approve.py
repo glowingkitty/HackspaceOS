@@ -3,7 +3,7 @@ class EventApprove():
         from _database.models import Event
         from _apis.models import Notify
         from django.http import JsonResponse
-        from config import Config
+        from _setup.config import Config
 
         if not request or request.user.is_authenticated == False:
             response = JsonResponse(

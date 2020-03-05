@@ -2,8 +2,9 @@ import json
 import os
 import time
 
+
 class Config():
-    def __init__(self, target=None, username_for=None, file_path='config.json', show_log=True):
+    def __init__(self, target=None, username_for=None, file_path='_setup/config.json', show_log=True):
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log

@@ -1,5 +1,5 @@
 from django.db import models
-from log import log
+from _setup.log import log
 
 
 class PhotoSet(models.QuerySet):

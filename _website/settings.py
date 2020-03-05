@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import mimetypes
 import os
 
-from secrets import Secret
-from config import Config
+from _setup.secrets import Secret
+from _setup.config import Config
 
 MODE = Config('MODE.SELECTED').value
 

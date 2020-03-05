@@ -1,4 +1,4 @@
-from log import log
+from _setup.log import log
 
 
 class Helper():
@@ -68,7 +68,7 @@ class Helper():
     def DATETIME__from_date_and_time_STR(self, str__date, str__time):
         import pytz
         from datetime import datetime
-        from config import Config
+        from _setup.config import Config
 
         TIMEZONE_STRING = Config('PHYSICAL_SPACE.TIMEZONE_STRING').value
         if 'AM' in str__time or 'PM' in str__time:

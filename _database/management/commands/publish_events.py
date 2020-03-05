@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from _database.models import Event
-from log import log
+from _setup.log import log
 
 
 class Command(BaseCommand):

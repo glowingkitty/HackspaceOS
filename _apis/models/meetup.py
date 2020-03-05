@@ -1,8 +1,8 @@
 # by Marco Bartsch
-from log import log
+from _setup.log import log
 import time
-from config import Config
-from secrets import Secret
+from _setup.config import Config
+from _setup.secrets import Secret
 import requests
 import json
 
@@ -94,7 +94,7 @@ class Meetup():
             log('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from asci_art import show_message, show_messages
+        from _setup.asci_art import show_message, show_messages
         import json
 
         try:

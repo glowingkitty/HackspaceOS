@@ -17,7 +17,7 @@ class Response():
 
     @property
     def description(self):
-        from config import Config
+        from _setup.config import Config
         NAME = Config('BASICS.NAME').value
         HACKERSPACE_IS_SENTENCES = Config(
             'BASICS.HACKERSPACE_IS_SENTENCES').value
@@ -27,7 +27,7 @@ class Response():
         from datetime import datetime
         import calendar
         import pytz
-        from config import Config
+        from _setup.config import Config
         from _website.templatetags.translate import landingpage
         from _database.models import Event
 

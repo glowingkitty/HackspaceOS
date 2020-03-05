@@ -8,7 +8,7 @@ class ProjectsView(View):
     def get_context(self, request):
         self.log('ProjectsView.get_context()')
         from _database.models import Project
-        from secrets import Secret
+        from _setup.secrets import Secret
 
         request = Request(request)
 

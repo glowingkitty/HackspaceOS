@@ -1,6 +1,6 @@
 import time
-from config import Config
-from log import log
+from _setup.config import Config
+from _setup.log import log
 
 
 class Instagram():
@@ -24,7 +24,7 @@ class Instagram():
             log('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from asci_art import show_message, show_messages
+        from _setup.asci_art import show_message, show_messages
         import json
 
         try:

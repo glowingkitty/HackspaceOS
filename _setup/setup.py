@@ -1,5 +1,5 @@
 
-from asci_art import show_message, show_messages
+from _setup.asci_art import show_message, show_messages
 import requests
 from _apis.models import *
 
@@ -178,7 +178,7 @@ class Setup():
     def _new(self):
         import secrets
         import json
-        from asci_art import show_messages, set_secret, set_secrets, show_message
+        from _setup.asci_art import show_messages, set_secret, set_secrets, show_message
         from googletrans import Translator
         translator = Translator()
 

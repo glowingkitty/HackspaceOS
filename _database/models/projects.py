@@ -1,6 +1,6 @@
 from django.db import models
-from log import log
-from secrets import Secret
+from _setup.log import log
+from _setup.secrets import Secret
 
 
 class ProjectSet(models.QuerySet):
@@ -24,7 +24,7 @@ class ProjectSet(models.QuerySet):
         from _apis.models import Discourse
         from datetime import datetime
         from dateutil import parser
-        from asci_art import show_message
+        from _setup.asci_art import show_message
         import time
         import requests
 

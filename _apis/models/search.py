@@ -1,4 +1,4 @@
-from log import log
+from _setup.log import log
 from django.db.models import Q
 import time
 
@@ -26,7 +26,7 @@ class Search():
             log('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from asci_art import show_message, show_messages
+        from _setup.asci_art import show_message, show_messages
         from _apis.models import Discourse, MediaWiki
         try:
             discourse_setup_done = Discourse().setup_done
@@ -49,7 +49,7 @@ class Search():
         self.log('query()')
         from _apis.models import Discourse, MediaWiki
         from _database.models import Person, Event, MeetingNote, Guilde, Machine, Space, Consensus, Project
-        from config import Config
+        from _setup.config import Config
 
         if not query:
             return []

@@ -1,12 +1,12 @@
 from django.core import serializers
 from django.db import models
-from config import Config
-from asci_art import show_message
-from log import log
+from _setup.config import Config
+from _setup.asci_art import show_message
+from _setup.log import log
 
 
 class Event(models.Model):
-    from config import Config
+    from _setup.config import Config
     from _database.models.event_set import EventSet
 
     HACKERSPACE_ADDRESS = Config('PHYSICAL_SPACE.ADDRESS').value
@@ -123,7 +123,7 @@ class Event(models.Model):
     def RESULT__extractSpace(self, json_meetup_result):
         log('RESULT__extractSpace(json_meetup_result)')
         from _database.models import Space
-        from config import Config
+        from _setup.config import Config
 
         if 'how_to_find_us' in json_meetup_result:
             spaces = Space.objects.all()
@@ -144,7 +144,7 @@ class Event(models.Model):
     def RESULT__extractGuilde(self, json_meetup_result):
         log('RESULT__extractGuilde(json_meetup_result)')
         from _database.models import Guilde
-        from config import Config
+        from _setup.config import Config
 
         EVENTS_GUILDES_OVERWRITE = Config(
             'EVENTS.EVENTS_GUILDES_OVERWRITE').value
@@ -178,7 +178,7 @@ class Event(models.Model):
 
     def STR__extractTimezone(self, json_meetup_result):
         log('STR__extractTimezone(json_meetup_result)')
-        from config import Config
+        from _setup.config import Config
         TIMEZONE_STRING = Config('PHYSICAL_SPACE.TIMEZONE_STRING').value
 
         if 'utc_offset' in json_meetup_result and json_meetup_result['utc_offset'] != self.INT__timezoneToOffset(TIMEZONE_STRING):
@@ -190,7 +190,7 @@ class Event(models.Model):
     def get_lat_lon_and_location(self, str_location):
         from geopy.geocoders import Nominatim
         from geopy.exc import GeocoderTimedOut
-        from config import Config
+        from _setup.config import Config
 
         geolocator = Nominatim(user_agent=Config('BASICS.NAME').value.lower())
         str_location = str_location.replace('\n', ', ')
@@ -211,7 +211,7 @@ class Event(models.Model):
 
     def createEvent(self, event):
         log('createEvent(event)')
-        from config import Config
+        from _setup.config import Config
         from dateutil.parser import parse
         from datetime import datetime
 
@@ -616,7 +616,7 @@ class Event(models.Model):
         import urllib.parse
         from _database.models import Helper, Space, Person
         import bleach
-        from config import Config
+        from _setup.config import Config
         import re
 
         log('--> clean from scripts')

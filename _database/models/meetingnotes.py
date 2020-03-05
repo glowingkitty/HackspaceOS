@@ -1,6 +1,6 @@
 from django.db import models
-from log import log
-from config import Config
+from _setup.log import log
+from _setup.config import Config
 
 
 class MeetingNoteSet(models.QuerySet):
@@ -77,7 +77,7 @@ class MeetingNote(models.Model):
     def date(self):
         import pytz
         from datetime import datetime
-        from config import Config
+        from _setup.config import Config
 
         local_timezone = pytz.timezone(
             Config('PHYSICAL_SPACE.TIMEZONE_STRING').value)
@@ -128,7 +128,7 @@ class MeetingNote(models.Model):
         import time
         from datetime import datetime
         import pytz
-        from config import Config
+        from _setup.config import Config
         from django.template.loader import get_template
 
         browser = self.openMeetingNotes(
@@ -182,7 +182,7 @@ class MeetingNote(models.Model):
         import os
         import sys
         import re
-        from config import Config
+        from _setup.config import Config
 
         try:
             # find main topics via heading in note template

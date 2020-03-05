@@ -1,7 +1,7 @@
-from log import log
+from _setup.log import log
 from django.db import models
-from config import Config
-from secrets import Secret
+from _setup.config import Config
+from _setup.secrets import Secret
 
 
 class EventSet(models.QuerySet):
@@ -59,7 +59,7 @@ class EventSet(models.QuerySet):
             new_event_UNIX_time, new_event_duration_minutes, space))
         import pytz
         from datetime import datetime, timedelta
-        from config import Config
+        from _setup.config import Config
         from _database.models import Event
 
         local_time = datetime.fromtimestamp(
@@ -198,7 +198,7 @@ class EventSet(models.QuerySet):
             minutes, name_only))
         import pytz
         from datetime import datetime, timedelta
-        from config import Config
+        from _setup.config import Config
 
         date_in_x_minutes = datetime.now(pytz.timezone(
             Config('PHYSICAL_SPACE.TIMEZONE_STRING').value))+timedelta(minutes=minutes)
