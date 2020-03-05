@@ -14,6 +14,9 @@ import mimetypes
 import os
 
 from secrets import Secret
+from config import Config
+
+MODE = Config('MODE.SELECTED').value
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,13 +29,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = Secret('DJANGO.SECRET_KEY').value
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-
-ALLOWED_HOSTS = ['*']
+if MODE == 'PRODUCTION':
+    DEBUG = False
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    ALLOWED_HOSTS = [Config('WEBSITE.DOMAIN').value]
+else:
+    DEBUG = True
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
