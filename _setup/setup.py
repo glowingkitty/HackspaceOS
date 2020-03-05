@@ -6,40 +6,10 @@ from _apis.models import *
 
 def get_template(which):
     import json
-    file_path = '_database/templates/'+which+'_template.json'
+    file_path = '_setup/'+which+'_template.json'
     with open(file_path) as json_file:
         template = json.load(json_file)
     return template
-
-
-def create_folder(folder_path):
-    import os
-
-    # You should change 'test' to your preferred folder.
-    MYDIR = (folder_path)
-    CHECK_FOLDER = os.path.isdir(MYDIR)
-
-    # If folder doesn't exist, then create it.
-    if not CHECK_FOLDER:
-        os.makedirs(MYDIR)
-
-
-def copy_file_to_backup(file_path, folder_name):
-    try:
-        from shutil import copyfile
-        copyfile(file_path, 'setup_backup/' +
-                 folder_name+'/'+file_path.split('/')[-1])
-    except:
-        pass
-
-
-def copy_file_from_backup(file_path, folder_name):
-    try:
-        from shutil import copyfile
-        copyfile('setup_backup/' +
-                 folder_name+'/'+file_path.split('/')[-1], file_path)
-    except:
-        pass
 
 
 def get_size(file_path):
