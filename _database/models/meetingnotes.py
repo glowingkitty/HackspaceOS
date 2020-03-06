@@ -136,7 +136,7 @@ class MeetingNote(models.Model):
 
         # copy template for new meeting into riseup pad
         meeting_template = get_template(os.path.join(
-            sys.path[0], '_database/templates/meeting_notes.txt')).render({
+            sys.path[0], '_setup/meeting_notes_template.txt')).render({
                 'MeetingNumber': MeetingNote.objects.count()+1,
                 'HackspaceName': hackspace_name,
                 'Date': str(

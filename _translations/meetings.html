@@ -89,7 +89,7 @@ Presentation mode
 {% if language == 'hebrew' %}
 פתיחת מפגש חדש על בסיס 
 {% if 'WEBSITE.WEBSITE_GIT'|get_config %}
-<a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ MEETINGS.IMPORTANT_URLS.MEETING_TEMPLATE|get_config }}" class="highlight_text_red" target="_blank">
+<a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}/_setup/meeting_notes_template.txt" class="highlight_text_red" target="_blank">
     התבנית שלנו
 </a>{% else %}
 התבנית שלנו
@@ -97,7 +97,7 @@ Presentation mode
 <br>
 אנא המתן ...
 {% else %}
-Starting a new meeting based on {% if 'WEBSITE.WEBSITE_GIT'|get_config %}<a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ MEETINGS.IMPORTANT_URLS.MEETING_TEMPLATE|get_config }}" class="highlight_text_red" target="_blank">our template</a>{% else %}our template{% endif %}.<br>
+Starting a new meeting based on {% if 'WEBSITE.WEBSITE_GIT'|get_config %}<a href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}/_setup/meeting_notes_template.txt" class="highlight_text_red" target="_blank">our template</a>{% else %}our template{% endif %}.<br>
 Please wait a minute…
 {% endif %}
 
@@ -126,20 +126,16 @@ Is the meeting over?
 
 {% elif word == 'If yes... meeting will be saved...' %}
 {% if language == 'hebrew' %}
-{% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
 אם תלחץ על כן, 
-<a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.meeting_end }}" target="_blank">
+<a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}/_database/models/meetingnotes.py" target="_blank">
     תסריט זה יסיים את הפגישה
 </a>
  וישמור אותו ב- 
  <a class="inline_link" href="/meetings" target="_blank">
     ארכיון שלנו
 </a>.
-{% endwith %}
 {% else %}
-{% with IMPORTANT_URLS='MEETINGS.IMPORTANT_URLS'|get_config %}
-If you click yes, <a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}{{ IMPORTANT_URLS.meeting_end }}" target="_blank">this script will end the meeting</a> and save it to <a class="inline_link" href="/meetings" target="_blank">our archive</a>.
-{% endwith %}
+If you click yes, <a class="inline_link" href="{{ 'WEBSITE.WEBSITE_GIT'|get_config }}/_database/models/meetingnotes.py" target="_blank">this script will end the meeting</a> and save it to <a class="inline_link" href="/meetings" target="_blank">our archive</a>.
 {% endif %}
 
 

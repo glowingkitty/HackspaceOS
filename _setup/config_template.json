@@ -146,12 +146,7 @@
 
     "MEETINGS": {
         "__info__0": "Do you use RiseUpPad? A pretty useful real time text editor for groups. Like Google Docs, but without Google and simpler. Enter your RiseUpPad meeting note path here, so we can automatically create new meeting notes for you and save them when you are done. https://pad.riseup.net/p/{{ PATH }}",
-        "RISEUPPAD_MEETING_PATH": null,
-
-        "IMPORTANT_URLS": {
-            "END_MEETING": "/models/meetingnotes.py#L132",
-            "MEETING_TEMPLATE": "/Website/templates/meeting_notes.txt"
-        }
+        "RISEUPPAD_MEETING_PATH": null
     },
 
     "CONTACT": {
@@ -270,5 +265,18 @@
 
     "EXTRAS": {
         "SAYHELLO": null
+    },
+    "UNITTESTS": {
+        "TELEGRAM_TEST_MESSAGES": [
+            "Did you know? There are more then 1000 hackspaces worldwide! Impressive, right? Check them out at https://wiki.hackerspaces.org/List_of_Hacker_Spaces",
+            "Always remember - there is one core rule in our space: be excellent to each other! :)",
+            "I like Furbies - and I like them singing! https://youtu.be/GYLBjScgb7o?t=147",
+            "Some inspiration - a music instrument using 2000 marbles! https://www.youtube.com/watch?v=IvUU8joBb1Q",
+            "Remember - be nice to robots :) https://www.youtube.com/watch?v=dKjCWfuvYxQ",
+            "A music video made in zero-gravity: https://www.youtube.com/watch?v=pnTqZ68fI7Q",
+            "That's what I call a time investment... for just one music video... https://www.youtube.com/watch?v=QvW61K2s0tA",
+            "What's your favorite hardware project?",
+            "What's your favorite software project?"
+        ]
     }
 }
