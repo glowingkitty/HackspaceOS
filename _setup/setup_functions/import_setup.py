@@ -6,7 +6,6 @@ class SetupImport():
     def __init__(self, backup_files):
         self.backup_files = backup_files
 
-        # TODO list directory above
         folders = os.listdir()
         folder_options = ''
         counter = 1

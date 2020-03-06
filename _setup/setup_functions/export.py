@@ -21,7 +21,6 @@ class SetupExport():
             from zipfile import ZipFile, ZIP_DEFLATED
 
             # copy files into folder
-            # TODO export to folder above
             with ZipFile('setup_backup__'+folder_name+'.zip', 'w', ZIP_DEFLATED) as zip:
                 # writing each file one by one
                 for file in self.backup_files:
