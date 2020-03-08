@@ -14,6 +14,15 @@ class Setup():
             '_website/static/images/favicons/apple-touch-icon.png',
         ]
 
+    @property
+    def complete(self):
+        import os
+        # check if config and secrets file exist
+        if os.path.isfile('_setup/config.json') and os.path.isfile('_setup/secrets.json'):
+            return True
+        else:
+            return False
+
     def _menu(self):
         from _setup.setup_functions.menu import SetupMenu
         SetupMenu(self.backup_files)
