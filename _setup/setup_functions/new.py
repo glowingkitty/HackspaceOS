@@ -13,9 +13,10 @@ class SetupNew():
 
         self.setup_config()
         self.setup_secrets()
+        self.setup_cronjobs()
 
         show_messages([
-            '✅ Yeahh we are done! I saved your config.json and secrets.json files in the main directory. So you can easily change them any time.',
+            '✅ Yeahh we are done! I saved your config.json and secrets.json files in the main directory. So you can easily change them any time. Also I created cronjobs to keep your Hackspace website running properly.',
         ])
 
     def get_template(self, which):
@@ -80,3 +81,7 @@ class SetupNew():
         for api in apis:
             if not api().setup_done:
                 api().setup()
+
+    def setup_cronjobs(self):
+        from _setup.cronjobs import Cronjob
+        Cronjob().setup()

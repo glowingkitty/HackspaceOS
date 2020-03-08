@@ -1,6 +1,7 @@
 import json
 import os
 import time
+from _setup.log import log
 
 
 class Secret():
