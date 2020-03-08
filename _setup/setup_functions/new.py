@@ -26,7 +26,7 @@ class SetupNew():
         return template
 
     def setup_config(self):
-        from _setup.setup_functions.new_functions.name import SetupNewName
+        from _setup.setup_functions.new_functions.languages import SetupLanguages
         from _setup.setup_functions.new_functions.riseuppad import SetupNewRiseupPad
         from _setup.setup_functions.new_functions.location import SetupNewLocation
         from _setup.setup_functions.new_functions.latlon_timezone import SetupNewLatLonTimezone
@@ -35,7 +35,9 @@ class SetupNew():
 
         later_then_config = 'Guess later then... Open your config.json at any time to make changes.'
 
-        self.config = SetupNewName(self.config).config
+        self.config = set_secret(self.config, later_then_config,
+                                 'First: What is the name of your hackerspace?', 'BASICS', 'NAME')
+        self.config = SetupLanguages(self.config).config
         self.config = SetupNewRiseupPad(self.config).config
         self.config = SetupNewLocation(self.config, later_then_config).config
         self.config = SetupNewLatLonTimezone(self.config).config

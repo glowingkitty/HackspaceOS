@@ -12,10 +12,13 @@ class SetupNewLocation():
         if self.config['PHYSICAL_SPACE']['ADDRESS']['CITY']:
             self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['english'][0] = self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['english'][0].replace(
                 '{{ CITY }}', self.config['PHYSICAL_SPACE']['ADDRESS']['CITY'])
-            self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['hebrew'][0] = self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['hebrew'][0].replace(
-                '{{ CITY }}', translator.translate(
-                    text=self.config['PHYSICAL_SPACE']['ADDRESS']['CITY'],
-                    dest='he').text)
+
+            # if hebrew in languages, add translation
+            if 'hebrew' in self.config['WEBSITE']['LANGUAGES']:
+                self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['hebrew'][0] = self.config['BASICS']['HACKERSPACE_IS_SENTENCES']['hebrew'][0].replace(
+                    '{{ CITY }}', translator.translate(
+                        text=self.config['PHYSICAL_SPACE']['ADDRESS']['CITY'],
+                        dest='he').text)
 
         self.config = set_secret(self.config, later_then_config,
                                  'Enter your hackerspace street & house number.', 'PHYSICAL_SPACE', 'ADDRESS', 'STREET')
