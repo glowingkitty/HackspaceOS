@@ -5,7 +5,11 @@ class EventDelete():
         from _setup.config import Config
         from django.http import JsonResponse
 
-        if not request.GET.get('str_slug', None) or Event.objects.filter(str_slug=request.GET.get('str_slug', None)).exists() == False:
+        if not request or request.user.is_authenticated == False:
+            response = JsonResponse(
+                {'success': False, 'error': '--> Failed: User not logged in'})
+            response.status_code = 403
+        elif not request.GET.get('str_slug', None) or Event.objects.filter(str_slug=request.GET.get('str_slug', None)).exists() == False:
             response = JsonResponse(
                 {'success': False, 'error': '--> Failed: Result not found'})
             response.status_code = 404
