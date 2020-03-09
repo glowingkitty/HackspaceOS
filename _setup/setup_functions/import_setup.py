@@ -3,8 +3,9 @@ import os
 
 
 class SetupImport():
-    def __init__(self, backup_files):
+    def __init__(self, backup_files, test=False):
         self.backup_files = backup_files
+        self.test = test
 
         folders = os.listdir()
         folder_options = ''

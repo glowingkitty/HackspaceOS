@@ -7,8 +7,9 @@ from _setup.setup_functions.delete import SetupDelete
 
 
 class SetupMenu():
-    def __init__(self, backup_files):
+    def __init__(self, backup_files, test=False):
         self.backup_files = backup_files
+        self.test = test
         self.options = ['Create a new website']
         self.options_string = '1 - Create a new website'
         self.counter = 1
@@ -67,9 +68,11 @@ class SetupMenu():
         selection_processed = False
         while selection_processed == False:
             try:
-                selection = input()
+                selection = 1 if self.test else input()
                 selector_number = int(selection)-1
                 if self.options[selector_number] == 'Create a new website':
+                    if self.test:
+                        break
                     SetupNew()
                     selection_processed = True
                 elif self.options[selector_number] == 'Export current setup':

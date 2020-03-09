@@ -1,3 +1,6 @@
+import time
+
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -69,34 +72,39 @@ def show_message(text):
 def show_messages(list_messages):
     for message in list_messages:
         show_message(message)
-        input(bcolors.WARNING+"Press Enter to continue..."+bcolors.ENDC)
+        print(bcolors.WARNING+"Continue in 3 seconds..."+bcolors.ENDC)
+        time.sleep(3)
 
 
-def set_secret(json_secrets, later_then_message, message, str_level_0, str_level_1=None, str_level_2=None, str_level_3=None):
+def set_secret(input_text, json_secrets, later_then_message, message, str_level_0, str_level_1=None, str_level_2=None, str_level_3=None):
     if str_level_3:
         show_message(message)
-        json_secrets[str_level_0][str_level_1][str_level_2][str_level_3] = input()
+        json_secrets[str_level_0][str_level_1][str_level_2][str_level_3] = input(
+        ) if input_text == 'input' else input_text
         if not json_secrets[str_level_0][str_level_1][str_level_2][str_level_3]:
             json_secrets[str_level_0][str_level_1][str_level_2][str_level_3] = None
             show_message(later_then_message)
 
     elif str_level_2:
         show_message(message)
-        json_secrets[str_level_0][str_level_1][str_level_2] = input()
+        json_secrets[str_level_0][str_level_1][str_level_2] = input(
+        ) if input_text == 'input' else input_text
         if not json_secrets[str_level_0][str_level_1][str_level_2]:
             json_secrets[str_level_0][str_level_1][str_level_2] = None
             show_message(later_then_message)
 
     elif str_level_1:
         show_message(message)
-        json_secrets[str_level_0][str_level_1] = input()
+        json_secrets[str_level_0][str_level_1] = input(
+        ) if input_text == 'input' else input_text
         if not json_secrets[str_level_0][str_level_1]:
             json_secrets[str_level_0][str_level_1] = None
             show_message(later_then_message)
 
     elif str_level_0:
         show_message(message)
-        json_secrets[str_level_0] = input()
+        json_secrets[str_level_0] = input(
+        ) if input_text == 'input' else input_text
         if not json_secrets[str_level_0]:
             json_secrets[str_level_0] = None
             show_message(later_then_message)

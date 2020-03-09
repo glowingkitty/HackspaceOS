@@ -6,13 +6,18 @@ import time
 
 
 class Slack():
-    def __init__(self, api_token=Secret('SLACK.API_TOKEN').value, show_log=True):
+    def __init__(
+            self,
+            api_token=Secret('SLACK.API_TOKEN').value,
+            show_log=True,
+            test=False):
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
         self.api_token = api_token
         self.setup_done = True if api_token else False
         self.help = 'https://github.com/slackapi/python-slackclient'
+        self.test = test
 
     @property
     def config(self):
@@ -33,15 +38,15 @@ class Slack():
                 ['Let\'s setup Slack - to notify your hackspace about upcoming events, new created events and whatever else you want!'])
             show_message(
                 'Go to https://api.slack.com/apps and create an app. Once you are done: What is your API token?')
-            self.api_token = input()
-            while not self.api_token:
-                self.api_token = input()
+            self.api_token = None if self.test else input()
+            if not self.api_token and not self.test:
+                raise KeyboardInterrupt
 
-            with open('secrets.json') as json_secrets:
+            with open('_setup/secrets.json') as json_secrets:
                 secrets = json.load(json_secrets)
                 secrets['SLACK']['API_TOKEN'] = self.api_token
 
-            with open('secrets.json', 'w') as outfile:
+            with open('_setup/secrets.json', 'w') as outfile:
                 json.dump(secrets, outfile, indent=4)
 
             show_message('Slack setup complete.')

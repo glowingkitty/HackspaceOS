@@ -2,6 +2,7 @@ from _setup.log import log
 import requests
 from _setup.secrets import Secret
 import time
+from _setup.tests.test_setup import SetupTestConfig
 
 
 class Discourse():
@@ -10,7 +11,8 @@ class Discourse():
             url=Secret('DISCOURSE.DISCOURSE_URL').value,
             api_key=Secret('DISCOURSE.API_KEY').value,
             api_username=Secret('DISCOURSE.API_USERNAME').value,
-            show_log=True):
+            show_log=True,
+            test=False):
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
@@ -19,6 +21,7 @@ class Discourse():
         self.api_username = api_username
         self.setup_done = True if url else False
         self.help = 'https://docs.discourse.org/'
+        self.test = test
 
     @property
     def config(self):
@@ -42,21 +45,22 @@ class Discourse():
             if not self.url:
                 show_message(
                     'What is the URL of your Discourse group?')
-                self.url = input()
+                self.url = SetupTestConfig(
+                    'SOCIAL.DISCOURSE_GROUP').value if self.test else input()
                 while not self.url:
                     self.url = input()
 
             if not self.api_key:
                 show_message(
                     'And what is your API key?')
-                self.api_key = input()
+                self.api_key = None if self.test else input()
 
             if self.api_key:
                 show_message(
                     'And your API username?')
-                self.api_username = input()
+                self.api_username = None if self.test else input()
 
-            with open('secrets.json') as json_secrets:
+            with open('_setup/secrets.json') as json_secrets:
                 secrets = json.load(json_secrets)
                 secrets['DISCOURSE']['DISCOURSE_URL'] = self.url
                 if self.api_key:
@@ -64,7 +68,7 @@ class Discourse():
                 if self.api_username:
                     secrets['DISCOURSE']['API_USERNAME'] = self.api_username
 
-            with open('secrets.json', 'w') as outfile:
+            with open('_setup/secrets.json', 'w') as outfile:
                 json.dump(secrets, outfile, indent=4)
 
             show_message('Discourse setup complete.')

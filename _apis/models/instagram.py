@@ -1,11 +1,19 @@
 import time
 from _setup.config import Config
 from _setup.log import log
+from _setup.tests.test_setup import SetupTestConfig
 
 
 class Instagram():
-    def __init__(self, username=Config('SOCIAL.SOCIAL_NETWORKS', username_for='instagram.com').value, hashtag=Config('SOCIAL.HASHTAG').value, show_log=True):
+    def __init__(
+            self,
+            username=Config('SOCIAL.SOCIAL_NETWORKS',
+                            username_for='instagram.com').value,
+            hashtag=Config('SOCIAL.HASHTAG').value,
+            show_log=True,
+            test=False):
         self.logs = ['self.__init__']
+        self.test = test
         self.started = round(time.time())
         self.show_log = show_log
         self.help = 'https://github.com/rarcega/instagram-scraper'
@@ -35,17 +43,19 @@ class Instagram():
                 if not self.username:
                     show_message(
                         'What is the username of your hackspace on Instagram?')
-                    self.username = input()
-                    if 'instagram.com/' in self.username:
+                    self.username = SetupTestConfig(
+                        'SOCIAL.INSTAGRAM_USERNAME').value if self.test else input()
+                    if self.username and 'instagram.com/' in self.username:
                         self.username = self.username.split(
                             'instagram.com/')[1].replace('/', '')
 
                 if not self.hashtag:
                     show_message(
                         'What hashtag does your hackspace use on Instagram (and Twitter)?')
-                    self.hashtag = input().replace('#', '')
+                    self.hashtag = SetupTestConfig(
+                        'SOCIAL.HASHTAG').value if self.test else input().replace('#', '')
 
-                with open('config.json') as json_config:
+                with open('_setup/config.json') as json_config:
                     config = json.load(json_config)
 
                     if self.username:
@@ -53,14 +63,15 @@ class Instagram():
                             if 'instagram.com/' in entry['url']:
                                 break
                         else:
-                            config['SOCIAL']['SOCIAL_NETWORKS'].append({
-                                "name": "Instagram",
-                                "url": "https://www.instagram.com/"+self.username+'/'
-                            })
+                            if self.username:
+                                config['SOCIAL']['SOCIAL_NETWORKS'].append({
+                                    "name": "Instagram",
+                                    "url": "https://www.instagram.com/"+self.username+'/'
+                                })
 
                     config['SOCIAL']['HASHTAG'] = self.hashtag
 
-                with open('config.json', 'w') as outfile:
+                with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
             show_message('Instagram setup complete.')

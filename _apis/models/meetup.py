@@ -5,6 +5,7 @@ from _setup.config import Config
 from _setup.secrets import Secret
 import requests
 import json
+from _setup.tests.test_setup import SetupTestConfig
 
 
 class Meetup():
@@ -15,7 +16,8 @@ class Meetup():
                  client_id=Secret('MEETUP.CLIENT_ID').value,
                  client_secret=Secret('MEETUP.CLIENT_SECRET').value,
                  redirect_uri=Secret('MEETUP.REDIRECT_URI').value,
-                 show_log=True):
+                 show_log=True,
+                 test=False):
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
@@ -28,6 +30,7 @@ class Meetup():
         self.redirect_uri = redirect_uri
         self.setup_done = True if group else False
         self.help = 'https://www.meetup.com/meetup_api/docs/'
+        self.test = test
 
     @property
     def config(self):
@@ -74,12 +77,12 @@ class Meetup():
                                            }).json()
 
         if 'access_token' in self.response_json:
-            with open('secrets.json') as json_file:
+            with open('_setup/secrets.json') as json_file:
                 secrets = json.load(json_file)
             secrets['MEETUP']['ACCESS_TOKEN'] = self.response_json['access_token']
             secrets['MEETUP']['ACCESS_TOKEN_VALID_UPTO'] = round(
                 time.time()+self.response_json['expires_in'])
-            with open('secrets.json', 'w') as outfile:
+            with open('_setup/secrets.json', 'w') as outfile:
                 json.dump(secrets, outfile, indent=4)
             return self.response_json['access_token']
         else:
@@ -116,13 +119,13 @@ class Meetup():
                     show_messages(
                         ['Let\'s setup Meetup.com - so we can automatically import all your events from Meetup and show them on your new website.'])
 
-                    show_message(
-                        'What is the URL of your Meetup group? ')
-                    self.group = input()
-                    while not self.group:
-                        self.group = input()
+                    show_message('What is the URL of your Meetup group?')
+                    self.group = SetupTestConfig(
+                        'EVENTS.MEETUP_GROUP').value if self.test else input()
+                    if not self.group and not self.test:
+                        raise KeyboardInterrupt
 
-                with open('config.json') as json_config:
+                with open('_setup/config.json') as json_config:
                     config = json.load(json_config)
 
                     if self.group.endswith('/'):
@@ -139,7 +142,7 @@ class Meetup():
                             "url": self.group
                         })
 
-                with open('config.json', 'w') as outfile:
+                with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
             show_message('Meetup setup complete.')

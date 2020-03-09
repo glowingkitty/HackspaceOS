@@ -3,10 +3,11 @@ import time
 
 
 class Notify():
-    def __init__(self, show_log=True):
+    def __init__(self, show_log=True, test=False):
         self.logs = ['self.__init__']
         self.show_log = show_log
         self.started = round(time.time())
+        self.test = test
 
     @property
     def setup_done(self):
@@ -37,10 +38,10 @@ class Notify():
                 show_messages(
                     ['Let\'s setup notifications for your new website!'])
 
-                Slack().setup()
+                Slack(test=self.test).setup()
 
                 if not Slack().setup_done and not Telegram().setup_done:
-                    Telegram().setup()
+                    Telegram(test=self.test).setup()
 
             show_message('Notify setup complete.')
         except KeyboardInterrupt:

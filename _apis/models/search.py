@@ -4,10 +4,11 @@ import time
 
 
 class Search():
-    def __init__(self, show_log=True):
+    def __init__(self, show_log=True, test=False):
         self.logs = ['self.__init__']
         self.show_log = show_log
         self.started = round(time.time())
+        self.test = test
 
     @property
     def setup_done(self):
@@ -29,17 +30,17 @@ class Search():
         from _setup.asci_art import show_message, show_messages
         from _apis.models import Discourse, MediaWiki
         try:
-            discourse_setup_done = Discourse().setup_done
-            mediawiki_setup_done = MediaWiki().setup_done
+            discourse_setup_done = Discourse(test=self.test).setup_done
+            mediawiki_setup_done = MediaWiki(test=self.test).setup_done
             if not discourse_setup_done or not mediawiki_setup_done:
                 show_messages(
                     ['Let\'s setup the search for your new website!'])
 
                 if not discourse_setup_done:
-                    Discourse().setup()
+                    Discourse(test=self.test).setup()
 
                 if not mediawiki_setup_done:
-                    MediaWiki().setup()
+                    MediaWiki(test=self.test).setup()
 
             show_message('Search setup complete.')
         except KeyboardInterrupt:

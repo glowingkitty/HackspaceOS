@@ -8,6 +8,7 @@ systemd/
 
 # setup files
 config.json
+config_temp_backup.json
 header_banner.jpg
 header_logo.jpg
 logo.svg
@@ -19,6 +20,7 @@ favicon.ico
 
 config/
 secrets.json
+secrets_temp_backup.json
 *.sketch
 staticfiles/
 pyvenv/

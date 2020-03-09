@@ -4,7 +4,12 @@ from _setup.log import log
 
 
 class Flickr():
-    def __init__(self, url=Config('SOCIAL.FLICKR_URL').value, page=None, show_log=True):
+    def __init__(
+            self,
+            url=Config('SOCIAL.FLICKR_URL').value,
+            page=None,
+            show_log=True,
+            test=False):
         from _apis.models import Scraper
         self.logs = ['self.__init__']
         self.started = round(time.time())
@@ -12,10 +17,11 @@ class Flickr():
         self.page = page
         self.setup_done = True if url else False
         self.url = url
+        self.test = test
 
     @property
     def config(self):
-        return {"FLICKR_URL": Secret('SOCIAL.FLICKR_URL').value}
+        return {"FLICKR_URL": Config('SOCIAL.FLICKR_URL').value}
 
     def log(self, text):
         import os
@@ -34,15 +40,15 @@ class Flickr():
 
                 show_message(
                     'Enter the URL on Flickr which we should scrape - for example an album:')
-                self.url = input()
-                while not self.url:
-                    self.url = input()
+                self.url = None if self.test else input()
+                if not self.url and not self.test:
+                    raise KeyboardInterrupt
 
-                with open('config.json') as json_config:
+                with open('_setup/config.json') as json_config:
                     config = json.load(json_config)
                     config['SOCIAL']['FLICKR_URL'] = self.url
 
-                with open('config.json', 'w') as outfile:
+                with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
             show_message('Flickr setup complete.')

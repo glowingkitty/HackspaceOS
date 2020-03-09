@@ -1,11 +1,17 @@
 import time
 from _setup.config import Config
 from _setup.log import log
+from _setup.tests.test_setup import SetupTestConfig
 
 
 class GooglePhotos():
-    def __init__(self, urls=Config('SOCIAL.GOOGLE_PHOTOS_ALBUM_URLS').value, show_log=True):
+    def __init__(
+            self,
+            urls=Config('SOCIAL.GOOGLE_PHOTOS_ALBUM_URLS').value,
+            show_log=True,
+            test=False):
         self.logs = ['self.__init__']
+        self.test = test
         self.started = round(time.time())
         self.show_log = show_log
         self.setup_done = True if urls else False
@@ -32,16 +38,17 @@ class GooglePhotos():
 
                 show_message(
                     'Enter the URLs on Google Photos which we should scrape - for example an album: (separated by ,)')
-                self.urls = input()
-                while not self.urls:
-                    self.urls = input()
+                self.urls = SetupTestConfig(
+                    'SOCIAL.GOOGLE_PHOTOS_ALBUM_URLS').value[0] if self.test else input()
+                if not self.urls and not self.test:
+                    raise KeyboardInterrupt
 
-                with open('config.json') as json_config:
+                with open('_setup/config.json') as json_config:
                     config = json.load(json_config)
                     config['SOCIAL']['GOOGLE_PHOTOS_ALBUM_URLS'] = self.urls.replace(', ', ',').split(
                         ',')
 
-                with open('config.json', 'w') as outfile:
+                with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
             show_message('Google Photos setup complete.')

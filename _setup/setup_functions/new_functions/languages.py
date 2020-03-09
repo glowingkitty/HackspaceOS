@@ -2,12 +2,14 @@ from _setup.asci_art import show_message
 
 
 class SetupLanguages():
-    def __init__(self, config):
+    def __init__(self, config, test=False):
         self.config = config
+        self.test = test
 
         show_message(
             'Besides english - what languages should your website support? Currently available: hebrew.')
-        input_languages = input().replace(', ', ',').split(',')
+        input_languages = ['hebrew'] if self.test else input().replace(
+            ', ', ',').split(',')
         self.config['WEBSITE']['LANGUAGES'] = ['english']
         if 'hebrew' in input_languages:
             self.config['WEBSITE']['LANGUAGES'].append('hebrew')

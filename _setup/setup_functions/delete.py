@@ -3,8 +3,9 @@ import os
 
 
 class SetupDelete():
-    def __init__(self, backup_files):
+    def __init__(self, backup_files, test=False):
         self.backup_files = backup_files
+        self.test = test
 
         show_message(
             'WARNING: Are you sure you want to delete your current setup? This will delete the config.json, secrets.json and your logos & favicons. Enter "delete" to delete the current setup.')

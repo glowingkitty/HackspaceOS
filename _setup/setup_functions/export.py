@@ -2,8 +2,9 @@ from _setup.asci_art import show_message, show_messages
 
 
 class SetupExport():
-    def __init__(self, backup_files):
+    def __init__(self, backup_files, test=False):
         self.backup_files = backup_files
+        self.test = test
 
         show_messages([
             'Hello! It seems you want to export your current settings? (your config.json, secrets.json and important images)'

@@ -2,16 +2,18 @@ import requests
 from _setup.log import log
 from _setup.config import Config
 import time
+from _setup.tests.test_setup import SetupTestConfig
 
 
 class MediaWiki():
-    def __init__(self, url=Config('BASICS.WIKI.API_URL').value, show_log=True):
+    def __init__(self, url=Config('BASICS.WIKI.API_URL').value, show_log=True, test=False):
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
         self.url = url
         self.setup_done = True if url else False
         self.help = 'https://www.mediawiki.org/wiki/API:Main_page'
+        self.test = test
 
     @property
     def config(self):
@@ -39,15 +41,16 @@ class MediaWiki():
 
                     show_message(
                         'What is the API URL of your Wiki?')
-                    self.url = input()
+                    self.url = SetupTestConfig(
+                        'BASICS.WIKI.API_URL').value if self.test else input()
                     while not self.url:
                         self.url = input()
 
-                with open('config.json') as json_config:
+                with open('_setup/config.json') as json_config:
                     config = json.load(json_config)
                     config['BASICS']['WIKI']['API_URL'] = self.url
 
-                with open('config.json', 'w') as outfile:
+                with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
             show_message('MediaWiki setup complete.')

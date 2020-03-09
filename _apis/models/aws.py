@@ -11,8 +11,10 @@ class Aws():
                  secret_access_key=Secret('AWS.SECRET_ACCESS_KEY').value,
                  bucket_name=Secret('AWS.S3.BUCKET_NAME').value,
                  server_area=Secret('AWS.S3.SERVER_AREA').value,
-                 show_log=True):
+                 show_log=True,
+                 test=False):
         self.logs = ['self.__init__']
+        self.test = test
         self.started = round(time.time())
         self.show_log = show_log
         self.setup_done = True if access_key_id and secret_access_key and bucket_name and server_area else False
@@ -51,45 +53,45 @@ class Aws():
 
                 show_message(
                     'To upload photos to S3: Enter your AWS ACCESS_KEYID')
-                self.access_key_id = input()
-                while not self.access_key_id:
-                    self.access_key_id = input()
+                self.access_key_id = None if self.test else input()
+                if not self.access_key_id and not self.test:
+                    raise KeyboardInterrupt
 
                 show_message(
                     'To upload photos to S3: Enter your AWS SECRET_ACCESS_KEY')
-                self.secret_access_key = input()
-                while not self.secret_access_key:
-                    self.secret_access_key = input()
+                self.secret_access_key = None if self.test else input()
+                if not self.secret_access_key and not self.test:
+                    raise KeyboardInterrupt
 
                 show_message(
                     'To upload photos to S3: Enter your S3 BUCKET_NAME')
-                self.bucket_name = input()
-                while not self.bucket_name:
-                    self.bucket_name = input()
+                self.bucket_name = None if self.test else input()
+                if not self.bucket_name and not self.test:
+                    raise KeyboardInterrupt
 
                 show_message(
                     'To upload photos to S3: Enter your S3 SERVER_AREA')
-                self.server_area = input()
-                while not self.server_area:
-                    self.server_area = input()
+                self.server_area = None if self.test else input()
+                if not self.server_area and not self.test:
+                    raise KeyboardInterrupt
 
                 show_message(
                     'To delete photos from S3: Did you configure the AWS CLI? (yes|no)')
-                reply = input()
+                reply = 'yes' if self.test else input()
                 if reply == 'no':
                     show_messages([
                         'Install the AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html',
                         'Configure your AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration'
                     ])
 
-                with open('secrets.json') as json_config:
+                with open('_setup/secrets.json') as json_config:
                     secrets = json.load(json_config)
                     secrets['AWS']['ACCESS_KEYID'] = self.access_key_id
                     secrets['AWS']['SECRET_ACCESS_KEY'] = self.secret_access_key
                     secrets['AWS']['S3']['BUCKET_NAME'] = self.bucket_name
                     secrets['AWS']['S3']['SERVER_AREA'] = self.server_area
 
-                with open('secrets.json', 'w') as outfile:
+                with open('_setup/secrets.json', 'w') as outfile:
                     json.dump(secrets, outfile, indent=4)
 
             show_message('Aws setup complete.')

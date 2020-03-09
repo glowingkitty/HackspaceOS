@@ -1,0 +1,57 @@
+{
+    "BASICS": {
+        "NAME": "TAMI",
+        "WIKI": {
+            "API_URL": "https://wiki.telavivmakers.org/api.php",
+            "PHOTOS_IGNORE_PAGES": []
+        },
+        "DONATION_URLs": {
+            "MONEY": "https://telavivmakers.org/donate",
+            "HARDWARE": null
+        },
+        "EMBEDDED_MAP_URL": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54085.416809235605!2d34.7561820332218!3d32.087134583396185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4ca3c50d1ee7%3A0xd083e66d34f22859!2sTAMI%20hackspace!5e0!3m2!1sen!2sro!4v1575741469803!5m2!1sen!2sro"
+    },
+    "WEBSITE": {
+        "DOMAIN": "telavivmakers.org",
+        "LANGUAGES": [
+            "english",
+            "hebrew"
+        ]
+    },
+    "CSS": {
+        "PRIMARY_COLOR": "#9300a0"
+    },
+    "EVENTS": {
+        "MEETUP_GROUP": "https://meetup.com/Tel-Aviv-Makers-TAMI"
+    },
+    "CONTACT": {
+        "TELEGRAM_GROUPS": [{
+                "NAME": "TAMI",
+                "INVITE_URL": "https://bit.ly/tami-main"
+            },
+            {
+                "NAME": "Is Somebody At TAMI",
+                "INVITE_URL": "https://t.me/ISATAMI/"
+            }
+        ]
+    },
+    "PHYSICAL_SPACE": {
+        "ADDRESS": {
+            "STREET": "Kibbutz Galuyot 45",
+            "ZIP": "6655031",
+            "CITY": "Tel Aviv",
+            "STATE": "Tel Aviv-Yafo",
+            "COUNTRYCODE": "IL",
+            "HOW_TO_FIND_US__english": "3rd floor"
+        }
+    },
+    "SOCIAL": {
+        "GOOGLE_PHOTOS_ALBUM_URLS": [
+            "https://photos.google.com/share/AF1QipNdUmxDzWRLtsxIcWIugAjr5gN_GBPd18XpfSkeSWteXPwqJC-c5_HTYjy-dQJPXQ?key=WVA4ekpWZE1HMlNvdzdSVkJGLS1yZTZaQ1Q3bW13"
+        ],
+        "HASHTAG": "TAMIhackerspace",
+        "DISCOURSE_GROUP": "https://discourse.telavivmakers.org/",
+        "INSTAGRAM_USERNAME": null,
+        "TWITTER_USERNAME": null
+    }
+}

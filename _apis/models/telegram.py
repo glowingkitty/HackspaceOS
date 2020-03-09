@@ -6,7 +6,12 @@ import requests
 
 
 class Telegram():
-    def __init__(self, bot_token=Secret('TELEGRAM.BOT_TOKEN').value, group_chatID=Secret('TELEGRAM.GROUP_CHATID').value, show_log=True):
+    def __init__(
+            self,
+            bot_token=Secret('TELEGRAM.BOT_TOKEN').value,
+            group_chatID=Secret('TELEGRAM.GROUP_CHATID').value,
+            show_log=True,
+            test=False):
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
@@ -14,6 +19,7 @@ class Telegram():
         self.group_chatID = group_chatID
         self.setup_done = True if bot_token and group_chatID else False
         self.help = 'https://core.telegram.org'
+        self.test = test
 
     @property
     def config(self):
@@ -37,23 +43,23 @@ class Telegram():
                 if not self.bot_token:
                     show_message(
                         'Message https://t.me/botfather to create a new bot for your hackspace. When you are done: What is the token for your bot?')
-                    self.bot_token = input()
-                    while not self.bot_token:
-                        self.bot_token = input()
+                    self.bot_token = None if self.test else input()
+                    if not self.bot_token and not self.test:
+                        raise KeyboardInterrupt
 
-                if not self.group_chatID:
+                if not self.group_chatID and self.bot_token:
                     show_message('Add your bot to your Telegram group.')
                     self.group_chatID = self.get_group_chatID()
                     while not self.group_chatID:
                         time.sleep(2)
                         self.group_chatID = self.get_group_chatID()
 
-                with open('secrets.json') as json_secrets:
+                with open('_setup/secrets.json') as json_secrets:
                     secrets = json.load(json_secrets)
                     secrets['TELEGRAM']['BOT_TOKEN'] = self.bot_token
                     secrets['TELEGRAM']['GROUP_CHATID'] = self.group_chatID
 
-                with open('secrets.json', 'w') as outfile:
+                with open('_setup/secrets.json', 'w') as outfile:
                     json.dump(secrets, outfile, indent=4)
 
             show_message('Telegram setup complete.')
