@@ -16,10 +16,11 @@ class SetupNew():
 
         self.setup_config()
         self.setup_secrets()
+        self.setup_database()
         self.setup_cronjobs()
 
         show_messages([
-            '✅ Yeahh we are done! I saved your config.json and secrets.json files in the main directory. So you can easily change them any time. Also I created cronjobs to keep your Hackspace website running properly.',
+            '✅ Yeahh we are done! I saved your config.json and secrets.json files in the main directory. So you can easily change them any time. Also I created cronjobs to keep your Hackspace website running properly and initiated your database.',
         ])
 
     def get_template(self, which):
@@ -86,6 +87,10 @@ class SetupNew():
         for api in apis:
             if not api().setup_done:
                 api(test=self.test).setup()
+
+    def setup_database(self):
+        from django.core.management import call_command
+        call_command('update_database')
 
     def setup_cronjobs(self):
         from _setup.cronjobs import Cronjob
