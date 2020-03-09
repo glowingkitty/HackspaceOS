@@ -69,6 +69,7 @@ class Scraper():
                     browser_profile=profile
                 )
             else:
+                # TODO ensure local webdriver also works, across operating systems
                 self.selenium = webdriver.Firefox(
                     firefox_profile=profile,
                     executable_path='geckodriver'
