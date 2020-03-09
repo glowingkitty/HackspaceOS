@@ -90,6 +90,7 @@ class SetupNew():
 
     def setup_database(self):
         from django.core.management import call_command
+        call_command('migrate')
         call_command('update_database')
 
     def setup_cronjobs(self):
