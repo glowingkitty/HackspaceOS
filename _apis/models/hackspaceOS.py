@@ -94,7 +94,3 @@ class HackspaceOS():
     def meeting_end(self, request=None):
         self.log('HackspaceOS().meeting_end()')
         return MeetingEnd(request).value
-
-    def logout(self, request=None):
-        self.log('HackspaceOS().logout()')
-        return Logout(request).value
