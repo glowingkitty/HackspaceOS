@@ -32,6 +32,8 @@ class SetupTestCase(TestCase):
             os.remove('_setup/config.json')
         if os.path.isfile('_setup/secrets.json'):
             os.remove('_setup/secrets.json')
+        if os.path.isfile('setup_backup__unittest.zip'):
+            os.remove('setup_backup__unittest.zip')
 
         if os.path.isfile('_setup/config_temp_backup.json'):
             os.rename('_setup/config_temp_backup.json', '_setup/config.json')

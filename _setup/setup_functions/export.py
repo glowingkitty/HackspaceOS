@@ -13,7 +13,7 @@ class SetupExport():
         show_message(
             'If that\'s the case, enter now a name for the exported folder. (or press Enter to exit)')
 
-        folder_name = input()
+        folder_name = 'unittest' if self.test else input()
 
         if not folder_name:
             show_message('Ok, got it. Maybe another time.')

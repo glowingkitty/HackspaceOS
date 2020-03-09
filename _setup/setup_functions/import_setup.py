@@ -14,6 +14,9 @@ class SetupImport():
         for file_name in folders:
             if 'setup_backup__' in file_name:
                 backups.append(file_name)
+                if self.test and file_name == 'setup_backup__unittest.zip':
+                    unittest_zip_counter = counter
+
                 if counter > 1:
                     folder_options += ', '
                 folder_options += str(counter)+' - ' + \
@@ -25,7 +28,7 @@ class SetupImport():
         else:
             show_message(
                 'Which setup would you like to import? '+folder_options)
-            selected_folder = input()
+            selected_folder = unittest_zip_counter if self.test else input()
 
             # test if folder exist
             try:

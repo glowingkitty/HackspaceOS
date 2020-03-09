@@ -9,7 +9,7 @@ class SetupDelete():
 
         show_message(
             'WARNING: Are you sure you want to delete your current setup? This will delete the config.json, secrets.json and your logos & favicons. Enter "delete" to delete the current setup.')
-        confirm = input()
+        confirm = 'delete' if self.test else input()
         if confirm == 'delete':
             for file_path in self.backup_files:
                 if os.path.exists(file_path):
