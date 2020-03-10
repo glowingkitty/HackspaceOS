@@ -167,7 +167,7 @@ I mean… do you really need anything else to convince your hackerspace communit
 <img alt="🌍Multi-language support" src="./_readme_images/heading_multi_language.png" id="languages" >
 
 - easily switch between languages
-- more languages can be easily added via the [translation files](./_database/templates/translations/)
+- more languages can be easily added via the [translation files](./_translations/)
 
 <img src="./_readme_images/screenshot_multi_language.png" >
 
@@ -180,27 +180,14 @@ I mean… do you really need anything else to convince your hackerspace communit
 git clone git@github.com:marcoEDU/HackerspaceTemplatePackage.git
 ```
 
-**Step 2:** [Create & activate a Python virtual environment](https://docs.python.org/3/library/venv.html)
-
-**Step 3:** Via the main folder of this code - execute in your terminal: 
-
-```
-pip install -r requirements.txt;python setup.py;python manage.py makemigrations;python manage.py migrate;python manage.py update_database
-```
-
-**Step 4:** Customize the settings in [config.json](./config.json) to your hackerspace (and [make sure it's a valid JSON](https://jsonlint.com/), otherwise the server won't be able to start).
-
-**Step 5:** Setup the cronjobs from cronjobs.txt - to keep the database updated
-
-
-**Step 6:** To add your own logo: Add the following files to [_website/static/images/](./_website/static/images/): 
+**Step 2:** To add your own logo: Add the following files to [_website/static/images/](./_website/static/images/): 
 ```
 logo.svg
 header_logo.jpg
 ```
 
 
-**Step 7:** [Create your own favicons](https://www.favicon-generator.org/) and add the following files to [_website/static/images/favicons/](./_website/static/images/favicons/): 
+**Step 3:** [Create your own favicons](https://www.favicon-generator.org/) and add the following files to [_website/static/images/favicons/](./_website/static/images/favicons/): 
 ```
 favicon.ico
 favicon-32x32.png
@@ -208,11 +195,21 @@ favicon-16x16.png
 apple-touch-icon.png
 ```
 
-**Step 8:** Add your default background image as "header_banner.jpg" to [_website/static/images/](./_website/static/images/)
+**Step 4:** Add your default background image as "header_banner.jpg" to [_website/static/images/](./_website/static/images/)
 
-**Step 9:** Test your website
+**Step 5:** Make sure you have Python 3 installed and execute:
+```
+python3 install.py
+```
 
-**Step 10:** Deploy your website
+**Step 6:** Test your website - you can start your webserver via:
+```
+python manage.py runserver
+```
+
+**Step 7:** Customize the settings in [config.json](./_setup/config.json) to your hackerspace (and [make sure it's a valid JSON](https://jsonlint.com/), otherwise the server won't be able to start).
+
+**Step 8:** Deploy your website
 
 <br/><br/>
 <img alt="🧹 How to customize" src="./_readme_images/heading_customize.png" id="customize" >
@@ -229,9 +226,9 @@ apple-touch-icon.png
 
 => How to add a new page:
 
--  add a new path in [urls.py](./_database/urls.py)
-- add a new view in [views.py](./_database/views.py)
-- add the template html in [/templates](./_database/templates/)
+-  add a new path in [urls.py](./_website/urls.py)
+- add a new view in [views.py](./_website/views/)
+- add the template html in [/templates](./_website/templates/)
 
 <br/><br/>
 <img alt="💻How to contribute" src="./_readme_images/heading_contribute.png" id="contribute" >
