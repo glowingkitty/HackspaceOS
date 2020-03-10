@@ -2,7 +2,7 @@ class EventDelete():
     def __init__(self, request=None):
         from _database.models import Event
         from _apis.models import Notify
-        from _setup.config import Config
+        from _setup.models import Config
         from django.http import JsonResponse
 
         if not request or request.user.is_authenticated == False:

@@ -1,6 +1,6 @@
 import time
-from _setup.config import Config
-from _setup.log import log
+from _setup.models import Config
+from _setup.models import Log
 
 
 class Flickr():
@@ -27,18 +27,18 @@ class Flickr():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         import json
 
         try:
             if not self.url:
-                show_messages(
+                Log().show_messages(
                     ['Let\'s setup Flickr - to automatically import photos from Flickr into your websites photo section.'])
 
-                show_message(
+                Log().show_messages(
                     'Enter the URL on Flickr which we should scrape - for example an album:')
                 self.url = None if self.test else input()
                 if not self.url and not self.test:
@@ -51,9 +51,9 @@ class Flickr():
                 with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
-            show_message('Flickr setup complete.')
+            Log().show_messages('Flickr setup complete.')
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     @property
     def photos(self):

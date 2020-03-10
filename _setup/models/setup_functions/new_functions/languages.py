@@ -1,4 +1,4 @@
-from _setup.asci_art import show_message
+from _setup.models import Log
 
 
 class SetupLanguages():
@@ -6,7 +6,7 @@ class SetupLanguages():
         self.config = config
         self.test = test
 
-        show_message(
+        Log().show_messages(
             'Besides english - what languages should your website support? Currently available: hebrew.')
         input_languages = ['hebrew'] if self.test else input().replace(
             ', ', ',').split(',')

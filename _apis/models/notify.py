@@ -1,4 +1,4 @@
-from _setup.log import log
+from _setup.models import Log
 import time
 
 
@@ -28,14 +28,14 @@ class Notify():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         from _apis.models import Slack, Telegram
         try:
             if not Slack().setup_done and not Telegram().setup_done:
-                show_messages(
+                Log().show_messages(
                     ['Let\'s setup notifications for your new website!'])
 
                 Slack(test=self.test).setup()
@@ -43,9 +43,9 @@ class Notify():
                 if not Slack().setup_done and not Telegram().setup_done:
                     Telegram(test=self.test).setup()
 
-            show_message('Notify setup complete.')
+            Log().show_messages('Notify setup complete.')
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     def send(self, message):
         self.log('send()')

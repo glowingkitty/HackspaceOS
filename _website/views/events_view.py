@@ -78,7 +78,7 @@ class EventsView(View):
     def new(self, request):
         self.log('-> EventsView().new()')
         from _database.models import Event, Photo, Space, Guilde
-        from _setup.config import Config
+        from _setup.models import Config
         from django.middleware.csrf import get_token
         request = Request(request)
         EVENTS_SPACE_DEFAULT = Config('EVENTS.EVENTS_SPACE_DEFAULT').value

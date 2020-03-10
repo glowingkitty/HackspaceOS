@@ -1,4 +1,4 @@
-from _setup.asci_art import show_message
+from _setup.models import Log
 
 
 class SetupNewLatLonTimezone():
@@ -7,7 +7,7 @@ class SetupNewLatLonTimezone():
 
         # save lat/lon based on address
         if self.config['PHYSICAL_SPACE']['ADDRESS']['STREET'] and self.config['PHYSICAL_SPACE']['ADDRESS']['CITY']:
-            show_message(
+            Log().show_messages(
                 'Ok, great! Give me a seconds, so I can try to find and save the matching LAT_LON and TIMEZONE_STRING as well...')
             location, lat, lon = self.get_lat_lon_and_location(
                 self.config['PHYSICAL_SPACE']['ADDRESS']['STREET']+', ' +
@@ -22,7 +22,7 @@ class SetupNewLatLonTimezone():
                 # also save timezone string based on lat/lon
                 self.config['PHYSICAL_SPACE']['TIMEZONE_STRING'] = self.STR__get_timezone_from_lat_lon(
                     lat, lon)
-                show_message('It worked!')
+                Log().show_messages('It worked!')
 
     def get_lat_lon_and_location(self, str_location):
         from geopy.geocoders import Nominatim

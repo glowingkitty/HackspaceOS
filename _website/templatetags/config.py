@@ -1,5 +1,5 @@
 from django.template import Library
-from _setup.config import Config
+from _setup.models import Config
 
 register = Library()
 

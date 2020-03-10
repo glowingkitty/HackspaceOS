@@ -1,6 +1,6 @@
 import time
-from _setup.config import Config
-from _setup.log import log
+from _setup.models import Config
+from _setup.models import Log
 from _setup.tests.test_setup import SetupTestConfig
 
 
@@ -29,19 +29,19 @@ class Instagram():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         import json
 
         try:
             if not self.username or not self.hashtag:
-                show_messages(
+                Log().show_messages(
                     ['Let\'s setup Instagram - to automatically import photos from Instagram into your websites photo section.'])
 
                 if not self.username:
-                    show_message(
+                    Log().show_messages(
                         'What is the username of your hackspace on Instagram?')
                     self.username = SetupTestConfig(
                         'SOCIAL.INSTAGRAM_USERNAME').value if self.test else input()
@@ -50,7 +50,7 @@ class Instagram():
                             'instagram.com/')[1].replace('/', '')
 
                 if not self.hashtag:
-                    show_message(
+                    Log().show_messages(
                         'What hashtag does your hackspace use on Instagram (and Twitter)?')
                     self.hashtag = SetupTestConfig(
                         'SOCIAL.HASHTAG').value if self.test else input().replace('#', '')
@@ -74,9 +74,9 @@ class Instagram():
                 with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
-            show_message('Instagram setup complete.')
+            Log().show_messages('Instagram setup complete.')
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     @property
     def photos(self):

@@ -1,6 +1,6 @@
 import requests
-from _setup.log import log
-from _setup.config import Config
+from _setup.models import Log
+from _setup.models import Config
 import time
 from _setup.tests.test_setup import SetupTestConfig
 
@@ -23,10 +23,10 @@ class MediaWiki():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         import json
 
         try:
@@ -36,10 +36,10 @@ class MediaWiki():
                 if domain and requests.get('https://'+domain+'/api.php').status_code == 200:
                     self.url = 'https://' + domain + '/api.php'
                 else:
-                    show_messages(
+                    Log().show_messages(
                         ['Let\'s add your hackspaces Wiki to the search!'])
 
-                    show_message(
+                    Log().show_messages(
                         'What is the API URL of your Wiki?')
                     self.url = SetupTestConfig(
                         'BASICS.WIKI.API_URL').value if self.test else input()
@@ -53,9 +53,9 @@ class MediaWiki():
                 with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
-            show_message('MediaWiki setup complete.')
+            Log().show_messages('MediaWiki setup complete.')
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     def search(self, query, limit=5):
         self.log('search()')
@@ -101,7 +101,7 @@ class MediaWiki():
         from _database.models import Photo
         from dateutil.parser import parse
         from datetime import datetime
-        from _setup.config import Config
+        from _setup.models import Config
 
         if not self.url:
             self.log(
@@ -156,22 +156,22 @@ class MediaWiki():
         # API documentation: https://www.mediawiki.org/wiki/API:Allimages
         self.log('import_photos()')
         from _database.models import Photo
-        from _setup.config import Config
-        from _setup.asci_art import show_message
+        from _setup.models import Config
+        from _setup.models import Log
         import requests
         import time
 
         if WIKI_API_URL:
-            show_message(
+            Log().show_messages(
                 '✅ Found BASICS.WIKI.API_URL - Start importing photos from your Wiki ...')
             time.sleep(2)
             if requests.get(WIKI_API_URL).status_code != 200:
-                show_message(
+                Log().show_messages(
                     'WARNING: I can\'t access your Wiki. Is the API_URL correct? Will skip importing photos from your Wiki for now.')
                 time.sleep(4)
                 return
         else:
-            show_message(
+            Log().show_messages(
                 'WARNING: Can\'t find BASICS.WIKI.API_URL in your config.json. Will skip importing photos from your Wiki for now.')
             time.sleep(4)
             return

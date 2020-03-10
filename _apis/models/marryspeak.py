@@ -1,6 +1,6 @@
 import requests
 import random
-from _setup.log import log
+from _setup.models import Log
 
 
 class MarrySpeak():
@@ -23,7 +23,7 @@ class MarrySpeak():
     def log(self, text):
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text))
+            Log().print('{}'.format(text))
 
     def speak(self, text, intro='Did you know?'):
         try:

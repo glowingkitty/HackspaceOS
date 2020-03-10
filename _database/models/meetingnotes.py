@@ -1,6 +1,6 @@
 from django.db import models
-from _setup.log import log
-from _setup.config import Config
+from _setup.models import Log
+from _setup.models import Config
 
 
 class MeetingNoteSet(models.QuerySet):
@@ -22,7 +22,7 @@ class MeetingNoteSet(models.QuerySet):
         import requests
 
         if not WIKI_API_URL:
-            log('--> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+            Log().print('--> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
             return
 
         response_json = requests.get(WIKI_API_URL +
@@ -77,7 +77,7 @@ class MeetingNote(models.Model):
     def date(self):
         import pytz
         from datetime import datetime
-        from _setup.config import Config
+        from _setup.models import Config
 
         local_timezone = pytz.timezone(
             Config('PHYSICAL_SPACE.TIMEZONE_STRING').value)
@@ -128,7 +128,7 @@ class MeetingNote(models.Model):
         import time
         from datetime import datetime
         import pytz
-        from _setup.config import Config
+        from _setup.models import Config
         from django.template.loader import get_template
 
         browser = self.openMeetingNotes(
@@ -182,7 +182,7 @@ class MeetingNote(models.Model):
         import os
         import sys
         import re
-        from _setup.config import Config
+        from _setup.models import Config
 
         try:
             # find main topics via heading in note template
@@ -251,7 +251,7 @@ class MeetingNote(models.Model):
         import requests
 
         if not wiki_api_url:
-            log('--> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
+            Log().print('--> BASICS.WIKI.API_URL not found in config.json -> BASICS - Please add your WIKI_API_URL first.')
             return
 
         self.text_date = page.split('Notes ')[1].replace(' ', '-')

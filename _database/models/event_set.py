@@ -1,26 +1,26 @@
-from _setup.log import log
+from _setup.models import Log
 from django.db import models
-from _setup.config import Config
-from _setup.secrets import Secret
+from _setup.models import Config
+from _setup.models import Secret
 
 
 class EventSet(models.QuerySet):
     def QUERYSET__next_meeting(self):
-        log('Event.objects.QUERYSET__next_meeting(self)')
+        Log().print('Event.objects.QUERYSET__next_meeting(self)')
         import time
 
-        log('--> return QUERYSET')
+        Log().print('--> return QUERYSET')
         return self.filter(str_name_en_US__icontains='General Meeting', int_UNIXtime_event_start__gt=time.time()).order_by('int_UNIXtime_event_start').first()
 
     def QUERYSET__now(self):
-        log('Event.objects.QUERYSET__now(self)')
+        Log().print('Event.objects.QUERYSET__now(self)')
         import time
 
-        log('--> return QUERYSET')
+        Log().print('--> return QUERYSET')
         return self.filter(int_UNIXtime_event_end__gt=time.time(), int_UNIXtime_event_start__lte=time.time(), boolean_approved=True).order_by('int_UNIXtime_event_start')
 
     def QUERYSET__in_timeframe(self, from_UNIX_time, to_UNIX_time, str_space_name=None):
-        log('Event.objects.QUERYSET__in_timeframe(self, from_UNIX_time={}, to_UNIX_time={}, str_space_name={})'.format(
+        Log().print('Event.objects.QUERYSET__in_timeframe(self, from_UNIX_time={}, to_UNIX_time={}, str_space_name={})'.format(
             from_UNIX_time, to_UNIX_time, str_space_name))
         from django.db.models import Q
         from _database.models import Space
@@ -51,15 +51,15 @@ class EventSet(models.QuerySet):
         ).exclude(
             boolean_approved=False
         )
-        log('--> return QUERYSET ({} results)'.format(output.count()))
+        Log().print('--> return QUERYSET ({} results)'.format(output.count()))
         return output
 
     def JSON__overlapping_events(self, new_event_UNIX_time, new_event_duration_minutes, space):
-        log('Event.objects.JSON__overlapping_events(self, new_event_UNIX_time={}, new_event_duration_minutes={}, space={})'.format(
+        Log().print('Event.objects.JSON__overlapping_events(self, new_event_UNIX_time={}, new_event_duration_minutes={}, space={})'.format(
             new_event_UNIX_time, new_event_duration_minutes, space))
         import pytz
         from datetime import datetime, timedelta
-        from _setup.config import Config
+        from _setup.models import Config
         from _database.models import Event
 
         local_time = datetime.fromtimestamp(
@@ -73,7 +73,7 @@ class EventSet(models.QuerySet):
 
         counter = 0
         while counter < hours_before:
-            log('while counter < hours_before')
+            Log().print('while counter < hours_before')
             counter += 1
             times.insert(0, {
                 'int_UNIX_time': round(new_event_UNIX_time-(counter*60)),
@@ -82,7 +82,7 @@ class EventSet(models.QuerySet):
 
         counter = 0
         while counter < hours_event_duration:
-            log('while counter < hours_event_duration')
+            Log().print('while counter < hours_event_duration')
             times.append({
                 'int_UNIX_time': round(new_event_UNIX_time+(counter*60)),
                 'str_readable': str((local_time+timedelta(hours=counter)).strftime('%I:%M %p'))
@@ -90,7 +90,7 @@ class EventSet(models.QuerySet):
             counter += 1
 
         while (counter-hours_event_duration) < hours_after:
-            log('while (counter-hours_event_duration) < hours_after:')
+            Log().print('while (counter-hours_event_duration) < hours_after:')
             times.append({
                 'int_UNIX_time': round(new_event_UNIX_time+(counter*60)),
                 'str_readable': str((local_time+timedelta(hours=counter)).strftime('%I:%M %p'))
@@ -118,7 +118,7 @@ class EventSet(models.QuerySet):
 
         your_event_minutes_distance = (
             (new_event_UNIX_time - times[0]['int_UNIX_time'])/60)+60
-        log('--> return JSON ({} overlapping events)'.format(len(list_overlapping_events)))
+        Log().print('--> return JSON ({} overlapping events)'.format(len(list_overlapping_events)))
         return {
             'times': times,
             'your_event': {
@@ -129,76 +129,76 @@ class EventSet(models.QuerySet):
         }
 
     def QUERYSET__in_space(self, one_space=None, str_space=None):
-        log('Event.objects.QUERYSET__in_space(self, one_space={}, str_space={})'.format(
+        Log().print('Event.objects.QUERYSET__in_space(self, one_space={}, str_space={})'.format(
             one_space, str_space))
         if one_space:
-            log('--> return QUERYSET')
+            Log().print('--> return QUERYSET')
             return self.filter(one_space=one_space)
         elif str_space:
-            log('--> return QUERYSET')
+            Log().print('--> return QUERYSET')
             return self.filter(one_space__str_name_en_US=str_space)
         else:
             return []
 
     def QUERYSET__by_host(self, one_host=None, str_host=None):
-        log('Event.objects.QUERYSET__by_host(self, one_host={}, str_host={})'.format(
+        Log().print('Event.objects.QUERYSET__by_host(self, one_host={}, str_host={})'.format(
             one_host, str_host))
         if one_host:
-            log('--> return QUERYSET')
+            Log().print('--> return QUERYSET')
             return self.filter(many_hosts=one_host)
         elif str_host:
-            log('--> return QUERYSET')
+            Log().print('--> return QUERYSET')
             return self.filter(many_hosts__str_name_en_US__contains=str_host)
         else:
             return []
 
     def QUERYSET__by_guilde(self, one_guilde=None, str_guilde=None):
-        log('Event.objects.QUERYSET__by_guilde(self, one_guilde={}, str_guilde={})'.format(
+        Log().print('Event.objects.QUERYSET__by_guilde(self, one_guilde={}, str_guilde={})'.format(
             one_guilde, str_guilde))
         if one_guilde:
-            log('--> return QUERYSET')
+            Log().print('--> return QUERYSET')
             return self.filter(one_guilde=one_guilde)
         elif str_guilde:
-            log('--> return QUERYSET')
+            Log().print('--> return QUERYSET')
             return self.filter(one_guilde__str_name_en_US__contains=str_guilde)
         else:
             return []
 
     def as_list(self):
-        log('Event.objects.as_list(self)')
+        Log().print('Event.objects.as_list(self)')
         for event in self.all():
             print(event)
 
     def publish(self):
-        log('Event.objects.publish(self)')
+        Log().print('Event.objects.publish(self)')
         for event in self.all():
             event.publish()
 
     def QUERYSET__not_approved(self):
-        log('Event.objects.QUERYSET__not_approved(self)')
-        log('--> return QUERYSET')
+        Log().print('Event.objects.QUERYSET__not_approved(self)')
+        Log().print('--> return QUERYSET')
         return self.filter(boolean_approved=False)
 
     def QUERYSET__older_then_24h(self):
         import time
-        log('Event.objects.QUERYSET__older_then_24h(self)')
-        log('--> return QUERYSET')
+        Log().print('Event.objects.QUERYSET__older_then_24h(self)')
+        Log().print('--> return QUERYSET')
         return self.filter(int_UNIXtime_created__lte=time.time()-(24*60*60))
 
     def QUERYSET__upcoming(self, boolean_approved=False):
-        log('Event.objects.QUERYSET__upcoming(self,boolean_approved={})'.format(
+        Log().print('Event.objects.QUERYSET__upcoming(self,boolean_approved={})'.format(
             boolean_approved))
         import time
 
-        log('--> return QUERYSET')
+        Log().print('--> return QUERYSET')
         return self.filter(int_UNIXtime_event_end__gt=time.time()).exclude(boolean_approved=boolean_approved).order_by('int_UNIXtime_event_start')
 
     def LIST__in_minutes(self, minutes, name_only=False):
-        log('Event.objects.LIST__in_minutes(self,minutes={},name_only={})'.format(
+        Log().print('Event.objects.LIST__in_minutes(self,minutes={},name_only={})'.format(
             minutes, name_only))
         import pytz
         from datetime import datetime, timedelta
-        from _setup.config import Config
+        from _setup.models import Config
 
         date_in_x_minutes = datetime.now(pytz.timezone(
             Config('PHYSICAL_SPACE.TIMEZONE_STRING').value))+timedelta(minutes=minutes)
@@ -213,14 +213,14 @@ class EventSet(models.QuerySet):
                 events_in_x_minutes.append(event)
 
         if name_only == True:
-            log('--> return LIST')
+            Log().print('--> return LIST')
             return [x.str_name_en_US.replace('&', 'and').replace('@', 'at').replace('|', '').replace('#', 'sharp') for x in events_in_x_minutes]
 
-        log('--> return LIST')
+        Log().print('--> return LIST')
         return events_in_x_minutes
 
     def LIST__search_results(self):
-        log('Event.objects.LIST__search_results(self)')
+        Log().print('Event.objects.LIST__search_results(self)')
         results_list = []
         added = []
         results = self.all()
@@ -234,7 +234,7 @@ class EventSet(models.QuerySet):
                     'menu_heading': 'menu_h_events'
                 })
                 added.append(result.str_name_en_US)
-        log('--> return LIST')
+        Log().print('--> return LIST')
         return results_list
 
     def RESPONSE__JSON(self):
@@ -250,22 +250,22 @@ class EventSet(models.QuerySet):
         )
 
     def announce(self):
-        log('Event.objects.announce(self)')
+        Log().print('Event.objects.announce(self)')
         self.announce_via_marry()
         self.announce_via_flaschentaschen()
 
     def announce_via_flaschentaschen(self):
-        log('Event.objects.announce_via_flaschentaschen(self)')
+        Log().print('Event.objects.announce_via_flaschentaschen(self)')
         for event in self.all()[:3]:
             event.announce_via_flaschentaschen()
 
     def announce_via_marry(self):
-        log('Event.objects.announce_via_marry(self)')
+        Log().print('Event.objects.announce_via_marry(self)')
         for event in self.all()[:3]:
             event.announce_via_marry()
 
     def import_from_discourse(self, url=Secret('DISCOURSE.DISCOURSE_URL').value):
-        log('Event.objects.import_from_discourse(self)')
+        Log().print('Event.objects.import_from_discourse(self)')
         from _apis.models import Discourse
         from dateutil.parser import parse
         from datetime import datetime

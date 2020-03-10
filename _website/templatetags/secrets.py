@@ -1,5 +1,5 @@
 from django.template import Library
-from _setup.secrets import Secret
+from _setup.models import Secret
 
 register = Library()
 

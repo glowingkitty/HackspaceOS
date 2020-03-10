@@ -1,4 +1,5 @@
 import time
+from _setup.models import Log
 
 
 class Request():
@@ -27,4 +28,4 @@ class Request():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)

@@ -1,6 +1,6 @@
 import time
-from _setup.config import Config
-from _setup.log import log
+from _setup.models import Config
+from _setup.models import Log
 from _setup.tests.test_setup import SetupTestConfig
 
 
@@ -25,18 +25,18 @@ class GooglePhotos():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         import json
 
         try:
             if not self.urls:
-                show_messages(
+                Log().show_messages(
                     ['Let\'s setup Google Photos - to automatically import photos from Google Photos into your websites photo section.'])
 
-                show_message(
+                Log().show_messages(
                     'Enter the URLs on Google Photos which we should scrape - for example an album: (separated by ,)')
                 self.urls = SetupTestConfig(
                     'SOCIAL.GOOGLE_PHOTOS_ALBUM_URLS').value[0] if self.test else input()
@@ -51,9 +51,9 @@ class GooglePhotos():
                 with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
-            show_message('Google Photos setup complete.')
+            Log().show_messages('Google Photos setup complete.')
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     @property
     def photos(self):

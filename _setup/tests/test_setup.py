@@ -1,5 +1,5 @@
 from django.test import TestCase
-from _setup.setup import Setup
+from _setup.models import Setup
 import json
 import os
 

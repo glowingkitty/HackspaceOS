@@ -24,21 +24,21 @@ class Setup():
             return False
 
     def _menu(self):
-        from _setup.setup_functions.menu import SetupMenu
+        from _setup.models.setup_functions.menu import SetupMenu
         SetupMenu(self.backup_files, self.test)
 
     def _new(self):
-        from _setup.setup_functions.new import SetupNew
+        from _setup.models.setup_functions.new import SetupNew
         SetupNew(self.test)
 
     def _export(self):
-        from _setup.setup_functions.export import SetupExport
+        from _setup.models.setup_functions.export import SetupExport
         SetupExport(self.backup_files, self.test)
 
     def _import(self):
-        from _setup.setup_functions.import_setup import SetupImport
+        from _setup.models.setup_functions.import_setup import SetupImport
         SetupImport(self.backup_files, self.test)
 
     def _delete(self):
-        from _setup.setup_functions.delete import SetupDelete
+        from _setup.models.setup_functions.delete import SetupDelete
         SetupDelete(self.backup_files, self.test)

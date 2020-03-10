@@ -1,7 +1,6 @@
 import json
 import os
 import time
-from _setup.log import log
 
 
 class Config():
@@ -11,7 +10,7 @@ class Config():
         self.show_log = show_log
         self.file_path = file_path
 
-        from _setup.setup import Setup
+        from _setup.models import Setup
         if Setup().complete == False:
             Setup()._menu()
 
@@ -36,6 +35,7 @@ class Config():
                     self.value = None
 
     def log(self, text):
+        from _setup.models import Log
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)

@@ -2,7 +2,6 @@ from crontab import CronTab
 import getpass
 import time
 import os
-from _setup.log import log
 
 
 class Cronjob():
@@ -12,8 +11,9 @@ class Cronjob():
         self.crontab = CronTab(user=getpass.getuser())
 
     def log(self, text):
+        from _setup.models import Log
         self.logs.append(text)
-        log('{}'.format(text), os.path.basename(__file__), self.started)
+        Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
         # check if all jobs from cronjobs.txt already exist, else create them

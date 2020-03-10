@@ -1,6 +1,6 @@
 import time
-from _setup.secrets import Secret
-from _setup.log import log
+from _setup.models import Secret
+from _setup.models import Log
 import boto3
 from botocore.exceptions import NoCredentialsError
 
@@ -40,46 +40,46 @@ class Aws():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         import json
 
         try:
             if not self.access_key_id or not self.secret_access_key or not self.bucket_name:
-                show_messages(
+                Log().show_messages(
                     ['Let\'s setup AWS - so whenever a user creates a new event via your new website, the event image will be uploaded to AWS S3.'])
 
-                show_message(
+                Log().show_messages(
                     'To upload photos to S3: Enter your AWS ACCESS_KEYID')
                 self.access_key_id = None if self.test else input()
                 if not self.access_key_id and not self.test:
                     raise KeyboardInterrupt
 
-                show_message(
+                Log().show_messages(
                     'To upload photos to S3: Enter your AWS SECRET_ACCESS_KEY')
                 self.secret_access_key = None if self.test else input()
                 if not self.secret_access_key and not self.test:
                     raise KeyboardInterrupt
 
-                show_message(
+                Log().show_messages(
                     'To upload photos to S3: Enter your S3 BUCKET_NAME')
                 self.bucket_name = None if self.test else input()
                 if not self.bucket_name and not self.test:
                     raise KeyboardInterrupt
 
-                show_message(
+                Log().show_messages(
                     'To upload photos to S3: Enter your S3 SERVER_AREA')
                 self.server_area = None if self.test else input()
                 if not self.server_area and not self.test:
                     raise KeyboardInterrupt
 
-                show_message(
+                Log().show_messages(
                     'To delete photos from S3: Did you configure the AWS CLI? (yes|no)')
                 reply = 'yes' if self.test else input()
                 if reply == 'no':
-                    show_messages([
+                    Log().show_messages([
                         'Install the AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html',
                         'Configure your AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration'
                     ])
@@ -94,9 +94,9 @@ class Aws():
                 with open('_setup/secrets.json', 'w') as outfile:
                     json.dump(secrets, outfile, indent=4)
 
-            show_message('Aws setup complete.')
+            Log().show_messages('Aws setup complete.')
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     def upload(self, image):
         self.log('upload()')

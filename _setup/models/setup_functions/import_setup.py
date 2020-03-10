@@ -1,4 +1,4 @@
-from _setup.asci_art import show_message
+from _setup.models import Log
 import os
 
 
@@ -24,9 +24,9 @@ class SetupImport():
                 counter += 1
 
         if counter == 1:
-            show_message('No backups found.')
+            Log().show_messages('No backups found.')
         else:
-            show_message(
+            Log().show_messages(
                 'Which setup would you like to import? '+folder_options)
             selected_folder = unittest_zip_counter if self.test else input()
 
@@ -47,11 +47,11 @@ class SetupImport():
                     # extracting all the files
                     zip.extractall()
 
-                show_message('✅Done! Imported "'+folder_name.split('setup_backup__')
-                             [1].split('.zip')[0] + '" ('+self.get_size(folder_name)+')')
+                Log().show_messages('✅Done! Imported "'+folder_name.split('setup_backup__')
+                                    [1].split('.zip')[0] + '" ('+self.get_size(folder_name)+')')
 
             except:
-                show_message(
+                Log().show_messages(
                     'ERROR: The folder doesnt exist. Please enter a correct number.')
 
     def get_size(self, file_path):

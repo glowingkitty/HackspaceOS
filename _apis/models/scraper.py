@@ -1,11 +1,11 @@
-from _setup.log import log
+from _setup.models import Log
 from requests import get
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
-from _setup.secrets import Secret
+from _setup.models import Secret
 
 
 class Scraper():
@@ -45,7 +45,7 @@ class Scraper():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def get_page(self, url):
         self.log('get_page()')

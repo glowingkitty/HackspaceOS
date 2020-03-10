@@ -1,7 +1,7 @@
 import os
 import slack
-from _setup.secrets import Secret
-from _setup.log import log
+from _setup.models import Secret
+from _setup.models import Log
 import time
 
 
@@ -27,16 +27,16 @@ class Slack():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         import json
 
         try:
-            show_messages(
+            Log().show_messages(
                 ['Let\'s setup Slack - to notify your hackspace about upcoming events, new created events and whatever else you want!'])
-            show_message(
+            Log().show_messages(
                 'Go to https://api.slack.com/apps and create an app. Once you are done: What is your API token?')
             self.api_token = None if self.test else input()
             if not self.api_token and not self.test:
@@ -49,9 +49,9 @@ class Slack():
             with open('_setup/secrets.json', 'w') as outfile:
                 json.dump(secrets, outfile, indent=4)
 
-            show_message('Slack setup complete.')
+            Log().show_messages('Slack setup complete.')
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     def message(self, message, channel='#general'):
         self.log('message(message, channel={})'.format(channel))

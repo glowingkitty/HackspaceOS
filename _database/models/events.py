@@ -1,12 +1,12 @@
 from django.core import serializers
 from django.db import models
-from _setup.config import Config
-from _setup.asci_art import show_message
-from _setup.log import log
+from _setup.models import Config
+from _setup.models import Log
+from _setup.models import Log
 
 
 class Event(models.Model):
-    from _setup.config import Config
+    from _setup.models import Config
     from _database.models.event_set import EventSet
 
     HACKERSPACE_ADDRESS = Config('PHYSICAL_SPACE.ADDRESS').value
@@ -108,7 +108,7 @@ class Event(models.Model):
         return self.str_name_en_US+' | '+self.datetime_range
 
     def INT__getWeekday(self, number):
-        log('INT__getWeekday(number={})'.format(number))
+        Log().print('INT__getWeekday(number={})'.format(number))
         days = {
             0: 'Mon',
             1: 'Tue',
@@ -121,9 +121,9 @@ class Event(models.Model):
         return days[number]
 
     def RESULT__extractSpace(self, json_meetup_result):
-        log('RESULT__extractSpace(json_meetup_result)')
+        Log().print('RESULT__extractSpace(json_meetup_result)')
         from _database.models import Space
-        from _setup.config import Config
+        from _setup.models import Config
 
         if 'how_to_find_us' in json_meetup_result:
             spaces = Space.objects.all()
@@ -142,55 +142,55 @@ class Event(models.Model):
             return Space.objects.QUERYSET__by_name(Config('EVENTS.EVENTS_SPACE_DEFAULT').value)
 
     def RESULT__extractGuilde(self, json_meetup_result):
-        log('RESULT__extractGuilde(json_meetup_result)')
+        Log().print('RESULT__extractGuilde(json_meetup_result)')
         from _database.models import Guilde
-        from _setup.config import Config
+        from _setup.models import Config
 
         EVENTS_GUILDES_OVERWRITE = Config(
             'EVENTS.EVENTS_GUILDES_OVERWRITE').value
 
         for str_keyword in EVENTS_GUILDES_OVERWRITE:
             if str_keyword in json_meetup_result['name']:
-                log('--> {} found in result.name'.format(str_keyword))
-                log('--> return guilde')
+                Log().print('--> {} found in result.name'.format(str_keyword))
+                Log().print('--> return guilde')
                 return Guilde.objects.filter(str_name_en_US=EVENTS_GUILDES_OVERWRITE[str_keyword]).first()
         else:
-            log('--> return None')
+            Log().print('--> return None')
             return None
 
     def INT__timezoneToOffset(self, timezone_name):
-        log('INT__timezoneToOffset(timezone_name={})'.format(timezone_name))
+        Log().print('INT__timezoneToOffset(timezone_name={})'.format(timezone_name))
         from datetime import datetime
         import pytz
 
-        log('--> return INT')
+        Log().print('--> return INT')
         return int(datetime.now(pytz.timezone(timezone_name)).utcoffset().total_seconds()*1000)
 
     def LIST__offsetToTimezone(self, offset_ms):
-        log('LIST__offsetToTimezone(offset_ms={})'.format(offset_ms))
+        Log().print('LIST__offsetToTimezone(offset_ms={})'.format(offset_ms))
         from datetime import datetime
         import pytz
 
         now = datetime.now(pytz.utc)  # current time
-        log('--> return LIST')
+        Log().print('--> return LIST')
         return [tz.zone for tz in map(pytz.timezone, pytz.all_timezones_set)
                 if now.astimezone(tz).utcoffset().total_seconds()*1000 == offset_ms][0]
 
     def STR__extractTimezone(self, json_meetup_result):
-        log('STR__extractTimezone(json_meetup_result)')
-        from _setup.config import Config
+        Log().print('STR__extractTimezone(json_meetup_result)')
+        from _setup.models import Config
         TIMEZONE_STRING = Config('PHYSICAL_SPACE.TIMEZONE_STRING').value
 
         if 'utc_offset' in json_meetup_result and json_meetup_result['utc_offset'] != self.INT__timezoneToOffset(TIMEZONE_STRING):
             return self.LIST__offsetToTimezone(json_meetup_result['utc_offset'])
 
-        log('--> return STR')
+        Log().print('--> return STR')
         return TIMEZONE_STRING
 
     def get_lat_lon_and_location(self, str_location):
         from geopy.geocoders import Nominatim
         from geopy.exc import GeocoderTimedOut
-        from _setup.config import Config
+        from _setup.models import Config
 
         geolocator = Nominatim(user_agent=Config('BASICS.NAME').value.lower())
         str_location = str_location.replace('\n', ', ')
@@ -210,8 +210,8 @@ class Event(models.Model):
         return str_location, float_lat, float_lon
 
     def createEvent(self, event):
-        log('createEvent(event)')
-        from _setup.config import Config
+        Log().print('createEvent(event)')
+        from _setup.models import Config
         from dateutil.parser import parse
         from datetime import datetime
 
@@ -255,8 +255,8 @@ class Event(models.Model):
         )
 
     def RESULT__next_event(self):
-        log('event.RESULT__next_event()')
-        log('--> return QUERYSET')
+        Log().print('event.RESULT__next_event()')
+        Log().print('--> return QUERYSET')
         return Event.objects.QUERYSET__upcoming().filter(str_name_en_US=self.str_name_en_US, str_series_repeat_how_often=self.str_series_repeat_how_often).exclude(str_slug=self.str_slug).first()
 
     @property
@@ -449,7 +449,7 @@ class Event(models.Model):
         return how_often
 
     def save_social_media_image(self):
-        log('event.save_social_media_image()')
+        Log().print('event.save_social_media_image()')
         import time
         import asyncio
         from pyppeteer import launch
@@ -469,7 +469,7 @@ class Event(models.Model):
         return filename
 
     def publish(self):
-        log('event.publish()')
+        Log().print('event.publish()')
         self.boolean_approved = True
         super(Event, self).save()
 
@@ -477,13 +477,13 @@ class Event(models.Model):
         # self.create_meetup_event()
 
     def create_upcoming_instances(self):
-        log('event.create_upcoming_instances()')
+        Log().print('event.create_upcoming_instances()')
         import time
         if not self.str_series_repeat_how_often:
-            log('--> return')
+            Log().print('--> return')
             return self
 
-        log('--> Define days_increase')
+        Log().print('--> Define days_increase')
         if self.str_series_repeat_how_often == 'weekly':
             days_increase = 7
 
@@ -493,7 +493,7 @@ class Event(models.Model):
         elif self.str_series_repeat_how_often == 'monthly':
             days_increase = 30
 
-        log('--> Define start & end time of while statement')
+        Log().print('--> Define start & end time of while statement')
         original_pk = self.pk
         original_slug = self.str_slug
         original_event_start = self.int_UNIXtime_event_start
@@ -510,12 +510,12 @@ class Event(models.Model):
             int_UNIX_end = self.int_series_endUNIX
 
         while int_UNIX_time < int_UNIX_end:
-            log('--> Create event on UNIX time '+str(int_UNIX_time))
+            Log().print('--> Create event on UNIX time '+str(int_UNIX_time))
             self.pk = None
             self.str_slug = None
             self.save()
 
-            log('--> Add many hosts for new instance')
+            Log().print('--> Add many hosts for new instance')
             for host in hosts:
                 self.many_hosts.add(host)
 
@@ -523,7 +523,7 @@ class Event(models.Model):
             self.int_UNIXtime_event_start += (days_increase*24*60*60)
             self.int_UNIXtime_event_end += (days_increase*24*60*60)
 
-        log('--> Back to original values of first event')
+        Log().print('--> Back to original values of first event')
         self.pk = original_pk
         self.str_slug = original_slug
         self.int_UNIXtime_event_start = original_event_start
@@ -531,7 +531,7 @@ class Event(models.Model):
         return self
 
     def create_discourse_event(self):
-        log('event.create_discourse_event()')
+        Log().print('event.create_discourse_event()')
         from _apis.models import create_post
         from django.template.loader import get_template
 
@@ -548,22 +548,22 @@ class Event(models.Model):
             }),
             Config('EVENTS.DISCOURSE_EVENTS_CATEGORY').value)
         super(Event, self).save()
-        log('--> return event')
+        Log().print('--> return event')
         return self
 
     def delete_discourse_event(self):
-        log('event.delete_discourse_event()')
+        Log().print('event.delete_discourse_event()')
         from _apis.models import delete_post
         if self.url_discourse_event:
             deleted = delete_post(self.url_discourse_event)
             if deleted == True:
                 self.url_discourse_event = None
             super(Event, self).save()
-        log('--> return event')
+        Log().print('--> return event')
         return self
 
     def delete_photo(self):
-        log('event.delete_photo()')
+        Log().print('event.delete_photo()')
         from _apis.models import Aws
         # if url_featured_photo - delete on AWS
         if self.url_featured_photo and 'amazonaws.com' in self.url_featured_photo:
@@ -582,7 +582,7 @@ class Event(models.Model):
             return self
 
     def delete(self):
-        log('event.delete()')
+        Log().print('event.delete()')
         # delete discourse posts
         self.delete_discourse_event()
 
@@ -590,18 +590,18 @@ class Event(models.Model):
         self.delete_photo()
 
         super(Event, self).delete()
-        log('--> Deleted')
+        Log().print('--> Deleted')
 
     def delete_series(self):
-        log('event.delete_series()')
+        Log().print('event.delete_series()')
         # delete in database
         if self.str_series_repeat_how_often:
             # if series, delete all in series
             Event.objects.filter(str_name_en_US=self.str_name_en_US,
                                  str_series_repeat_how_often=self.str_series_repeat_how_often).delete()
-            log('--> Deleted')
+            Log().print('--> Deleted')
         else:
-            log('--> Not a series. Skipped deleting.')
+            Log().print('--> Not a series. Skipped deleting.')
 
     def create_meetup_event(self):
         from _apis.models import Meetup
@@ -612,14 +612,14 @@ class Event(models.Model):
 
     def save(self, *args, **kwargs):
         # try:
-        log('event.save()')
+        Log().print('event.save()')
         import urllib.parse
         from _database.models import Helper, Space, Person
         import bleach
-        from _setup.config import Config
+        from _setup.models import Config
         import re
 
-        log('--> clean from scripts')
+        Log().print('--> clean from scripts')
         if self.str_name_en_US:
             self.str_name_en_US = bleach.clean(self.str_name_en_US)
         if self.text_description_en_US:
@@ -654,14 +654,14 @@ class Event(models.Model):
                 self.str_slug = 'event/'+(str(self.datetime_start.date())+'-' if self.datetime_start else '')+re.sub(
                     '[\W_]+', '', self.str_name_en_US.lower())+str(counter)
 
-        log('--> Save lat/lon if not exist yet')
+        Log().print('--> Save lat/lon if not exist yet')
         if not self.float_lat:
             self.str_location, self.float_lat, self.float_lon = get_lat_lon_and_location(
                 self.str_location)
 
         super(Event, self).save(*args, **kwargs)
 
-        log('--> Save hosts')
+        Log().print('--> Save hosts')
         if not self.many_hosts.exists():
             EVENTS_HOSTS_OVERWRITE = Config(
                 'EVENTS.EVENTS_HOSTS_OVERWRITE').value
@@ -673,10 +673,10 @@ class Event(models.Model):
                         if host:
                             self.many_hosts.add(host)
         # except:
-        #     log('--> ERROR: coudlnt save event - '+str(self))
+        #     Log().print('--> ERROR: coudlnt save event - '+str(self))
 
     def create(self, json_content):
-        log('event.create(json_content)')
+        Log().print('event.create(json_content)')
         try:
             obj = Event.objects.get(
                 str_name_en_US=json_content['str_name_en_US'],
@@ -685,18 +685,18 @@ class Event(models.Model):
             for key, value in json_content.items():
                 setattr(obj, key, value)
             super(Event, obj).save()
-            log('--> Updated "'+obj.str_name_en_US +
-                ' | ' + obj.datetime_range+'"')
+            Log().print('--> Updated "'+obj.str_name_en_US +
+                        ' | ' + obj.datetime_range+'"')
 
         except Event.DoesNotExist:
             obj = Event(**json_content)
             obj.save()
-            log('--> Created "'+obj.str_name_en_US +
-                ' | ' + obj.datetime_range+'"')
+            Log().print('--> Created "'+obj.str_name_en_US +
+                        ' | ' + obj.datetime_range+'"')
 
     # Noisebridge specific
     def announce_via_marry(self):
-        log('event.announce_via_marry()')
+        Log().print('event.announce_via_marry()')
         import time
         from _apis.models import MarrySpeak
 
@@ -708,6 +708,6 @@ class Event(models.Model):
             MarrySpeak().speak(str(self.str_name_en_US)+' starts at '+start_time, None)
 
     def announce_via_flaschentaschen(self):
-        log('event.announce_via_flaschentaschen()')
+        Log().print('event.announce_via_flaschentaschen()')
         from _apis.models import Flaschentaschen
         Flaschentaschen().showText(self)

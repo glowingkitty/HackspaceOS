@@ -1,9 +1,9 @@
 import os
-from _setup.asci_art import show_message
-from _setup.setup_functions.new import SetupNew
-from _setup.setup_functions.import_setup import SetupImport
-from _setup.setup_functions.export import SetupExport
-from _setup.setup_functions.delete import SetupDelete
+from _setup.models import Log
+from _setup.models.setup_functions.new import SetupNew
+from _setup.models.setup_functions.import_setup import SetupImport
+from _setup.models.setup_functions.export import SetupExport
+from _setup.models.setup_functions.delete import SetupDelete
 
 
 class SetupMenu():
@@ -63,7 +63,7 @@ class SetupMenu():
             self.options_string += ', '+str(self.counter)+' - '+new_option
 
     def show_menu(self):
-        show_message(
+        Log().show_messages(
             'Welcome! How can I help you? (enter a number) '+self.options_string)
         selection_processed = False
         while selection_processed == False:
@@ -85,10 +85,10 @@ class SetupMenu():
                     SetupImport(self.backup_files)
                     selection_processed = True
                 else:
-                    show_message(
+                    Log().show_messages(
                         'ERROR: That option doesn\'t exist. How can I help you? (enter a number) '+self.options_string)
             except KeyboardInterrupt:
                 break
             except (IndexError, ValueError):
-                show_message(
+                Log().show_messages(
                     'ERROR: That option doesn\'t exist. How can I help you? (enter a number) '+self.options_string)

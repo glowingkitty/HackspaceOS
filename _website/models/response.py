@@ -1,3 +1,4 @@
+from _setup.models import Log
 import time
 import re
 TAG_RE = re.compile(r'<[^>]+>')
@@ -13,11 +14,11 @@ class Response():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     @property
     def description(self):
-        from _setup.config import Config
+        from _setup.models import Config
         NAME = Config('BASICS.NAME').value
         HACKERSPACE_IS_SENTENCES = Config(
             'BASICS.HACKERSPACE_IS_SENTENCES').value
@@ -27,7 +28,7 @@ class Response():
         from datetime import datetime
         import calendar
         import pytz
-        from _setup.config import Config
+        from _setup.models import Config
         from _website.templatetags.translate import landingpage
         from _database.models import Event
 

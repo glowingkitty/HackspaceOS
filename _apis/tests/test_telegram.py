@@ -1,6 +1,6 @@
 from django.test import TestCase
 from _apis.models import Telegram
-from _setup.config import Config
+from _setup.models import Config
 from random import randint
 
 

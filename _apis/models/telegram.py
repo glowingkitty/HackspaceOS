@@ -1,6 +1,6 @@
 import os
-from _setup.secrets import Secret
-from _setup.log import log
+from _setup.models import Secret
+from _setup.models import Log
 import time
 import requests
 
@@ -29,26 +29,26 @@ class Telegram():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         import json
 
         try:
             if not self.bot_token or not self.group_chatID:
-                show_messages(
+                Log().show_messages(
                     ['Let\'s setup Telegram - to notify your hackspace about upcoming events, new created events and whatever else you want!'])
 
                 if not self.bot_token:
-                    show_message(
+                    Log().show_messages(
                         'Message https://t.me/botfather to create a new bot for your hackspace. When you are done: What is the token for your bot?')
                     self.bot_token = None if self.test else input()
                     if not self.bot_token and not self.test:
                         raise KeyboardInterrupt
 
                 if not self.group_chatID and self.bot_token:
-                    show_message('Add your bot to your Telegram group.')
+                    Log().show_messages('Add your bot to your Telegram group.')
                     self.group_chatID = self.get_group_chatID()
                     while not self.group_chatID:
                         time.sleep(2)
@@ -62,10 +62,10 @@ class Telegram():
                 with open('_setup/secrets.json', 'w') as outfile:
                     json.dump(secrets, outfile, indent=4)
 
-            show_message('Telegram setup complete.')
+            Log().show_messages('Telegram setup complete.')
 
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     @property
     def updates(self):

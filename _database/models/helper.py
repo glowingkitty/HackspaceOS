@@ -1,9 +1,9 @@
-from _setup.log import log
+from _setup.models import Log
 
 
 class Helper():
     def RESULT__updateTime(self, result):
-        log('RESULT__updateTime(result={})'.format(result))
+        Log().print('RESULT__updateTime(result={})'.format(result))
         import time
 
         # update time
@@ -13,7 +13,7 @@ class Helper():
         return result
 
     def JSON_RESPONSE_more_results(self, request, template_path, queryset):
-        log('JSON_RESPONSE_more_results(request, template_path, queryset)')
+        Log().print('JSON_RESPONSE_more_results(request, template_path, queryset)')
         from django.http import JsonResponse
         from django.template.loader import get_template
 
@@ -29,7 +29,7 @@ class Helper():
         start_from = int(request.GET.get('from', None))
         upt_to = int(start_from+10)
 
-        log('--> return JsonResponse')
+        Log().print('--> return JsonResponse')
         return JsonResponse({
             'html': get_template('components/body/'+template_path).render({
                 'all_results': queryset[start_from:upt_to],
@@ -40,7 +40,7 @@ class Helper():
         })
 
     def JSON_RESPONSE_more_photos(self, request):
-        log('JSON_RESPONSE_more_photos(request)')
+        Log().print('JSON_RESPONSE_more_photos(request)')
         from django.http import JsonResponse
         from django.template.loader import get_template
         from _database.models import Photo
@@ -56,7 +56,7 @@ class Helper():
         elif request.GET.get('type', None) == 'random':
             queryset = Photo.objects.random()
 
-        log('--> return JsonResponse')
+        Log().print('--> return JsonResponse')
         return JsonResponse({
             'html': get_template('components/body/photos_list.html').render({
                 'photos': queryset[start_from:upt_to] if request.GET.get('type', None) != 'random' else queryset,
@@ -68,7 +68,7 @@ class Helper():
     def DATETIME__from_date_and_time_STR(self, str__date, str__time):
         import pytz
         from datetime import datetime
-        from _setup.config import Config
+        from _setup.models import Config
 
         TIMEZONE_STRING = Config('PHYSICAL_SPACE.TIMEZONE_STRING').value
         if 'AM' in str__time or 'PM' in str__time:
@@ -77,25 +77,25 @@ class Helper():
         else:
             datetime_input = pytz.timezone(TIMEZONE_STRING).localize(
                 datetime.strptime(str(str__date+' '+str__time.replace(' ', '')), "%Y-%m-%d %H:%M"))
-        log('--> return DATETIME')
+        Log().print('--> return DATETIME')
         return datetime_input
 
     def INT__UNIX_from_date_and_time_STR(self, str__date, str__time):
-        log('INT__UNIX_from_date_and_time_STR(str__date={},str__time={})'.format(
+        Log().print('INT__UNIX_from_date_and_time_STR(str__date={},str__time={})'.format(
             str__date, str__time))
         from datetime import datetime
 
-        log('--> get datetime from string')
+        Log().print('--> get datetime from string')
         datetime_input = DATETIME__from_date_and_time_STR(str__date, str__time)
 
-        log('--> datetime to UNIX time')
+        Log().print('--> datetime to UNIX time')
         int_timestamp = round(datetime.timestamp(datetime_input))
 
-        log('--> return INT')
+        Log().print('--> return INT')
         return int_timestamp
 
     def INT__duration_minutes(self, str_duration):
         hours = int(str_duration.split(':')[0])
         minutes = int(str_duration.split(':')[1])
-        log('--> return INT')
+        Log().print('--> return INT')
         return (hours*60)+minutes

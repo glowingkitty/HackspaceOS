@@ -5,7 +5,7 @@ class Translate():
         import bleach
         from googletrans import Translator
         import emoji
-        from _setup.config import Config
+        from _setup.models import Config
         translator = Translator()
 
         with open('_translations/languages.json') as json_file:

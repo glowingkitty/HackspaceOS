@@ -1,6 +1,6 @@
 from django.db import models
-from _setup.log import log
-from _setup.secrets import Secret
+from _setup.models import Log
+from _setup.models import Secret
 
 
 class PersonSet(models.QuerySet):
@@ -22,16 +22,16 @@ class PersonSet(models.QuerySet):
         from _apis.models import Discourse
         import time
         import requests
-        from _setup.asci_art import show_message
+        from _setup.models import Log
 
         if DISCOURSE_URL:
-            show_message(
+            Log().show_messages(
                 '✅ Found DISCOURSE.DISCOURSE_URL - start importing persons from Discourse.')
             time.sleep(2)
 
             if requests.get(DISCOURSE_URL).status_code == 200:
                 users = Discourse(url=DISCOURSE_URL).get_users()
-                log('--> process {} users'.format(len(users)))
+                Log().print('--> process {} users'.format(len(users)))
                 for user in users:
                     Person().create(json_content={
                         'str_name_en_US': user['user']['name'] if user['user']['name'] and user['user']['name'] != '' else user['user']['username'],
@@ -40,11 +40,11 @@ class PersonSet(models.QuerySet):
                         'text_description_en_US': user['user']['title'] if user['user']['title'] != '' else None
                     })
             else:
-                show_message(
+                Log().show_messages(
                     'WARNING: I can\'t access your Discourse page. Is the URL correct? Will skip Discourse for now.')
                 time.sleep(4)
         else:
-            show_message(
+            Log().show_messages(
                 'WARNING: Can\'t find the DISCOURSE.DISCOURSE_URL in your secrets.json. Will skip Discourse for now.')
             time.sleep(4)
 
@@ -52,7 +52,7 @@ class PersonSet(models.QuerySet):
         if not name or name == '':
             return None
         from django.db.models import Q
-        from _setup.secrets import Secret
+        from _setup.models import Secret
 
         return self.filter(Q(url_discourse=Secret('DISCOURSE.DISCOURSE_URL').value + 'u/'+name) | Q(str_name_en_US__icontains=name)).first()
 

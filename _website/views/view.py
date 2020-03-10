@@ -1,8 +1,8 @@
 from django.views import View
 import time
-from _setup.log import log
-from _setup.secrets import Secret
-from _setup.config import Config
+from _setup.models import Log
+from _setup.models import Secret
+from _setup.models import Config
 
 
 class View(View):
@@ -17,4 +17,4 @@ class View(View):
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)

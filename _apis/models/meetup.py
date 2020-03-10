@@ -1,7 +1,7 @@
-from _setup.log import log
+from _setup.models import Log
 import time
-from _setup.config import Config
-from _setup.secrets import Secret
+from _setup.models import Config
+from _setup.models import Secret
 import requests
 import json
 
@@ -43,7 +43,7 @@ class Meetup():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
         from _apis.models.meetup_functions.setup import MeetupSetup

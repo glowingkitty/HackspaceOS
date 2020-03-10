@@ -1,5 +1,5 @@
 from django.db import models
-from _setup.log import log
+from _setup.models import Log
 
 
 class PhotoSet(models.QuerySet):
@@ -38,27 +38,27 @@ class PhotoSet(models.QuerySet):
 
     def import_from_google_photos(self, test=False):
         from _apis.models import GooglePhotos
-        log('import_from_google_photos()')
+        Log().print('import_from_google_photos()')
         GooglePhotos().import_photos(test=test)
 
     def import_from_twitter(self, test=False):
         from _apis.models import Twitter
-        log('import_from_twitter()')
+        Log().print('import_from_twitter()')
         Twitter().import_photos(test=test)
 
     def import_from_wiki(self, test=False):
         from _apis.models import MediaWiki
-        log('import_from_wiki()')
+        Log().print('import_from_wiki()')
         MediaWiki().import_photos(test=test)
 
     def import_from_flickr(self, test=False):
         from _apis.models import Flickr
-        log('import_from_flickr()')
+        Log().print('import_from_flickr()')
         Flickr().import_photos(test=test)
 
     def import_from_instagram(self, test=False):
         from _apis.models import Instagram
-        log('import_from_instagram()')
+        Log().print('import_from_instagram()')
         Instagram().import_photos(test=test)
 
 
@@ -82,7 +82,7 @@ class Photo(models.Model):
 
     @property
     def str_relative_time(self):
-        log('photo.str_relative_time')
+        Log().print('photo.str_relative_time')
         import time
         from datetime import datetime
 
@@ -91,22 +91,22 @@ class Photo(models.Model):
         # in last 60 minutes
         if timestamp >= time.time()-(60*60):
             minutes_in_past = int((time.time()-timestamp)/60)
-            log('--> return STR')
+            Log().print('--> return STR')
             return str(minutes_in_past)+' minute'+('s' if minutes_in_past > 1 else '')+' ago'
 
         # in last 24 hours
         elif timestamp >= time.time()-(60*60*24):
             hours_in_past = int(((time.time()-timestamp)/60)/60)
-            log('--> return STR')
+            Log().print('--> return STR')
             return str(hours_in_past)+' hour'+('s' if hours_in_past > 1 else '')+' ago'
 
         # else if in last 6 days, return number of days ago
         elif timestamp >= time.time()-(60*60*24*6):
             days_in_past = int((((time.time()-timestamp)/60)/60)/24)
-            log('--> return STR')
+            Log().print('--> return STR')
             return str(days_in_past)+' day'+('s' if days_in_past > 1 else '')+' ago'
 
         # else date string
         else:
-            log('--> return STR')
+            Log().print('--> return STR')
             return datetime.utcfromtimestamp(timestamp).strftime('%b %d, %Y')

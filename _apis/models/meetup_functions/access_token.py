@@ -1,10 +1,10 @@
-from _setup.log import log
+from _setup.models import Log
 from _apis.models import Scraper
 from selenium.webdriver.common.by import By
 import requests
 import time
 import json
-from _setup.secrets import Secret
+from _setup.models import Secret
 
 
 class MeetupAcessToken():
@@ -71,4 +71,4 @@ class MeetupAcessToken():
     def log(self, text):
         import os
         self.logs.append(text)
-        log('{}'.format(text), os.path.basename(__file__), self.started)
+        Log().print('{}'.format(text), os.path.basename(__file__), self.started)

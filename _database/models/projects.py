@@ -1,6 +1,6 @@
 from django.db import models
-from _setup.log import log
-from _setup.secrets import Secret
+from _setup.models import Log
+from _setup.models import Secret
 
 
 class ProjectSet(models.QuerySet):
@@ -24,19 +24,19 @@ class ProjectSet(models.QuerySet):
         from _apis.models import Discourse
         from datetime import datetime
         from dateutil import parser
-        from _setup.asci_art import show_message
+        from _setup.models import Log
         import time
         import requests
 
         if DISCOURSE_URL:
-            show_message(
+            Log().show_messages(
                 '✅ Found DISCOURSE.DISCOURSE_URL - start importing projects from Discourse.')
             time.sleep(2)
 
             if requests.get(DISCOURSE_URL+'/c/projects').status_code == 200:
                 projects = Discourse().get_category_posts(
                     category='projects', all_pages=True)
-                log('--> process {} projects'.format(len(projects)))
+                Log().print('--> process {} projects'.format(len(projects)))
                 for project in projects:
                     if project['title'] != 'About the Projects category':
                         Project().create(json_content={
@@ -49,11 +49,11 @@ class ProjectSet(models.QuerySet):
                         }
                         )
             else:
-                show_message(
+                Log().show_messages(
                     'WARNING: Can\'t find the "projects" category on your Discourse. Skipped importing Consensus Items from Discourse.')
                 time.sleep(4)
         else:
-            show_message(
+            Log().show_messages(
                 'WARNING: Can\'t find the DISCOURSE.DISCOURSE_URL in your secrets.json. Will skip Discourse for now.')
             time.sleep(4)
 

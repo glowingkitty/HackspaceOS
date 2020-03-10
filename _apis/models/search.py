@@ -1,4 +1,4 @@
-from _setup.log import log
+from _setup.models import Log
 from django.db.models import Q
 import time
 
@@ -24,16 +24,16 @@ class Search():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         from _apis.models import Discourse, MediaWiki
         try:
             discourse_setup_done = Discourse(test=self.test).setup_done
             mediawiki_setup_done = MediaWiki(test=self.test).setup_done
             if not discourse_setup_done or not mediawiki_setup_done:
-                show_messages(
+                Log().show_messages(
                     ['Let\'s setup the search for your new website!'])
 
                 if not discourse_setup_done:
@@ -42,15 +42,15 @@ class Search():
                 if not mediawiki_setup_done:
                     MediaWiki(test=self.test).setup()
 
-            show_message('Search setup complete.')
+            Log().show_messages('Search setup complete.')
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     def query(self, query, filter_name=None):
         self.log('query()')
         from _apis.models import Discourse, MediaWiki
         from _database.models import Person, Event, MeetingNote, Guilde, Machine, Space, Consensus, Project
-        from _setup.config import Config
+        from _setup.models import Config
 
         if not query:
             return []

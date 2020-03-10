@@ -4,7 +4,7 @@ class OpenStatus():
         from datetime import datetime
         import calendar
         import pytz
-        from _setup.config import Config
+        from _setup.models import Config
         from _website.templatetags.translate import landingpage
         from _database.models import Event
         from _website.models import Request

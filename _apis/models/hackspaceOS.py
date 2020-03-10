@@ -1,5 +1,5 @@
 import time
-from _setup.log import log
+from _setup.models import Log
 from _apis.models.hackspaceOS_functions.page import Page
 from _apis.models.hackspaceOS_functions.load_more import LoadMore
 from _apis.models.hackspaceOS_functions.open_status import OpenStatus
@@ -28,7 +28,7 @@ class HackspaceOS():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def image_upload(self, request=None):
         self.log('HackspaceOS().image_upload()')

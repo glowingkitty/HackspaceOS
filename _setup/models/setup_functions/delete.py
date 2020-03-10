@@ -1,4 +1,4 @@
-from _setup.asci_art import show_message
+from _setup.models import Log
 import os
 
 
@@ -7,7 +7,7 @@ class SetupDelete():
         self.backup_files = backup_files
         self.test = test
 
-        show_message(
+        Log().show_messages(
             'WARNING: Are you sure you want to delete your current setup? This will delete the config.json, secrets.json and your logos & favicons. Enter "delete" to delete the current setup.')
         confirm = 'delete' if self.test else input()
         if confirm == 'delete':
@@ -15,7 +15,7 @@ class SetupDelete():
                 if os.path.exists(file_path):
                     os.remove(file_path)
 
-            show_message('✅Done! I deleted the current setup.')
+            Log().show_messages('✅Done! I deleted the current setup.')
 
         else:
-            show_message('Ok. I won\'t delete anything.')
+            Log().show_messages('Ok. I won\'t delete anything.')

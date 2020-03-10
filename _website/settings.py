@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import mimetypes
 import os
 
-from _setup.secrets import Secret
-from _setup.config import Config
+from _setup.models import Secret
+from _setup.models import Config
 
 MODE = Config('MODE.SELECTED').value
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     '_apis',
     '_database',
     '_website',
+    '_setup',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

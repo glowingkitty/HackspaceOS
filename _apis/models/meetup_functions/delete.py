@@ -1,5 +1,5 @@
 import requests
-from _setup.log import log
+from _setup.models import Log
 import time
 
 
@@ -37,4 +37,4 @@ class MeetupDelete():
     def log(self, text):
         import os
         self.logs.append(text)
-        log('{}'.format(text), os.path.basename(__file__), self.started)
+        Log().print('{}'.format(text), os.path.basename(__file__), self.started)

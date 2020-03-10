@@ -2,8 +2,8 @@ class EventCreate():
     def __init__(self, request=None):
         from _apis.models import Notify
         from _database.models import Helper, Event, Space, Guilde, Person
-        from _setup.config import Config
-        from _setup.secrets import Secret
+        from _setup.models import Config
+        from _setup.models import Secret
         from django.http import JsonResponse
 
         DOMAIN = Config('WEBSITE.DOMAIN').value

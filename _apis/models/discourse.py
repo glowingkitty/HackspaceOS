@@ -1,6 +1,6 @@
-from _setup.log import log
+from _setup.models import Log
 import requests
-from _setup.secrets import Secret
+from _setup.models import Secret
 import time
 from _setup.tests.test_setup import SetupTestConfig
 
@@ -31,19 +31,19 @@ class Discourse():
         import os
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text), os.path.basename(__file__), self.started)
+            Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.asci_art import show_message, show_messages
+        from _setup.models import Log
         import json
 
         try:
             if not self.url or not self.api_key or not self.api_username:
-                show_messages(
+                Log().show_messages(
                     ['Let\'s setup Discourse - to import projects, events, and more to your website from your Discourse community.'])
 
             if not self.url:
-                show_message(
+                Log().show_messages(
                     'What is the URL of your Discourse group?')
                 self.url = SetupTestConfig(
                     'SOCIAL.DISCOURSE_GROUP').value if self.test else input()
@@ -51,12 +51,12 @@ class Discourse():
                     self.url = input()
 
             if not self.api_key:
-                show_message(
+                Log().show_messages(
                     'And what is your API key?')
                 self.api_key = None if self.test else input()
 
             if self.api_key:
-                show_message(
+                Log().show_messages(
                     'And your API username?')
                 self.api_username = None if self.test else input()
 
@@ -71,9 +71,9 @@ class Discourse():
             with open('_setup/secrets.json', 'w') as outfile:
                 json.dump(secrets, outfile, indent=4)
 
-            show_message('Discourse setup complete.')
+            Log().show_messages('Discourse setup complete.')
         except KeyboardInterrupt:
-            show_message('Ok, canceled setup.')
+            Log().show_messages('Ok, canceled setup.')
 
     def search(self, query, limit=5):
         self.log('search()')

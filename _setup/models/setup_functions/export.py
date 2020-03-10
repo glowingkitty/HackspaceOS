@@ -1,4 +1,4 @@
-from _setup.asci_art import show_message, show_messages
+from _setup.models import Log
 
 
 class SetupExport():
@@ -6,17 +6,17 @@ class SetupExport():
         self.backup_files = backup_files
         self.test = test
 
-        show_messages([
+        Log().show_messages([
             'Hello! It seems you want to export your current settings? (your config.json, secrets.json and important images)'
         ])
 
-        show_message(
+        Log().show_messages(
             'If that\'s the case, enter now a name for the exported folder. (or press Enter to exit)')
 
         folder_name = 'unittest' if self.test else input()
 
         if not folder_name:
-            show_message('Ok, got it. Maybe another time.')
+            Log().show_messages('Ok, got it. Maybe another time.')
             exit()
         else:
             from zipfile import ZipFile, ZIP_DEFLATED
@@ -30,8 +30,8 @@ class SetupExport():
                     except:
                         pass
 
-                show_message('✅Done! Exported "'+folder_name +
-                             '" ('+self.get_size('setup_backup__'+folder_name+'.zip')+')')
+                Log().show_messages('✅Done! Exported "'+folder_name +
+                                    '" ('+self.get_size('setup_backup__'+folder_name+'.zip')+')')
 
     def get_size(self, file_path):
         import os

@@ -25,14 +25,14 @@ class ConsensusSet(models.QuerySet):
         from _database.models import Person
         from _apis.models import Discourse
         from dateutil import parser
-        from _setup.secrets import Secret
+        from _setup.models import Secret
         import time
         import requests
-        from _setup.asci_art import show_message
+        from _setup.models import Log
 
         DISCOURSE_URL = Secret('DISCOURSE.DISCOURSE_URL').value
         if DISCOURSE_URL:
-            show_message(
+            Log().show_messages(
                 '✅ Found DISCOURSE.DISCOURSE_URL - start importing Consensus Items from Discourse.')
             time.sleep(2)
 
@@ -51,11 +51,11 @@ class ConsensusSet(models.QuerySet):
                         }
                         )
             else:
-                show_message(
+                Log().show_messages(
                     'WARNING: Can\'t find the "consensus-items" category on your Discourse. Skipped importing Consensus Items from Discourse.')
                 time.sleep(4)
         else:
-            show_message(
+            Log().show_messages(
                 'WARNING: Can\'t find the DISCOURSE.DISCOURSE_URL in your secrets.json. Will skip Discourse for now.')
             time.sleep(4)
 

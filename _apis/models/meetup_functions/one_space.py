@@ -1,4 +1,4 @@
-from _setup.config import Config
+from _setup.models import Config
 
 
 class MeetupOneSpace():

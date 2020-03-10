@@ -1,4 +1,4 @@
-from _setup.asci_art import show_message
+from _setup.models import Log
 
 
 class SetupNewRiseupPad():
@@ -6,7 +6,7 @@ class SetupNewRiseupPad():
         self.config = config
 
         if self.config['BASICS']['NAME']:
-            show_message(
+            Log().show_messages(
                 'Ok, great! Give me a seconds, so I can try to setup your RISEUPPAD_MEETING_PATH, and MEETUP_GROUP as well...')
 
             # if hackerspace name saved, also save other config defaults based on name

@@ -1,5 +1,5 @@
 import requests
-from _setup.log import log
+from _setup.models import Log
 
 
 class Flaschentaschen():
@@ -12,7 +12,7 @@ class Flaschentaschen():
     def log(self, text):
         self.logs.append(text)
         if self.show_log == True:
-            log('{}'.format(text))
+            Log().print('{}'.format(text))
 
     def showText(self, text):
         try:
