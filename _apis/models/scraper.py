@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 import time
 from _setup.models import Secret
 
@@ -69,9 +70,11 @@ class Scraper():
                     browser_profile=profile
                 )
             else:
-                # TODO ensure local webdriver also works, across operating systems
+                options = Options()
+                options.headless = True
                 self.selenium = webdriver.Firefox(
                     firefox_profile=profile,
+                    options=options,
                     executable_path='geckodriver'
                 )
 
