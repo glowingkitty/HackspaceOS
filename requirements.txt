@@ -14,6 +14,7 @@ bs4==0.0.1
 certifi==2019.11.28
 chardet==3.0.4
 colorclass==2.2.0
+croniter==0.3.31
 cssselect==1.1.0
 decorator==4.4.1
 Django==3.0.3
@@ -53,6 +54,7 @@ Pygments==2.5.2
 pyparsing==2.4.6
 pyppeteer==0.0.25
 pyquery==1.4.1
+python-crontab==2.4.0
 python-dateutil==2.8.1
 pytz==2019.3
 rcssmin==1.0.6
