@@ -23,6 +23,15 @@ class Setup():
         else:
             return False
 
+    @property
+    def database_exists(self):
+        import os
+        # check if config and secrets file exist
+        if os.path.isfile('db.sqlite3'):
+            return True
+        else:
+            return False
+
     def _menu(self):
         from _setup.models.setup_functions.menu import SetupMenu
         SetupMenu(self.backup_files, self.test)

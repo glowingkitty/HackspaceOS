@@ -10,10 +10,6 @@ class Config():
         self.show_log = show_log
         self.file_path = file_path
 
-        from _setup.models import Setup
-        if Setup().complete == False:
-            Setup()._menu()
-
         with open(file_path) as json_file:
             self.value = json.load(json_file)
 
