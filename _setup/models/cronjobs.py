@@ -7,6 +7,9 @@ import os
 class Cronjob():
     def __init__(self):
         self.logs = ['self.__init__']
+        self.main_folder_path = os.path.dirname(
+            os.path.abspath(__file__)).split('/_setup/')[0]
+        self.python_venv_path = '/HackspaceOSVenv/bin/python'
         self.started = round(time.time())
         self.crontab = CronTab(user=getpass.getuser())
 
@@ -50,7 +53,8 @@ class Cronjob():
         return len(self.jobs)
 
     def add(self, command, timing):
-        job = self.crontab.new(command=command)
+        job = self.crontab.new(command=command.replace(
+            'python', self.main_folder_path+self.python_venv_path))
         job.setall(timing)
 
         self.crontab.write()
