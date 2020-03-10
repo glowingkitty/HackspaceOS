@@ -24,9 +24,9 @@ class SetupImport():
                 counter += 1
 
         if counter == 1:
-            Log().show_messages('No backups found.')
+            Log().show_message('No backups found.')
         else:
-            Log().show_messages(
+            Log().show_message(
                 'Which setup would you like to import? '+folder_options)
             selected_folder = unittest_zip_counter if self.test else input()
 
@@ -47,11 +47,11 @@ class SetupImport():
                     # extracting all the files
                     zip.extractall()
 
-                Log().show_messages('✅Done! Imported "'+folder_name.split('setup_backup__')
-                                    [1].split('.zip')[0] + '" ('+self.get_size(folder_name)+')')
+                Log().show_message('✅Done! Imported "'+folder_name.split('setup_backup__')
+                                   [1].split('.zip')[0] + '" ('+self.get_size(folder_name)+')')
 
             except:
-                Log().show_messages(
+                Log().show_message(
                     'ERROR: The folder doesnt exist. Please enter a correct number.')
 
     def get_size(self, file_path):

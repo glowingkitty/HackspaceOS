@@ -10,13 +10,13 @@ class SetupExport():
             'Hello! It seems you want to export your current settings? (your config.json, secrets.json and important images)'
         ])
 
-        Log().show_messages(
+        Log().show_message(
             'If that\'s the case, enter now a name for the exported folder. (or press Enter to exit)')
 
         folder_name = 'unittest' if self.test else input()
 
         if not folder_name:
-            Log().show_messages('Ok, got it. Maybe another time.')
+            Log().show_message('Ok, got it. Maybe another time.')
             exit()
         else:
             from zipfile import ZipFile, ZIP_DEFLATED
@@ -30,8 +30,8 @@ class SetupExport():
                     except:
                         pass
 
-                Log().show_messages('✅Done! Exported "'+folder_name +
-                                    '" ('+self.get_size('setup_backup__'+folder_name+'.zip')+')')
+                Log().show_message('✅Done! Exported "'+folder_name +
+                                   '" ('+self.get_size('setup_backup__'+folder_name+'.zip')+')')
 
     def get_size(self, file_path):
         import os

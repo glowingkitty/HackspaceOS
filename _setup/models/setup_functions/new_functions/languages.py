@@ -6,7 +6,7 @@ class SetupLanguages():
         self.config = config
         self.test = test
 
-        Log().show_messages(
+        Log().show_message(
             'Besides english - what languages should your website support? Currently available: hebrew.')
         input_languages = ['hebrew'] if self.test else input().replace(
             ', ', ',').split(',')

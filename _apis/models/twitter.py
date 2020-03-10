@@ -41,7 +41,7 @@ class Twitter():
                     ['Let\'s setup Twitter - to automatically import photos from Twitter into your websites photo section.'])
 
                 if not self.username:
-                    Log().show_messages(
+                    Log().show_message(
                         'What is the username of your hackspace on Twitter?')
                     self.username = SetupTestConfig(
                         'SOCIAL.TWITTER_USERNAME').value if self.test else input()
@@ -50,7 +50,7 @@ class Twitter():
                             'twitter.com/')[1].replace('/', '')
 
                 if not self.hashtag:
-                    Log().show_messages(
+                    Log().show_message(
                         'What hashtag does your hackspace use on Twitter (and Instagram)?')
                     self.hashtag = SetupTestConfig(
                         'SOCIAL.HASHTAG').value if self.test else input().replace('#', '')
@@ -74,10 +74,10 @@ class Twitter():
                 with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
-            Log().show_messages('Twitter setup complete.')
+            Log().show_message('Twitter setup complete.')
 
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')
 
     @property
     def photos(self):

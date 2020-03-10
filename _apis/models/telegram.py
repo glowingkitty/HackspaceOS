@@ -41,14 +41,14 @@ class Telegram():
                     ['Let\'s setup Telegram - to notify your hackspace about upcoming events, new created events and whatever else you want!'])
 
                 if not self.bot_token:
-                    Log().show_messages(
+                    Log().show_message(
                         'Message https://t.me/botfather to create a new bot for your hackspace. When you are done: What is the token for your bot?')
                     self.bot_token = None if self.test else input()
                     if not self.bot_token and not self.test:
                         raise KeyboardInterrupt
 
                 if not self.group_chatID and self.bot_token:
-                    Log().show_messages('Add your bot to your Telegram group.')
+                    Log().show_message('Add your bot to your Telegram group.')
                     self.group_chatID = self.get_group_chatID()
                     while not self.group_chatID:
                         time.sleep(2)
@@ -62,10 +62,10 @@ class Telegram():
                 with open('_setup/secrets.json', 'w') as outfile:
                     json.dump(secrets, outfile, indent=4)
 
-            Log().show_messages('Telegram setup complete.')
+            Log().show_message('Telegram setup complete.')
 
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')
 
     @property
     def updates(self):

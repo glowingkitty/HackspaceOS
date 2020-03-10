@@ -63,7 +63,7 @@ class SetupMenu():
             self.options_string += ', '+str(self.counter)+' - '+new_option
 
     def show_menu(self):
-        Log().show_messages(
+        Log().show_message(
             'Welcome! How can I help you? (enter a number) '+self.options_string)
         selection_processed = False
         while selection_processed == False:
@@ -85,10 +85,10 @@ class SetupMenu():
                     SetupImport(self.backup_files)
                     selection_processed = True
                 else:
-                    Log().show_messages(
+                    Log().show_message(
                         'ERROR: That option doesn\'t exist. How can I help you? (enter a number) '+self.options_string)
             except KeyboardInterrupt:
                 break
             except (IndexError, ValueError):
-                Log().show_messages(
+                Log().show_message(
                     'ERROR: That option doesn\'t exist. How can I help you? (enter a number) '+self.options_string)

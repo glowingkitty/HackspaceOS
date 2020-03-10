@@ -15,7 +15,7 @@ class MeetupSetup():
                 ask_input = False
                 space_name = Config('BASICS.NAME').value
                 if requests.get('https://www.meetup.com/'+space_name.lower()).status_code == 200:
-                    Log().show_messages(
+                    Log().show_message(
                         'Is this your hackpace meetup group? (Y/N): https://www.meetup.com/'+space_name.lower())
                     reply = input()
                     if reply.lower() == 'y':
@@ -29,7 +29,7 @@ class MeetupSetup():
                     Log().show_messages(
                         ['Let\'s setup Meetup.com - so we can automatically import all your events from Meetup and show them on your new website.'])
 
-                    Log().show_messages('What is the URL of your Meetup group?')
+                    Log().show_message('What is the URL of your Meetup group?')
                     self.group = SetupTestConfig(
                         'EVENTS.MEETUP_GROUP').value if self.test else input()
                     if not self.group and not self.test:
@@ -55,6 +55,6 @@ class MeetupSetup():
                 with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
-            Log().show_messages('Meetup setup complete.')
+            Log().show_message('Meetup setup complete.')
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')

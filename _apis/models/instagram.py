@@ -41,7 +41,7 @@ class Instagram():
                     ['Let\'s setup Instagram - to automatically import photos from Instagram into your websites photo section.'])
 
                 if not self.username:
-                    Log().show_messages(
+                    Log().show_message(
                         'What is the username of your hackspace on Instagram?')
                     self.username = SetupTestConfig(
                         'SOCIAL.INSTAGRAM_USERNAME').value if self.test else input()
@@ -50,7 +50,7 @@ class Instagram():
                             'instagram.com/')[1].replace('/', '')
 
                 if not self.hashtag:
-                    Log().show_messages(
+                    Log().show_message(
                         'What hashtag does your hackspace use on Instagram (and Twitter)?')
                     self.hashtag = SetupTestConfig(
                         'SOCIAL.HASHTAG').value if self.test else input().replace('#', '')
@@ -74,9 +74,9 @@ class Instagram():
                 with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
-            Log().show_messages('Instagram setup complete.')
+            Log().show_message('Instagram setup complete.')
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')
 
     @property
     def photos(self):

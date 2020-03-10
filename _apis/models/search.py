@@ -42,9 +42,9 @@ class Search():
                 if not mediawiki_setup_done:
                     MediaWiki(test=self.test).setup()
 
-            Log().show_messages('Search setup complete.')
+            Log().show_message('Search setup complete.')
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')
 
     def query(self, query, filter_name=None):
         self.log('query()')

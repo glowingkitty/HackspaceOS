@@ -43,9 +43,9 @@ class Notify():
                 if not Slack().setup_done and not Telegram().setup_done:
                     Telegram(test=self.test).setup()
 
-            Log().show_messages('Notify setup complete.')
+            Log().show_message('Notify setup complete.')
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')
 
     def send(self, message):
         self.log('send()')

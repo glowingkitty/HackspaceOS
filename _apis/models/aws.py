@@ -51,31 +51,31 @@ class Aws():
                 Log().show_messages(
                     ['Let\'s setup AWS - so whenever a user creates a new event via your new website, the event image will be uploaded to AWS S3.'])
 
-                Log().show_messages(
+                Log().show_message(
                     'To upload photos to S3: Enter your AWS ACCESS_KEYID')
                 self.access_key_id = None if self.test else input()
                 if not self.access_key_id and not self.test:
                     raise KeyboardInterrupt
 
-                Log().show_messages(
+                Log().show_message(
                     'To upload photos to S3: Enter your AWS SECRET_ACCESS_KEY')
                 self.secret_access_key = None if self.test else input()
                 if not self.secret_access_key and not self.test:
                     raise KeyboardInterrupt
 
-                Log().show_messages(
+                Log().show_message(
                     'To upload photos to S3: Enter your S3 BUCKET_NAME')
                 self.bucket_name = None if self.test else input()
                 if not self.bucket_name and not self.test:
                     raise KeyboardInterrupt
 
-                Log().show_messages(
+                Log().show_message(
                     'To upload photos to S3: Enter your S3 SERVER_AREA')
                 self.server_area = None if self.test else input()
                 if not self.server_area and not self.test:
                     raise KeyboardInterrupt
 
-                Log().show_messages(
+                Log().show_message(
                     'To delete photos from S3: Did you configure the AWS CLI? (yes|no)')
                 reply = 'yes' if self.test else input()
                 if reply == 'no':
@@ -94,9 +94,9 @@ class Aws():
                 with open('_setup/secrets.json', 'w') as outfile:
                     json.dump(secrets, outfile, indent=4)
 
-            Log().show_messages('Aws setup complete.')
+            Log().show_message('Aws setup complete.')
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')
 
     def upload(self, image):
         self.log('upload()')

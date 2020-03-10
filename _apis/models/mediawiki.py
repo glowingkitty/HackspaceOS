@@ -39,7 +39,7 @@ class MediaWiki():
                     Log().show_messages(
                         ['Let\'s add your hackspaces Wiki to the search!'])
 
-                    Log().show_messages(
+                    Log().show_message(
                         'What is the API URL of your Wiki?')
                     self.url = SetupTestConfig(
                         'BASICS.WIKI.API_URL').value if self.test else input()
@@ -53,9 +53,9 @@ class MediaWiki():
                 with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
-            Log().show_messages('MediaWiki setup complete.')
+            Log().show_message('MediaWiki setup complete.')
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')
 
     def search(self, query, limit=5):
         self.log('search()')
@@ -162,16 +162,16 @@ class MediaWiki():
         import time
 
         if WIKI_API_URL:
-            Log().show_messages(
+            Log().show_message(
                 '✅ Found BASICS.WIKI.API_URL - Start importing photos from your Wiki ...')
             time.sleep(2)
             if requests.get(WIKI_API_URL).status_code != 200:
-                Log().show_messages(
+                Log().show_message(
                     'WARNING: I can\'t access your Wiki. Is the API_URL correct? Will skip importing photos from your Wiki for now.')
                 time.sleep(4)
                 return
         else:
-            Log().show_messages(
+            Log().show_message(
                 'WARNING: Can\'t find BASICS.WIKI.API_URL in your config.json. Will skip importing photos from your Wiki for now.')
             time.sleep(4)
             return

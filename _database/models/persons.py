@@ -25,7 +25,7 @@ class PersonSet(models.QuerySet):
         from _setup.models import Log
 
         if DISCOURSE_URL:
-            Log().show_messages(
+            Log().show_message(
                 '✅ Found DISCOURSE.DISCOURSE_URL - start importing persons from Discourse.')
             time.sleep(2)
 
@@ -40,11 +40,11 @@ class PersonSet(models.QuerySet):
                         'text_description_en_US': user['user']['title'] if user['user']['title'] != '' else None
                     })
             else:
-                Log().show_messages(
+                Log().show_message(
                     'WARNING: I can\'t access your Discourse page. Is the URL correct? Will skip Discourse for now.')
                 time.sleep(4)
         else:
-            Log().show_messages(
+            Log().show_message(
                 'WARNING: Can\'t find the DISCOURSE.DISCOURSE_URL in your secrets.json. Will skip Discourse for now.')
             time.sleep(4)
 

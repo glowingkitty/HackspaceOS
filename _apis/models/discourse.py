@@ -43,7 +43,7 @@ class Discourse():
                     ['Let\'s setup Discourse - to import projects, events, and more to your website from your Discourse community.'])
 
             if not self.url:
-                Log().show_messages(
+                Log().show_message(
                     'What is the URL of your Discourse group?')
                 self.url = SetupTestConfig(
                     'SOCIAL.DISCOURSE_GROUP').value if self.test else input()
@@ -51,12 +51,12 @@ class Discourse():
                     self.url = input()
 
             if not self.api_key:
-                Log().show_messages(
+                Log().show_message(
                     'And what is your API key?')
                 self.api_key = None if self.test else input()
 
             if self.api_key:
-                Log().show_messages(
+                Log().show_message(
                     'And your API username?')
                 self.api_username = None if self.test else input()
 
@@ -71,9 +71,9 @@ class Discourse():
             with open('_setup/secrets.json', 'w') as outfile:
                 json.dump(secrets, outfile, indent=4)
 
-            Log().show_messages('Discourse setup complete.')
+            Log().show_message('Discourse setup complete.')
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')
 
     def search(self, query, limit=5):
         self.log('search()')

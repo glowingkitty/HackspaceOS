@@ -31,7 +31,10 @@ class Log():
         else:
             print(string+self.prGreen(text))
 
-    def show_messages(self, text):
+    def show_message(self, text):
+        if type(text) != str:
+            raise TypeError
+
         # split up string so it fits into lines (27 character per lines)
         words = text.split(' ')
         lines = []
@@ -59,15 +62,18 @@ class Log():
         print(self.prPurple('    \---/   '))
 
         if text.startswith('WARNING:') or text.startswith('Guess later then'):
-            confused_face()
+            self.confused_face()
         elif text.startswith('ERROR:'):
-            sad_face()
+            self.sad_face()
         else:
-            happy_face()
+            self.happy_face()
 
     def show_messages(self, list_messages):
+        if type(list_messages) != list:
+            raise TypeError
+
         for message in list_messages:
-            Log().show_messages(message)
+            self.show_message(message)
             print(self.prYellow("Continue in 3 seconds..."))
             time.sleep(3)
 

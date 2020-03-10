@@ -38,7 +38,7 @@ class Flickr():
                 Log().show_messages(
                     ['Let\'s setup Flickr - to automatically import photos from Flickr into your websites photo section.'])
 
-                Log().show_messages(
+                Log().show_message(
                     'Enter the URL on Flickr which we should scrape - for example an album:')
                 self.url = None if self.test else input()
                 if not self.url and not self.test:
@@ -51,9 +51,9 @@ class Flickr():
                 with open('_setup/config.json', 'w') as outfile:
                     json.dump(config, outfile, indent=4)
 
-            Log().show_messages('Flickr setup complete.')
+            Log().show_message('Flickr setup complete.')
         except KeyboardInterrupt:
-            Log().show_messages('Ok, canceled setup.')
+            Log().show_message('Ok, canceled setup.')
 
     @property
     def photos(self):

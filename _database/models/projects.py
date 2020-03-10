@@ -29,7 +29,7 @@ class ProjectSet(models.QuerySet):
         import requests
 
         if DISCOURSE_URL:
-            Log().show_messages(
+            Log().show_message(
                 '✅ Found DISCOURSE.DISCOURSE_URL - start importing projects from Discourse.')
             time.sleep(2)
 
@@ -49,11 +49,11 @@ class ProjectSet(models.QuerySet):
                         }
                         )
             else:
-                Log().show_messages(
+                Log().show_message(
                     'WARNING: Can\'t find the "projects" category on your Discourse. Skipped importing Consensus Items from Discourse.')
                 time.sleep(4)
         else:
-            Log().show_messages(
+            Log().show_message(
                 'WARNING: Can\'t find the DISCOURSE.DISCOURSE_URL in your secrets.json. Will skip Discourse for now.')
             time.sleep(4)
 
