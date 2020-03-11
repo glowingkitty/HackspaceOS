@@ -75,12 +75,12 @@ class EventsView(View):
             'selected': selected,
         }
 
-    def new(self, request):
+    def new(self, original_request):
         self.log('-> EventsView().new()')
         from _database.models import Event, Photo, Space, Guilde
         from _setup.models import Config
         from django.middleware.csrf import get_token
-        request = Request(request)
+        request = Request(original_request)
         EVENTS_SPACE_DEFAULT = Config('EVENTS.EVENTS_SPACE_DEFAULT').value
 
         self.context = {
@@ -99,7 +99,7 @@ class EventsView(View):
             'default_space': Space.objects.filter(str_name_en_US=EVENTS_SPACE_DEFAULT).first(),
             'all_spaces': Space.objects.exclude(str_name_en_US=EVENTS_SPACE_DEFAULT),
             'all_guildes': Guilde.objects.all(),
-            'csrf_token': get_token(request)
+            'csrf_token': get_token(original_request)
         }
 
     def get(self, request):

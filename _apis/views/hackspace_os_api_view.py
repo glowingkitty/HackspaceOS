@@ -7,6 +7,9 @@ class HackspaceOSapiView(View):
         if self.path == 'image_upload':
             return HackspaceOS().image_upload(request)
 
+        elif self.path == 'event_create':
+            return HackspaceOS().event_create(request)
+
     def get(self, request, sub_page=None):
         if self.path == 'page' and sub_page:
             return HackspaceOS().page(sub_page, request)
@@ -31,9 +34,6 @@ class HackspaceOSapiView(View):
 
         elif self.path == 'events_slider':
             return HackspaceOS().events_slider(request)
-
-        elif self.path == 'event_create':
-            return HackspaceOS().event_create(request)
 
         elif self.path == 'event_approve':
             return HackspaceOS().event_approve(request)

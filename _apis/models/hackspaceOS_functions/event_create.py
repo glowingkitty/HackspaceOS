@@ -87,11 +87,8 @@ class EventCreate():
                 'https://'+DOMAIN+'/'+new_event.str_slug
             )
         else:
-            self.value = JsonResponse(
-                {
-                    'error': '--> Request not sent via hackerspace domain. Skipped notifying via Slack.'
-                }
-            )
+            print(
+                '--> Request not sent via hackerspace domain. Skipped notifying via Slack.')
 
         # if event is repeating, create upcoming instances
         new_event = new_event.create_upcoming_instances()

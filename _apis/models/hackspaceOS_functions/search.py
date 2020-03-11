@@ -11,7 +11,6 @@ class Search():
         self.value = JsonResponse(
             {
                 'num_results': len(search_results),
-                'search_results': search_results,
                 'html': get_template(
                     'components/search/search_results.html').render({
                         'language': language,
