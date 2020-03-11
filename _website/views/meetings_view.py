@@ -86,4 +86,7 @@ class MeetingsView(View):
 
     def html(self):
         self.log('MeetingsView.html()')
-        return get_template(self.context['view']+'.html').render(self.context)
+        return {
+            'html': get_template(self.context['view']+'.html').render(self.context),
+            'page_name': self.context['page_name']
+        }

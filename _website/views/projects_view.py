@@ -43,4 +43,7 @@ class ProjectsView(View):
 
     def html(self):
         self.log('ProjectsView.html()')
-        return get_template(self.context['view']+'.html').render(self.context)
+        return {
+            'html': get_template(self.context['view']+'.html').render(self.context),
+            'page_name': self.context['page_name']
+        }

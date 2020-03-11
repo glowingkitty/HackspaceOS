@@ -84,9 +84,4 @@ class Page():
             view = views.ConsensusView()
             view.get_context(request)
 
-        self.value = JsonResponse(
-            {
-                'html': view.html(),
-                'page_name': page
-            }
-        )
+        self.value = JsonResponse(view.html())
