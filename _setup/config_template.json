@@ -4,13 +4,13 @@
         "SELECTED": "TESTING"
     },
     "BASICS": {
-        "__info__0": "What is the name of your hackerspace?",
+        "__info__0": "What is the name of your ?",
         "NAME": null,
 
         "__info__1": "The sentences in HACKERSPACE_IS_SENTENCES show up on the landingpage in the header.",
         "HACKERSPACE_IS_SENTENCES": {
             "english": [
-                "is a hackerspace in {{ CITY }}",
+                "is a hackspace in {{ CITY }}",
                 "is a community",
                 "is a maker & learning space",
                 "is a do-ocracy",
@@ -110,9 +110,9 @@
 
         "DISCOURSE_AND_MEETUP_EVENT_FOOTER_HTML": null,
 
-        "__info__1": "Which additional meetup groups organize events at your hackerspace? https://www.meetup.com/{{ group_name }}/",
+        "__info__1": "Which additional meetup groups organize events at your hackspace? https://www.meetup.com/{{ group_name }}/",
         "EXTRA_MEETUP_GROUPS": [],
-        "__info__2": "What is the default space/room for events in your hackerspace?",
+        "__info__2": "What is the default space/room for events in your hackspace?",
         "EVENTS_SPACE_DEFAULT": "Hackatorium",
 
         "__info__3": "Are there repeating events in your space which happen always in the same space/room? List them here as default values.",
@@ -129,14 +129,14 @@
         },
         "EVENTS_HOSTS_OVERWRITE": {},
 
-        "__info__5": "Do you have guildes in your hackerspace? Groups which take care of different parts of the space? Add keywords and the name of the guilde here, to automatically connect them to new events.",
+        "__info__5": "Do you have guildes in your hackspace? Groups which take care of different parts of the space? Add keywords and the name of the guilde here, to automatically connect them to new events.",
         "__info__5__example": {
             "Laser": "Laser Guilde",
             "Gamebridge": "Gamebridge Guilde"
         },
         "EVENTS_GUILDES_OVERWRITE": {},
 
-        "__info__6": "If someone wants to organize an event at your hackerspace and expects a LARGE CROWD_SIZE, they have to define who takes responsibility to stay at the door, to welcome people and make theft more difficult.",
+        "__info__6": "If someone wants to organize an event at your hackspace and expects a LARGE CROWD_SIZE, they have to define who takes responsibility to stay at the door, to welcome people and make theft more difficult.",
         "CROWD_SIZE": {
             "SMALL": "Up to 10 people",
             "MEDIUM": "Up to 20 people",
@@ -150,11 +150,11 @@
     },
 
     "CONTACT": {
-        "__info__0": "If your hackerspace has a phone number and people pick up the phone - enter the number, including countrycode.",
+        "__info__0": "If your hackspace has a phone number and people pick up the phone - enter the number, including countrycode.",
         "__info__0__example": "+17150000001",
         "PHONE_NUMBER": null,
         "E_MAIL": null,
-        "__info__1": "Does your hackerspace have one or more Telegram groups? List them here.",
+        "__info__1": "Does your hackspace have one or more Telegram groups? List them here.",
         "__info__1__example": [{
             "NAME": "TAMI",
             "INVITE_URL": "https://telegram.org/..."
@@ -163,7 +163,7 @@
     },
 
     "PHYSICAL_SPACE": {
-        "__info__0": "How do you call people in your hackerspace? Hackers? Noisebutts?",
+        "__info__0": "How do you call people in your hackspace? Hackers? Noisebutts?",
         "PEOPLE_NAME": "hackers",
 
         "ADDRESS": {
@@ -184,7 +184,7 @@
             "english": "Mon-Sun, 11AM - 10PM"
         },
 
-        "__info__1": "When is your hackerspace open? (based on a 24 hour cycle) The status will be visible on your landingpage in the header.",
+        "__info__1": "When is your hackspace open? (based on a 24 hour cycle) The status will be visible on your landingpage in the header.",
         "OPENING_HOURS": {
             "Monday": [
                 [0, 0, "Probably open", "grey"],
@@ -246,13 +246,13 @@
         },
         "SOCIAL_NETWORKS": [],
 
-        "__info__1": "Where can we find images on Flickr about your hackerspace? We automatically save the photo URLs to your Photo database (not the actual photos).",
+        "__info__1": "Where can we find images on Flickr about your hackspace? We automatically save the photo URLs to your Photo database (not the actual photos).",
         "FLICKR_URL": null,
 
-        "__info__2": "Where can we find images Google Photos about your hackerspace? We automatically save the photo URLs to your Photo database (not the actual photos).",
+        "__info__2": "Where can we find images Google Photos about your hackspace? We automatically save the photo URLs to your Photo database (not the actual photos).",
         "GOOGLE_PHOTOS_ALBUM_URLS": [],
 
-        "__info__3": "What hashtag do people use on Twitter and Instagram when they talk about your hackerspace? We automatically save the posts & photo URLs to your Photo database (not the actual photos).",
+        "__info__3": "What hashtag do people use on Twitter and Instagram when they talk about your hackspace? We automatically save the posts & photo URLs to your Photo database (not the actual photos).",
         "HASHTAG": null,
 
         "__info__4": "How do you communicate online in your community? Via Discourse? Or Slack? Or someting else?",
@@ -268,7 +268,7 @@
     },
     "UNITTESTS": {
         "TELEGRAM_TEST_MESSAGES": [
-            "Did you know? There are more then 1000 hackspaces worldwide! Impressive, right? Check them out at https://wiki.hackerspaces.org/List_of_Hacker_Spaces",
+            "Did you know? There are more then 1000 hackspaces worldwide! Impressive, right? Check them out at https://wiki.hackspaces.org/List_of_Hacker_Spaces",
             "Always remember - there is one core rule in our space: be excellent to each other! :)",
             "I like Furbies - and I like them singing! https://youtu.be/GYLBjScgb7o?t=147",
             "Some inspiration - a music instrument using 2000 marbles! https://www.youtube.com/watch?v=IvUU8joBb1Q",
