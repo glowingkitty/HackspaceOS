@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
 from _setup.models import Secret
+import platform
 
 
 class Scraper():
@@ -47,6 +48,48 @@ class Scraper():
         if self.show_log == True:
             Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
+    @property
+    def setup_done(self):
+        try:
+            from selenium.webdriver.firefox.options import Options
+
+            options = Options()
+            options.add_argument("--headless")
+            profile = webdriver.FirefoxProfile()
+            selenium = webdriver.Firefox(
+                firefox_profile=profile,
+                options=options,
+                executable_path='geckodriver'
+            )
+            selenium.get('https://en.wikipedia.org')
+            return True
+        except:
+            return False
+
+    def setup(self):
+        from selenium.webdriver.firefox.options import Options
+
+        Log().show_messages(
+            ['Lets setup the web scraper correctly, to keep your photo database up to date and more.'])
+        Log().show_message('Step 1: Install Firefox')
+        input('Press enter when you are done')
+        Log().show_message('Step 2: Install geckodriver - Recommended via "brew install geckodriver"')
+        input('Press enter when you are done')
+        Log().show_messages(
+            ['Ok, I will test now if everything is setup correctly. If you get an error message, research online how to fix the error.'])
+
+        options = Options()
+        options.add_argument("--headless")
+        profile = webdriver.FirefoxProfile()
+        selenium = webdriver.Firefox(
+            firefox_profile=profile,
+            options=options,
+            executable_path='geckodriver'
+        )
+        selenium.get('https://en.wikipedia.org')
+        Log().show_messages(
+            ['Success - the scraper is setup correctly!'])
+
     def get_page(self, url):
         self.log('get_page()')
 
@@ -69,9 +112,13 @@ class Scraper():
                     browser_profile=profile
                 )
             else:
-                # TODO ensure local webdriver also works, across operating systems
+                from selenium.webdriver.firefox.options import Options
+
+                options = Options()
+                options.add_argument("--headless")
                 self.selenium = webdriver.Firefox(
                     firefox_profile=profile,
+                    options=options,
                     executable_path='geckodriver'
                 )
 

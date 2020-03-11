@@ -17,6 +17,7 @@ class SetupNew():
 
         self.setup_config()
         self.setup_secrets()
+        self.setup_scraper()
         self.setup_database()
         self.setup_cronjobs()
 
@@ -87,6 +88,11 @@ class SetupNew():
         for api in apis:
             if not api().setup_done:
                 api(test=self.test).setup()
+
+    def setup_scraper(self):
+        from _apis.models import Scraper
+        if not Scraper().setup_done:
+            Scraper().setup()
 
     def setup_database(self):
         from django.core.management import call_command
