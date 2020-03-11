@@ -14,7 +14,7 @@ class ProjectsView(View):
 
         all_results = Project.objects.all()[:10]
         self.context = {
-            'view': 'projects_view',
+            'view': 'results_list',
             'in_space': request.in_space,
             'hash': request.hash,
             'ADMIN_URL': self.admin_url,
@@ -43,4 +43,4 @@ class ProjectsView(View):
 
     def html(self):
         self.log('ProjectsView.html()')
-        return get_template('page.html').render(self.context)
+        return get_template(self.context['view']+'.html').render(self.context)

@@ -35,4 +35,4 @@ class LandingpageView(View):
 
     def html(self):
         self.log('LandingpageView.html()')
-        return get_template('page.html').render(self.context)
+        return get_template(self.context['view']+'.html').render(self.context)

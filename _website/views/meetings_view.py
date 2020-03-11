@@ -56,6 +56,7 @@ class MeetingsView(View):
         from _database.models import MeetingNote
         request = Request(request)
         self.context = {
+            'view': 'meeting_present',
             'user': request.user,
             'language': request.language,
             'slug': '/meeting/present',
@@ -85,7 +86,4 @@ class MeetingsView(View):
 
     def html(self):
         self.log('MeetingsView.html()')
-        if self.context['slug'] == '/meeting/present':
-            return get_template('meeting_present.html').render(self.context)
-        else:
-            return get_template('page.html').render(self.context)
+        return get_template(self.context['view']+'.html').render(self.context)

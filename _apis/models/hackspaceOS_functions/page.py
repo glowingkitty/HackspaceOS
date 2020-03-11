@@ -62,7 +62,7 @@ class Page():
 
         elif page == 'projects':
             view = views.ProjectsView()
-            view.all_results(request)
+            view.get_context(request)
 
         elif page == 'events':
             view = views.EventsView()

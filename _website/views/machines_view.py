@@ -11,7 +11,7 @@ class MachinesView(View):
         request = Request(request)
         all_results = Machine.objects.all()[:10]
         self.context = {
-            'view': 'spaces_view',
+            'view': 'results_list',
             'in_space': request.in_space,
             'hash': request.hash,
             'ADMIN_URL': self.admin_url,
@@ -72,4 +72,4 @@ class MachinesView(View):
 
     def html(self):
         self.log('MachinesView.html()')
-        return get_template('page.html').render(self.context)
+        return get_template(self.context['view']+'.html').render(self.context)

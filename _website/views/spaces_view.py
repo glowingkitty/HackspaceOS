@@ -12,7 +12,7 @@ class SpacesView(View):
         all_results = Space.objects.all()[:10]
 
         self.context = {
-            'view': 'spaces_view',
+            'view': 'results_list',
             'in_space': request.in_space,
             'hash': request.hash,
             'ADMIN_URL': self.admin_url,
@@ -61,11 +61,9 @@ class SpacesView(View):
     def get(self, request):
         self.log('SpacesView.get()')
 
-        # process all guildes view
         if self.path == 'all':
             self.all_results(request)
 
-        # process single event view
         elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
             self.result(request, self.args['sub_page'])
 
@@ -73,4 +71,4 @@ class SpacesView(View):
 
     def html(self):
         self.log('SpacesView.html()')
-        return get_template('page.html').render(self.context)
+        return get_template(self.context['view']+'.html').render(self.context)

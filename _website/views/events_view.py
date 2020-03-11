@@ -11,7 +11,7 @@ class EventsView(View):
         from _database.models import Event
         all_results = Event.objects.QUERYSET__upcoming()[:10]
         self.context = {
-            'view': 'events_view',
+            'view': 'results_list',
             'in_space': request.in_space,
             'hash': request.hash,
             'ADMIN_URL': self.admin_url,
@@ -84,7 +84,7 @@ class EventsView(View):
         EVENTS_SPACE_DEFAULT = Config('EVENTS.EVENTS_SPACE_DEFAULT').value
 
         self.context = {
-            'view': 'event_view',
+            'view': 'event_new_view',
             'in_space': request.in_space,
             'hash': request.hash,
             'ADMIN_URL': self.admin_url,
@@ -125,4 +125,4 @@ class EventsView(View):
 
     def html(self):
         self.log('EventsView.html()')
-        return get_template('page.html').render(self.context)
+        return get_template(self.context['view']+'.html').render(self.context)

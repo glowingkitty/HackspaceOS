@@ -35,4 +35,4 @@ class ConsensusView(View):
 
     def html(self):
         self.log('ConsensusView.html()')
-        return get_template('page.html').render(self.context)
+        return get_template(self.context['view']+'.html').render(self.context)
