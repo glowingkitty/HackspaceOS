@@ -110,6 +110,11 @@ class SetupNew():
         # test if superuser already exists
         User = get_user_model()
         if User.objects.count() == 0:
-            User.objects.create_superuser(
-                self.config['BASICS.NAME']+'SuperMember', None, secrets.token_urlsafe(50))
+            username = self.config['BASICS.NAME']+'SuperMember'
+            password = secrets.token_urlsafe(50)
+            User.objects.create_superuser(username, None, password)
+            self.secrets['DJANGO']['ADMIN_USER']['USERNAME'] = username
+            self.secrets['DJANGO']['ADMIN_USER']['PASSWORD'] = password
+            with open('_setup/secrets.json', 'w') as outfile:
+                json.dump(self.secrets, outfile, indent=4)
             Log().show_message('Created admin user (see _setup/secrets.json for the login details)')
