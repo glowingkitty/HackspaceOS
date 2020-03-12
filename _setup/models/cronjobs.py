@@ -32,7 +32,7 @@ class Cronjob():
                     break
             else:
                 self.add(command, timing)
-        self.log('-> Done')
+        self.log('-> Saved Cronjobs')
 
     @property
     def schedule(self):

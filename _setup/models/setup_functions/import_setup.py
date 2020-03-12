@@ -1,4 +1,4 @@
-from _setup.models import Log
+from _setup.models import Log, Cronjob
 import os
 
 
@@ -47,8 +47,11 @@ class SetupImport():
                     # extracting all the files
                     zip.extractall()
 
+                # make sure cronjobs are also setup
+                Cronjob().setup()
+
                 Log().show_message('✅Done! Imported "'+folder_name.split('setup_backup__')
-                                   [1].split('.zip')[0] + '" ('+self.get_size(folder_name)+')')
+                                   [1].split('.zip')[0] + '" ('+self.get_size(folder_name)+') and created cronjobs to keep your database up to date!')
 
             except:
                 Log().show_message(
