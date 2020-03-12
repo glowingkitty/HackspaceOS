@@ -8,7 +8,7 @@ class Page():
         else:
             page = page.replace('__', '', 1)
 
-        if '__' in page and not page.endswith('__new'):
+        if '__' in page:
             page, sub_page = page.split('__')
         else:
             sub_page = None
@@ -62,7 +62,7 @@ class Page():
 
         elif page == 'projects':
             view = views.ProjectsView()
-            view.all_results(request)
+            view.get_context(request)
 
         elif page == 'events':
             view = views.EventsView()
@@ -84,9 +84,5 @@ class Page():
             view = views.ConsensusView()
             view.get_context(request)
 
-        self.value = JsonResponse(
-            {
-                'html': view.html(),
-                'page_name': page
-            }
-        )
+        print(page)
+        self.value = JsonResponse(view.html())

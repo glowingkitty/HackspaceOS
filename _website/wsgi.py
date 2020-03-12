@@ -1,5 +1,5 @@
 """
-WSGI config for hackerspace project.
+WSGI config for hackspace project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

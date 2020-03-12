@@ -9,7 +9,7 @@ class SetupNew():
         self.test = test
 
         Log().show_messages([
-            'Let\'s setup your new hackerspace website!'
+            'Let\'s setup your new hackspace website!'
         ])
 
         self.config = self.get_template('config')
@@ -17,6 +17,7 @@ class SetupNew():
 
         self.setup_config()
         self.setup_secrets()
+        self.setup_scraper()
         self.setup_database()
         self.setup_cronjobs()
 
@@ -41,7 +42,7 @@ class SetupNew():
         later_then_config = 'Guess later then... Open your config.json at any time to make changes.'
 
         self.config = Secret().set_secret(SetupTestConfig('BASICS.NAME').value if self.test else 'input', self.config, later_then_config,
-                                          'First: What is the name of your hackerspace?', 'BASICS', 'NAME')
+                                          'First: What is the name of your hackspace?', 'BASICS', 'NAME')
         self.config = SetupLanguages(self.config, self.test).config
         self.config = SetupNewRiseupPad(self.config).config
         self.config = SetupNewLocation(
@@ -49,18 +50,18 @@ class SetupNew():
         self.config = SetupNewLatLonTimezone(self.config).config
 
         self.config = Secret().set_secret(SetupTestConfig('SOCIAL.HASHTAG').value if self.test else 'input', self.config, later_then_config,
-                                          'What #hashtag do people use when they talk online about your hackerspace on Twitter or Instagram? (Example: #noisebridge)', 'SOCIAL', 'HASHTAG')
+                                          'What #hashtag do people use when they talk online about your hackspace on Twitter or Instagram? (Example: #noisebridge)', 'SOCIAL', 'HASHTAG')
         self.config = Secret().set_secret(SetupTestConfig('BASICS.DONATION_URLs.MONEY').value if self.test else 'input', self.config, later_then_config,
                                           'Do you have a donation page, where people can donate money online? If yes, please enter the url. (or press Enter to skip)', 'BASICS', 'DONATION_URLs', 'MONEY')
         self.config = Secret().set_secret(None if self.test else 'input', self.config, later_then_config,
                                           'Did you clone the HackspaceOS template and want people to make changes to your clone? Then enter the GIT URL now (for example from Github).', 'WEBSITE', 'WEBSITE_GIT')
         self.config = Secret().set_secret(SetupTestConfig('WEBSITE.DOMAIN').value, self.config, later_then_config,
-                                          'What domain will you use for your new hackerspace website? (Just the domain. Example: "noisebridge.net")', 'WEBSITE', 'DOMAIN')
+                                          'What domain will you use for your new hackspace website? (Just the domain. Example: "noisebridge.net")', 'WEBSITE', 'DOMAIN')
 
         self.config = SetupNewEventFooter(self.config).config
 
         self.config = Secret().set_secret(SetupTestConfig('CSS.PRIMARY_COLOR').value, self.config, later_then_config,
-                                          'And the last question: What should be your website\'s primary color (for buttons for example). Recommended: a color in your hackerspace logo?', 'CSS', 'PRIMARY_COLOR')
+                                          'And the last question: What should be your website\'s primary color (for buttons for example). Recommended: a color in your hackspace logo?', 'CSS', 'PRIMARY_COLOR')
 
         with open('_setup/config.json', 'w') as outfile:
             json.dump(self.config, outfile, indent=4)
@@ -87,6 +88,11 @@ class SetupNew():
         for api in apis:
             if not api().setup_done:
                 api(test=self.test).setup()
+
+    def setup_scraper(self):
+        from _apis.models import Scraper
+        if not Scraper().setup_done:
+            Scraper().setup()
 
     def setup_database(self):
         from django.core.management import call_command

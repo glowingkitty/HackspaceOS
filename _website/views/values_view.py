@@ -31,4 +31,7 @@ class ValuesView(View):
 
     def html(self):
         self.log('ValuesView.html()')
-        return get_template('page.html').render(self.context)
+        return {
+            'html': get_template(self.context['view']+'.html').render(self.context),
+            'page_name': self.context['page_name']
+        }

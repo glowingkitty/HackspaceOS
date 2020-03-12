@@ -11,7 +11,7 @@ class EventsView(View):
         from _database.models import Event
         all_results = Event.objects.QUERYSET__upcoming()[:10]
         self.context = {
-            'view': 'events_view',
+            'view': 'results_list',
             'in_space': request.in_space,
             'hash': request.hash,
             'ADMIN_URL': self.admin_url,
@@ -75,16 +75,16 @@ class EventsView(View):
             'selected': selected,
         }
 
-    def new(self, request):
+    def new(self, original_request):
         self.log('-> EventsView().new()')
         from _database.models import Event, Photo, Space, Guilde
         from _setup.models import Config
         from django.middleware.csrf import get_token
-        request = Request(request)
+        request = Request(original_request)
         EVENTS_SPACE_DEFAULT = Config('EVENTS.EVENTS_SPACE_DEFAULT').value
 
         self.context = {
-            'view': 'event_view',
+            'view': 'event_new_view',
             'in_space': request.in_space,
             'hash': request.hash,
             'ADMIN_URL': self.admin_url,
@@ -99,7 +99,7 @@ class EventsView(View):
             'default_space': Space.objects.filter(str_name_en_US=EVENTS_SPACE_DEFAULT).first(),
             'all_spaces': Space.objects.exclude(str_name_en_US=EVENTS_SPACE_DEFAULT),
             'all_guildes': Guilde.objects.all(),
-            'csrf_token': get_token(request)
+            'csrf_token': get_token(original_request)
         }
 
     def get(self, request):
@@ -125,4 +125,7 @@ class EventsView(View):
 
     def html(self):
         self.log('EventsView.html()')
-        return get_template('page.html').render(self.context)
+        return {
+            'html': get_template(self.context['view']+'.html').render(self.context),
+            'page_name': self.context['page_name']
+        }

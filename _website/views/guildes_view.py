@@ -11,7 +11,7 @@ class GuildesView(View):
         request = Request(request)
         all_results = Guilde.objects.all()[:10]
         self.context = {
-            'view': 'guildes_view',
+            'view': 'results_list',
             'in_space': request.in_space,
             'hash': request.hash,
             'ADMIN_URL': self.admin_url,
@@ -72,4 +72,7 @@ class GuildesView(View):
 
     def html(self):
         self.log('GuildesView.html()')
-        return get_template('page.html').render(self.context)
+        return {
+            'html': get_template(self.context['view']+'.html').render(self.context),
+            'page_name': self.context['page_name']
+        }

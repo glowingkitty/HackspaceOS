@@ -14,7 +14,7 @@ class MarrySpeak():
             'You can controll what I say. Just visit pegasus.noise:5000 and enter a text',
             'You can display text, images and videos on Flaschentaschen. Just visit pegasus.noise:9000 and enter a text or upload an image or video',
             'We have a library with all kinds of awesome books!',
-            'Hackerspaces exist all over the world. And the movement actually started in Germany. See a map of all hackerspaces on hackerspaces.org',
+            'Hackspaces exist all over the world. And the movement actually started in Germany. See a map of all s on s.org',
             'Everyone can organize events at Noisebridge. In fact its a great way to introduce more people to Noisebridge',
             'Every Tuesday evening we have our weekly General Meeting. Where we talk about Noisebridge, announcements and more. In case you want to organize an event at Noisebridge, this is also a great chance to announce your event.'
         ]
