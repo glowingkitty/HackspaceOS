@@ -1,5 +1,6 @@
 from _setup.models import Log, Cronjob
 import os
+from django.contrib.auth import get_user_model
 
 
 class SetupImport():
@@ -49,6 +50,13 @@ class SetupImport():
 
                 # make sure cronjobs are also setup
                 Cronjob().setup()
+
+                # test if superuser already exists
+                User = get_user_model()
+                if User.objects.count() == 0:
+                    User.objects.create_superuser(
+                        self.config['BASICS.NAME']+'SuperMember', None, secrets.token_urlsafe(50))
+                    Log().show_message('Created admin user (see _setup/secrets.json for the login details)')
 
                 Log().show_message('✅Done! Imported "'+folder_name.split('setup_backup__')
                                    [1].split('.zip')[0] + '" ('+self.get_size(folder_name)+') and created cronjobs to keep your database up to date!')
