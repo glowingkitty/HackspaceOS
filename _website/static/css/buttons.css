@@ -1,0 +1,378 @@
+.button__cta {
+    cursor: pointer;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 16px 45px 10px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: var(--PRIMARY_COLOR);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+
+.button__cta.next_to_secondary {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    margin-right: 4%;
+}
+
+
+.button__cta:hover {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.4);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+.button__cta.secondary {
+    padding-top: 10px;
+    padding-right: 25px;
+    padding-left: 25px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    background-color: #fff;
+    color: var(--PRIMARY_COLOR);
+}
+
+.button__cta.secondary.auto_translate {
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    float: right;
+}
+
+.button__cta.secondary.auto_translate {
+    float: left;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .button__cta {
+        -webkit-animation: LEDsStrong 8s infinite;
+        /* Safari 4.0 - 8.0 */
+        animation: LEDsStrong 8s infinite;
+    }
+
+    .button__cta:hover {
+        -webkit-transform: translate(0px, -5px);
+        -ms-transform: translate(0px, -5px);
+        transform: translate(0px, -5px);
+    }
+
+    .button__cta.secondary {
+        background-color: rgb(43, 43, 43)
+    }
+}
+
+
+.button__cta.button__cta.secondary.next_to_main_cta {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    padding: 16px 45px 10px;
+    margin-right: 0px;
+}
+
+.button__cta.secondary.with_icon {
+    padding-left: 44px;
+    background-position: 5% 50%;
+    background-size: auto 65%;
+    background-repeat: no-repeat;
+}
+
+.button__donate_cta {
+    cursor: pointer;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: fixed;
+    top: 30px;
+    width: 92px;
+    height: 200px;
+    z-index: 100;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.button__donate_cta.cat {
+    background-image: url('../images/donate/cat.png');
+    -webkit-animation: CatMoving 20s infinite;
+    /* Safari 4.0 - 8.0 */
+    animation: CatMoving 20s infinite;
+}
+
+.button__donate_cta.cat_rtl {
+    background-image: url('../images/donate/cat.png');
+    -webkit-animation: CatMovingRTL 20s infinite;
+    /* Safari 4.0 - 8.0 */
+    animation: CatMovingRTL 20s infinite;
+}
+
+.button__donate_cta:hover {
+    width: 140px;
+    height: 250px;
+}
+
+
+.button__donate {
+    cursor: pointer;
+    position: fixed;
+    left: auto;
+    top: 0%;
+    right: 0%;
+    bottom: auto;
+    z-index: 12;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    color: var(--PRIMARY_COLOR);
+    font-size: 16px;
+    line-height: 40px;
+    text-decoration: none;
+}
+
+.button__donate.rtl {
+    left: 0%;
+    right: inherit;
+    margin-right: inherit;
+    margin-left: 10px;
+}
+
+.button__donate:hover {
+    box-shadow: 0 7px 8px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+@media (prefers-color-scheme: dark) {
+    .button__donate {
+        background-color: rgb(43, 43, 43);
+        animation: LEDsStrong 8s infinite;
+    }
+}
+
+
+.button__cta.secondary.present_mode {
+    position: absolute;
+    left: auto;
+    top: 6px;
+    right: 15px;
+    bottom: auto;
+}
+
+.button__cta.secondary.present_mode.rtl {
+    left: 15px;
+    right: auto;
+}
+
+.button__cta.secondary.meeting_end {
+    position: absolute;
+    left: auto;
+    top: auto;
+    right: 10px;
+    bottom: 17px;
+    opacity: 0.3;
+}
+
+.button__cta.secondary.meeting_end:hover {
+    opacity: 1;
+}
+
+
+
+.button__keyword_remove {
+    transform: rotate(45deg);
+    background-image: url('../images/plus.svg');
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: none;
+    width: 20px;
+    height: 20px;
+    padding-left: 5px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+
+.button__cube {
+    width: 105px;
+    background-color: white;
+    display: inline-block;
+    border-radius: 10px;
+    margin: 5px;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    padding-top: 70px;
+    padding-bottom: 10px;
+    font-size: 12px;
+    background-position: 50% 30%;
+    background-size: auto;
+    background-repeat: no-repeat;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
+}
+
+.button__cube:hover {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+.button__cube.money {
+    background-image: url('../images/donate/Money.svg')
+}
+
+.button__cube.hardware {
+    background-image: url('../images/donate/Hardware.svg')
+}
+
+.button__cube.organize_event {
+    background-image: url('../images/donate/OrganizeEvent.svg')
+}
+
+.button__cube.volunteer {
+    background-image: url('../images/donate/Volunteer.svg')
+}
+
+.button__cube.patreon {
+    background-image: url('../images/donate/Patreon.svg')
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .button__cube {
+        background-color: black;
+        animation: LEDsStrong 8s infinite;
+        color: #d4d4d4
+    }
+}
+
+.button__close_overlay {
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: white;
+    background-position: 50% 30%;
+    background-size: auto;
+    background-repeat: no-repeat;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
+    background-image: url('../images/plus.svg');
+    transform: rotate(45deg);
+    border-radius: 200px;
+}
+
+.button__close_overlay.rtl {
+    right: inherit;
+    left: -5px;
+}
+
+.button__close_overlay:hover {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+.location_button {
+    cursor: pointer;
+    display: inline-block;
+    padding: 4%;
+    background-color: var(--PRIMARY_COLOR);
+    margin-bottom: 15px;
+    border-radius: 12px;
+    max-width: 42%;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+.location_button.grey {
+    background-color: #ececec
+}
+
+.location_button:hover {
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transform: translate(0px, -5px);
+    -ms-transform: translate(0px, -5px);
+    transform: translate(0px, -5px);
+}
+
+.not_active {
+    opacity: 0.4
+}
+
+.add_host {
+    cursor: pointer;
+    background-color: #ececec;
+    border-radius: 200px;
+    display: inline-block;
+    padding: 15px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 30px;
+    color: grey;
+}
+
+.contact_us_icon {
+    width: 25px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.contact_us_option {
+    display: block;
+    padding: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .button__close_overlay {
+        background-color: black;
+        -webkit-animation: LEDsStrong 8s infinite;
+        /* Safari 4.0 - 8.0 */
+        animation: LEDsStrong 8s infinite;
+        color: #d4d4d4
+    }
+
+    .location_button {
+        -webkit-animation: LEDsStrong 8s infinite;
+        /* Safari 4.0 - 8.0 */
+        animation: LEDsStrong 8s infinite;
+    }
+
+    .location_button.grey {
+        background-color: #494949
+    }
+
+    .add_host {
+        background-color: rgb(43, 43, 43)
+    }
+}

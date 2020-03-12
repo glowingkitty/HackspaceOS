@@ -1,0 +1,282 @@
+{
+    "MODE": {
+        "__info__0": "Are you currently TESTING or in PRODUCTION?",
+        "SELECTED": "TESTING"
+    },
+    "BASICS": {
+        "__info__0": "What is the name of your ?",
+        "NAME": null,
+
+        "__info__1": "The sentences in HACKERSPACE_IS_SENTENCES show up on the landingpage in the header.",
+        "HACKERSPACE_IS_SENTENCES": {
+            "english": [
+                "is a hackspace in {{ CITY }}",
+                "is a community",
+                "is a maker & learning space",
+                "is a do-ocracy",
+                "is what you make of it"
+            ],
+            "hebrew": [
+                "היא האקרספייס ב {{ CITY }}",
+                "היא קהילה",
+                "היא מרחב עשייה ולמידה",
+                "היא דו-אוקרטיה",
+                "היא מה שתחליטו שתהיה"
+            ]
+        },
+        "THINGS_TO_DO": [
+            "wood",
+            "3D printer",
+            "music",
+            "game dev",
+            "community",
+            "laser cutter",
+            "code",
+            "robot",
+            "electronic",
+            "drawing",
+            "whiteboarding",
+            "sewing"
+        ],
+
+        "WIKI": {
+            "API_URL": null,
+            "__info__": "When scraping your wiki for photos, photos appearing on the following pages will be ignored",
+            "PHOTOS_IGNORE_PAGES": []
+        },
+
+        "HACKERSPACE_MANUAL": null,
+
+        "DONATION_URLs": {
+            "MONEY": null,
+            "HARDWARE": null
+        },
+
+        "DONATION_CTA": null,
+
+        "DONATIONS_TAX_DEDUCTIBLE": true,
+
+        "EMBEDDED_MAP_URL": null,
+
+        "ABOUT": {
+            "HISTORY_HTML": null
+        }
+    },
+
+    "MODULES": [
+        "Values",
+        "Photos",
+        "Events|View",
+        "Events|Create",
+        "Projects",
+        "Spaces",
+        "Machines",
+        "Meetings|View",
+        "Meetings|Create",
+        "Consensus",
+        "Guildes",
+        "Search"
+    ],
+
+    "CONSENSUS_ITEMS": {
+        "CONSENSUS_PROCESS_WIKIPAGE": null,
+        "__info__": "If you use Discourse for creating & discussing consensus items (recommended), enter here the category URL.",
+        "CONSENSUS_DISCOURSE_CATEGORY_URL": null
+    },
+
+    "WEBSITE": {
+        "__info__0": "What is your primary domain where you will host your website?",
+        "DOMAIN": null,
+
+        "__info__1": "Did you clone the HackspaceOS template and want people to make changes to your clone? Then enter the GIT URL now (for example from Github).",
+        "WEBSITE_GIT": "https://github.com/marcoEDU/HackspaceOS",
+
+        "__info__2": "What languages should your website support? Currently available are: english & hebrew.",
+        "LANGUAGES": ["english"]
+    },
+
+    "CSS": {
+        "PRIMARY_COLOR": "#ed1d23",
+        "SECONDARY_COLOR": "#219cee",
+        "FONT": "Lexend Deca",
+        "FONT_TYPE": "regular"
+    },
+
+    "EVENTS": {
+        "__info__0": "Please enter your slug, not the full URL: https://www.meetup.com/{{ MEETUP_GROUP }}/",
+        "MEETUP_GROUP": null,
+
+        "DISCOURSE_EVENTS_CATEGORY": "events",
+
+        "DISCOURSE_AND_MEETUP_EVENT_FOOTER_HTML": null,
+
+        "__info__1": "Which additional meetup groups organize events at your hackspace? https://www.meetup.com/{{ group_name }}/",
+        "EXTRA_MEETUP_GROUPS": [],
+        "__info__2": "What is the default space/room for events in your hackspace?",
+        "EVENTS_SPACE_DEFAULT": "Hackatorium",
+
+        "__info__3": "Are there repeating events in your space which happen always in the same space/room? List them here as default values.",
+        "__info__3__example": {
+            "Weekly Python Co-Learning": "Hackatorium",
+            "Queer Game Developers Meetup": "Church"
+        },
+        "EVENTS_SPACES_OVERWRITE": {},
+
+        "__info__4": "Are there repeating events in your space with typically the same organizer? List the event names here as default values, together with the Discourse usernames of the organizers.",
+        "__info__4__example": {
+            "Free Code Camp": ["lucy"],
+            "Sewing Project Night": ["Martin"]
+        },
+        "EVENTS_HOSTS_OVERWRITE": {},
+
+        "__info__5": "Do you have guildes in your hackspace? Groups which take care of different parts of the space? Add keywords and the name of the guilde here, to automatically connect them to new events.",
+        "__info__5__example": {
+            "Laser": "Laser Guilde",
+            "Gamebridge": "Gamebridge Guilde"
+        },
+        "EVENTS_GUILDES_OVERWRITE": {},
+
+        "__info__6": "If someone wants to organize an event at your hackspace and expects a LARGE CROWD_SIZE, they have to define who takes responsibility to stay at the door, to welcome people and make theft more difficult.",
+        "CROWD_SIZE": {
+            "SMALL": "Up to 10 people",
+            "MEDIUM": "Up to 20 people",
+            "LARGE": "More than 20 people"
+        }
+    },
+
+    "MEETINGS": {
+        "__info__0": "Do you use RiseUpPad? A pretty useful real time text editor for groups. Like Google Docs, but without Google and simpler. Enter your RiseUpPad meeting note path here, so we can automatically create new meeting notes for you and save them when you are done. https://pad.riseup.net/p/{{ PATH }}",
+        "RISEUPPAD_MEETING_PATH": null
+    },
+
+    "CONTACT": {
+        "__info__0": "If your hackspace has a phone number and people pick up the phone - enter the number, including countrycode.",
+        "__info__0__example": "+17150000001",
+        "PHONE_NUMBER": null,
+        "E_MAIL": null,
+        "__info__1": "Does your hackspace have one or more Telegram groups? List them here.",
+        "__info__1__example": [{
+            "NAME": "TAMI",
+            "INVITE_URL": "https://telegram.org/..."
+        }],
+        "TELEGRAM_GROUPS": []
+    },
+
+    "PHYSICAL_SPACE": {
+        "__info__0": "How do you call people in your hackspace? Hackers? Noisebutts?",
+        "PEOPLE_NAME": "hackers",
+
+        "ADDRESS": {
+            "STREET": null,
+            "ZIP": null,
+            "CITY": null,
+            "STATE": null,
+            "COUNTRYCODE": null,
+            "HOW_TO_FIND_US__english": null,
+            "HOW_TO_FIND_US__hebrew": null
+        },
+
+        "LAT_LON": [],
+
+        "TIMEZONE_STRING": null,
+
+        "OPENING_HOURS_SUMMARY": {
+            "english": "Mon-Sun, 11AM - 10PM"
+        },
+
+        "__info__1": "When is your hackspace open? (based on a 24 hour cycle) The status will be visible on your landingpage in the header.",
+        "OPENING_HOURS": {
+            "Monday": [
+                [0, 0, "Probably open", "grey"],
+                [2, 0, "Probably closed", "orange"],
+                [9, 0, "Probably open", "grey"],
+                [11, 0, "Open now", "green"],
+                [22, 0, "Probably open", "grey"]
+            ],
+            "Tuesday": [
+                [0, 0, "Probably open", "grey"],
+                [2, 0, "Probably closed", "orange"],
+                [9, 0, "Probably open", "grey"],
+                [11, 0, "Open now", "green"],
+                [22, 0, "Probably open", "grey"]
+            ],
+            "Wednesday": [
+                [0, 0, "Probably open", "grey"],
+                [2, 0, "Probably closed", "orange"],
+                [9, 0, "Probably open", "grey"],
+                [11, 0, "Open now", "green"],
+                [22, 0, "Probably open", "grey"]
+            ],
+            "Thursday": [
+                [0, 0, "Probably open", "grey"],
+                [2, 0, "Probably closed", "orange"],
+                [9, 0, "Probably open", "grey"],
+                [11, 0, "Open now", "green"],
+                [22, 0, "Probably open", "grey"]
+            ],
+            "Friday": [
+                [0, 0, "Probably open", "grey"],
+                [2, 0, "Probably closed", "orange"],
+                [9, 0, "Probably open", "grey"],
+                [11, 0, "Open now", "green"],
+                [22, 0, "Probably open", "grey"]
+            ],
+            "Saturday": [
+                [0, 0, "Probably open", "grey"],
+                [2, 0, "Probably closed", "orange"],
+                [9, 0, "Probably open", "grey"],
+                [11, 0, "Open now", "green"],
+                [22, 0, "Probably open", "grey"]
+            ],
+            "Sunday": [
+                [0, 0, "Probably open", "grey"],
+                [2, 0, "Probably closed", "orange"],
+                [9, 0, "Probably open", "grey"],
+                [11, 0, "Open now", "green"],
+                [22, 0, "Probably open", "grey"]
+            ]
+        }
+    },
+
+    "SOCIAL": {
+        "__info__0": "What social media accounts do you have? Patreon? Facebook? Twitter? And more? Feel free to add them all - the most important ones first.",
+        "__info__0__example": {
+            "name": "Patreon",
+            "url": "https://patreon.com/Noisebridge"
+        },
+        "SOCIAL_NETWORKS": [],
+
+        "__info__1": "Where can we find images on Flickr about your hackspace? We automatically save the photo URLs to your Photo database (not the actual photos).",
+        "FLICKR_URL": null,
+
+        "__info__2": "Where can we find images Google Photos about your hackspace? We automatically save the photo URLs to your Photo database (not the actual photos).",
+        "GOOGLE_PHOTOS_ALBUM_URLS": [],
+
+        "__info__3": "What hashtag do people use on Twitter and Instagram when they talk about your hackspace? We automatically save the posts & photo URLs to your Photo database (not the actual photos).",
+        "HASHTAG": null,
+
+        "__info__4": "How do you communicate online in your community? Via Discourse? Or Slack? Or someting else?",
+        "__info__4__example": {
+            "name": "Discuss",
+            "url": "https://discuss.noisebridge.info/"
+        },
+        "INTERNAL_COMMUNICATION_PLATFORMS": []
+    },
+
+    "EXTRAS": {
+        "SAYHELLO": null
+    },
+    "UNITTESTS": {
+        "TELEGRAM_TEST_MESSAGES": [
+            "Did you know? There are more then 1000 hackspaces worldwide! Impressive, right? Check them out at https://wiki.hackspaces.org/List_of_Hacker_Spaces",
+            "Always remember - there is one core rule in our space: be excellent to each other! :)",
+            "I like Furbies - and I like them singing! https://youtu.be/GYLBjScgb7o?t=147",
+            "Some inspiration - a music instrument using 2000 marbles! https://www.youtube.com/watch?v=IvUU8joBb1Q",
+            "Remember - be nice to robots :) https://www.youtube.com/watch?v=dKjCWfuvYxQ",
+            "A music video made in zero-gravity: https://www.youtube.com/watch?v=pnTqZ68fI7Q",
+            "That's what I call a time investment... for just one music video... https://www.youtube.com/watch?v=QvW61K2s0tA",
+            "What's your favorite hardware project?",
+            "What's your favorite software project?"
+        ]
+    }
+}

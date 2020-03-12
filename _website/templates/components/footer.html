@@ -1,0 +1,50 @@
+{% load array %}
+{% load socialnetworks %}
+{% load config %}
+{% load translate %}
+
+{% block content %}
+
+<div class="footer">
+    {% if 'SOCIAL.INTERNAL_COMMUNICATION_PLATFORMS'|get_config %}
+    <div class="divider_20"></div>
+    <div{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Talk with your fellow HACKERS!'|landingpage:language|safe }}</div>
+    {% for platform in 'SOCIAL.INTERNAL_COMMUNICATION_PLATFORMS'|get_config %}
+    <a href="{{ platform.url }}" target="_blank" class="link dark_back"{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'on'|landingpage:language|safe }} {{ platform.name }}</a>
+    {% endfor %}
+    <div class="divider_20"></div>
+    {% endif %}
+
+    {% with SOCIAL_NETWORKS='SOCIAL.SOCIAL_NETWORKS'|get_config %}
+    {% if SOCIAL_NETWORKS %}
+    <div{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'And join us online!'|landingpage:language|safe }}</div>
+    <div class="divider_10"></div>
+    {% for network in SOCIAL_NETWORKS|upto:5 %}
+        {% if network.name|lower != 'twitter' %}
+        <a href="{{ network.url }}" target="_blank" class="social_icon {{ network.name|lower }}"></a>
+        {% endif %}
+    {% endfor %}
+    <div class="divider_20"></div>
+    <div class="divider_20"></div>
+    {% endif %}
+    <div>
+        {% if SOCIAL_NETWORKS|exists:'Twitter' %}
+        <div class="footer_half_block" style="float: left">
+            <a class="twitter-timeline" href="https://twitter.com/{{ SOCIAL_NETWORKS|getTwitterUsername }}?ref_src=twsrc%5Etfw" data-width="100%" data-height="100%">Tweets by {{ SOCIAL_NETWORKS|getTwitterUsername }}</a>
+            <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div class="footer_half_block">
+            <div class="divider_20"></div>
+            <div{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Did you know? Hackspaces exist all over the world!'|landingpage:language|safe }}</div>
+            <div class="divider_20"></div>
+            <a href="https://wiki.hackerspaces.org/List_of_Hackerspaces" target="_blank" class="hackerspace_map w-inline-block"></a>
+            <a href="https://wiki.hackerspaces.org/List_of_Hackerspaces" target="_blank" class="button__cta secondary move_up"{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Show all'|landingpage:language|safe }}</a>
+        </div>
+    </div>
+    <div class="divider_100"></div>
+    <a class="inline_link" href="https://github.com/marcoEDU/HackspaceOS" target="_blank"{% if language == 'hebrew' %} dir="rtl"{% endif %}>{{ 'Website based on'|landingpage:language|safe }} HackspaceOS</a>
+</div>
+
+{% endblock %}

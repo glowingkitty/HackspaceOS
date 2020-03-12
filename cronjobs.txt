@@ -1,2 +1,0 @@
-*/30 * * * * python manage.py publish_events
-*/10 * * * python manage.py update_database
