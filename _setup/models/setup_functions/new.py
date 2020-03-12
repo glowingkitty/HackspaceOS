@@ -2,6 +2,7 @@ import json
 from _setup.tests.test_setup import SetupTestConfig
 from _setup.models import Log
 from _setup.models import Secret
+import secrets
 
 
 class SetupNew():
@@ -20,6 +21,7 @@ class SetupNew():
         self.setup_scraper()
         self.setup_database()
         self.setup_cronjobs()
+        self.setup_superuser()
 
         Log().show_messages([
             '✅ Yeahh we are done! I saved your config.json and secrets.json files in the main directory. So you can easily change them any time. Also I created cronjobs to keep your Hackspace website running properly and initiated your database.',
@@ -67,7 +69,6 @@ class SetupNew():
             json.dump(self.config, outfile, indent=4)
 
     def setup_secrets(self):
-        import secrets
         from _apis.models import Search, Meetup, Notify, Flickr, GooglePhotos, Instagram, Aws, Twitter
 
         # then setup secrets.json
@@ -102,3 +103,18 @@ class SetupNew():
     def setup_cronjobs(self):
         from _setup.models import Cronjob
         Cronjob().setup()
+
+    def setup_superuser(self):
+        from django.contrib.auth import get_user_model
+
+        # test if superuser already exists
+        User = get_user_model()
+        if User.objects.count() == 0:
+            username = self.config['BASICS.NAME']+'SuperMember'
+            password = secrets.token_urlsafe(50)
+            User.objects.create_superuser(username, None, password)
+            self.secrets['DJANGO']['ADMIN_USER']['USERNAME'] = username
+            self.secrets['DJANGO']['ADMIN_USER']['PASSWORD'] = password
+            with open('_setup/secrets.json', 'w') as outfile:
+                json.dump(self.secrets, outfile, indent=4)
+            Log().show_message('Created admin user (see _setup/secrets.json for the login details)')

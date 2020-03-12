@@ -1,5 +1,8 @@
-from _setup.models import Log
+from _setup.models import Log, Cronjob, Config, Secret
 import os
+from django.contrib.auth import get_user_model
+import secrets
+import json
 
 
 class SetupImport():
@@ -47,12 +50,28 @@ class SetupImport():
                     # extracting all the files
                     zip.extractall()
 
-                Log().show_message('✅Done! Imported "'+folder_name.split('setup_backup__')
-                                   [1].split('.zip')[0] + '" ('+self.get_size(folder_name)+')')
-
             except:
                 Log().show_message(
                     'ERROR: The folder doesnt exist. Please enter a correct number.')
+
+            # make sure cronjobs are also setup
+            Cronjob().setup()
+
+            # test if superuser already exists
+            User = get_user_model()
+            if User.objects.count() == 0:
+                username = Config('BASICS.NAME').value+'SuperMember'
+                password = secrets.token_urlsafe(50)
+                User.objects.create_superuser(username, None, password)
+                self.secrets = Secret().value
+                self.secrets['DJANGO']['ADMIN_USER']['USERNAME'] = username
+                self.secrets['DJANGO']['ADMIN_USER']['PASSWORD'] = password
+                with open('_setup/secrets.json', 'w') as outfile:
+                    json.dump(self.secrets, outfile, indent=4)
+                Log().show_message('Created admin user (see _setup/secrets.json for the login details)')
+
+            Log().show_message('✅Done! Imported "'+folder_name.split('setup_backup__')
+                               [1].split('.zip')[0] + '" ('+self.get_size(folder_name)+') and created cronjobs to keep your database up to date!')
 
     def get_size(self, file_path):
         import os

@@ -34,7 +34,7 @@ function checkForOverlappingEvents() {
 
     // check event duration
     let event_duration = document.getElementById('event_duration').value
-    if (event_duration.length < 5) {
+    if (event_duration.length < 4) {
         return
     }
     if (event_duration.replace(/[^:]/g, "").length < 1) {

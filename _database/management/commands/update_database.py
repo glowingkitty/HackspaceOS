@@ -5,7 +5,7 @@ class Command(BaseCommand):
     help = "Update the database"
 
     def handle(self, *args, **options):
-        from _database.models import Event, Consensus, Person, Wish, Photo, Project
+        from _database.models import Event, Space, Consensus, Person, Wish, Photo, Project
         from _setup.models import Config
         from _setup.models import Secret
         from _setup.models import Log
@@ -14,6 +14,14 @@ class Command(BaseCommand):
 
         Log().show_message('I will now start to update your database, based on your secrets.json and config.json. Depending on your settings, amount of events & photos & Discourse entries from your  this can take everything from seconds to hours (?). But you can already test your website - by opening a new terminal window and run "python manage.py runserver 0.0.0.0:8000" - and open 0.0.0.0:8000 in your web browser.')
         time.sleep(5)
+
+        # create default space for events
+        if not Space.objects.filter(str_name_en_US=Config('EVENTS.EVENTS_SPACE_DEFAULT').value).exists():
+            Space(
+                str_name_en_US=Config('EVENTS.EVENTS_SPACE_DEFAULT').value,
+                text_description_en_US='Work on cool projects in our largest community area - the {}!'.format(
+                    Config('EVENTS.EVENTS_SPACE_DEFAULT').value)
+            ).save()
 
         # import data from Discourse
         Person.objects.import_from_discourse()

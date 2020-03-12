@@ -7,14 +7,6 @@ from django.conf.urls.static import static
 from _website import views
 from _apis.urls import urlpatterns as api_urls
 
-from _setup.models import Setup
-
-if not Setup().complete:
-    Setup()._menu()
-elif not Setup().database_exists:
-    from django.core.management import call_command
-    call_command('migrate')
-    call_command('update_database')
 
 urlpatterns = [
     path(Secret('DJANGO.ADMIN_URL').value+'/', admin.site.urls),

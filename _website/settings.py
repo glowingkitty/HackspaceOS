@@ -16,6 +16,15 @@ import os
 from _setup.models import Secret
 from _setup.models import Config
 
+from _setup.models import Setup
+
+if not Setup().complete:
+    Setup()._menu()
+elif not Setup().database_exists:
+    from django.core.management import call_command
+    call_command('migrate')
+    call_command('update_database')
+
 MODE = Config('MODE.SELECTED').value
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
