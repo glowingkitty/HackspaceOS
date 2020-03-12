@@ -47,6 +47,9 @@ class HackspaceOSapiView(View):
         elif self.path == 'meeting_duration':
             return HackspaceOS().meeting_duration(request)
 
+        elif self.path == 'meeting_start':
+            return HackspaceOS().meeting_start(request)
+
         elif self.path == 'meeting_create':
             return HackspaceOS().meeting_create(request)
 

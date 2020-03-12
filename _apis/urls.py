@@ -34,6 +34,8 @@ urlpatterns = [
 
     path('apis/hackspace_os/meeting/duration',
          HackspaceOSapiView.as_view(path='meeting_duration'), name='meeting_duration'),
+    path('apis/hackspace_os/meeting/start',
+         HackspaceOSapiView.as_view(path='meeting_start'), name='meeting_start'),
     path('apis/hackspace_os/meeting/create',
          HackspaceOSapiView.as_view(path='meeting_create'), name='meeting_create'),
     path('apis/hackspace_os/meeting/end',

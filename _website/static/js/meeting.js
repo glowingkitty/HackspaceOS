@@ -38,8 +38,7 @@ function removeKeyword(event, element) {
 
 function startNewMeeting() {
     // show loading screen
-    // // TODO load correct screen
-    // request_html('page/meetings', 'join_next_meeting', 'outer')
+    request_html('meeting/start', 'join_next_meeting', 'outer')
 
     // make request to start new meeting
     axios.get('/apis/hackspace_os/meeting/create')
