@@ -2,6 +2,7 @@ from _website.views.view import View
 from django.shortcuts import render
 from _website.models import Request
 from django.template.loader import get_template
+from django.shortcuts import redirect
 
 
 class MeetingsView(View):
@@ -34,22 +35,27 @@ class MeetingsView(View):
 
         selected = MeetingNote.objects.filter(
             text_date=sub_page).first()
-        self.context = {
-            'view': 'meeting_view',
-            'in_space': request.in_space,
-            'hash': request.hash,
-            'ADMIN_URL': self.admin_url,
-            'user': request.user,
-            'language': request.language,
-            'auto_search': request.search,
-            'slug': '/meeting/'+selected.text_date,
-            'page_git_url': '/tree/master/_database/templates/meeting_view.html',
-            'page_name': self.space_name+' | Meeting | '+selected.text_date,
-            'page_description': 'Join our weekly meetings!',
-            'selected': selected,
-            'next_meeting': Event.objects.QUERYSET__next_meeting(),
-            'past_meetings': MeetingNote.objects.past(selected)[:10]
-        }
+
+        if selected:
+            self.context = {
+                'view': 'meeting_view',
+                'in_space': request.in_space,
+                'hash': request.hash,
+                'ADMIN_URL': self.admin_url,
+                'user': request.user,
+                'language': request.language,
+                'auto_search': request.search,
+                'slug': '/meeting/'+selected.text_date,
+                'page_git_url': '/tree/master/_database/templates/meeting_view.html',
+                'page_name': self.space_name+' | Meeting | '+selected.text_date,
+                'page_description': 'Join our weekly meetings!',
+                'selected': selected,
+                'next_meeting': Event.objects.QUERYSET__next_meeting(),
+                'past_meetings': MeetingNote.objects.past(selected)[:10]
+            }
+
+        else:
+            self.context = redirect('/meetings')
 
     def present(self, request):
         self.log('-> MeetingsView().present()')
@@ -65,19 +71,22 @@ class MeetingsView(View):
             'current_meeting': MeetingNote.objects.current()
         }
 
-    def get(self, request):
+    def get(self, request, sub_page=None):
         self.log('MeetingsView.get()')
         # process all guildes view
         if self.path == 'all':
             self.all_results(request)
 
         # process single event view
-        elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            self.result(request, self.args['sub_page'])
+        elif self.path == 'result' and sub_page:
+            self.result(request, sub_page)
 
         # process present
         elif self.path == 'present':
             self.present(request)
+
+        if type(self.context) != dict:
+            return self.context
 
         if self.context['slug'] == '/meeting/present':
             return render(request, 'meeting_present.html', self.context)

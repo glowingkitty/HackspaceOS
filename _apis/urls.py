@@ -16,9 +16,9 @@ urlpatterns = [
     path('apis/hackspace_os/image/upload',
          HackspaceOSapiView.as_view(path='image_upload'), name='image_upload'),
 
-    path('apis/hackspace_os/keyword/remove',
+    path('apis/hackspace_os/keyword/remove/<str:sub_page>',
          HackspaceOSapiView.as_view(path='keyword_remove'), name='keyword_remove'),
-    path('apis/hackspace_os/keyword/save',
+    path('apis/hackspace_os/keyword/add/<str:sub_page>',
          HackspaceOSapiView.as_view(path='keyword_add'), name='keyword_add'),
 
     path('apis/hackspace_os/events/slider',

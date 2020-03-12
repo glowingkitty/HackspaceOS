@@ -43,29 +43,35 @@ class SpacesView(View):
             sub_page = 'space/'+sub_page
         selected = Space.objects.filter(str_slug=sub_page).first()
 
-        self.context = {
-            'view': 'space_view',
-            'in_space': request.in_space,
-            'hash': request.hash,
-            'ADMIN_URL': self.admin_url,
-            'user': request.user,
-            'language': request.language,
-            'auto_search': request.search,
-            'slug': '/space/'+sub_page,
-            'page_git_url': '/tree/master/_database/templates/space_view.html',
-            'page_name': self.space_name+' | Space | '+selected.str_name_en_US,
-            'page_description': selected.text_description_en_US,
-            'selected': selected
-        }
+        if selected:
+            self.context = {
+                'view': 'space_view',
+                'in_space': request.in_space,
+                'hash': request.hash,
+                'ADMIN_URL': self.admin_url,
+                'user': request.user,
+                'language': request.language,
+                'auto_search': request.search,
+                'slug': '/space/'+sub_page,
+                'page_git_url': '/tree/master/_database/templates/space_view.html',
+                'page_name': self.space_name+' | Space | '+selected.str_name_en_US,
+                'page_description': selected.text_description_en_US,
+                'selected': selected
+            }
+        else:
+            self.context = redirect('/spaces')
 
-    def get(self, request):
+    def get(self, request, sub_page=None):
         self.log('SpacesView.get()')
 
         if self.path == 'all':
             self.all_results(request)
 
-        elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            self.result(request, self.args['sub_page'])
+        elif self.path == 'result' and sub_page:
+            self.result(request, sub_page)
+
+        if type(self.context) != dict:
+            return self.context
 
         return render(request, 'page.html', self.context)
 

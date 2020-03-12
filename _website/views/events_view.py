@@ -2,6 +2,7 @@ from _website.views.view import View
 from django.shortcuts import render
 from _website.models import Request
 from django.template.loader import get_template
+from django.shortcuts import redirect
 
 
 class EventsView(View):
@@ -43,23 +44,27 @@ class EventsView(View):
             sub_page = 'event/'+sub_page
         selected = Event.objects.filter(str_slug=sub_page).first()
 
-        self.context = {
-            'view': 'event_view',
-            'in_space': request.in_space,
-            'hash': request.hash,
-            'ADMIN_URL': self.admin_url,
-            'user': request.user,
-            'language': request.language,
-            'auto_search': request.search,
-            'slug': '/event/'+sub_page,
-            'page_git_url': '/tree/master/_database/templates/event_view.html',
-            'page_name': self.space_name+' | Event | '+selected.str_name_en_US,
-            'page_description': selected.text_description_en_US,
-            'selected': selected,
-            'photos': Photo.objects.latest()[:33]
-        }
+        if selected:
+            self.context = {
+                'view': 'event_view',
+                'in_space': request.in_space,
+                'hash': request.hash,
+                'ADMIN_URL': self.admin_url,
+                'user': request.user,
+                'language': request.language,
+                'auto_search': request.search,
+                'slug': '/event/'+sub_page,
+                'page_git_url': '/tree/master/_database/templates/event_view.html',
+                'page_name': self.space_name+' | Event | '+selected.str_name_en_US,
+                'page_description': selected.text_description_en_US,
+                'selected': selected,
+                'photos': Photo.objects.latest()[:33]
+            }
 
-    def banner(self, request, sub_page):
+        else:
+            self.context = redirect('/events')
+
+    def banner(self, request, sub_page=None):
         self.log('-> EventsView().banner()')
         from _database.models import Event, Photo
         request = Request(request)
@@ -68,12 +73,15 @@ class EventsView(View):
             sub_page = 'event/'+sub_page
         selected = Event.objects.filter(str_slug=sub_page).first()
 
-        self.context = {
-            'view': 'event_banner_view',
-            'user': request.user,
-            'language': request.language,
-            'selected': selected,
-        }
+        if selected:
+            self.context = {
+                'view': 'event_banner_view',
+                'user': request.user,
+                'language': request.language,
+                'selected': selected,
+            }
+        else:
+            self.context = redirect('/events')
 
     def new(self, original_request):
         self.log('-> EventsView().new()')
@@ -102,7 +110,7 @@ class EventsView(View):
             'csrf_token': get_token(original_request)
         }
 
-    def get(self, request):
+    def get(self, request, sub_page=None):
         self.log('EventsView.get()')
 
         # process all events view
@@ -110,16 +118,19 @@ class EventsView(View):
             self.all_results(request)
 
         # process single event view
-        elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            self.result(request, self.args['sub_page'])
+        elif self.path == 'result' and sub_page:
+            self.result(request, sub_page)
 
         # process get banner
-        elif self.path == 'banner' and 'sub_page' in self.args and self.args['sub_page']:
-            self.banner(request, self.args['sub_page'])
+        elif self.path == 'banner' and sub_page:
+            self.banner(request, sub_page)
 
         # process create event view
         elif self.path == 'new':
             self.new(request)
+
+        if type(self.context) != dict:
+            return self.context
 
         return render(request, 'page.html', self.context)
 

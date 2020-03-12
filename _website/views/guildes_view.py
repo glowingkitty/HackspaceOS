@@ -2,6 +2,7 @@ from _website.views.view import View
 from django.shortcuts import render
 from _website.models import Request
 from django.template.loader import get_template
+from django.shortcuts import redirect
 
 
 class GuildesView(View):
@@ -42,22 +43,26 @@ class GuildesView(View):
             sub_page = 'guilde/'+sub_page
         selected = Guilde.objects.filter(str_slug=sub_page).first()
 
-        self.context = {
-            'view': 'guilde_view',
-            'in_space': request.in_space,
-            'hash': request.hash,
-            'ADMIN_URL': self.admin_url,
-            'user': request.user,
-            'language': request.language,
-            'auto_search': request.search,
-            'slug': '/guilde/'+sub_page,
-            'page_git_url': '/tree/master/_database/templates/guilde_view.html',
-            'page_name': self.space_name+' | Guilde | '+selected.str_name_en_US,
-            'page_description': selected.text_description_en_US,
-            'selected': selected
-        }
+        if selected:
+            self.context = {
+                'view': 'guilde_view',
+                'in_space': request.in_space,
+                'hash': request.hash,
+                'ADMIN_URL': self.admin_url,
+                'user': request.user,
+                'language': request.language,
+                'auto_search': request.search,
+                'slug': '/guilde/'+sub_page,
+                'page_git_url': '/tree/master/_database/templates/guilde_view.html',
+                'page_name': self.space_name+' | Guilde | '+selected.str_name_en_US,
+                'page_description': selected.text_description_en_US,
+                'selected': selected
+            }
 
-    def get(self, request):
+        else:
+            self.context = redirect('/guildes')
+
+    def get(self, request, sub_page=None):
         self.log('GuildesView.get()')
 
         # process all guildes view
@@ -65,8 +70,11 @@ class GuildesView(View):
             self.all_results(request)
 
         # process single event view
-        elif self.path == 'result' and 'sub_page' in self.args and self.args['sub_page']:
-            self.result(request, self.args['sub_page'])
+        elif self.path == 'result' and sub_page:
+            self.result(request, sub_page)
+
+        if type(self.context) != dict:
+            return self.context
 
         return render(request, 'page.html', self.context)
 

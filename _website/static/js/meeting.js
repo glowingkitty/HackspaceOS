@@ -13,7 +13,7 @@ function saveKeyword(while_waiting_for_saving_str, rtl) {
 
     if (document.getElementById('keyword_input').value && document.getElementById('keyword_input').value != '') {
         document.getElementById('keywords').innerHTML = document.getElementById('keywords').innerHTML + '<a href="#" onclick="enterSearch(this.innerText,\'' + while_waiting_for_saving_str + '\',' + rtl + ')" class="keyword">' + document.getElementById('keyword_input').value + '<span class="button__keyword_remove" onclick="removeKeyword(event,this)"></span></a>'
-        axios.get("/apis/hackspace_os/keyword/save?keyword=" + document.getElementById('keyword_input').value + '&origin=' + window.location.pathname)
+        axios.get("/apis/hackspace_os/keyword/add/" + document.getElementById('keyword_input').value)
             .then(function () {
                 document.getElementById('keyword_input').value = ''
             })
@@ -26,7 +26,7 @@ function saveKeyword(while_waiting_for_saving_str, rtl) {
 
 function removeKeyword(event, element) {
     event.stopPropagation();
-    axios.get("/apis/hackspace_os/keyword/remove?keyword=" + element.parentElement.innerText + '&origin=' + window.location.pathname)
+    axios.get("/apis/hackspace_os/keyword/remove/" + element.parentElement.innerText)
         .then(function () {
             element.parentElement.outerHTML = ''
         })
@@ -38,7 +38,8 @@ function removeKeyword(event, element) {
 
 function startNewMeeting() {
     // show loading screen
-    request_html('start_meeting', 'join_next_meeting', 'outer')
+    // // TODO load correct screen
+    // request_html('page/meetings', 'join_next_meeting', 'outer')
 
     // make request to start new meeting
     axios.get('/apis/hackspace_os/meeting/create')

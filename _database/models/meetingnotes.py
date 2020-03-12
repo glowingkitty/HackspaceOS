@@ -135,13 +135,12 @@ class MeetingNote(models.Model):
             riseuppad_meeting_path=riseuppad_meeting_path)
 
         # copy template for new meeting into riseup pad
-        meeting_template = get_template(os.path.join(
-            sys.path[0], '_setup/meeting_notes_template.txt')).render({
-                'MeetingNumber': MeetingNote.objects.count()+1,
-                'HackspaceName': hackspace_name,
-                'Date': str(
-                    datetime.now(pytz.timezone(timezone)).date())
-            })
+        meeting_template = get_template('meeting_notes_template.txt').render({
+            'MeetingNumber': MeetingNote.objects.count()+1,
+            'HackspaceName': hackspace_name,
+            'Date': str(
+                datetime.now(pytz.timezone(timezone)).date())
+        })
 
         input_field = browser.find_element_by_id('innerdocbody')
         input_field.clear()
@@ -216,8 +215,11 @@ class MeetingNote(models.Model):
 
     def keyword_remove(self, keyword):
         if self.text_keywords and keyword != '':
-            self.text_keywords = self.text_keywords.replace(
-                ','+keyword, '').replace(keyword+',', '')
+            if self.text_keywords == keyword:
+                self.text_keywords = ''
+            else:
+                self.text_keywords = self.text_keywords.replace(
+                    ','+keyword, '').replace(keyword+',', '')
             super(MeetingNote, self).save()
             print('Removed keyword - '+keyword)
 

@@ -27,10 +27,10 @@ class HackspaceOSapiView(View):
             return HackspaceOS().search(request)
 
         elif self.path == 'keyword_remove':
-            return HackspaceOS().keyword_remove(request)
+            return HackspaceOS().keyword_remove(sub_page, request)
 
         elif self.path == 'keyword_add':
-            return HackspaceOS().keyword_add(request)
+            return HackspaceOS().keyword_add(sub_page, request)
 
         elif self.path == 'events_slider':
             return HackspaceOS().events_slider(request)

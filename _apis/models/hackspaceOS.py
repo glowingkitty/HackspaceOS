@@ -54,13 +54,13 @@ class HackspaceOS():
         self.log('HackspaceOS().search()')
         return Search(request).value
 
-    def keyword_remove(self, request=None):
+    def keyword_remove(self, keyword, request=None):
         self.log('HackspaceOS().keyword_remove()')
-        return KeywordRemove(request).value
+        return KeywordRemove(keyword, request).value
 
-    def keyword_add(self, request=None):
+    def keyword_add(self, keyword, request=None):
         self.log('HackspaceOS().keyword_add()')
-        return KeywordAdd(request).value
+        return KeywordAdd(keyword, request).value
 
     def events_slider(self, request=None):
         self.log('HackspaceOS().events_slider()')

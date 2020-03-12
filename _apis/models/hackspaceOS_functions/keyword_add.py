@@ -1,13 +1,13 @@
 class KeywordAdd():
-    def __init__(self, request):
+    def __init__(self, keyword, request):
         from django.http import JsonResponse
         from _database.models import MeetingNote
 
-        if request.GET.get('keyword', None) and request.GET.get('origin', None) and MeetingNote.objects.filter(text_date=request.GET.get('origin', None).split('/')[1]).exists():
-            meeting = MeetingNote.objects.filter(
-                text_date=request.GET.get('origin', None).split('/')[1]).first()
+        text_date = request.META['HTTP_REFERER'].split('/')[-1]
+        if keyword and request.META['HTTP_REFERER'] and MeetingNote.objects.filter(text_date=text_date).exists():
+            meeting = MeetingNote.objects.filter(text_date=text_date).first()
 
-            meeting.keyword_add(request.GET.get('keyword'))
+            meeting.keyword_add(keyword)
             response = JsonResponse({'success': True})
         else:
             response = JsonResponse({'error': 'Request incomplete or wrong'})
