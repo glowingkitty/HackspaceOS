@@ -56,12 +56,21 @@ class GooglePhotos():
         except KeyboardInterrupt:
             Log().show_message('Ok, canceled setup.')
 
-    @property
-    def photos(self):
+    def import_photos(self, test=False):
+        from _database.models import Photo
+
+        # check if google photos urls exist
+        if len(self.urls) > 0:
+            self.log(
+                '-> ✅ Found GOOGLE_PHOTOS_ALBUM_URLS - Start importing photos from Google Photos ...')
+        else:
+            self.log('-> ERROR: Can\'t find GOOGLE_PHOTOS_ALBUM_URLS in your config.json. Will skip importing photos from Google Photos for now.')
+            return
+
         from _apis.models import Scraper
         from dateutil.parser import parse
 
-        photos_details = []
+        photos = []
         if not self.urls:
             self.log('-> ERROR: url not defined')
             return None
@@ -92,48 +101,30 @@ class GooglePhotos():
                             'INT_UNIX_taken': round(parse(self.scraper.selenium.find_elements_by_class_name(
                                 'ukWswc')[1].find_element_by_class_name('SzDcob').get_attribute('aria-label').split(' – ')[-1]).timestamp())
                         }
-                        photos_details.append(new_photo)
+                        photos.append(new_photo)
                         self.log('Scraped {} photos...'.format(
-                            len(photos_details)))
+                            len(photos)))
                         previous_url = self.scraper.selenium.current_url
 
                         # load next photo & repeat
                         self.scraper.selenium.find_element_by_tag_name(
                             'body').send_keys(Keys.ARROW_RIGHT)
                         time.sleep(1)
+
+                        if Photo.objects.filter(url_post=new_photo['URL_post']).exists() == False:
+                            Photo(
+                                url_image=new_photo['URL_image'],
+                                url_post=new_photo['URL_post'],
+                                str_source='Google Photos',
+                                int_UNIXtime_created=new_photo['INT_UNIX_taken']
+                            ).save()
+                            self.log('--> New photo saved')
+                        else:
+                            self.log('--> Photo exist. Skipped...')
+
                         tried = 0
                     except:
                         tried += 1
                         time.sleep(1)
 
             self.scraper.selenium.close()
-
-        return photos_details
-
-    @property
-    def count(self):
-        return len(self.photos)
-
-    def import_photos(self, test=False):
-        from _database.models import Photo
-
-        # check if google photos urls exist
-        if len(self.urls) > 0:
-            self.log(
-                '-> ✅ Found GOOGLE_PHOTOS_ALBUM_URLS - Start importing photos from Google Photos ...')
-        else:
-            self.log('-> ERROR: Can\'t find GOOGLE_PHOTOS_ALBUM_URLS in your config.json. Will skip importing photos from Google Photos for now.')
-            return
-
-        photos = self.photos
-        for photo in photos:
-            if Photo.objects.filter(url_post=photo['URL_post']).exists() == False:
-                Photo(
-                    url_image=photo['URL_image'],
-                    url_post=photo['URL_post'],
-                    str_source='Google Photos',
-                    int_UNIXtime_created=photo['INT_UNIX_taken']
-                ).save()
-                self.log('--> New photo saved')
-            else:
-                self.log('--> Photo exist. Skipped...')
