@@ -90,9 +90,11 @@ class GooglePhotos():
 
             # add photo
             previous_url = ''
+            already_exists = 0
             while self.scraper.selenium.current_url != previous_url:
                 tried = 0
-                while tried < 3:
+                processed = False
+                while processed == False:
                     try:
                         new_photo = {
                             'URL_image': self.scraper.selenium.find_elements_by_class_name(
@@ -120,11 +122,20 @@ class GooglePhotos():
                             ).save()
                             self.log('--> New photo saved')
                         else:
+                            already_exists += 1
                             self.log('--> Photo exist. Skipped...')
 
-                        tried = 0
+                        processed = True
+
                     except:
                         tried += 1
                         time.sleep(1)
+
+                        if tried > 3:
+                            break
+
+                if already_exists > 2:
+                    self.log('-> No new photos')
+                    break
 
             self.scraper.selenium.close()
