@@ -2,6 +2,7 @@ import time
 from _setup.models import Config
 from _setup.models import Log
 from _setup.tests.test_setup import SetupTestConfig
+from selenium.webdriver.common.keys import Keys
 
 
 class GooglePhotos():
@@ -55,30 +56,6 @@ class GooglePhotos():
         except KeyboardInterrupt:
             Log().show_message('Ok, canceled setup.')
 
-    @property
-    def photos(self):
-        from _apis.models import Scraper
-        from dateutil.parser import parse
-
-        photos_details = []
-        if not self.urls:
-            self.log('-> ERROR: url not defined')
-            return None
-
-        for URL in self.urls:
-            self.scraper = Scraper(
-                URL, scraper_type='selenium', scroll_down=5)
-            photos = self.scraper.select('RY3tic', 'class')
-
-            photos_details = photos_details + [{
-                'URL_image': str(x['data-latest-bg']).split('=')[0],
-                'URL_post':'https://photos.google.com'+x.parent['href'][1:],
-                'TEXT_description':None,
-                'INT_UNIX_taken':parse(x.parent['aria-label'].split(' - ')[-1]).timestamp()
-            } for x in photos]
-
-        return photos_details
-
     def import_photos(self, test=False):
         from _database.models import Photo
 
@@ -90,15 +67,75 @@ class GooglePhotos():
             self.log('-> ERROR: Can\'t find GOOGLE_PHOTOS_ALBUM_URLS in your config.json. Will skip importing photos from Google Photos for now.')
             return
 
-        photos = self.photos
-        for photo in photos:
-            if Photo.objects.filter(url_post=photo['URL_post']).exists() == False:
-                Photo(
-                    url_image=photo['URL_image'],
-                    url_post=photo['URL_post'],
-                    str_source='Google Photos',
-                    int_UNIXtime_created=photo['INT_UNIX_taken']
-                ).save()
-                self.log('--> New photo saved')
-            else:
-                self.log('--> Photo exist. Skipped...')
+        from _apis.models import Scraper
+        from dateutil.parser import parse
+
+        photos = []
+        if not self.urls:
+            self.log('-> ERROR: url not defined')
+            return None
+
+        for URL in self.urls:
+            self.scraper = Scraper(
+                URL, scraper_type='selenium', auto_close_selenium=False)
+
+            # open first photo
+            self.scraper.selenium.find_element_by_class_name('RY3tic').click()
+            time.sleep(2)
+
+            # get most important informations from photo page
+            self.scraper.selenium.find_element_by_xpath(
+                "//button[@title='Info']").click()
+            time.sleep(1)
+
+            # add photo
+            previous_url = ''
+            already_exists = 0
+            while self.scraper.selenium.current_url != previous_url:
+                tried = 0
+                processed = False
+                while processed == False:
+                    try:
+                        new_photo = {
+                            'URL_image': self.scraper.selenium.find_elements_by_class_name(
+                                'ukWswc')[1].find_element_by_class_name('SzDcob').get_attribute('src'),
+                            'URL_post': self.scraper.selenium.current_url,
+                            'INT_UNIX_taken': round(parse(self.scraper.selenium.find_elements_by_class_name(
+                                'ukWswc')[1].find_element_by_class_name('SzDcob').get_attribute('aria-label').split(' – ')[-1]).timestamp())
+                        }
+                        photos.append(new_photo)
+                        self.log('Scraped {} photos...'.format(
+                            len(photos)))
+                        previous_url = self.scraper.selenium.current_url
+
+                        # load next photo & repeat
+                        self.scraper.selenium.find_element_by_tag_name(
+                            'body').send_keys(Keys.ARROW_RIGHT)
+                        time.sleep(1)
+
+                        if Photo.objects.filter(url_post=new_photo['URL_post']).exists() == False:
+                            Photo(
+                                url_image=new_photo['URL_image'],
+                                url_post=new_photo['URL_post'],
+                                str_source='Google Photos',
+                                int_UNIXtime_created=new_photo['INT_UNIX_taken']
+                            ).save()
+                            self.log('--> New photo saved')
+                        else:
+                            already_exists += 1
+                            self.log('--> Photo exist. Skipped...')
+
+                        processed = True
+
+                    except:
+                        tried += 1
+                        time.sleep(1)
+
+                        if tried > 3:
+                            break
+
+                if already_exists > 2:
+                    self.log('-> No new photos')
+                    break
+
+            self.scraper.selenium.close()
