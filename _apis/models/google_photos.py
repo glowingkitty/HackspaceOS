@@ -2,6 +2,7 @@ import time
 from _setup.models import Config
 from _setup.models import Log
 from _setup.tests.test_setup import SetupTestConfig
+from selenium.webdriver.common.keys import Keys
 
 
 class GooglePhotos():
@@ -67,17 +68,51 @@ class GooglePhotos():
 
         for URL in self.urls:
             self.scraper = Scraper(
-                URL, scraper_type='selenium', scroll_down=5)
-            photos = self.scraper.select('RY3tic', 'class')
+                URL, scraper_type='selenium', auto_close_selenium=False)
 
-            photos_details = photos_details + [{
-                'URL_image': str(x['data-latest-bg']).split('=')[0],
-                'URL_post':'https://photos.google.com'+x.parent['href'][1:],
-                'TEXT_description':None,
-                'INT_UNIX_taken':parse(x.parent['aria-label'].split(' - ')[-1]).timestamp()
-            } for x in photos]
+            # open first photo
+            self.scraper.selenium.find_element_by_class_name('RY3tic').click()
+            time.sleep(2)
+
+            # get most important informations from photo page
+            self.scraper.selenium.find_element_by_xpath(
+                "//button[@title='Info']").click()
+            time.sleep(1)
+
+            # add photo
+            previous_url = ''
+            while self.scraper.selenium.current_url != previous_url:
+                tried = 0
+                while tried < 3:
+                    try:
+                        new_photo = {
+                            'URL_image': self.scraper.selenium.find_elements_by_class_name(
+                                'ukWswc')[1].find_element_by_class_name('SzDcob').get_attribute('src'),
+                            'URL_post': self.scraper.selenium.current_url,
+                            'INT_UNIX_taken': round(parse(self.scraper.selenium.find_elements_by_class_name(
+                                'ukWswc')[1].find_element_by_class_name('SzDcob').get_attribute('aria-label').split(' – ')[-1]).timestamp())
+                        }
+                        photos_details.append(new_photo)
+                        self.log('Scraped {} photos...'.format(
+                            len(photos_details)))
+                        previous_url = self.scraper.selenium.current_url
+
+                        # load next photo & repeat
+                        self.scraper.selenium.find_element_by_tag_name(
+                            'body').send_keys(Keys.ARROW_RIGHT)
+                        time.sleep(1)
+                        tried = 0
+                    except:
+                        tried += 1
+                        time.sleep(1)
+
+            self.scraper.selenium.close()
 
         return photos_details
+
+    @property
+    def count(self):
+        return len(self.photos)
 
     def import_photos(self, test=False):
         from _database.models import Photo
