@@ -1,7 +1,7 @@
 {
     "MODE": {
         "__info__0": "Are you currently TESTING or in PRODUCTION?",
-        "SELECTED": "TESTING"
+        "SELECTED": "PRODUCTION"
     },
     "BASICS": {
         "__info__0": "What is the name of your ?",
