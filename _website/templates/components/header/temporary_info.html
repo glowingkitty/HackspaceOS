@@ -1,0 +1,15 @@
+{% load config %}
+
+{% block content %}
+
+{% if ''|still_temporary_open_status %}
+    {% if 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.INFO_MINI_HEADER'|get_config %}
+        {% if 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.INFO_POPUP'|get_config %}
+        <div onclick="showOverlay('temporary')" class="temp_info_header">{{ 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.INFO_MINI_HEADER'|get_config }}<br>Click here for more details.</div>
+        {% else %} 
+        <div class="temp_info_header">{{ 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.INFO_MINI_HEADER'|get_config }}</div>
+        {% endif %} 
+    {% endif %}
+{% endif %}
+
+{% endblock %}

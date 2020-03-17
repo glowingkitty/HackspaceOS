@@ -180,11 +180,33 @@
 
         "TIMEZONE_STRING": null,
 
+        "__info__1": "Is your hackspace temporarely closed or do you have to announce something important? Enter those details here - so they show up on the landingpage and in the header on every page",
+        "__info__1__example": {
+            "TEMPORARY_LANDINGPAGE_HEADER": {
+                "UP_TO_DATE": "2020-04-28",
+                "OPENING_STATUS": "Closed for public",
+                "CTA_TEXT": "Join us online",
+                "CTA_LINK": "https://discourse.telavivmakers.org/",
+                "INFO_MINI_HEADER": "IMPORTANT! Temporarily not open for public because of Covid 19.",
+                "INFO_POPUP": "We are currently closed for the public because of Covid 19, up to April 28 2020. All events are canceled, the space is closed for the public and only members are allowed to enter. The maximum allowed number of people in the space at any time is 10. Also please make sure you wash your hands when you enter the space and stay distanced from other people - to prevent possible getting infected or infecting others. And if have any sickness symmtoms, please stay home instead. Stay tuned via our website about any updates. We will let you know when the space is open for the public again.",
+                "OPENING_HOURS_SUMMARY": "We are currently closed for the public because of Covid 19. Members however are still able to come by, but need to follow stricter rules to protect themself and others from getting sick. Stay tuned via our website and we let you know when we are open again for the public."
+            }
+        },
+        "TEMPORARY_LANDINGPAGE_HEADER": {
+            "UP_TO_DATE": null,
+            "OPENING_STATUS": null,
+            "CTA_TEXT": null,
+            "CTA_LINK": null,
+            "INFO_MINI_HEADER": null,
+            "INFO_POPUP": null,
+            "OPENING_HOURS_SUMMARY": null
+        },
+
         "OPENING_HOURS_SUMMARY": {
             "english": "Mon-Sun, 11AM - 10PM"
         },
 
-        "__info__1": "When is your hackspace open? (based on a 24 hour cycle) The status will be visible on your landingpage in the header.",
+        "__info__2": "When is your hackspace open? (based on a 24 hour cycle) The status will be visible on your landingpage in the header.",
         "OPENING_HOURS": {
             "Monday": [
                 [0, 0, "Probably open", "grey"],

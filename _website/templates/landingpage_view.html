@@ -1,6 +1,8 @@
 {% load config %}
 {% block content %}
 
+{% include "components/header/temporary_info.html" %}
+
 {% include "components/header/landingpage.html" %}
 {% if 'Events|View' in 'MODULES'|get_config %}
 {% include "components/body/events_slider.html" %}

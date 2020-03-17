@@ -5,11 +5,12 @@ from django.template.loader import get_template
 
 
 class LandingpageView(View):
-    def get_context(self, request):
+    def get_context(self, original_request):
         self.log('LandingpageView.get_context()')
         from _database.models import Event, Photo
+        from _apis.models.hackspaceOS_functions.open_status import OpenStatus
 
-        request = Request(request)
+        request = Request(original_request)
         response = Response()
         self.context = {
             'view': 'landingpage_view',
@@ -23,7 +24,7 @@ class LandingpageView(View):
             'page_git_url': '/tree/master/_website/templates/landingpage_view.html',
             'page_name': self.space_name,
             'page_description': response.description,
-            'is_open_status': response.space_open(request.language),
+            'is_open_status': OpenStatus(original_request).value,
             'upcoming_events': Event.objects.QUERYSET__upcoming()[:5],
             'photos': Photo.objects.latest()[:33]
         }

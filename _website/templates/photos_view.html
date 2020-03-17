@@ -3,6 +3,8 @@
 {% load translate %}
 {% block content %}
 
+{% include "components/header/temporary_info.html" %}
+
 {% with HASHTAG='SOCIAL.HASHTAG'|get_config %}
 <div class="use_hashtag_cta{% if language == 'hebrew' %} rtl{% endif %}"{% if language == 'hebrew' %} align="right"{% endif %}>{% if HASHTAG %}{{ 'Want to see your photos here?'|photos:language|safe }} {{ 'Use'|photos:language|safe }} {{ HASHTAG }} {{ 'on'|landingpage:language|safe }} <a class="inline_link" href="https://twitter.com/hashtag/{{ HASHTAG|STR__remove_hash }}?f=image" target="_blank">Twitter</a> {{ 'or'|landingpage:language|safe }} <a class="inline_link" href="https://www.instagram.com/explore/tags/{{ HASHTAG|STR__remove_hash }}/" target="_blank">Instagram</a>.{% endif %}</div>
 {% endwith %}

@@ -11,6 +11,10 @@
       {% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
       {% include "components/overlays/donate.html" %}
       {% endif %}
+
+      {% if ''|still_temporary_open_status and 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.INFO_POPUP'|get_config %}
+      {% include "components/overlays/temporary_info.html" %}
+      {% endif %}
     </div>
     <div onclick="openMenu()" class="menu_icon{% if language == 'hebrew' %} rtl{% endif %}"></div>
     {% if 'BASICS.DONATION_URLs.MONEY'|get_config %}
