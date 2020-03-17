@@ -56,7 +56,7 @@ class GooglePhotos():
         except KeyboardInterrupt:
             Log().show_message('Ok, canceled setup.')
 
-    def import_photos(self, test=False):
+    def import_photos(self):
         from _database.models import Photo
 
         # check if google photos urls exist
@@ -91,7 +91,8 @@ class GooglePhotos():
             # add photo
             previous_url = ''
             already_exists = 0
-            while self.scraper.selenium.current_url != previous_url:
+            test_runs = 0
+            while self.scraper.selenium.current_url != previous_url and test_runs < 3:
                 tried = 0
                 processed = False
                 while processed == False:
@@ -126,6 +127,9 @@ class GooglePhotos():
                             self.log('--> Photo exist. Skipped...')
 
                         processed = True
+
+                        if self.test:
+                            test_runs += 1
 
                     except:
                         tried += 1
