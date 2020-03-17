@@ -1,0 +1,13 @@
+{% load config %}
+
+{% block content %}
+
+<div id="temporary_overlay" class="overlay_block" onclick="event.stopPropagation()">
+    <a href="#" class="button__close_overlay" onclick="closeOverlays()"></a>
+
+    <h2 class="h2 large">Important announcement</h2>
+    <div>{{ 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.INFO_POPUP'|get_config }}</div>
+
+</div>
+
+{% endblock %}

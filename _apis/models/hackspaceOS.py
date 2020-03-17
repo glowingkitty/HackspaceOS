@@ -1,4 +1,5 @@
 import time
+from django.http import JsonResponse
 from _setup.models import Log
 from _apis.models.hackspaceOS_functions.page import Page
 from _apis.models.hackspaceOS_functions.load_more import LoadMore
@@ -45,7 +46,7 @@ class HackspaceOS():
 
     def open_status(self, request=None):
         self.log('HackspaceOS().open_status()')
-        return OpenStatus(request).value
+        return JsonResponse({'html': OpenStatus(request).value})
 
     def translate(self, request=None):
         self.log('HackspaceOS().translate()')

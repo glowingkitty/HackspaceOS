@@ -218,3 +218,10 @@
         min-height: 400px;
     }
 }
+
+.temp_info_header {
+    cursor: pointer;
+    margin: 45px;
+    text-align: center;
+    color: red;
+}

@@ -7,7 +7,9 @@
     {% if 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY'|get_config %}
     <div class="table">
       <div class="visit_us_text_left{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'When?'|landingpage:language|safe }}</div>
-      {% if language == 'hebrew' %}
+      {% if ''|still_temporary_open_status and 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.OPENING_HOURS_SUMMARY'|get_config %}
+      <div class="visit_us_text_right">{{ 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.OPENING_HOURS_SUMMARY'|get_config }}</div>
+      {% elif language == 'hebrew' %}
       <div class="visit_us_text_right rtl" align="right">{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY.hebrew'|get_config }}</div>
       {% else %}
       <div class="visit_us_text_right">{{ 'PHYSICAL_SPACE.OPENING_HOURS_SUMMARY.english'|get_config }}</div>

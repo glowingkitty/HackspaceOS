@@ -1,17 +1,22 @@
+from _setup.models import Config
+
+
 class OpenStatus():
     def __init__(self, request):
-        from django.http import JsonResponse
         from datetime import datetime
         import calendar
         import pytz
-        from _setup.models import Config
         from _website.templatetags.translate import landingpage
         from _database.models import Event
         from _website.models import Request
         language = Request(request).language
 
         # if an event is happening - show space open. Else use opening hours defined by config.json
-        if Event.objects.QUERYSET__now():
+        if self.still_temporary and Config('PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.OPENING_STATUS').value:
+            translated_status = Config(
+                'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.OPENING_STATUS').value
+            color_indicator = 'grey'
+        elif Event.objects.QUERYSET__now():
             translated_status = landingpage('Open now', language)
             color_indicator = 'green'
         else:
@@ -30,9 +35,20 @@ class OpenStatus():
                 else:
                     break
         if language == 'hebrew':
-            self.value = JsonResponse(
-                {'html': '<div dir="rtl" align="right">'+translated_status +
-                 '</div><div class="status_code_icon '+color_indicator+' rtl"></div>'})
+            self.value = '<div dir="rtl" align="right">'+translated_status + \
+                '</div><div class="status_code_icon '+color_indicator+' rtl"></div>'
         else:
-            self.value = JsonResponse(
-                {'html': '<div class="status_code_icon '+color_indicator+'"></div><div>'+translated_status+'</div>'})
+            self.value = '<div class="status_code_icon ' + \
+                color_indicator+'"></div><div>'+translated_status+'</div>'
+
+    @property
+    def still_temporary(self):
+        import datetime
+        from dateutil.parser import parse
+        # see if TEMPORARY_LANDINGPAGE_HEADER.UP_TO_DATE has already passed
+        if not Config('PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.UP_TO_DATE').value:
+            return False
+        up_to_date = parse(
+            Config('PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.UP_TO_DATE').value)
+        now = datetime.datetime.now()
+        return now <= up_to_date

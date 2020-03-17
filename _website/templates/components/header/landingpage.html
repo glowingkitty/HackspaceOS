@@ -28,17 +28,25 @@
             class="button__cta">
             <div>Say hello!</div>
         </a>
+        {% elif ''|still_temporary_open_status and 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.CTA_TEXT'|get_config %}
+        <a {% if 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.CTA_LINK'|get_config %}href="{{ 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.CTA_LINK'|get_config }}" target="_blank"{% endif %} class="button__cta">
+            <div{% if language == 'hebrew' %} align="right" {% endif %}>{{ 'PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.CTA_TEXT'|get_config }}</div>
+            {% if 'PHYSICAL_SPACE.OPENING_HOURS'|get_config %}
+            <div id="open_status" class="cta_extra_info">
+                {{ is_open_status|safe }}
+            </div>
+            {% endif %}
+        </a> 
         {% elif in_space == False %}
         <a href="#visit_us" class="button__cta">
-            <div{% if language == 'hebrew' %} align="right" {% endif %}>{{ 'Visit us!'|landingpage:language|safe }}
-    </div>
-    {% if 'PHYSICAL_SPACE.OPENING_HOURS'|get_config %}
-    <div id="open_status" class="cta_extra_info">
-        {{ is_open_status|safe }}
-    </div>
-    {% endif %}
-    </a>
-    {% endif %}
+            <div{% if language == 'hebrew' %} align="right" {% endif %}>{{ 'Visit us!'|landingpage:language|safe }}</div>
+            {% if 'PHYSICAL_SPACE.OPENING_HOURS'|get_config %}
+            <div id="open_status" class="cta_extra_info">
+                {{ is_open_status|safe }}
+            </div>
+            {% endif %}
+        </a>
+        {% endif %}
 </div>
 <div class="header_separator"></div>
 <div class="header_image">
