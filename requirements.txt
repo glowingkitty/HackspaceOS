@@ -26,6 +26,8 @@ fake-useragent==0.1.11
 future==0.18.2
 geographiclib==1.50
 geopy==1.21.0
+gitdb==4.0.2
+GitPython==3.1.0
 googletrans==2.4.0
 idna==2.8
 idna-ssl==1.1.0
@@ -46,7 +48,6 @@ pickleshare==0.7.5
 Pillow==7.0.0
 pip-upgrader==1.4.15
 prompt-toolkit==3.0.3
-psycopg2==2.8.4
 ptyprocess==0.6.0
 pycodestyle==2.5.0
 pyee==7.0.1
@@ -66,6 +67,7 @@ s3transfer==0.3.3
 selenium==3.141.0
 six==1.14.0
 slackclient==2.5.0
+smmap==3.0.1
 soupsieve==2.0
 sqlparse==0.3.0
 terminaltables==3.1.0
