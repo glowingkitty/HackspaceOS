@@ -1,8 +1,6 @@
 from django.views import View
 import time
-from _setup.models import Log
-from _setup.models import Secret
-from _setup.models import Config
+from _setup.models import Log, Secret, Config
 
 
 class View(View):
