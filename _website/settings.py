@@ -13,19 +13,20 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import mimetypes
 import os
 
-from _setup.models import Secret
-from _setup.models import Config
+from _setup.models import Config, Secret
 
-from _setup.models import Setup
-
-if not Setup().complete:
-    Setup()._menu()
-elif not Setup().database_exists:
-    from django.core.management import call_command
-    call_command('migrate')
-    call_command('update_database')
-
+# Check if mode is on testing, if yes, ask for confirmation
+# SECURITY WARNING: Make sure you changed MODE in _setup/config.json to PRODUCTION, when you deploy your website!
 MODE = Config('MODE.SELECTED').value
+if MODE == 'PRODUCTION':
+    DEBUG = False
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    ALLOWED_HOSTS = [Config('WEBSITE.DOMAIN').value]
+else:
+    DEBUG = True
+    ALLOWED_HOSTS = ['*']
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,17 +37,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = Secret('DJANGO.SECRET_KEY').value
-
-# SECURITY WARNING: don't run with debug turned on in production!
-if MODE == 'PRODUCTION':
-    DEBUG = False
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    ALLOWED_HOSTS = [Config('WEBSITE.DOMAIN').value]
-else:
-    DEBUG = True
-    ALLOWED_HOSTS = ['*']
 
 
 # Application definition

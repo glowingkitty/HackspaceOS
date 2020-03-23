@@ -1,12 +1,31 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import RedirectView
-from _setup.models import Secret
-from django.conf import settings
-from django.conf.urls.static import static
-from _website import views
-from _apis.urls import urlpatterns as api_urls
 
+from _apis.urls import urlpatterns as api_urls
+from _setup.models import Config, Log, Secret, Setup
+from _website import views
+
+# Check once on starting the server
+# Check if setup is completed
+if not Setup().complete:
+    Setup()._menu()
+elif not Setup().database_exists:
+    from django.core.management import call_command
+    call_command('migrate')
+    call_command('update_database')
+
+# ask if user is sure about running server in TEST mode?
+MODE = Config('MODE.SELECTED').value
+if MODE != 'PRODUCTION':
+    Log().show_message('MODE in _setup/config.json is set to TESTING - this makes your server easy to attack, if you use that option on a deployed server that is accessible via the internet. Do you want to continue? (Enter Y to continue)')
+    are_you_sure = input()
+    if are_you_sure.lower() != 'y':
+        Log().show_message(
+            'Ok, stopped server. You can change the mode in your _setup/config.json file.')
+        exit()
 
 urlpatterns = [
     path(Secret('DJANGO.ADMIN_URL').value+'/', admin.site.urls),
