@@ -199,7 +199,7 @@ class MediaWiki():
                 if status == 'Skipped':
                     skipped_photos_counter += 1
 
-        if not test:
+        if not self.test:
             while 'continue' in response_json and 'aicontinue' in response_json['continue'] and skipped_photos_counter < 5:
                 response_json = requests.get(
                     WIKI_API_URL, params={**parameter, **{'aicontinue': response_json['continue']['aicontinue']}}).json()

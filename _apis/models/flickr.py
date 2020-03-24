@@ -14,7 +14,7 @@ class Flickr():
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
-        self.page = 1 if self.test else page
+        self.page = 1 if test else page
         self.setup_done = True if url else False
         self.url = url
         self.test = test
