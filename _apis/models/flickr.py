@@ -1,6 +1,6 @@
 import time
-from _setup.models import Config
-from _setup.models import Log
+
+from _setup.models import Config, Log
 
 
 class Flickr():
@@ -14,7 +14,7 @@ class Flickr():
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
-        self.page = page
+        self.page = 1 if test else page
         self.setup_done = True if url else False
         self.url = url
         self.test = test
@@ -105,7 +105,7 @@ class Flickr():
 
         return photos_list
 
-    def import_photos(self, test=False):
+    def import_photos(self):
         self.log('import_photos()')
         from _database.models import Photo
 
