@@ -1,4 +1,5 @@
 from django.db import models
+
 from _setup.models import Log
 
 
@@ -39,27 +40,27 @@ class PhotoSet(models.QuerySet):
     def import_from_google_photos(self, test=False):
         from _apis.models import GooglePhotos
         Log().print('import_from_google_photos()')
-        GooglePhotos().import_photos(test=test)
+        GooglePhotos(test=test).import_photos()
 
     def import_from_twitter(self, test=False):
         from _apis.models import Twitter
         Log().print('import_from_twitter()')
-        Twitter().import_photos(test=test)
+        Twitter(test=test).import_photos()
 
     def import_from_wiki(self, test=False):
         from _apis.models import MediaWiki
         Log().print('import_from_wiki()')
-        MediaWiki().import_photos(test=test)
+        MediaWiki(test=test).import_photos()
 
     def import_from_flickr(self, test=False):
         from _apis.models import Flickr
         Log().print('import_from_flickr()')
-        Flickr().import_photos(test=test)
+        Flickr(test=test).import_photos()
 
     def import_from_instagram(self, test=False):
         from _apis.models import Instagram
         Log().print('import_from_instagram()')
-        Instagram().import_photos(test=test)
+        Instagram(test=test).import_photos()
 
 
 class Photo(models.Model):

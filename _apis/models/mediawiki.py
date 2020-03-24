@@ -1,7 +1,8 @@
-import requests
-from _setup.models import Log
-from _setup.models import Config
 import time
+
+import requests
+
+from _setup.models import Config, Log
 from _setup.tests.test_setup import SetupTestConfig
 
 
@@ -152,7 +153,7 @@ class MediaWiki():
 
                 return 'Saved'
 
-    def import_photos(self, test=False, WIKI_API_URL=Config('BASICS.WIKI.API_URL').value):
+    def import_photos(self, WIKI_API_URL=Config('BASICS.WIKI.API_URL').value):
         # API documentation: https://www.mediawiki.org/wiki/API:Allimages
         self.log('import_photos()')
         from _database.models import Photo
@@ -183,7 +184,7 @@ class MediaWiki():
             'list': 'allimages',
             'aisort': 'timestamp',
             'aidir': 'descending',
-            'ailimit': '500' if not test else '5',
+            'ailimit': '500' if not self.test else '5',
             'aiminsize': '50000',  # minimum 50kb size, to filter out small logos/icons
             'aiprop': 'timestamp|canonicaltitle|url|user'
         }

@@ -1,6 +1,6 @@
 import time
-from _setup.models import Config
-from _setup.models import Log
+
+from _setup.models import Config, Log
 from _setup.tests.test_setup import SetupTestConfig
 
 
@@ -112,7 +112,7 @@ class Instagram():
 
         return photos
 
-    def import_photos(self, test=False):
+    def import_photos(self):
         self.log('import_photos()')
         from _database.models import Photo
 
