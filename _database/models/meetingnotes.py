@@ -186,7 +186,7 @@ class MeetingNote(models.Model):
         try:
             # find main topics via heading in note template
             main_topics = re.findall('(?<==).*', open(os.path.join(
-                sys.path[0], '_database/templates/meeting_notes__'+Config('BASICS.NAME').value+'.txt'), 'r').read())
+                sys.path[0].split('HackspaceOS')[0]+'HackspaceOS', '_database/templates/meeting_notes__'+Config('BASICS.NAME').value+'.txt'), 'r').read())
             main_topics = [
                 x.replace('==', '')
                 .replace('= ', '')
@@ -245,7 +245,7 @@ class MeetingNote(models.Model):
         import sys
 
         self.text_notes = open(os.path.join(
-            sys.path[0], '_database/meeting_notes/'+self.text_date+'.txt'), 'r').read()
+            sys.path[0].split('HackspaceOS')[0]+'HackspaceOS', '_database/meeting_notes/'+self.text_date+'.txt'), 'r').read()
         self.updateCreatedBasedOnName()
         self.save()
 
