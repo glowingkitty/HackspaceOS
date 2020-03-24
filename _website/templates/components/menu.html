@@ -59,6 +59,9 @@
   {% if 'Events|View' in MODULES %}
   <a href="/events" id="menu_h_events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="menu_heading sub_heading{% if slug == '/events' or 'event/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Events'|menu:language }}</a>
   {% endif %}
+  {% if 'DISCOURSE.DISCOURSE_URL'|get_key %}
+  <a href="{{ 'DISCOURSE.DISCOURSE_URL'|get_key }}" target="_blank" id="menu_h_discourse" class="menu_heading sub_heading{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Discussions'|menu:language }}</a>
+  {% endif %}
   {% if 'Projects' in MODULES %}
   <a href="/projects" id="menu_h_projects" onclick="event.preventDefault();getPage('/projects','menu_h_projects')" class="menu_heading sub_heading{% if slug == '/projects' or 'project/' in slug %} selected{% endif %}{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Projects'|menu:language }}</a>
   {% endif %}
