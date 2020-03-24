@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import mimetypes
 import os
 
-from _setup.models import Config, Secret
+from _setup.models import Config, Secret, Startup
+
+startup = Startup()
+startup.check_setup_complete()
 
 # Check if mode is on testing, if yes, ask for confirmation
 # SECURITY WARNING: Make sure you changed MODE in _setup/config.json to PRODUCTION, when you deploy your website!

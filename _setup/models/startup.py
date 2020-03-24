@@ -1,3 +1,4 @@
+import json
 import os
 import time
 
@@ -10,11 +11,6 @@ class Startup():
     def __init__(self):
         self.logs = ['self.__init__']
         self.started = round(time.time())
-
-        self.check_code_update()
-        self.check_setup_complete()
-        self.check_config_uptodate()
-        self.check_mode_testing()
 
     def log(self, text):
         from _setup.models import Log
@@ -43,7 +39,6 @@ class Startup():
     def check_setup_complete(self):
         # Check once on starting the server
         # Check if setup is completed
-        self.log('Checking if setup is complete ...')
         if not Setup().complete:
             Setup()._menu()
         elif not Setup().database_exists:
@@ -51,10 +46,52 @@ class Startup():
             call_command('migrate')
             call_command('update_database')
 
-    def check_config_uptodate(self):
-        # check if config.json is up to date
-        self.log('Checking if config is up to date ...')
-        pass
+    def check_config_uptodate(self, file):
+        self.log('Checking if {}.json is up to date ...'.format(file))
+
+        # for every field in config_template - if field in config, copy config value over
+        with open('_setup/{}_template.json'.format(file)) as template:
+            config_template = json.load(template)
+
+            with open('_setup/{}.json'.format(file)) as config_json:
+                config = json.load(config_json)
+                config_original = config
+
+                for field in config_template:
+                    if field.isupper() and field in config:
+
+                        if type(config_template[field]) == dict:
+                            for sub_field in config_template[field]:
+                                if sub_field.isupper() and sub_field in config[field]:
+
+                                    if type(config_template[field][sub_field]) == dict:
+                                        for sub_sub_field in config_template[field][sub_field]:
+                                            if sub_sub_field.isupper() and sub_sub_field in config[field][sub_field]:
+                                                # get field content from config if exists
+                                                config_template[field][sub_field][sub_sub_field] = config[
+                                                    field][sub_field][sub_sub_field]
+                                            else:
+                                                # get field content from config if exists
+                                                config_template[field][sub_field] = config[field][sub_field]
+                                                break
+
+                                    else:
+                                        # get field content from config if exists
+                                        config_template[field][sub_field] = config[field][sub_field]
+
+                        else:
+                            # get field content from config if exists
+                            config_template[field] = config[field]
+
+                # if original config.json different from updated one - save new file
+                if config != config_template:
+                    self.log(
+                        '{} layout has changed! Saving updated {}...'.format(file, file))
+                    with open('_setup/{}.json'.format(file), 'w') as outfile:
+                        json.dump(config_template, outfile, indent=4)
+                else:
+                    self.log(
+                        '{} layout unchanged'.format(file))
 
     def check_mode_testing(self):
         # ask if user is sure about running server in TEST mode?

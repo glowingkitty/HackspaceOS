@@ -8,7 +8,11 @@ from _apis.urls import urlpatterns as api_urls
 from _setup.models import Secret, Startup
 from _website import views
 
-Startup()
+startup = Startup()
+startup.check_code_update()
+startup.check_config_uptodate('config')
+startup.check_config_uptodate('secrets')
+startup.check_mode_testing()
 
 urlpatterns = [
     path(Secret('DJANGO.ADMIN_URL').value+'/', admin.site.urls),
