@@ -48,7 +48,7 @@ class EventCreate():
         )
         if request.POST.get('location', None):
             if request.POST.get('location', None) != Config('BASICS.NAME').value:
-                if request.POST.get('location', None) == 'Online':
+                if request.POST.get('location', None).lower() == 'online':
                     new_event.boolean_online_meetup = True
                 else:
                     new_event.str_location = request.POST.get('location', None)
