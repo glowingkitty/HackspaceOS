@@ -85,6 +85,12 @@
     <div class="blocks_inline_50_percent">
         <h2 class="h2 large{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>{{ 'Location'|events:language }}</h2>
         <div>
+        {% if selected.boolean_online_meetup %}
+
+        Online
+
+        {% else %}
+        
         {% with HACKERSPACE_ADDRESS='PHYSICAL_SPACE.ADDRESS'|get_config %}
         {% if HACKERSPACE_ADDRESS.STREET not in selected.str_location %}
         {{ selected.str_location }}
@@ -94,6 +100,8 @@
         {{ HACKERSPACE_ADDRESS.ZIP }} {{ HACKERSPACE_ADDRESS.CITY }}, {{ HACKERSPACE_ADDRESS.COUNTRYCODE }}
         {% endif %}
         {% endwith %}
+
+        {% endif %}
         </div>
     </div>
     {% if selected.many_hosts.exists %}

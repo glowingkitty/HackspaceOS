@@ -108,6 +108,10 @@
     },
 
     "EVENTS": {
+        "ALLOW_IN_SPACE_EVENTS": true,
+        "ALLOW_ONLINE_EVENTS": true,
+        "ALLOW_OTHER_EVENT_LOCATIONS": true,
+
         "__info__0": "Please enter your slug, not the full URL: https://www.meetup.com/{{ MEETUP_GROUP }}/",
         "MEETUP_GROUP": null,
 
