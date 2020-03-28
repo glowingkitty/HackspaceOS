@@ -60,6 +60,7 @@ class Event(models.Model):
     text_description_he_IL = models.TextField(
         blank=True, null=True, verbose_name='Description he-IL')
 
+    boolean_online_meetup = models.BooleanField(default=False)
     str_location = models.CharField(
         max_length=250, default=ADDRESS_STRING, verbose_name='Location')
     float_lat = models.FloatField(
@@ -318,6 +319,9 @@ class Event(models.Model):
     def str_relative_time(self):
         import time
 
+        if not self.int_UNIXtime_event_start:
+            return None
+
         timestamp = self.int_UNIXtime_event_start
 
         # if date within next 5 minutes
@@ -341,6 +345,13 @@ class Event(models.Model):
 
         else:
             return None
+
+    @property
+    def videocall_now(self):
+        if self.boolean_online_meetup and self.str_relative_time == 'Now':
+            return True
+        else:
+            return False
 
     @property
     def str_relative_publish_time(self):

@@ -5,6 +5,7 @@ import time
 from git import Repo
 
 from _setup.models import Config, Log, Setup
+from django.core.management import call_command
 
 
 class Startup():
@@ -29,6 +30,10 @@ class Startup():
                 update = input()
                 if update.lower() == 'y':
                     repo.remotes.origin.pull()
+                    # update database models via makemigrations and migrate
+                    call_command('makemigrations')
+                    call_command('migrate')
+
                     Log().show_message('Update complete!')
                 else:
                     Log().show_message('Ok, skipped update for now.')
@@ -43,6 +48,7 @@ class Startup():
             Setup()._menu()
         elif not Setup().database_exists:
             from django.core.management import call_command
+            call_command('makemigrations')
             call_command('migrate')
             call_command('update_database')
 

@@ -8,6 +8,9 @@
 
 {% with MODULES='MODULES'|get_config %}
 
+{% if selected.videocall_now and 'VIDEOCALLS.JITSI_DOMAIN'|get_config %}
+<div id="videocall"></div>
+{% else %}
 <div class="header_block sub_page">
     <div class="header_separator"></div>
     <div class="header_image" {% if selected.url_featured_photo or selected.image_featured_photo %} style="
@@ -15,8 +18,10 @@
     background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0.5), hsla(0, 0%, 100%, 0.5)), url('{% if selected.url_featured_photo %}{{ selected.url_featured_photo }}{% elif selected.image_featured_photo %}{{ selected.image_featured_photo.url }}{% endif %}');
     " {% endif %}></div>
 </div>
+{% endif %}
 
 <div class="divider_20"></div>
+
 <div class="max_540">
     {% if selected.boolean_approved == False %}
     <div class="new_event_info">
