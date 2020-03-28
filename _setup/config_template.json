@@ -63,6 +63,11 @@
         }
     },
 
+    "VIDEOCALLS": {
+        "__info__0": "Did you setup your own jitsi server (https://jitsi.org/jitsi-meet/) for hosting video calls on your website? (for online-meetups and meetings) If yes, update the domain to your own one.",
+        "JITSI_DOMAIN": "freejitsi01.netcup.net"
+    },
+
     "MODULES": [
         "Values",
         "Photos",
@@ -103,6 +108,10 @@
     },
 
     "EVENTS": {
+        "ALLOW_IN_SPACE_EVENTS": true,
+        "ALLOW_ONLINE_EVENTS": true,
+        "ALLOW_OTHER_EVENT_LOCATIONS": true,
+
         "__info__0": "Please enter your slug, not the full URL: https://www.meetup.com/{{ MEETUP_GROUP }}/",
         "MEETUP_GROUP": null,
 

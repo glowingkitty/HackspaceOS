@@ -73,16 +73,10 @@ function checkForOverlappingEvents() {
 
 function changeLocation(new_location) {
     if (new_location == 'other') {
-        document.getElementById('location_button_other').classList.remove('not_active')
-        document.getElementById('location_button_hackerspace').classList.add('not_active')
-
         document.getElementById('event_location').value = ''
         document.getElementById('location_text').value = ''
         document.getElementById('location_text').style.display = 'block'
     } else {
-        document.getElementById('location_button_other').classList.add('not_active')
-        document.getElementById('location_button_hackerspace').classList.remove('not_active')
-
         document.getElementById('event_location').value = new_location
         document.getElementById('location_text').style.display = 'none'
     }
