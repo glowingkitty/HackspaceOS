@@ -62,7 +62,7 @@ class Event(models.Model):
 
     boolean_online_meetup = models.BooleanField(default=False)
     str_location = models.CharField(
-        max_length=250, default=ADDRESS_STRING, verbose_name='Location')
+        max_length=250, default=ADDRESS_STRING, verbose_name='Location', blank=True, null=True)
     float_lat = models.FloatField(
         default=LAT_LON[0], blank=True, null=True, verbose_name='Lat')
     float_lon = models.FloatField(
@@ -317,38 +317,48 @@ class Event(models.Model):
 
     @property
     def str_relative_time(self):
+        if hasattr(self, 'str_relative_time_value'):
+            return self.str_relative_time_value
+
         import time
 
         if not self.int_UNIXtime_event_start:
-            return None
-
-        timestamp = self.int_UNIXtime_event_start
-
-        # show if event is over
-        if self.int_UNIXtime_event_end < time.time():
-            return 'Ended'
-
-        # if date within next 5 minutes
-        elif timestamp < time.time() and self.int_UNIXtime_event_end > time.time():
-            return 'Now'
-
-        # in next 60 minutes
-        elif timestamp <= time.time()+(60*60):
-            minutes_in_future = int((timestamp - time.time())/60)
-            return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
-
-        # in next 12 hours
-        elif timestamp <= time.time()+(60*60*12):
-            hours_in_future = int(((timestamp - time.time())/60)/60)
-            return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
-
-        # else if in next 6 days, return name of day
-        elif timestamp <= time.time()+(60*60*24*6):
-            name_of_weekday = self.datetime_start.strftime("%A")
-            return name_of_weekday
-
+            self.str_relative_time_value = None
         else:
-            return None
+
+            timestamp = self.int_UNIXtime_event_start
+
+            # show if event is over
+            if self.int_UNIXtime_event_end < time.time():
+                self.str_relative_time_value = 'Ended'
+
+            # if date within next 5 minutes
+            elif timestamp < time.time() and self.int_UNIXtime_event_end > time.time():
+                self.str_relative_time_value = 'Now'
+
+            # in next 60 minutes
+            elif timestamp <= time.time()+(60*60):
+                minutes_in_future = int((timestamp - time.time())/60)
+                self.str_relative_time_value = 'in ' + \
+                    str(minutes_in_future)+' minute' + \
+                    ('s' if minutes_in_future > 1 else '')
+
+            # in next 12 hours
+            elif timestamp <= time.time()+(60*60*12):
+                hours_in_future = int(((timestamp - time.time())/60)/60)
+                self.str_relative_time_value = 'in ' + \
+                    str(hours_in_future)+' hour' + \
+                    ('s' if hours_in_future > 1 else '')
+
+            # else if in next 6 days, return name of day
+            elif timestamp <= time.time()+(60*60*24*6):
+                name_of_weekday = self.datetime_start.strftime("%A")
+                self.str_relative_time_value = name_of_weekday
+
+            else:
+                self.str_relative_time_value = None
+
+        return self.str_relative_time_value
 
     @property
     def videocall_now(self):
@@ -379,12 +389,17 @@ class Event(models.Model):
         import pytz
         from datetime import datetime
 
+        if hasattr(self, 'datetime_start_value'):
+            return self.datetime_start_value
+
         if not self.int_UNIXtime_event_start:
             return None
         local_timezone = pytz.timezone(self.str_timezone)
         local_time = datetime.fromtimestamp(
             self.int_UNIXtime_event_start, local_timezone)
-        return local_time
+
+        self.datetime_start_value = local_time
+        return self.datetime_start_value
 
     @property
     def datetime_end(self):
@@ -633,6 +648,20 @@ class Event(models.Model):
         import bleach
         from _setup.models import Config
         import re
+        from dateutil.parser import parse
+
+        Log().print('--> auto change event to online if space closed when the event is happening')
+        if self.str_location and not Config('EVENTS.ALLOW_IN_SPACE_EVENTS').value and Config('EVENTS.ALLOW_ONLINE_EVENTS').value:
+            if Config('PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.UP_TO_DATE').value:
+                up_to_date = parse(
+                    Config('PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.UP_TO_DATE').value+' 00:00:00 +00:00')
+                if self.datetime_start < up_to_date:
+                    self.str_location = None
+                    self.boolean_online_meetup = True
+
+            else:
+                self.str_location = None
+                self.boolean_online_meetup = True
 
         Log().print('--> clean from scripts')
         if self.str_name_en_US:
@@ -670,7 +699,7 @@ class Event(models.Model):
                     '[\W_]+', '', self.str_name_en_US.lower())+str(counter)
 
         Log().print('--> Save lat/lon if not exist yet')
-        if not self.float_lat:
+        if self.str_location and not self.float_lat:
             self.str_location, self.float_lat, self.float_lon = get_lat_lon_and_location(
                 self.str_location)
 

@@ -43,7 +43,7 @@
         {{ selected.str_name_en_US|TEXT_replaceLinkCSS|safe }}
         {% endif %}
     </h2>
-    {% if selected.url_meetup_event %}
+    {% if selected.url_meetup_event and selected.str_relative_time != 'Now' %}
     <a href="{{ selected.url_meetup_event }}" target="_blank" class="button__cta inline">RSVP</a>
     {% endif %}
     {% if user.is_authenticated and selected.boolean_approved == False %}

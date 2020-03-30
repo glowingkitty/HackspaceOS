@@ -7,7 +7,7 @@
     <div class="result_preview_relative_time{% if language == 'hebrew' %} rtl{% endif %} repeating_day">{{ result.str_series }}</div>
     {% endif %}
     {% if result.str_relative_time %}
-    <div class="result_preview_relative_time{% if language == 'hebrew' %} rtl{% endif %}">{{ result.str_relative_time }}</div>
+    <div class="result_preview_relative_time{% if language == 'hebrew' %} rtl{% endif %}">{% if result.boolean_online_meetup %}Online, {% endif %}{{ result.str_relative_time }}</div>
     {% endif %}
     <div class="result_preview_left{% if language == 'hebrew' %} rtl{% endif %}">
     <div class="h2 in_result_preview_block{% if language == 'hebrew' %} rtl{% endif %}">
