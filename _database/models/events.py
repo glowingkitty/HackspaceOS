@@ -680,7 +680,7 @@ class Event(models.Model):
                     '[\W_]+', '', self.str_name_en_US.lower())+str(counter)
 
         Log().print('--> Save lat/lon if not exist yet')
-        if not self.float_lat:
+        if self.str_location and not self.float_lat:
             self.str_location, self.float_lat, self.float_lon = get_lat_lon_and_location(
                 self.str_location)
 

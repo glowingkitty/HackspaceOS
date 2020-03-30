@@ -1,4 +1,5 @@
 {% load translate %}
+{% load config %}
 {% block content %}
 
 <div id="events_slider" class="events_slider_section">
@@ -11,9 +12,16 @@
       <a href="/events" onclick="event.preventDefault();getPage('/events','menu_h_events')" class="button__cta secondary"{% if language == 'hebrew' %} align="right"{% endif %}>{{ 'Show all'|landingpage:language|safe }}</a>
       <div class="divider_10"></div>
       {% endif %}
+      {% if 'EVENTS.ALLOW_IN_SPACE_EVENTS'|get_config or 'EVENTS.ALLOW_ONLINE_EVENTS'|get_config or 'EVENTS.ALLOW_OTHER_EVENT_LOCATIONS'|get_config %}
       <a href="/event/new" onclick="event.preventDefault();getPage('/event/new','menu_h_events')" class="button__cta secondary with_icon{% if language == 'hebrew' %} rtl" align="right"{% else %}"{% endif %}>
         <div style="width: 22px;margin-right: 5px;">{% include "components/SVGs/plus.html" %}</div>
-        {{ 'Create an event'|landingpage:language|safe }}</a>
+        {% if 'EVENTS.ALLOW_IN_SPACE_EVENTS'|get_config or 'EVENTS.ALLOW_OTHER_EVENT_LOCATIONS'|get_config %}
+        {{ 'Create an event'|landingpage:language|safe }}
+        {% else %}
+        {{ 'Create an online-event'|landingpage:language|safe }}
+        {% endif %}
+      </a>
+      {% endif %}
     </div>
 </div>
 
