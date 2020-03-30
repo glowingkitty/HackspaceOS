@@ -64,15 +64,15 @@ class Startup():
                 config_original = config
 
                 for field in config_template:
-                    if field.isupper() and field in config:
+                    if field[0].isupper() and field in config:
 
                         if type(config_template[field]) == dict:
                             for sub_field in config_template[field]:
-                                if sub_field.isupper() and sub_field in config[field]:
+                                if sub_field[0].isupper() and sub_field in config[field]:
 
                                     if type(config_template[field][sub_field]) == dict:
                                         for sub_sub_field in config_template[field][sub_field]:
-                                            if sub_sub_field.isupper() and sub_sub_field in config[field][sub_field]:
+                                            if sub_sub_field[0].isupper() and sub_sub_field in config[field][sub_field]:
                                                 # get field content from config if exists
                                                 config_template[field][sub_field][sub_sub_field] = config[
                                                     field][sub_field][sub_sub_field]
