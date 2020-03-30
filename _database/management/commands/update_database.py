@@ -27,8 +27,6 @@ class Command(BaseCommand):
         Person.objects.import_from_discourse()
         Consensus.objects.import_from_discourse()
         Project.objects.import_from_discourse()
-        # TODO Adding Wishlist
-        # Wish.objects.import_from_discourse()
 
         # import events from Meetup
         Event.objects.import_from_meetup()

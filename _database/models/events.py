@@ -62,7 +62,7 @@ class Event(models.Model):
 
     boolean_online_meetup = models.BooleanField(default=False)
     str_location = models.CharField(
-        max_length=250, default=ADDRESS_STRING, verbose_name='Location')
+        max_length=250, default=ADDRESS_STRING, verbose_name='Location', blank=True, null=True)
     float_lat = models.FloatField(
         default=LAT_LON[0], blank=True, null=True, verbose_name='Lat')
     float_lon = models.FloatField(
@@ -389,12 +389,17 @@ class Event(models.Model):
         import pytz
         from datetime import datetime
 
+        if hasattr(self, 'datetime_start_value'):
+            return self.datetime_start_value
+
         if not self.int_UNIXtime_event_start:
             return None
         local_timezone = pytz.timezone(self.str_timezone)
         local_time = datetime.fromtimestamp(
             self.int_UNIXtime_event_start, local_timezone)
-        return local_time
+
+        self.datetime_start_value = local_time
+        return self.datetime_start_value
 
     @property
     def datetime_end(self):
@@ -643,6 +648,20 @@ class Event(models.Model):
         import bleach
         from _setup.models import Config
         import re
+        from dateutil.parser import parse
+
+        Log().print('--> auto change event to online if space closed when the event is happening')
+        if self.str_location and not Config('EVENTS.ALLOW_IN_SPACE_EVENTS').value and Config('EVENTS.ALLOW_ONLINE_EVENTS').value:
+            if Config('PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.UP_TO_DATE').value:
+                up_to_date = parse(
+                    Config('PHYSICAL_SPACE.TEMPORARY_LANDINGPAGE_HEADER.UP_TO_DATE').value+' 00:00:00 +00:00')
+                if self.datetime_start < up_to_date:
+                    self.str_location = None
+                    self.boolean_online_meetup = True
+
+            else:
+                self.str_location = None
+                self.boolean_online_meetup = True
 
         Log().print('--> clean from scripts')
         if self.str_name_en_US:
