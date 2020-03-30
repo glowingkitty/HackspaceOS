@@ -87,9 +87,11 @@
 
     <br>
 
-    {% for all_language in 'WEBSITE.LANGUAGES'|get_config %}
-    <a href="?lang={{ all_language }}" class="menu_heading sub_heading{% if all_language == language %} selected{% endif %}">{{ all_language|get_language_local_name }}</a>
-    {% endfor %}
+    {% if 'WEBSITE.LANGUAGES'|get_config|length > 1 %}
+      {% for all_language in 'WEBSITE.LANGUAGES'|get_config %}
+      <a href="?lang={{ all_language }}" class="menu_heading sub_heading{% if all_language == language %} selected{% endif %}">{{ all_language|get_language_local_name }}</a>
+      {% endfor %}
+    {% endif %}
 
     {% if user.is_authenticated %}
     <br>

@@ -317,38 +317,48 @@ class Event(models.Model):
 
     @property
     def str_relative_time(self):
+        if hasattr(self, 'str_relative_time_value'):
+            return self.str_relative_time_value
+
         import time
 
         if not self.int_UNIXtime_event_start:
-            return None
-
-        timestamp = self.int_UNIXtime_event_start
-
-        # show if event is over
-        if self.int_UNIXtime_event_end < time.time():
-            return 'Ended'
-
-        # if date within next 5 minutes
-        elif timestamp < time.time() and self.int_UNIXtime_event_end > time.time():
-            return 'Now'
-
-        # in next 60 minutes
-        elif timestamp <= time.time()+(60*60):
-            minutes_in_future = int((timestamp - time.time())/60)
-            return 'in '+str(minutes_in_future)+' minute'+('s' if minutes_in_future > 1 else '')
-
-        # in next 12 hours
-        elif timestamp <= time.time()+(60*60*12):
-            hours_in_future = int(((timestamp - time.time())/60)/60)
-            return 'in '+str(hours_in_future)+' hour'+('s' if hours_in_future > 1 else '')
-
-        # else if in next 6 days, return name of day
-        elif timestamp <= time.time()+(60*60*24*6):
-            name_of_weekday = self.datetime_start.strftime("%A")
-            return name_of_weekday
-
+            self.str_relative_time_value = None
         else:
-            return None
+
+            timestamp = self.int_UNIXtime_event_start
+
+            # show if event is over
+            if self.int_UNIXtime_event_end < time.time():
+                self.str_relative_time_value = 'Ended'
+
+            # if date within next 5 minutes
+            elif timestamp < time.time() and self.int_UNIXtime_event_end > time.time():
+                self.str_relative_time_value = 'Now'
+
+            # in next 60 minutes
+            elif timestamp <= time.time()+(60*60):
+                minutes_in_future = int((timestamp - time.time())/60)
+                self.str_relative_time_value = 'in ' + \
+                    str(minutes_in_future)+' minute' + \
+                    ('s' if minutes_in_future > 1 else '')
+
+            # in next 12 hours
+            elif timestamp <= time.time()+(60*60*12):
+                hours_in_future = int(((timestamp - time.time())/60)/60)
+                self.str_relative_time_value = 'in ' + \
+                    str(hours_in_future)+' hour' + \
+                    ('s' if hours_in_future > 1 else '')
+
+            # else if in next 6 days, return name of day
+            elif timestamp <= time.time()+(60*60*24*6):
+                name_of_weekday = self.datetime_start.strftime("%A")
+                self.str_relative_time_value = name_of_weekday
+
+            else:
+                self.str_relative_time_value = None
+
+        return self.str_relative_time_value
 
     @property
     def videocall_now(self):
