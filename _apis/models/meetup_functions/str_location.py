@@ -7,7 +7,7 @@ class MeetupSTRlocation():
         HACKERSPACE_ADDRESS = Config('PHYSICAL_SPACE.ADDRESS').value
         str_location_name = event['venue']['name'] if 'venue' in event and event['venue']['name'] and event[
             'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_NAME
-        str_location_street = event['venue']['address_1'] if 'venue' in event and event['venue']['name'] and event[
+        str_location_street = event['venue']['address_1'] if 'venue' in event and 'address_1' in event['venue'] and event['venue']['name'] and event[
             'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['STREET']
         str_location_zip = event['venue']['zip'] if 'venue' in event and 'zip' in event['venue'] and event['venue']['name'] and event[
             'venue']['name'] != HACKERSPACE_NAME else HACKERSPACE_ADDRESS['ZIP']
