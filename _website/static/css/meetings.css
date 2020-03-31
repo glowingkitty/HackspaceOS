@@ -95,10 +95,15 @@
 
 
 .html-embed {
-    height: 60vh;
+    height: 500px;
     margin-top: 20px;
     border-radius: 0px;
     background-color: #fff;
+}
+
+.html-embed.videocall {
+    width: 49.5%;
+    display: inline-block;
 }
 
 .meeting_text_summary {
