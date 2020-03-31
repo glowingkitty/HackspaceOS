@@ -8,6 +8,8 @@ from selenium.webdriver.firefox.options import Options
 import time
 from _setup.models import Secret
 import platform
+import sys
+import os
 
 
 class Scraper():
@@ -60,12 +62,26 @@ class Scraper():
             selenium = webdriver.Firefox(
                 firefox_profile=profile,
                 options=options,
-                executable_path='geckodriver'
+                executable_path=self.geckodriver_path
             )
             selenium.get('https://en.wikipedia.org')
             return True
         except:
             return False
+
+    @property
+    def geckodriver_path(self):
+        # check if geckodriver file exists, if yes, use that file, else get geckodriver via $PATH variable of OS
+        if hasattr(self, 'geckodriver_path_value'):
+            return self.geckodriver_path_value
+
+        if os.path.isfile(sys.path[0].split('HackspaceOSVenv')[0]+'geckodriver'):
+            self.geckodriver_path_value = sys.path[0].split('HackspaceOSVenv')[
+                0]+'geckodriver'
+        else:
+            self.geckodriver_path_value = 'geckodriver'
+
+        return self.geckodriver_path_value
 
     def setup(self):
         from selenium.webdriver.firefox.options import Options
@@ -85,7 +101,7 @@ class Scraper():
         selenium = webdriver.Firefox(
             firefox_profile=profile,
             options=options,
-            executable_path='geckodriver'
+            executable_path=self.geckodriver_path
         )
         selenium.get('https://en.wikipedia.org')
         Log().show_messages(
@@ -120,7 +136,7 @@ class Scraper():
                 self.selenium = webdriver.Firefox(
                     firefox_profile=profile,
                     options=options,
-                    executable_path='geckodriver'
+                    executable_path=self.geckodriver_path
                 )
 
             self.selenium.get(url)
