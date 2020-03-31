@@ -15,9 +15,14 @@
         {% if current_meeting %}
         <h3 class="h3{% if language == 'hebrew' %} rtl{% endif %}">{{ current_meeting.text_date }}</h3>
         <a href="/meeting/present" target="_blank" class="button__cta secondary present_mode{% if language == 'hebrew' %} rtl{% endif %}">{{ 'Presentation mode'|meetings:language }}</a>
-        <div class="html-embed">
+        <div class="html-embed{% if 'VIDEOCALLS.JITSI_DOMAIN'|get_config %} videocall{% endif %}">
             <iframe style="width:100%;height:100%" src="https://pad.riseup.net/p/{{ 'MEETINGS.RISEUPPAD_MEETING_PATH'|get_config }}"></iframe>
         </div>
+        {% if 'VIDEOCALLS.JITSI_DOMAIN'|get_config %}
+        <div class="html-embed videocall">
+            <div id="videocall"></div>
+        </div>
+        {% endif %}
         {% else %}
         <p class="subheading" style="width: 300px; margin: auto;">
             {{ 'Starting a new meeting based on...'|meetings:language|safe }}
