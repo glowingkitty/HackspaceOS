@@ -3,6 +3,11 @@
 
 Create an amazing new website for your local hackspace within minutes!
 
+Want to support the development financially? Donations are always welcomed! 
+[Click here to donate on Liberapay](https://liberapay.com/marcoEDU)
+
+[<img src="http://img.shields.io/liberapay/receives/marcoEDU.svg?logo=liberapay">](https://liberapay.com/marcoEDU)
+
 => [🌍 Example websites](#examples)
 
 => [🌟 Features](#features)
@@ -232,4 +237,9 @@ python manage.py runserver
 <br/><br/>
 <img alt="💻How to contribute" src="./_readme_images/heading_contribute.png" id="contribute" >
 
-Check out our [To Do's Board.](https://www.notion.so/fd261df0ea6047fb9bd92cd997865cd2?v=9dc84895b77a42f685dcbaccc86fa746) to see what tasks you could help with.
+Check out our [To Do's Board.](https://www.notion.so/fd261df0ea6047fb9bd92cd997865cd2?v=9dc84895b77a42f685dcbaccc86fa746) to see what tasks you could help with - and [fill out this contact form](https://docs.google.com/forms/d/e/1FAIpQLSdcijAdgGDsI2YpnQl2YrcPSnXcXLsMjzjTaPhLOLeQfjjcHg/viewform?usp=sf_link), so we can get in contact.
+
+Want to support the development financially? Donations are always welcomed! 
+[Click here to donate on Liberapay](https://liberapay.com/marcoEDU)
+
+[<img src="http://img.shields.io/liberapay/receives/marcoEDU.svg?logo=liberapay">](https://liberapay.com/marcoEDU)
