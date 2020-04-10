@@ -6,7 +6,7 @@ Create an amazing new website for your local hackspace within minutes!
 Want to support the development financially? Donations are always welcomed! 
 [Click here to donate on Liberapay](https://liberapay.com/marcoEDU)
 
-[<img src="http://img.shields.io/liberapay/receives/marcoEDU.svg?logo=liberapay">](https://liberapay.com/marcoEDU)
+[<img src="https://img.shields.io/liberapay/receives/marcoEDU.svg?logo=liberapay">](https://liberapay.com/marcoEDU)
 
 => [🌍 Example websites](#examples)
 
@@ -242,4 +242,4 @@ Check out our [To Do's Board.](https://www.notion.so/fd261df0ea6047fb9bd92cd9978
 Want to support the development financially? Donations are always welcomed! 
 [Click here to donate on Liberapay](https://liberapay.com/marcoEDU)
 
-[<img src="http://img.shields.io/liberapay/receives/marcoEDU.svg?logo=liberapay">](https://liberapay.com/marcoEDU)
+[<img src="https://img.shields.io/liberapay/receives/marcoEDU.svg?logo=liberapay">](https://liberapay.com/marcoEDU)
