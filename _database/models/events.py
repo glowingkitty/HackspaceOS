@@ -1,12 +1,10 @@
 from django.core import serializers
 from django.db import models
-from _setup.models import Config
-from _setup.models import Log
-from _setup.models import Log
+
+from _setup.models import Config, Log
 
 
 class Event(models.Model):
-    from _setup.models import Config
     from _database.models.event_set import EventSet
 
     HACKERSPACE_ADDRESS = Config('PHYSICAL_SPACE.ADDRESS').value

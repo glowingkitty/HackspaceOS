@@ -20,7 +20,7 @@ decorator==4.4.2
 Django==3.0.4
 django-appconf==1.0.3
 docopt==0.6.2
-docutils==0.16
+docutils==0.15.2
 emoji==0.5.4
 fake-useragent==0.1.11
 future==0.18.2
@@ -39,6 +39,7 @@ jedi==0.16.0
 jmespath==0.9.5
 lxml==4.5.0
 MechanicalSoup==0.12.0
+MeetupAPI==1.0.3
 multidict==4.7.5
 oauthlib==3.1.0
 packaging==20.3
@@ -59,6 +60,7 @@ pyquery==1.4.1
 python-crontab==2.4.1
 python-dateutil==2.8.1
 pytz==2019.3
+PyWebScraper==0.0.2
 rcssmin==1.0.6
 requests==2.23.0
 requests-html==0.10.0
