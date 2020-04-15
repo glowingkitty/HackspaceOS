@@ -10,7 +10,7 @@ class Flickr():
             page=None,
             show_log=True,
             test=False):
-        from _apis.models import Scraper
+        from PyWebScraper import Scraper
         self.logs = ['self.__init__']
         self.started = round(time.time())
         self.show_log = show_log
@@ -57,7 +57,7 @@ class Flickr():
 
     @property
     def photos(self):
-        from _apis.models import Scraper
+        from PyWebScraper import Scraper
         from dateutil.parser import parse
 
         photos_list = []

@@ -107,7 +107,7 @@ class MeetingNote(models.Model):
 
     def openMeetingNotes(self, riseuppad_meeting_path=Config('MEETINGS.RISEUPPAD_MEETING_PATH').value):
         import time
-        from _apis.models import Scraper
+        from PyWebScraper import Scraper
 
         browser = Scraper('https://pad.riseup.net/p/' + riseuppad_meeting_path,
                           scraper_type='selenium', auto_close_selenium=False).selenium

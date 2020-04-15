@@ -98,7 +98,7 @@ class MediaWiki():
             return False
 
     def save_wiki_photo(self, photo):
-        from _apis.models import Scraper
+        from PyWebScraper import Scraper
         from _database.models import Photo
         from dateutil.parser import parse
         from datetime import datetime

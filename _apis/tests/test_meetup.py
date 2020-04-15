@@ -1,7 +1,9 @@
+import time
+
 from django.test import TestCase
+
 from _apis.models import Meetup
 from _database.models import Event
-import time
 
 
 class MeetupTestCase(TestCase):
@@ -9,7 +11,7 @@ class MeetupTestCase(TestCase):
         Event.objects.import_from_meetup(slug='noisebridge')
 
     def test_events(self):
-        events = Meetup('noisebridge').events
+        events = Meetup('noisebridge').events(maximum_num_events=50)
         self.assertTrue(len(events) > 0)
         self.assertTrue(events[0]['str_name_en_US'] != None)
         self.assertTrue(events[0]['url_meetup_event'] != None)

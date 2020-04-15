@@ -67,7 +67,7 @@ class GooglePhotos():
             self.log('-> ERROR: Can\'t find GOOGLE_PHOTOS_ALBUM_URLS in your config.json. Will skip importing photos from Google Photos for now.')
             return
 
-        from _apis.models import Scraper
+        from PyWebScraper import Scraper
         from dateutil.parser import parse
 
         photos = []

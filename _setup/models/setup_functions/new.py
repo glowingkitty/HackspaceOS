@@ -91,7 +91,7 @@ class SetupNew():
                 api(test=self.test).setup()
 
     def setup_scraper(self):
-        from _apis.models import Scraper
+        from PyWebScraper import Scraper
         if not Scraper().setup_done:
             Scraper().setup()
 

@@ -1,7 +1,6 @@
-from _setup.models import Log
 from django.db import models
-from _setup.models import Config
-from _setup.models import Secret
+
+from _setup.models import Config, Log, Secret
 
 
 class EventSet(models.QuerySet):
@@ -286,7 +285,7 @@ class EventSet(models.QuerySet):
     def import_from_meetup(self, slug=Config('EVENTS.MEETUP_GROUP').value):
         from _database.models import Event
         from _apis.models import Meetup
-        events = Meetup(slug).events
+        events = Meetup(slug).events(maximum_num_events=1000)
         for event in events:
             Event().create(json_content=event)
 
