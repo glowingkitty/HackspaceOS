@@ -29,7 +29,7 @@ geopy==1.21.0
 gitdb==4.0.2
 GitPython==3.1.0
 googletrans==2.4.0
-httplib2==0.17.0
+httplib2==0.18.0
 idna==2.9
 idna-ssl==1.1.0
 instagram-scraper==1.8.1
