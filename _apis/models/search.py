@@ -1,4 +1,4 @@
-from _setup.models import Log
+from pyprintplus import Log
 from django.db.models import Q
 import time
 
@@ -27,7 +27,7 @@ class Search():
             Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.models import Log
+        from pyprintplus import Log
         from _apis.models import Discourse, MediaWiki
         try:
             discourse_setup_done = Discourse(test=self.test).setup_done

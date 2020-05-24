@@ -1,6 +1,6 @@
 import json
 from _setup.tests.test_setup import SetupTestConfig
-from _setup.models import Log
+from pyprintplus import Log
 from _setup.models import Secret
 import secrets
 

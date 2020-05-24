@@ -1,6 +1,6 @@
 import time
 from django.http import JsonResponse
-from _setup.models import Log
+from pyprintplus import Log
 from _apis.models.hackspaceOS_functions.page import Page
 from _apis.models.hackspaceOS_functions.load_more import LoadMore
 from _apis.models.hackspaceOS_functions.open_status import OpenStatus

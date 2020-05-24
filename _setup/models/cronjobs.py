@@ -14,7 +14,7 @@ class Cronjob():
         self.crontab = CronTab(user=getpass.getuser())
 
     def log(self, text):
-        from _setup.models import Log
+        from pyprintplus import Log
         self.logs.append(text)
         Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 

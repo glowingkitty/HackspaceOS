@@ -4,7 +4,7 @@ import time
 import requests
 from MeetupAPI import Meetup
 
-from _setup.models import Config, Log, Secret
+from _setup.models import Config, Secret
 
 
 class Meetup(Meetup):

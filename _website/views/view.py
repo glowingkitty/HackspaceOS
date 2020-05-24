@@ -1,6 +1,9 @@
-from django.views import View
 import time
-from _setup.models import Log, Secret, Config
+
+from django.views import View
+from pyprintplus import Log
+
+from _setup.models import Config, Secret
 
 
 class View(View):

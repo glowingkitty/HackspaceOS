@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from _database.models import Event
-from _setup.models import Log
+from pyprintplus import Log
 
 
 class Command(BaseCommand):

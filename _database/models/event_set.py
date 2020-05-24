@@ -1,6 +1,7 @@
 from django.db import models
+from pyprintplus import Log
 
-from _setup.models import Config, Log, Secret
+from _setup.models import Config, Secret
 
 
 class EventSet(models.QuerySet):

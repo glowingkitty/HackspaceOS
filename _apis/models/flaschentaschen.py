@@ -1,5 +1,5 @@
 import requests
-from _setup.models import Log
+from pyprintplus import Log
 
 
 class Flaschentaschen():

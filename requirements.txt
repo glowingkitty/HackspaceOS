@@ -56,6 +56,7 @@ pyee==7.0.1
 Pygments==2.6.1
 pyparsing==2.4.6
 pyppeteer==0.0.25
+pyprintplus==1.0.0
 pyquery==1.4.1
 python-crontab==2.4.1
 python-dateutil==2.8.1

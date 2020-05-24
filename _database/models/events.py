@@ -1,7 +1,8 @@
 from django.core import serializers
 from django.db import models
+from pyprintplus import Log
 
-from _setup.models import Config, Log
+from _setup.models import Config
 
 
 class Event(models.Model):

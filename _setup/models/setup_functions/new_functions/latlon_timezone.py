@@ -1,4 +1,4 @@
-from _setup.models import Log
+from pyprintplus import Log
 
 
 class SetupNewLatLonTimezone():

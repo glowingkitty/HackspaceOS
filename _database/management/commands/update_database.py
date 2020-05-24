@@ -8,7 +8,7 @@ class Command(BaseCommand):
         from _database.models import Event, Space, Consensus, Person, Wish, Photo, Project
         from _setup.models import Config
         from _setup.models import Secret
-        from _setup.models import Log
+        from pyprintplus import Log
         import time
         import requests
 

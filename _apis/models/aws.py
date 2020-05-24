@@ -1,6 +1,6 @@
 import time
 from _setup.models import Secret
-from _setup.models import Log
+from pyprintplus import Log
 import boto3
 from botocore.exceptions import NoCredentialsError
 
@@ -43,7 +43,7 @@ class Aws():
             Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.models import Log
+        from pyprintplus import Log
         import json
 
         try:

@@ -1,5 +1,5 @@
 from django.db import models
-from _setup.models import Log
+from pyprintplus import Log
 from _setup.models import Secret
 
 
@@ -24,7 +24,7 @@ class ProjectSet(models.QuerySet):
         from _apis.models import Discourse
         from datetime import datetime
         from dateutil import parser
-        from _setup.models import Log
+        from pyprintplus import Log
         import time
         import requests
 

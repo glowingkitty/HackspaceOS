@@ -1,6 +1,8 @@
 import time
 
-from _setup.models import Config, Log
+from pyprintplus import Log
+
+from _setup.models import Config
 
 
 class Flickr():
@@ -30,7 +32,6 @@ class Flickr():
             Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.models import Log
         import json
 
         try:

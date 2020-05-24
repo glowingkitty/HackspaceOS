@@ -1,6 +1,6 @@
 import time
 from _setup.models import Config
-from _setup.models import Log
+from pyprintplus import Log
 from _setup.tests.test_setup import SetupTestConfig
 from selenium.webdriver.common.keys import Keys
 
@@ -29,7 +29,7 @@ class GooglePhotos():
             Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.models import Log
+        from pyprintplus import Log
         import json
 
         try:

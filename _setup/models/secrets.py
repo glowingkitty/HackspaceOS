@@ -24,13 +24,13 @@ class Secret():
         self.exists = True if self.value else False
 
     def log(self, text):
-        from _setup.models import Log
+        from pyprintplus import Log
         self.logs.append(text)
         if self.show_log == True:
             Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def set_secret(self, input_text, json_secrets, later_then_message, message, str_level_0, str_level_1=None, str_level_2=None, str_level_3=None):
-        from _setup.models import Log
+        from pyprintplus import Log
         if str_level_3:
             Log().show_message(message)
             json_secrets[str_level_0][str_level_1][str_level_2][str_level_3] = input(
@@ -66,7 +66,7 @@ class Secret():
         return json_secrets
 
     def set_secrets(self, json_secrets, later_then_message, str_set_what):
-        from _setup.models import Log
+        from pyprintplus import Log
         location = str_set_what.upper()
         for parameter in json_secrets[location]:
             if json_secrets[location][parameter] == None:

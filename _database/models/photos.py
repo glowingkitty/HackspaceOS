@@ -1,6 +1,6 @@
 from django.db import models
 
-from _setup.models import Log
+from pyprintplus import Log
 
 
 class PhotoSet(models.QuerySet):

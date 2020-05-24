@@ -1,4 +1,4 @@
-from _setup.models import Log
+from pyprintplus import Log
 import time
 
 
@@ -31,7 +31,7 @@ class Notify():
             Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.models import Log
+        from pyprintplus import Log
         from _apis.models import Slack, Telegram
         try:
             if not Slack().setup_done and not Telegram().setup_done:

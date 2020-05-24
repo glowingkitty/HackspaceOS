@@ -1,5 +1,5 @@
 from django.db import models
-from _setup.models import Log
+from pyprintplus import Log
 from _setup.models import Secret
 
 
@@ -22,7 +22,7 @@ class PersonSet(models.QuerySet):
         from _apis.models import Discourse
         import time
         import requests
-        from _setup.models import Log
+        from pyprintplus import Log
 
         if DISCOURSE_URL:
             Log().show_message(

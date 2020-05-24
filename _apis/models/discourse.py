@@ -1,4 +1,4 @@
-from _setup.models import Log
+from pyprintplus import Log
 import requests
 from _setup.models import Secret
 import time
@@ -34,7 +34,7 @@ class Discourse():
             Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.models import Log
+        from pyprintplus import Log
         import json
 
         try:

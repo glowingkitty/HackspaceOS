@@ -2,10 +2,11 @@ import json
 import os
 import time
 
-from git import Repo
-
-from _setup.models import Config, Log, Setup
 from django.core.management import call_command
+from git import Repo
+from pyprintplus import Log
+
+from _setup.models import Config, Setup
 
 
 class Startup():
@@ -14,7 +15,6 @@ class Startup():
         self.started = round(time.time())
 
     def log(self, text):
-        from _setup.models import Log
         self.logs.append(text)
         Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 

@@ -1,5 +1,5 @@
 from django.db import models
-from _setup.models import Log
+from pyprintplus import Log
 from _setup.models import Config
 
 

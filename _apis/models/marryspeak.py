@@ -1,6 +1,6 @@
 import requests
 import random
-from _setup.models import Log
+from pyprintplus import Log
 
 
 class MarrySpeak():

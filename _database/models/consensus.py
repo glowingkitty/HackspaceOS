@@ -28,7 +28,7 @@ class ConsensusSet(models.QuerySet):
         from _setup.models import Secret
         import time
         import requests
-        from _setup.models import Log
+        from pyprintplus import Log
 
         DISCOURSE_URL = Secret('DISCOURSE.DISCOURSE_URL').value
         if DISCOURSE_URL:

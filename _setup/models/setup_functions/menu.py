@@ -1,5 +1,5 @@
 import os
-from _setup.models import Log
+from pyprintplus import Log
 from _setup.models.setup_functions.new import SetupNew
 from _setup.models.setup_functions.import_setup import SetupImport
 from _setup.models.setup_functions.export import SetupExport

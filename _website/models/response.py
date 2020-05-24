@@ -1,4 +1,4 @@
-from _setup.models import Log
+from pyprintplus import Log
 import time
 import re
 TAG_RE = re.compile(r'<[^>]+>')

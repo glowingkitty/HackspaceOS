@@ -1,4 +1,4 @@
-from _setup.models import Log
+from pyprintplus import Log
 
 
 class Helper():
@@ -86,7 +86,8 @@ class Helper():
         from datetime import datetime
 
         Log().print('--> get datetime from string')
-        datetime_input = self.DATETIME__from_date_and_time_STR(str__date, str__time)
+        datetime_input = self.DATETIME__from_date_and_time_STR(
+            str__date, str__time)
 
         Log().print('--> datetime to UNIX time')
         int_timestamp = round(datetime.timestamp(datetime_input))

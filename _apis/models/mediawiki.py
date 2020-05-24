@@ -1,8 +1,9 @@
 import time
 
 import requests
+from pyprintplus import Log
 
-from _setup.models import Config, Log
+from _setup.models import Config
 from _setup.tests.test_setup import SetupTestConfig
 
 
@@ -27,7 +28,6 @@ class MediaWiki():
             Log().print('{}'.format(text), os.path.basename(__file__), self.started)
 
     def setup(self):
-        from _setup.models import Log
         import json
 
         try:
@@ -158,7 +158,7 @@ class MediaWiki():
         self.log('import_photos()')
         from _database.models import Photo
         from _setup.models import Config
-        from _setup.models import Log
+        from pyprintplus import Log
         import requests
         import time
 
