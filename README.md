@@ -4,7 +4,7 @@ Create an amazing new website for your local hackspace within minutes!
 
 Want to support the development and stay updated?
 
-<a href="https://www.patreon.com/bePatron?u=24983231"><img alt="Become a Patreon" src="_readme_images/patreon_button.svg"></a> <a href="https://liberapay.com/marcoEDU/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
+<a href="https://www.patreon.com/bePatron?u=24983231"><img alt="Become a Patreon" src="_readme_images/patreon_button.svg"></a> <a href="https://liberapay.com/glowingkitty/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
 
 
 
@@ -241,4 +241,4 @@ python manage.py runserver
 Check out our [To Do's Board.](https://github.com/marcoEDU/HackspaceOS/projects/1) to see what tasks you could help with - and [fill out this contact form](https://docs.google.com/forms/d/e/1FAIpQLSdcijAdgGDsI2YpnQl2YrcPSnXcXLsMjzjTaPhLOLeQfjjcHg/viewform?usp=sf_link), so we can get in contact.
 
 Want to support the development financially? Donations are always welcomed! 
-<a href="https://liberapay.com/marcoEDU/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
+<a href="https://liberapay.com/glowingkitty/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
