@@ -183,7 +183,7 @@ I mean… do you really need anything else to convince your hackspace community?
 
 **Step 1:** Clone this repo
 ```
-git clone git@github.com:marcoEDU/HackspaceOS.git
+git clone git@github.com:glowingkitty/HackspaceOS.git
 ```
 
 **Step 2:** To add your own logo: Add the following files to [_website/static/images/](./_website/static/images/): 
@@ -238,7 +238,7 @@ python manage.py runserver
 <br/><br/>
 <img alt="💻How to contribute" src="./_readme_images/heading_contribute.png" id="contribute" >
 
-Check out our [To Do's Board.](https://github.com/marcoEDU/HackspaceOS/projects/1) to see what tasks you could help with - and [fill out this contact form](https://docs.google.com/forms/d/e/1FAIpQLSdcijAdgGDsI2YpnQl2YrcPSnXcXLsMjzjTaPhLOLeQfjjcHg/viewform?usp=sf_link), so we can get in contact.
+Check out our [To Do's Board.](https://github.com/glowingkitty/HackspaceOS/projects/1) to see what tasks you could help with - and [fill out this contact form](https://docs.google.com/forms/d/e/1FAIpQLSdcijAdgGDsI2YpnQl2YrcPSnXcXLsMjzjTaPhLOLeQfjjcHg/viewform?usp=sf_link), so we can get in contact.
 
 Want to support the development financially? Donations are always welcomed! 
 <a href="https://liberapay.com/glowingkitty/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
