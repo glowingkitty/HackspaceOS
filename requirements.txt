@@ -47,7 +47,7 @@ parse==1.15.0
 parso==0.6.2
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==7.0.0
+Pillow==8.1.1
 pip-upgrader==1.4.15
 prompt-toolkit==3.0.4
 ptyprocess==0.6.0
