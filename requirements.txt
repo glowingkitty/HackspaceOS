@@ -83,5 +83,5 @@ urllib3==1.25.8
 w3lib==1.21.0
 wcwidth==0.1.9
 webencodings==0.5.1
-websockets==8.1
+websockets==9.1
 yarl==1.4.2
