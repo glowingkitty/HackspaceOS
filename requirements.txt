@@ -33,7 +33,7 @@ httplib2==0.17.0
 idna==2.9
 idna-ssl==1.1.0
 instagram-scraper==1.8.1
-ipython==7.13.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 jedi==0.16.0
 jmespath==0.9.5
